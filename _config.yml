@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://blog.inferis.org
+title: Inferical Writings
+subtitle: 
+author: Tom Adriaenssen
 simple_search: http://google.com/search
 description:
 
@@ -16,10 +16,10 @@ description:
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /atom.xml
+subscribe_rss: /feed.atom
 subscribe_email:
 # RSS feeds can list your email address if you like
-email:
+email: spam@inferis.org
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -41,7 +41,7 @@ rdiscount:
     - smart
 pygments: false # default python pygments have been replaced by pygments.rb
 
-paginate: 10          # Posts per page on the blog index
+paginate: 15          # Posts per page on the blog index
 pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
@@ -63,14 +63,17 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # ----------------------- #
 
 # Github repositories
-github_user:
+github_user: inferis
 github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: inferis
 twitter_tweet_button: true
+
+# Facebook
+facebook_user: inferis
 
 # Google +1
 google_plus_one: false
@@ -78,23 +81,31 @@ google_plus_one_size: medium
 
 # Google Plus Profile
 # Hidden: No visible button, just add author information to search results
-googleplus_user:
-googleplus_hidden: false
+googleplus_user: 116304152598401796033
+googleplus_hidden: true
+
+# App.Net
+adn_user: inferis
 
 # Pinboard
 pinboard_user:
 pinboard_count: 3
 
 # Delicious
-delicious_user:
+delicious_user: 
 delicious_count: 3
+pinboard_user: inferis
+
+# Linked in
+linkedin_user: tomadriaenssen
 
 # Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+disqus_short_name: inferis
+disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-155493-1
+google_analytics_site: inferis.org
 
 # Facebook Like
 facebook_like: false

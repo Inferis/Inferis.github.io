@@ -1,0 +1,45 @@
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much
+
+body {
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.container .left-col {
+	opacity: 0.7;
+}
+
+.subtitle {
+	width: 160px;
+	text-align: center;	
+}
+
+#main-nav {
+
+	margin-top: 50px !important;
+	margin-bottom: 50px;
+}
+
+#sub-nav{
+	.social{
+		a{
+			margin-bottom: 20px;
+			&.adn{
+				background: image-url('social/adn.png') center no-repeat #d87a68;
+				border: 1px solid #d87a68;
+				&:hover{
+					border: 1px solid darken(#d87a68, 10%);
+				}
+			}
+		}
+	}
+}
+
+a.externalurl {
+	padding-right: 20px;
+	background: image-url('externalurl.png') right center no-repeat;
+}
+
+a:hover.externalurl {
+	background: image-url('externalurl-hover.png') right center no-repeat;
+}

@@ -9,10 +9,10 @@ ssh_port       = "22"
 document_root  = "~/website.com/"
 rsync_delete   = false
 rsync_args     = ""  # Any extra arguments to pass to rsync
-deploy_default = "rsync"
+deploy_default = "push"
 
 # This will be configured for you when you run config_deploy
-deploy_branch  = "gh-pages"
+deploy_branch  = "master"
 
 ## -- Misc Configs -- ##
 
@@ -287,7 +287,7 @@ task :set_root_dir, :dir do |t, args|
     end
     jekyll_config = IO.read('_config.yml')
     jekyll_config.sub!(/^destination:.+$/, "destination: public#{dir}")
-    jekyll_config.sub!(/^subscribe_rss:\s*\/.+$/, "subscribe_rss: #{dir}/atom.xml")
+    jekyll_config.sub!(/^subscribe_rss:\s*\/.+$/, "subscribe_rss: #{dir}/feed.atom")
     jekyll_config.sub!(/^root:.*$/, "root: /#{dir.sub(/^\//, '')}")
     File.open('_config.yml', 'w') do |f|
       f.write jekyll_config
