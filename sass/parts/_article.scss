@@ -18,7 +18,7 @@ article{
 		}
 	}
 	.entry-content{
-		line-height: 2;
+		line-height: $line-height;
 		text-align: justify;
 		a{
 			&:hover{

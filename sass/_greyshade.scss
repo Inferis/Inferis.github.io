@@ -289,3 +289,14 @@ body {
 		}
 	}
 }
+
+@media screen, projection {
+	article .entry-content .more-link:before { 
+		content: none;
+	}
+
+	article .entry-content .more-link { 
+		padding: 0;
+	}
+}
+
