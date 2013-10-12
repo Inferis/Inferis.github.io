@@ -1,0 +1,41 @@
+---
+layout: post
+title: "app.io"
+date: 2013-08-09 12:15
+comments: true
+categories: ios
+---
+
+This morning, a tweet from [@tomclaus](http://www.twitter.com/tomclaus) caught my eye:
+
+{% tweet https://twitter.com/tomclaus/status/365771642145734656 align=center %}
+
+Being in the apps business, this peaked my interest. So I went and signed up at [app.io](http://app.io), just out of curiosity.
+
+They've got three plans, it seems: Free, Pro and Business. Being the cheapskate that I am, I signed up for the free plan. It allows you to upload one app, and you've got only 5000 app plays per month. The Pro plan allows up to 5 apps and 20000 plays/month, and the Business plan is even larger with 20 apps and up to 100000 plays/month. Still, $309 per month is a lot of money. 
+
+{% img center http://f.cl.ly/items/0R1v3T3e453y3H1D1V05/Image%202013.08.09%2012%3A36%3A51.png 500 %}
+
+So I signed up, activated the free plan. Uploading an app is very easy: you just need to zip a simulator build of your app and, upload that zip and they'll do the rest. So I zipped a recent build of Drash, and uploaded it to their server. They say it can take up to 3 minutes to process the app depending on the size, but it was pretty quick for Drash (it not being a large app, that makes sense). All it took was a few seconds. The result is a url where you can [see your app in action](https://app.io/VJfCVB).
+
+{% img right http://f.cl.ly/items/3x012o1D0o1R2N010J2N/Image%202013.08.09%2012%3A47%3A25.png %}
+
+What this appears to be doing is running your app in a simulator, and then screencapturing the simulator screen and sending the captures to your browser. This works pretty good, but it's not buttersmooth (as was to be expected I guess). The quality of the images is pretty low. You can see compression artifacts, screenshots are sent as JPGs, but they also send smaller GIFs for smaller screen updates (spinners, for example). The framerate isn't 60fps, so it's a bit stuttery. But all in all, you get a good idea of how the app works.
+
+Still, this is pretty impressive technology. Given that you can only run one simulator on your mac (machine wide, not account wide!), I wonder how they do this so that it's scalable. 
+You can press the home button on the onscreen "device" which restarts your app, and that's pretty instantaneous. It also shows that they fire up a completely new "virtual device" since I always get the "Drash would like to use your location" notification at startup. 
+
+They also seem to use your IP address to provide location information. Running the app here gives me a location of "Ninove", I'd be curious to see what everybody else gets.
+
+I can see how this would be a nice way to showcase your app, but I guess you need special builds because you probably don't want the full functionality on the site (depending on the type of app). Also, this only works for a limited set of apps. Stuff with maps and location tracking is pretty useless here (e.g. RunKeeper or even Foursquare like apps). And what about multitouch, or camera use? Or sharing photos to your camera roll, or tweeting. There's only so much you can do in a sandbox, of course.
+
+But yeah, if you have a calculator app it works pretty good. :) 
+
+_They also have analytics and an API, but they're only usable when you have the Pro or Business plans, so I didn't try that out._
+
+Oh, and did I mention you can embed it on your own site too? 
+
+<center><iframe src="https://app.io/VJfCVB?orientation=portrait&device=iphone5" height="607px" width="291px" frameborder="0" allowtransparency="true" scrolling="no"></iframe></center>
+
+Cool stuff, nonetheless. Impressed, but not enough to start paying for it.
+
