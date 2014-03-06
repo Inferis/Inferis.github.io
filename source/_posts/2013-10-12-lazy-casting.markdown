@@ -26,7 +26,7 @@ And since we're talking about Objective-C here, a language which is dynamic enou
 But also, this being Objective-C code, type names can be quite long. `ModalViewController` is not too long in this case, but if you're working with a `SelectedPriceListItemViewController` for example, or a `EnhancedCollectionViewFlowLayout` things can get a bit nasty, rendering your code as unreadable with the cast as it would be without the cast (but with the warning).
 
 ``` objc 
-	SelectedPriceListItemViewController* controller = (SelectedPriceListItemViewController*)self.pricelistViewController 
+	SelectedPriceListItemViewController* controller = (SelectedPriceListItemViewController*)[self.pricelistViewController 
 			viewControllerForItem:item ofState:kStateSelected];
 ```
 
@@ -48,7 +48,7 @@ _(look ma, no warning!)_
 Or for the example with the longer type names, this becomes:
 
 ``` objc 
-SelectedPriceListItemViewController* controller = (id)self.pricelistViewController 
+SelectedPriceListItemViewController* controller = (id)[self.pricelistViewController 
 		viewControllerForItem:item ofState:kStateSelected];
 ```
 Which is still long, but quite a bit more readable (since the type information is there in the beginning of the line anyway).
