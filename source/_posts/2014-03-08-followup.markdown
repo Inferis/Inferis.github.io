@@ -1,0 +1,119 @@
+---
+layout: post
+title: "Followup"
+date: 2014-03-08 21:38:59 +0100
+comments: true
+categories:
+- objc
+- development
+- csharp
+---
+
+I was listening to the [most recent](http://www.imore.com/debug-30-casey-liss-c-and-net) [Debug](http://www.imore.com/debug) episode, the one featuring the ever apologetic [@caseyliss](http://twitter.com/caseyliss) talking about C#. It's another great episode (but most of the Debug episodes are great - I love the interaction of [@gte](http://twitter.com/gte) with his guests). I was particularly interested in this one since I have a similar background: I spent most of my working days on a Microsoft platform and produced a bucketload of C# code (ever since it came out early 2000). Since late 2010 I've been mostly dabbling in Objective-C on the iOS platform. So I was quite curious on what Casey had to say.
+
+While I'm not going to rehash everything here (go listen to the podcast), I agreed with most of it. I do think he forgot an important feature of generics and c# in general: "compile time breakage".
+
+## Using models
+
+Suppose you have this c# code, a model and some code that uses it.
+
+```csharp
+class Person {
+  public string Name { get; set; }
+  public uint Age { get; set; }
+}
+
+// later, in a file far, far away
+oldPersons = AllPersons.Where(x => x.Name == "Tom");
+```
+
+or, the same in Objective-C:
+
+```objective-c
+@interface Person
+
+@property (nonatomic, strong) NSString* name;
+@property (nonatomic, assign) NSUInteger age;
+
+@end
+
+// later, in a file far, far away
+oldPersons = [allPersons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"Tom"]];
+```
+
+*Objective-C, so consise. But I disgress.*
+
+So, both code blocks do the same. They define a model, and a piece of code using the model in a file far, far away. This could be in a completely distant part of the current project, or even in another project.
+
+There's nothing special about this code in itself, and that wasn't the point I was getting at.
+
+## Let's refactor
+
+But suppose you (or somebody else) decides to change the `Person` model and remove the `Name` property and replace it with `FirstName` and `LastName`.
+
+So then we have:
+
+```csharp
+class Person {  
+  public string FirstName { get; set; }
+  public string LastName { get; set; }
+  public uint Age { get; set; }
+}
+```
+
+```objective-c
+@interface Person
+
+@property (nonatomic, strong) NSString* firstName;
+@property (nonatomic, strong) NSString* lastName;
+@property (nonatomic, assign) NSUInteger age;
+
+@end
+```
+
+Now, for the result after splitting `Name`.
+
+The C# version will cause the compiler to break down with an error everywhere I've used `Name`. Because it's not there anymore. And so it becomes quite easy (but maybe tedious) to fix all errors. The same applies for our code in a file far, far away. It will break and you will need to fix it.
+
+```csharp
+// error will occur here ------------v
+oldPersons = AllPersons.Where(x => x.Name == "Tom");
+```
+
+The fix is easy enough, but at least you get notified of the error.
+
+The Objective-C version will shrug along nicely for the most part. Using ARC made things a little better, because the compiler will now barf on unknown selectors. But if another `name` selector is declared in scope where it was used before, nothing much will happen (a warning, perhaps). Some uses will generate an error.
+But in the case of our file far, far away nothing will happen at compile time. The predicate is a string containing the name property. This will break at runtime, because there's no `name` property.  
+
+```objective-c
+// this will compile fine even when there's no name property left
+oldPersons = [allPersons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"Tom"]];
+```
+
+I know there's a predicateWithBlock which would migitate the problem slightly, but block syntax is unwieldy enough for the code to become even more ugly:
+
+```objective-c
+oldPersons = [allPersons filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+            return [[evaluatedObject name] isEqualToString:@"Tom"];
+        }];
+```
+
+Elegant, I think not (certainly not when compared to the C# version).
+
+## Expressions & Generics
+
+I feel this is one of the strengths of C#: expressions (and thus generics). You can express something typesafe at compile time and have it still only matter at runtime. This can flag problematic situations much sooner than in the Objective-C version (also: most people think that generics are for collections only, but they're so useful in a bunch of other cases).
+
+I'm not saying that Objective-C should gain generics. But expressions would be cool, I think. Being able to express language constructs as data could be extremely valuable (this would require a more accesible reflection system too, by the way).
+
+My ways of C# coding surely did change when they introduced the feature to the language/runtime, so my gut feeling is that Objective-C would benefit from it, too.
+
+## In closing
+
+Getting back to NSPredicate, I'd like to mention this.
+
+[@mattt](http://twitter.com/mattt) of [NSHipster](http://nshipster.com) fame is [quite fond of NSPredicate](http://nshipster.com/nspredicate/):
+
+> NSPredicate is, and I know this is said a lot, truly one of the jewels of Cocoa. Other languages would be lucky to have something with half of its capabilities in a third-party library - let alone the standard library. Having it as a standard-issue component affords us as application and framework developers an incredible amount of leverage in working with data.
+
+Don't get me wrong: NSPredicate is awesome, but the Linq constructs (including generics and expressions) are a magnitude better.
