@@ -4,6 +4,9 @@ title: "Inspiration"
 date: 2014-03-17 18:13:29 +0000
 comments: true
 categories:
+- development
+- wetware
+- conferences
 ---
 
 I am currently at [NSConference 6](http://nsconference.com). For those who haven't heard of NSConference, it's a "community conference for OSX and iOS developers".
