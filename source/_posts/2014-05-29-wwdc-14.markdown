@@ -1,0 +1,57 @@
+---
+layout: post
+title: "WWDC '14"
+date: 2014-05-29 16:47:10 +0200
+comments: true
+categories:
+- apple
+- wwdc
+---
+
+So, it's that time of the year again. WWDC is almost upon us. [Like last year](),  I won't be able to make it due to "agenda issues" (mainly the same as last year, but that's what happens when you have kids). But also I'm in the midst of an app release at [work](http://icapps.com) and as a team/tech lead it would be less than ideal to skip a week for WWDC (which is actually more than a week since there's the *Jetlag Recovery Period* too). So it wasn't in the stars this year.
+
+I think I might be going again next year. Not sure if I will go for WWDC itself, but certainly for an AltWWDC experience. There's a lot of people going to SF next week which I'd really like to meet or talk to again. Sure, there's twitter, but nothing beats IRL contact. And the buzz around WWDC is just so invigourating, or at least it was in 2012, IMHO. So we'll see. I'll have some money set aside for next year, so at least that won't be a problem.
+
+## Some predictions or hopes
+
+Now, for WWDC itself... There's not much stuff leaked this year, or maybe I just didn't follow much of the buzz around it. Sure there's the "health" stuff (healthbook?) and Apple's recent announcement that they're moving into the home automation market is interesting too, but apart from that there's not really a lot to go on.
+
+What we won't see, I think:
+
+* new phones (they'll keep that for september)
+* no iWatch (I don't see them doing all that stuff at once, and the same goes for devs). They might do something Fitbit-like if there's actual *Healthbook* things in iOS8, but I'm not holding my breath for that.
+* No side-by-side apps on iPad.
+* Jony Ive on stage. Nope.
+
+What we will see, I think:
+
+* A new mac: a Retina Air might be an option.
+* Or else: a retina Cinema Display to go with your fancy Mac pro
+* A possible update to the rMBP to have manage to drive that big ass screen.
+* *Something* Home automation
+* iOS8 & OSX 10.10
+
+So, for iOS8:
+
+* it will be the iOS that iOS7 should have been. I'm thinking more evolution, fine tuning, performance tweaks (if they manage to prolong battery life significantly, that will be a big plus). Visually it won't change much from iOS7, apart from some usability tweaks.
+* Better Maps
+* GameCenter gets the boot and is replaced with something else, or it's significantly revamped. I don't get the feeling a lot of people actually use it to it's potential.
+* It's too early for the Beats deal to have impact on any WWDC announcements, and I doubt that it will have impact on the iPhone/iOS8 launch in september too. But who knows.
+* Better inter-app communication. I expected this last year but I guess the iOS7 redesign made this a non-priority. However, I'm wondering how they will have implemented this: I'm guessing more "open in..." sheets are not a viable option.
+* An expansion on the iBeacon stuff. Not sure what, but there's more to be done there.
+* iMore has a good [wishlist](http://www.imore.com/ios-8-wish-list-what-wed-love-see-wwdc-2014), too. Lots of useful thinks there. Not going to see the Files.app, I think.
+
+For OSX 10.10:
+
+* a new look (more iOS7 like, but I hope not too flat). It won't be a "direct transplant" of the iOS7 look, but it'll certainly be inspired by it. Although: I like the look of OSX now, but probably said the same of iOS6 before iOS7. ;)
+* more integration between OSX and iOS. There's a lot of cool stuff to be done with iBeacons to have your devices work more seamlessly together. The key parts are in place: iCloud, iCloud Keychain and iBeacon are a powerful combo if used correctly (use your phone as a "password", or have iMessage show notifications on **only one device** - imagine that).
+
+Also: looking forward to Xcode6 although I think Xcode5 **is** the best Xcode ever (which isn't saying a lot, though). They could learn from Appcode, a lot of low hanging refactoring fruit could be picked there. I'm also wondering if they will keep the simulator and not move to an actual emulator. Recent hardware certainly can handle iOS VMs very well, so why not? And there's surely an actual x86-64 version of iOS somewhere. But perhaps it's too early.
+
+Finally: will the bots infrastructure they introduced last year get a decent overhaul? Because now it's too limited and too much of a black box to be actually usable. So either ditch it, or improve it, Apple.
+
+*(Looking back at [my predictions](http://blog.inferis.org/blog/2013/06/10/wwdc-2013-hopes-and-expectations/) for last year, it seems they were, eh, pretty hopeless. Oh well.)*
+
+## Videos
+
+As a lot of people I'll be following [the livestream of the keynote](https://www.apple.com/apple-events/june-2014/) next monday. It's a different vibe than being in the keynote room, but it's close enough. And after that I'll be losing some sleep to keeping up with the WWDC videos. Because the best time to watch them is around WWDC itself, and not "later when I'll have time".
