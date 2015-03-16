@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+
+    <title>Inferical Writings - Easy Revealing</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href=""><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Easy Revealing</h1>
+                    
+
+                    
+                      <span class="meta">Posted: November 30, 2014</span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes() * 60;
+    var h = d.getHours() * 60 * 60;
+
+    var color  = Math.round((h + m + s )*(16777215/86400));
+
+    $(".intro-header").css("background-color", '#' + color.toString(16) );
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>I have a confession to make: I like <a href="http://revealapp.com">Reveal</a>. It's such a great tool to discover why your UI doesn't appear as it should be. It's such a great way to get a decent look at the view hierarchy in your iOS app.</p>
+
+<p>Initially, loading Reveal required you to add the reveal framework to your project before running. While not a hassle, it was rather suboptimal because you had to remove it again before shipping the app.</p>
+
+<p>But when you run your project in the simulator, there's an easier way. Have it automatically start up the Reveal server, so that you don't have to connect manually, and don't have to pollute your project with a debugging lib. Why only in the Simulator? Well, the technique requires the dynamic loading of <code>libReveal.dylib</code>. This is possible on your Mac but not on your iOS device. And the Simulator runs on your Mac, so we can use this trick to load the Reveal lib at runtime without prerequiring it in the project (to be fair, you can dynamically load libs on the device, but you'd still need to add them to your project).</p>
+
+<p>So let's do that. First on: some LLDB tricks.</p>
+
+<!-- more -->
+
+<h2>Making custom LLDB commands</h2>
+
+<p>You might not know this, but you can extend LLDB by loading Python scripts. In those scripts you can define functions which can be used directly when you're debugging. That's pretty handy! So we'll use this to create some shortcuts to load the</p>
+
+<p>So create a folder somewhere that can contain your LLDB scripts. I created a <code>lldb</code> folder in my home folder, but you can place it anywhere you want.</p>
+
+<p>Then, create a <code>reveal.py</code> in that folder, and give it the following contents:</p>
+
+<pre><code class="language-python highlight"><span class="c"># require the lldb lib to interact with LLDB</span>
+<span class="kn">import</span> <span class="nn">lldb</span>
+
+<span class="c"># this is called when the file is added to the script runtime</span>
+<span class="c"># we'll invoke a lldb command that links the python functions to actual LLDB commands</span>
+<span class="c"># in this case, we're adding reveal_start_sim and reveal_stop</span>
+<span class="c"># note: the other functions in this file are no accessible from LLDB.</span>
+<span class="k">def</span> <span class="nf">__lldb_init_module</span> <span class="p">(</span><span class="n">debugger</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+  <span class="n">debugger</span><span class="o">.</span><span class="n">HandleCommand</span><span class="p">(</span><span class="s">'command script add -f reveal.reveal_start_sim reveal_start_sim'</span><span class="p">)</span>
+  <span class="n">debugger</span><span class="o">.</span><span class="n">HandleCommand</span><span class="p">(</span><span class="s">'command script add -f reveal.reveal_stop reveal_stop'</span><span class="p">)</span>
+
+<span class="c"># This is the main entry point. This will load the reveal lib and then send a notification so that it will start</span>
+<span class="k">def</span> <span class="nf">reveal_start_sim</span><span class="p">(</span><span class="n">debugger</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">internal_dict</span><span class="p">):</span>
+  <span class="k">print</span> <span class="s">"Installing reveal in the simulator"</span>
+  <span class="n">reveal_load_sim</span><span class="p">(</span><span class="n">debugger</span><span class="p">)</span>
+  <span class="n">reveal_start</span><span class="p">(</span><span class="n">debugger</span><span class="p">)</span>
+
+<span class="c"># Loads the libReveal.dylib from the Reveal app.</span>
+<span class="k">def</span> <span class="nf">reveal_load_sim</span><span class="p">(</span><span class="n">debugger</span><span class="p">):</span>
+  <span class="n">debugger</span><span class="o">.</span><span class="n">HandleCommand</span><span class="p">(</span><span class="s">'expr (void*)dlopen("/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib", 0x2);'</span><span class="p">)</span>
+
+<span class="c"># Sends a notification to the reveal server so that it actually starts</span>
+<span class="k">def</span> <span class="nf">reveal_start</span><span class="p">(</span><span class="n">debugger</span><span class="p">):</span>
+  <span class="n">debugger</span><span class="o">.</span><span class="n">HandleCommand</span><span class="p">(</span><span class="s">'expr [(NSNotificationCenter*)[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStart" object:nil];'</span><span class="p">)</span>
+
+  <span class="c"># Sends a notification to the reveal server so that it stops (if you'd want that)</span>
+  <span class="k">def</span> <span class="nf">reveal_stop</span><span class="p">(</span><span class="n">debugger</span><span class="p">):</span>
+  <span class="n">debugger</span><span class="o">.</span><span class="n">HandleCommand</span><span class="p">(</span><span class="s">'expr [(NSNotificationCenter*)[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStop" object:nil];'</span><span class="p">)</span></code></pre>
+
+<p>There's nothing more to it. We expose two new commands <code>reveal_start_sim</code> and <code>reveal_stop</code>. Commands we can actually use during debugging.</p>
+
+<p>Let's try this. Fire up your favorite iOS project - be sure to select to run on the Simulator. Run the app. Now break the app by pressing <code>^⌘Y</code>. This will give you the <code>(lldb)</code> prompt. Now load your python script by invoking the following command:</p>
+
+<pre><code>command script import ~/lldb/reveal.py
+</code></pre>
+
+<p>This will tell LLDB that we'd like the <code>reveal.py</code> script loaded into LLDB. The module will be loaded and thanks to the init there, we've just added two commands to use. There won't be any feedback, but now you can try and load the reveal lib:</p>
+
+<pre><code>reveal_start_sim
+</code></pre>
+
+<p>This will give you something like this:</p>
+
+<p><img class="img center" src="http://cl.ly/image/062A1a230h35/Image%202014-12-11%20at%2012.29.05%20am.png" width="600"></p>
+
+<p>After that, hit <code>^⌘Y</code> to continue the app (or just type <code>continue</code>). Now you can try to fire up the Reveal Client app, and connect to your app:</p>
+
+<p><img class="img center" src="http://cl.ly/image/2M2m0j1u0p1O/Image%202014-12-11%20at%2012.25.57%20am.png" width="600"></p>
+
+<p>Success!</p>
+
+<h2>Loading the script by default</h2>
+
+<p>Now always having to load the python script is a bit cumbersome. Luckily for us, LLDB has a mechanism to do this by default. So we can always load our reveal script so that we can have it readily available when we need it.</p>
+
+<p>So how do you do this?</p>
+
+<p>It's pretty simple: make an <code>.lldbinit</code> file in your home folder. This file is read by LLDB when it is started (thus: everytime you debug an app). As an aside: you can also make an <code>.lldbinit-Xcode</code> which will only be read when debugging in Xcode.</p>
+
+<p>In this <code>.lldbinit</code>, you can place any regular LLDB commands. In this case, we'll use this to import the python script as we did above. So the file basically looks like this:</p>
+
+<pre><code>command script import ~/lldb/reveal.py
+</code></pre>
+
+<p>Save the file, and now restart the debugger for your app. Try entering <code>reveal_start_sim</code> again and you'll see that it works. No need to manually load the python file again.</p>
+
+<h2>Starting reveal at startup</h2>
+
+<p>Now wouldn't it be even better if we could have the Reveal server start by default? No need to break the app, run the command and continue. Xcode can do this for us, with a breakpoint.</p>
+
+<p>Go to your app delegate file (or any other class you'll know that runs early in your app lifecycle), and add a new breakpoint. Then edit the breakpoint:</p>
+
+<p><img class="img center" src="http://cl.ly/image/0Q3m0Z1i0223/Image%202014-12-11%20at%2012.37.25%20am.png" width="600"></p>
+
+<p>Basically:</p>
+
+<ul>
+<li>add an action of type 'debugger command'. In the textfield below, enter <code>reveal_start_sim</code> (which, thanks to the magic above, is present).</li>
+<li>tick on "automatically continue after evaluating actions"</li>
+</ul>
+
+<p>This breakpoint will be hit when you start your app but won't halt. It will execute the command specified, starting the Reveal server and then just continue running along.</p>
+
+<p>After you tried this, rerun your app. Switch back to Reveal and you'll see that it can connect to your app running in the Simulator. Great success!</p>
+
+<h2>Finally</h2>
+
+<p>You can now use this technique in every project. Either using the breakpoint approach for regular Reveal debugging, or just break the app, run the <code>start_reveal_sim</code> command and continue for occasional debugging. Up to you.</p>
+
+<p>You can also use the techniques described about to extend LLDB to your own needs. You can leverage <code>.lldbinit</code> by providing custom aliases or load external scripts. You can use those external scripts to do more complex debugging should you require to.</p>
+
+<p>For example, <a href="https://github.com/facebook/chisel">Facebook's Chisel</a> uses these techniques to extend LLDB with a load of commands (highly recommended).</p>
+
+<p>On a related note, it might be worthwhile to read up on LLDB techniques by reading <a href="http://www.objc.io/issue-19/lldb-debugging.html">this article</a> in objc.io's <a href="http://www.objc.io/issue-19/">19th installment</a> (which is all about debugging). Some neat tricks in there.</p>
+
+<p>And finally, thanks to Reveal for an awesome app. Xcode6's Debug View Hierarchy is interesting but more limited than Reveal (and it doesn't always yield the correct results). Reveal rocks.</p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+
+</body>
+
+</html>

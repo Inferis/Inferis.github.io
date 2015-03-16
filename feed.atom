@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://blog.inferis.org/</id>
+  <title>Inferical Writings</title>
+  <updated>2014-11-30T22:34:09Z</updated>
+  <link rel="alternate" href="http://blog.inferis.org/"/>
+  <link rel="self" href="http://blog.inferis.org/feed.atom"/>
+  <author>
+    <name>Tom Adriaenssen</name>
+    <uri>http://inferis.org</uri>
+  </author>
+  <entry>
+    <id>tag:blog.inferis.org,2014-11-30:/blog/2014/11/30/easy-revealing/</id>
+    <title type="html">Easy Revealing</title>
+    <published>2014-11-30T22:34:09Z</published>
+    <updated>2014-11-30T22:34:09Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/11/30/easy-revealing/"/>
+    <content type="html">
+
+&lt;p&gt;I have a confession to make: I like &lt;a href="http://revealapp.com"&gt;Reveal&lt;/a&gt;. It's such a great tool to discover why your UI doesn't appear as it should be. It's such a great way to get a decent look at the view hierarchy in your iOS app.&lt;/p&gt;
+
+&lt;p&gt;Initially, loading Reveal required you to add the reveal framework to your project before running. While not a hassle, it was rather suboptimal because you had to remove it again before shipping the app.&lt;/p&gt;
+
+&lt;p&gt;But when you run your project in the simulator, there's an easier way. Have it automatically start up the Reveal server, so that you don't have to connect manually, and don't have to pollute your project with a debugging lib. Why only in the Simulator? Well, the technique requires the dynamic loading of &lt;code&gt;libReveal.dylib&lt;/code&gt;. This is possible on your Mac but not on your iOS device. And the Simulator runs on your Mac, so we can use this trick to load the Reveal lib at runtime without prerequiring it in the project (to be fair, you can dynamically load libs on the device, but you'd still need to add them to your project).&lt;/p&gt;
+
+&lt;p&gt;So let's do that. First on: some LLDB tricks.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;Making custom LLDB commands&lt;/h2&gt;
+
+&lt;p&gt;You might not know this, but you can extend LLDB by loading Python scripts. In those scripts you can define functions which can be used directly when you're debugging. That's pretty handy! So we'll use this to create some shortcuts to load the&lt;/p&gt;
+
+&lt;p&gt;So create a folder somewhere that can contain your LLDB scripts. I created a &lt;code&gt;lldb&lt;/code&gt; folder in my home folder, but you can place it anywhere you want.&lt;/p&gt;
+
+&lt;p&gt;Then, create a &lt;code&gt;reveal.py&lt;/code&gt; in that folder, and give it the following contents:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-python highlight"&gt;&lt;span class="c"&gt;# require the lldb lib to interact with LLDB&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;lldb&lt;/span&gt;
+
+&lt;span class="c"&gt;# this is called when the file is added to the script runtime&lt;/span&gt;
+&lt;span class="c"&gt;# we'll invoke a lldb command that links the python functions to actual LLDB commands&lt;/span&gt;
+&lt;span class="c"&gt;# in this case, we're adding reveal_start_sim and reveal_stop&lt;/span&gt;
+&lt;span class="c"&gt;# note: the other functions in this file are no accessible from LLDB.&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__lldb_init_module&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'command script add -f reveal.reveal_start_sim reveal_start_sim'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'command script add -f reveal.reveal_stop reveal_stop'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c"&gt;# This is the main entry point. This will load the reveal lib and then send a notification so that it will start&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;reveal_start_sim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;internal_dict&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+  &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;"Installing reveal in the simulator"&lt;/span&gt;
+  &lt;span class="n"&gt;reveal_load_sim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="n"&gt;reveal_start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c"&gt;# Loads the libReveal.dylib from the Reveal app.&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;reveal_load_sim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'expr (void*)dlopen("/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib", 0x2);'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c"&gt;# Sends a notification to the reveal server so that it actually starts&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;reveal_start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'expr [(NSNotificationCenter*)[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStart" object:nil];'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="c"&gt;# Sends a notification to the reveal server so that it stops (if you'd want that)&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;reveal_stop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'expr [(NSNotificationCenter*)[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStop" object:nil];'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There's nothing more to it. We expose two new commands &lt;code&gt;reveal_start_sim&lt;/code&gt; and &lt;code&gt;reveal_stop&lt;/code&gt;. Commands we can actually use during debugging.&lt;/p&gt;
+
+&lt;p&gt;Let's try this. Fire up your favorite iOS project - be sure to select to run on the Simulator. Run the app. Now break the app by pressing &lt;code&gt;^⌘Y&lt;/code&gt;. This will give you the &lt;code&gt;(lldb)&lt;/code&gt; prompt. Now load your python script by invoking the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;command script import ~/lldb/reveal.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will tell LLDB that we'd like the &lt;code&gt;reveal.py&lt;/code&gt; script loaded into LLDB. The module will be loaded and thanks to the init there, we've just added two commands to use. There won't be any feedback, but now you can try and load the reveal lib:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;reveal_start_sim
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will give you something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="img center" src="http://cl.ly/image/062A1a230h35/Image%202014-12-11%20at%2012.29.05%20am.png" width="600"&gt;&lt;/p&gt;
+
+&lt;p&gt;After that, hit &lt;code&gt;^⌘Y&lt;/code&gt; to continue the app (or just type &lt;code&gt;continue&lt;/code&gt;). Now you can try to fire up the Reveal Client app, and connect to your app:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="img center" src="http://cl.ly/image/2M2m0j1u0p1O/Image%202014-12-11%20at%2012.25.57%20am.png" width="600"&gt;&lt;/p&gt;
+
+&lt;p&gt;Success!&lt;/p&gt;
+
+&lt;h2&gt;Loading the script by default&lt;/h2&gt;
+
+&lt;p&gt;Now always having to load the python script is a bit cumbersome. Luckily for us, LLDB has a mechanism to do this by default. So we can always load our reveal script so that we can have it readily available when we need it.&lt;/p&gt;
+
+&lt;p&gt;So how do you do this?&lt;/p&gt;
+
+&lt;p&gt;It's pretty simple: make an &lt;code&gt;.lldbinit&lt;/code&gt; file in your home folder. This file is read by LLDB when it is started (thus: everytime you debug an app). As an aside: you can also make an &lt;code&gt;.lldbinit-Xcode&lt;/code&gt; which will only be read when debugging in Xcode.&lt;/p&gt;
+
+&lt;p&gt;In this &lt;code&gt;.lldbinit&lt;/code&gt;, you can place any regular LLDB commands. In this case, we'll use this to import the python script as we did above. So the file basically looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;command script import ~/lldb/reveal.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Save the file, and now restart the debugger for your app. Try entering &lt;code&gt;reveal_start_sim&lt;/code&gt; again and you'll see that it works. No need to manually load the python file again.&lt;/p&gt;
+
+&lt;h2&gt;Starting reveal at startup&lt;/h2&gt;
+
+&lt;p&gt;Now wouldn't it be even better if we could have the Reveal server start by default? No need to break the app, run the command and continue. Xcode can do this for us, with a breakpoint.&lt;/p&gt;
+
+&lt;p&gt;Go to your app delegate file (or any other class you'll know that runs early in your app lifecycle), and add a new breakpoint. Then edit the breakpoint:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="img center" src="http://cl.ly/image/0Q3m0Z1i0223/Image%202014-12-11%20at%2012.37.25%20am.png" width="600"&gt;&lt;/p&gt;
+
+&lt;p&gt;Basically:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;add an action of type 'debugger command'. In the textfield below, enter &lt;code&gt;reveal_start_sim&lt;/code&gt; (which, thanks to the magic above, is present).&lt;/li&gt;
+&lt;li&gt;tick on "automatically continue after evaluating actions"&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This breakpoint will be hit when you start your app but won't halt. It will execute the command specified, starting the Reveal server and then just continue running along.&lt;/p&gt;
+
+&lt;p&gt;After you tried this, rerun your app. Switch back to Reveal and you'll see that it can connect to your app running in the Simulator. Great success!&lt;/p&gt;
+
+&lt;h2&gt;Finally&lt;/h2&gt;
+
+&lt;p&gt;You can now use this technique in every project. Either using the breakpoint approach for regular Reveal debugging, or just break the app, run the &lt;code&gt;start_reveal_sim&lt;/code&gt; command and continue for occasional debugging. Up to you.&lt;/p&gt;
+
+&lt;p&gt;You can also use the techniques described about to extend LLDB to your own needs. You can leverage &lt;code&gt;.lldbinit&lt;/code&gt; by providing custom aliases or load external scripts. You can use those external scripts to do more complex debugging should you require to.&lt;/p&gt;
+
+&lt;p&gt;For example, &lt;a href="https://github.com/facebook/chisel"&gt;Facebook's Chisel&lt;/a&gt; uses these techniques to extend LLDB with a load of commands (highly recommended).&lt;/p&gt;
+
+&lt;p&gt;On a related note, it might be worthwhile to read up on LLDB techniques by reading &lt;a href="http://www.objc.io/issue-19/lldb-debugging.html"&gt;this article&lt;/a&gt; in objc.io's &lt;a href="http://www.objc.io/issue-19/"&gt;19th installment&lt;/a&gt; (which is all about debugging). Some neat tricks in there.&lt;/p&gt;
+
+&lt;p&gt;And finally, thanks to Reveal for an awesome app. Xcode6's Debug View Hierarchy is interesting but more limited than Reveal (and it doesn't always yield the correct results). Reveal rocks.&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-10-28:/blog/2014/10/28/hunting-for-change/</id>
+    <title type="html">Hunting for change</title>
+    <published>2014-10-28T22:24:28Z</published>
+    <updated>2014-10-28T22:24:28Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/10/28/hunting-for-change/"/>
+    <content type="html">
+
+&lt;p&gt;&lt;em&gt;(This blogpost expands on a number of tweets I published this evening)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I've been looking for change all my life I think. Not actively. Or sometimes more active than at other moments. I've never been somebody who values status quo or who gets stuck in habits. I rarely get up at the time each morning, I'm not bothered when I get to lunch at 1pm instead of 12:30. I don't have to take the car to work each day, or I have no problem with skipping my daily train routine for another route or transportation option.&lt;/p&gt;
+
+&lt;p&gt;Not sure where this comes from, but I'm kinda always on the lookout for new things. For example, I quite abruptly switched from .Net consultancy and programming to iOS development. This wasn't easy, you know. A whole new platform, a new language, a new way of doing things. But at the time I was given the opportunity to do this, and I took it with two hands. It was time for something new. Time to learn new things, time for change.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;The downside seems to be that my head is almost always full of ideas, things to think about or stuff that I want to do. The additional downside is that these ideas/things/stuff are very personal (and most of the time related to coding, to be honest). The hard part is that it's hard to apply the same virtuosity to other areas which might be able to use it. For example, I find it hard to put any time in improving our house, or even think about it. It's not that I don't want to (who doesn't want a nice house to live in?) but it feels like most of the time I cannot be bothered. A sort of apathy which I have for certain things but not for (a few) specific others.&lt;/p&gt;
+
+&lt;p&gt;By the way, this also happens in conversations. I can genuinely start a conversion, but get "bored" in the middle of it. It's absolutely not intentional and it (most of the time) is not even the fault of the people I'm talking to. But it is entirely possible to enter a "looking for a fuck to give" state without even knowing it myself. And then the conversion ends, and then I'm left thinking: I could have asked that or that. But I didn't. It's not that I don't like the conversation. My mind just wanders off and then I'm fucked. (Told you I'm strange. Didn't I?)&lt;/p&gt;
+
+&lt;p&gt;And so my head seems awful full. It's not easy to find peace and quiet on the inside. This tweet by &lt;a href="http://twitter.com/bluecrowbar"&gt;@bluecrowbar&lt;/a&gt; quite nailed it:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="tweet" src="https://twitter.com/bluecrowbar/status/520630884769488896" title="align=center"&gt;&lt;/p&gt;
+
+&lt;p&gt;I feel like that all the time. It's not like I'm actually always working. I can spend the whole night on the couch trying to get anything done, which doesn't work out except for browsing Facebook or Twitter, telling myself I'll be doing this or that in 5 minutes (ah yes, procrastination, my friend). But I just don't do relaxing very good. I hardly make time to go out for drinks. I never go see a movie. We don't have a TV in our house and while I can watch TV on my iPad I hardly ever do (except for occasionaly binge watching of some Netflix series). I've tried gaming too. Mostly can't be bothered apart from the occasional spikes. I've been meaning to brew some beer but found no way to make some time for it. The little bit of intentional relaxing can be - wait for it - coding. Not because I have to, but because I can. Try things out, learn new stuff. But don't put me on a couch with a beer to watch some telly: no sir. I tend to try to play a game of squash every week. That works, most of the time. I have to force myself to stop the thinking and focus on the game, but in busy times I found even that hard.&lt;/p&gt;
+
+&lt;p&gt;There's just so many things I want to do or try or see. And people to meet, talk to, learn from. But then there's life which comes interfering with any plans you make trying to make that possible. So many dreams to chase, so many opportunities to twart those plans.&lt;/p&gt;
+
+&lt;p&gt;So I've thought: maybe I should embrace life as it is. Just go along. Take it easy, just go to work, get it done, get back home and enjoy my wife and kids. Follow the flow. Do as &lt;a href="http://www.twitter.com/bmf"&gt;Mike Lee&lt;/a&gt; apparently did, get off the interwebs for a little while or at least cut back. Find your own tempo in the context of your family and friends.&lt;/p&gt;
+
+&lt;p&gt;I'm afraid that won't work for me. So easily bored, so hungry to learn more (in my limited field of work, to be honest. I haven't found the need to learn music, for example). So trying to do my job like it should. So trying to be likeable for who I am. Wanting to share the things I learn with other people (blogposts, teaching, sharing with coworkers) to make the world a better place even if it's only that little bit.&lt;/p&gt;
+
+&lt;p&gt;So yeah, always looking for change. Stay hungry, stay foolish, I guess. But sometimes, you're full. And the hard part is when to stop in time to clear your metaphorical stomach. I usually fail at that.&lt;/p&gt;
+
+&lt;p&gt;Now if you'll excuse me, I have a new version of OSX to install because this current one is getting stale.&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-09-23:/blog/2014/09/23/explicitly-implemented-protocols/</id>
+    <title type="html">Explicitly implemented protocols</title>
+    <published>2014-09-23T14:07:27Z</published>
+    <updated>2014-09-23T14:07:27Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/09/23/explicitly-implemented-protocols/"/>
+    <content type="html">
+
+&lt;p&gt;While traveling home from NSSpain yesterday, I got an idea for a new app. Nothing groundbreaking, and more on that later, but it required the use of health kit. I also decided to write this one in Swift, for fun and profit but mostly for fun (and perhaps also because practice makes perfect).&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;The problem&lt;/h2&gt;
+
+&lt;p&gt;I soon stumbled on the "you need to authorize HealthKit access" mess. It's even more an issue in HealthKit than with the other APIs since you have to ask permission to read and/or write &lt;em&gt;for each type&lt;/em&gt; of object you want to access.&lt;/p&gt;
+
+&lt;p&gt;So I decided to write a sort of proxy class that would handle the requesting, shielding off that hassle (since I would be needing access in several parts of the code). A pattern I've used for this kind of APIs before is that you have the class with the public API, which have an "access" call (for example). That call takes a block with one parameter: the "priviledged" part of the API. When the block is called, you can be sure to have the proper permissions making your code simpler and more obvious. Something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="nv"&gt;accessor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;neededObjectType&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Void&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
+    &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now I've made APIs like these before in C#, because I think it's an interesting and useful pattern. You're able to restrict access to certain parts of the API depending on the context the user of your API needs. In the example above, the &lt;code&gt;read&lt;/code&gt; method only provides access to read operations. We could have a &lt;code&gt;write&lt;/code&gt; method that only provides access to write operations (or even a &lt;code&gt;readwrite&lt;/code&gt; which does both).&lt;/p&gt;
+
+&lt;p&gt;And the way I'd do this in C# is using private interface implementations. This is a technique which allows you to  specify that an implementation of an interface method is only usable if you use the class which implements it &lt;em&gt;as an interface&lt;/em&gt;. For example, given this declarations:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="k"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;IHealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;  
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;HealthKitAccessor&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;IHealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="n"&gt;HKHealthKitStore&lt;/span&gt; &lt;span class="n"&gt;store&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="p"&gt;...;&lt;/span&gt;
+
+  &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Action&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;IHealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nf"&gt;makeSureYouHaveAccess&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="nf"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="n"&gt;IHealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;somethingSomething&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;you can do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reader&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="p"&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;but you can't do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;even though &lt;code&gt;HealthKitAccessor&lt;/code&gt; implements &lt;code&gt;IHealthKitAccessorReader&lt;/code&gt;. This is because we explictly implemented the interface method, and so it's only available if we approach accessor as an instance of &lt;code&gt;IHealthKitAccessorReader&lt;/code&gt;. So technically, you can do this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;IHealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which will work, even though it's not the intention of the API.&lt;/p&gt;
+
+&lt;p&gt;I've found this technique pretty useful in the past to have a class implement an API but shield direct access to it without using the specialized calls. The interface calls do not show up in intellisense/autocompletion when using the class, so it's pretty obvious in use.&lt;/p&gt;
+
+&lt;p&gt;And maybe this wasn't clear, but you can choose which of the interface methods to implement implicitly or explictly. So some methods could be available on the class, some couldn't. Also, this way you can have more than one method of the same name if more than one interface implements those methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="k"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;IFirstLine&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Halp&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;  
+
+&lt;span class="k"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;ISecondLine&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Halp&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Support&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;IFirstLine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ISecondLine&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Halp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// default to first line, this implements IFirstLine help, and exposes Halp on Support.
+&lt;/span&gt;  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;ISecondLine&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Halp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// second line
+&lt;/span&gt;  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now in Swift (and this ends the C# interlude), this isn't possible. Having the same structure like before but in Swift gives us this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;  
+
+&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="nv"&gt;store&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HKHealthKitStore&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nf"&gt;makeSureYouHaveAccess&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="nf"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;somethingSomething&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But this allows us to call both &lt;code&gt;read&lt;/code&gt; and &lt;code&gt;someReadOperation&lt;/code&gt; on any instance of the class, which is not what we want:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;accessor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Void&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
+    &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// but this also works&lt;/span&gt;
+&lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;The fix&lt;/h2&gt;
+
+&lt;p&gt;This does not mean we cannot use this pattern in Swift. We just need an inner proxy struct that implements the methods of the protocol:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="nv"&gt;store&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HKHealthKitStore&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nf"&gt;makeSureYouHaveAccess&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="nf"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;self&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kd"&gt;struct&lt;/span&gt; &lt;span class="kt"&gt;Reader&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;accessor&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt;
+
+    &lt;span class="nf"&gt;init&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;accessor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="k"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;somethingSomething&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is not bad, of course. The code is a bit less obvious because you need to have this inner class (which might implement more than one protocol, of course). And in the implementation of that inner class you always need to deference the original object first before using it. But that's just that. In effect you're moving the gist of your implementation to the inner class instead of in the class itself. When writing more complex APIs (like fluent APIs), this might become a bit cumbersome. But again, that's just than and mostly a minor inconvenience. In a way the code is a little more correct that using the explicitly implemented interface, but I've found in the past that being able to use the root class directly is more clean codewise anyway. So it's a bit of a tradeoff between the-academic-way-to-do-it and code clarity.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I think that explictly implemented protocol methods would be a valuable addition to Swift. I think they'd be handy (the same for abstract classes, but that's another discussion) for the points given above. The benefit of being able to use all internals of the class directly without dereferencing the original object makes the implementation more clear and there's no need for an internal proxy class. While the pattern is possible to use in Swift is required a bit more code and thus maintenance when changing the API in the future. But I guess that's a reasonable price to pay (until they add explicitly implemented protocol methods).&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-09-21:/blog/2014/09/21/nsspain-2014/</id>
+    <title type="html">NSSpain 2014</title>
+    <published>2014-09-21T06:37:23Z</published>
+    <updated>2014-09-21T06:37:23Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/09/21/nsspain-2014/"/>
+    <content type="html">
+
+&lt;p&gt;So I did manage to go to NSSpain this year. Having missed it last year, I had vowed to go this year. But intentions don't always work out in the end, so it was a really last minute decision to actually go (props for my team at &lt;a href="http://icapps.com"&gt;iCapps&lt;/a&gt; to deliver awesome results so that I actually &lt;em&gt;could&lt;/em&gt; go - I am proud of you guys and girls!). Also, a &lt;em&gt;very big thank you&lt;/em&gt; to &lt;a href="http://twitter.com/lascorbe"&gt;Luis&lt;/a&gt; for helping me find a way to Logroño, which proved harder than expected (booking everything last minute doesn't help, of course).&lt;/p&gt;
+
+&lt;p&gt;I'm very happy to have actually attended. The suddenly changed &lt;a href="Error%20processing%20input,%20expected%20syntax:%20%7B%%20img%20%5Bclass%20name(s)%5D%20%5Bhttp%5Bs%5D:/%5D/path/to/image%20%5Bwidth%20%5Bheight%5D%5D%20%5Btitle%20text%20%7C%20%22title%20text%22%20%5B%22alt%20text%22%5D%5D%20%%7D"&gt;circumstances&lt;/a&gt; before I left surely had an impact on my expierence. My thoughts and feelings were more at home than in Logroño, but I tried to make the best of it. Thought about "going back" several times, but I'm happy to have stayed. ;)&lt;/p&gt;
+
+&lt;p&gt;Now, enough with the emotionalism (is that even a word?), how was NSSpain?&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;It was so good. First of all, I really like Logroño. It's not the easiest city to travel to, but once you get there: it's a very nice and friendly city. And a cheap city, too. A three course lunch for 9 euros: try to beat that (of course, it's no haute cuisine, but the portions are usually more than big enough). Also, as capital of the Rioja province, they virtually give you a wine for free. And the wine is good, too. So, yeah, Logroño is a great place to stay. Nice atmosphere, and a clean and friendly city. You should visit it (maybe next year's NSSpain?)&lt;/p&gt;
+
+&lt;p&gt;The conference itself was very good too. The announced speakers and their topics were very appealing (the most part of why I actually wanted to go), and most of them delivered. It was a good combination of topics. Some were technical, some were about more human things and how we interact. I especially loved the session by &lt;a href="http://twitter.com/humorthatworks"&gt;Andrew Tarvin&lt;/a&gt; about progamming/humans/humour. It was fun and interesting at the same time (ain't we lucky!). Also, I liked the various sessions about testing and code quality (those by &lt;a href="http://twitter.com/secboffin"&gt;Graham Lee&lt;/a&gt; and &lt;a href="https://twitter.com/viteinfinite"&gt;Simone Civetta&lt;/a&gt; were particularly interesting to me). &lt;a href="http://twitter.com/mikeash"&gt;Mike Ash&lt;/a&gt;'s talk was insanely technical (yay pointers in Swift) but so, so good. The talk about scale by &lt;a href="http://twitter.com/micheletitolo"&gt;Michele Titolo&lt;/a&gt; certainly resonated with me (not specifically for the users/hardware scale, but for part about the team scale). &lt;a href="http://twitter.com/davidronnqvist"&gt;David Rönnqvist&lt;/a&gt;'s Scenekit talk was insanely amazing on the visuals (best "slides" ever). He made SceneKit look so simple (and perhaps it is, certainly something to check out). And props to &lt;a href="http://twitter.com/mattjgalloway"&gt;Matt Galloway&lt;/a&gt; for going on stage for the Swift Q/A, handling our barrage of questions. No real way to prepare other than having 5 years of Swift development experience. The other talks were equally as good mostly. The quality was very good all in all, but that was to be expected with this kind-of-stellar lineup. The only real dissappointing talk was the one by &lt;a href="http://twitter.com/soffes"&gt;Sam Soffes&lt;/a&gt;. Maybe it were my expectations, not sure, but there was nothing to take away from this other that he loves &lt;code&gt;NSBundle&lt;/code&gt; and &lt;code&gt;UICollectionView&lt;/code&gt;. A more specific, deeper dive into one feature would have been better, I think.&lt;/p&gt;
+
+&lt;p&gt;Apart from the content, the atmosphere was more relaxed than at other conferences. We hardly started on time, the schedule was interpreted loosy. Some arrangements were communicated "last minute". But that was quite okay. I was never bothered by it. Perhaps that's the Spanish influence on things.&lt;/p&gt;
+
+&lt;p&gt;Another part of conferences is meeting people. This is simple and hard at the same time, because it requires actual human interaction with human beings you don't know. Quite a feat for geeks like us. At NSSpain it was even harder than other conferences I've been to, because if the high number of Spanish natives. So connecting to them isn't that simple. Nevertheless, I met a lot of new people and caught up with a few others. I totally appreciated &lt;a href="http://www.twitter.com/Daniel1of1"&gt;Daniel&lt;/a&gt; coming to thank me in person for buying a Hero ticket for &lt;a href="http://cmdrconf.com"&gt;Cmd-R Conf&lt;/a&gt;. It was fun to finally say hi to &lt;a href="http://twitter.com/orta"&gt;Orta&lt;/a&gt; in the flesh. He's as energetic in real life has he feels like on twitter. It was nice to see &lt;a href="http://twitter.com/StuffMC"&gt;StuffMC&lt;/a&gt;, that jack of all trades. It was fun to talk with a few of the speakers (after all, they're humans too -- on the other hand, you need to find one way to make a connection). And, oh, I hadn't expected to meet fellow Belgians on this conf, but there were five of us. The pitfall of which is that you automatically get attracted to each other -- at least that what happens for me -- so mingling with strangers becomes more difficult. I don't avoid my fellow countrymen, but I intentionally go find new/other people too.&lt;/p&gt;
+
+&lt;p&gt;And oh yeah: I spoke at a conference. *cheers* I had previously expressed interest in doing a lightning talk but hadn't given it extra thought because I never got confirmation (I also didn't ask for it, so there's nobody to blame). But when Luis approached me the first day with "Will you do a lightning talk?" I was a bit dumbfounded at first, but said yes nevertheless. I thought I could think of something. And so I did. Lightning talks are only five minutes, so I dismissed "something technical". I felt 5 mins were too short convey something technical towards the audience. And since we use GIFs (a lot) in our communication at work, I decided to talk about that. And it wasn't bad it seems, since I got quite a bit positive feedback on it. And making the talk was a good way to get rid of some of the &lt;a href="Error%20processing%20input,%20expected%20syntax:%20%7B%%20img%20%5Bclass%20name(s)%5D%20%5Bhttp%5Bs%5D:/%5D/path/to/image%20%5Bwidth%20%5Bheight%5D%5D%20%5Btitle%20text%20%7C%20%22title%20text%22%20%5B%22alt%20text%22%5D%5D%20%%7D"&gt;dark thoughts in my head&lt;/a&gt;. Afterwards I thought there was enough to say make this into a full 30 min talk, so I might just do that.&lt;/p&gt;
+
+&lt;p&gt;Also: there were a lot more people there than I had expected! I assumed it would be a pretty small conference, but there were 215 attendees present (up from about a hundred last year). They're going to cap at 200 next year, because you could feel this was slightly above capacity.&lt;/p&gt;
+
+&lt;p&gt;Chances are high I'll be back next year. I had a very enjoyable time, learned a lot of stuff, was in great company. Thanks to &lt;a href="http://twitter.com/lascorbe"&gt;Luis&lt;/a&gt; and &lt;a href="http://twitter.com/borjareinares"&gt;Borja&lt;/a&gt; for organising. Great job, guys.&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-09-19:/blog/2014/09/19/goodbye/</id>
+    <title type="html">Goodbye</title>
+    <published>2014-09-19T03:38:12Z</published>
+    <updated>2014-09-19T03:38:12Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/09/19/goodbye/"/>
+    <content type="html">
+
+&lt;p&gt;&lt;em&gt;This post is somewhat a diversion from what I usually post, but recent events have had such profound impact on how I feel that I feel obliged (to myself) to write about this. (Unfortunately, my English is not proficient enough to convey all my thoughts and feelings, but I'm giving it a shot anyway).&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I want to say goodbye to a friend. A dear friend. A best friend.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;Tuesday evening we got the news that &lt;a href="http://twitter.com/sjarelwan"&gt;Bert&lt;/a&gt; had deceased. Bert was a long time friend (I've known him for about 15 years), and the godfather of my youngest daughter. He was traveling in India as a host to a party of about 6 people.  This was the first time he did this (through an organisation called &lt;a href="http://joker.be/en"&gt;Joker&lt;/a&gt;. He had looked forward to this tour, preparing for it all summer, looking up information, booking hotels, trips and events for his group.
+This was a key property of Bert. When he did something, he always went full out (which also had its annoying side effects, to be honest). He could really put himself behind the things he was doing, and he always did them well. The tour in India is a good example, but this was also the case when we were both active in &lt;a href="http://www.chiro.be/english"&gt;Chiro&lt;/a&gt; (a local youth movement in Belgium). We spent several years together there, and the click between us was quite immediate. We shared the same kind of humour, and our greatest passing in that time was Chiro. We organised training &amp;amp; courses for Chiro together (education for people in leadership positions), we created new games and activities, and made sure they were executed well. A lot of nights were spent together having fun over beers, we played boardgames, we sang, but we also had deep conversations about anything possible. It was a lot of fun and Bert was an integral part of this. Together with &lt;a href="http://twitter.com/spiffman"&gt;Jeroen&lt;/a&gt; we were known as "De Sjarels" amongst our friends. Mostly because the three of us were famous for dicking around whenever possible. (I'm not sure how to convey the word "Sjarel" - which actually is Flemish slang - but "Banter Boy" covers it, I think). This name stuck, and to this date we were still "De 3 Sjarels". We might be a bit older, but the fun was still there when the three of us were together.&lt;/p&gt;
+
+&lt;p&gt;But then our time at Chiro ended and our contact became less frequent. I can't say that I really missed Bert, but lives change and our ways parted. At least, for a little while. I am fortunate to have 4 children, and Bert was high on the list of potential godfathers. And we were most delighted he accepted the godfathership for our youngest daughter Mitte 4 years ago. Becoming godfather/godmother of a child created a sort of family bond, and our contact flared up again. The good times of yonder were back, albeit at a different pace. I loved having Bert present at parties and birthdays. We met up more, and it felt good.&lt;/p&gt;
+
+&lt;p&gt;And then he moved to our street, which we thought was a surprising move (for him, moving from the city to a local village), but in hindsight it proved a good idea. It was great having Bert as a neighbour. Our lives both were busy enough that we did not spent every night at one or another place, but having a best friend as a neighbour certainly is a blessing.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://www.flickr.com/photos/inferis/15023080730"&gt;&lt;img src="https://farm6.staticflickr.com/5559/15023080730_aa52fb0510.jpg" width="500" height="333"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;\&lt;/em&gt;sighs**&lt;/p&gt;
+
+&lt;p&gt;So it pains me a lot to lose you, Bert. I have a load of awesome memories of you and the things we did together. I'm sure we made a difference for a lot of young people, something I hold dearly in my heart. My daughter is still little but I'm sure she loved you in her own way, and it was obvious you did love her a lot, too. She's never going to expierence your passion and fire, and I pity her for that. We will never again be able to drink a glass of whisky (of which you were an avid lover) or a fine beer (like Quadruple La Trappe, your favorite) together. Our next gathering of god-mothers and -fathers will be awkward without you present. You'll be missed by everyone of us.&lt;/p&gt;
+
+&lt;p&gt;I have to face it: you'll never be back. But you'll also never be forgotten. So long, my best friend. Until we meet again.&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-09-14:/blog/2014/09/14/cocoapod-all-the-things/</id>
+    <title type="html">Cocoapod All The Things</title>
+    <published>2014-09-14T11:19:57Z</published>
+    <updated>2014-09-14T11:19:57Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/09/14/cocoapod-all-the-things/"/>
+    <content type="html">
+
+&lt;p&gt;So, am I the only one who manages to get sidetracked a lot when working on (personal) projects?&lt;/p&gt;
+
+&lt;p&gt;For example, I have a few generic components written for various projects. In the past I would just add a &lt;code&gt;vendor&lt;/code&gt; folder to my project, put the component there and be done with it.&lt;/p&gt;
+
+&lt;p&gt;But I've become to like CocoaPods to much that I cannot get myself to use this simple approach anymore. The CocoaPods approach makes using external libs so clean that it feels dirty not to (unless there's no other option).&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;But then the problem is that when I have a "new" generic component for a new project, I need to turn it into a CocoaPod first. This means splitting of the code, making a podspec, testing the podspec and then integration it into your project. Sure, not a lot of work, but it adds to the 'total drag'. Now I know I only inflict this on myself, but still. :)&lt;/p&gt;
+
+&lt;p&gt;It also doesn't help me thinking: "wait, somebody else might find this handy" and I go off by making another repo on github, pushing the code there, adding a README and LICENSE file, add/update the CocoaPods specs repo with the new/updated podspec and issue a pull request for the update to be merge into the main repository. I could be using a simple development or local pod, but the first keeps the code local to the repo, and the second one, well, I don't have a local CocoaPods repo set up.&lt;/p&gt;
+
+&lt;p&gt;So, nothing big, but these things feel like a hassle sometimes even though I'm happy to share my code with other. Sometimes I just wish I could force myself back to the vendor approach, but I guess I'm tainted forever.  &lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-09-13:/blog/2014/09/13/objective-c-or-swift/</id>
+    <title type="html">Objective-C or Swift?</title>
+    <published>2014-09-13T21:20:43Z</published>
+    <updated>2014-09-13T21:20:43Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/09/13/objective-c-or-swift/"/>
+    <content type="html">
+
+&lt;p&gt;I've been planning to get on the iOS8 boat for a while now (well, since they announced it, actually). But as one with a full life, I haven't gotten around to actually do much. I played around with some Swift, watched some WWDC14 sessions but that's about it.&lt;/p&gt;
+
+&lt;p&gt;Until tonight: I want to start over again on &lt;a href="http://dra.sh"&gt;Drash&lt;/a&gt;. There's a half baked iteration made for iOS7 (the current app runs still on iOS6 but feels right into place on iOS7 thanks to its minimal interface). But iOS8 changes so much again that I feel that it's best to start over again.&lt;/p&gt;
+
+&lt;p&gt;But then this begs the question: Objective-C or Swift?&lt;/p&gt;
+
+&lt;p&gt;There's some pro and cons to both, I think.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;Swift is clearly the future, but while it's gone 1.0 I feel that it's not nearly done enough to be productive in it. First of all, it's so new that it's hard to find a "best practices" baseline. Even when not bothering what everybody else thinks, I think this is hard enough to do yourself. Also, on my forages into Swift this summer I learned that using a new language to create a new app is not the smartest thing to do. You get sidetracked into "how do I do this best in Swift", and that means not getting any of your real work actually done (or much slower). And, my usual set of tools/libraries are not available as native Swift, so I &lt;em&gt;lose&lt;/em&gt; time rewriting those too. On the other hand: postponing that job is not really a good solution because I need to do it sometime anyway, so why not now.&lt;/p&gt;
+
+&lt;p&gt;Objective-C on the other hand is well known (to me). I know its &lt;a href="http://www.slideshare.net/Inferis/objective-c-runtime"&gt;ins and outs&lt;/a&gt; (or at least the most important ones of them). It's obvious how it works. On the other hand: with the new kid on the block how long is it going to stay around? Probably long enough for it not to be a problem when starting a new app now, but I guess we can expect that Apple converts more of its codebase to Swift over time (or at least their public APIs). So the sooner I'm on the Swift boat, the better. Also, I have a set of libraries and tools I can use with Objective-C code, making me much more productive.&lt;/p&gt;
+
+&lt;h2&gt;Soooo?&lt;/h2&gt;
+
+&lt;p&gt;Given that I want to be productive and have this new app out pretty soon, I'm going for Objective-C. I feel that Swift is going to pose too much of a distraction from actually developing the app. There's also the new stuff in iOS8 (I'm planning to add an extension too, so there's much to learn), going with Swift means 2 new things in one new app, and that might prove too much of slowdown. And I want to finish this, and not get beached along the way in the little language details.&lt;/p&gt;
+
+&lt;p&gt;The next project? Swift. I promise.&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-07-09:/blog/2014/07/09/obsolete/</id>
+    <title type="html">Obsolete</title>
+    <published>2014-07-09T07:52:20Z</published>
+    <updated>2014-07-09T07:52:20Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/07/09/obsolete/"/>
+    <content type="html">
+
+&lt;p&gt;I'm afraid of becoming obsolete.&lt;/p&gt;
+
+&lt;p&gt;There, I've said it.&lt;/p&gt;
+
+&lt;p&gt;Let me explain: I work in a highly competitive sector which changes rapidly. This is nothing new, of course. It's always been that way. But before, I was younger. Not that I'm really old now, but that big 4 slowly creeping closer doesn't count for nothing. But I guess this is not really about age: I'm happy to work in a team with a bunch of early 20 year olds and it feels that I can manage that just fine. Sure, there are "generational" differences but all in all it works out pretty nice (I can only hope they feel the same though).&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;But while the rapid changes in our industry seemed like &lt;em&gt;only an opportunity&lt;/em&gt; in the past, they now feel like an &lt;em&gt;opportunity&lt;/em&gt;
+  ) (because they still are), but also like a sort of &lt;em&gt;burden&lt;/em&gt;. I would love to learn more stuff and make new things, but the main problem is time. There's seldom time to work on sideprojects or learning new technology.&lt;/p&gt;
+
+&lt;p&gt;This is due to a number of factors:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;strong&gt;the job&lt;/strong&gt; » I have a highly fulfilling job while I love to do but takes a large part of my time budget. Yeah, you can tag this one with #firstworldproblems. This is a blessing but also a curse: I learn a lot in my role as a lead developer but not necessarily on the subjects that are so rapidly changing. And that leaves less time for learning new tech. (Then again, I can't complain. There are also people still doing WinForms, I guess).&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;the kids&lt;/strong&gt; » I have a wife, and moreover: we have four (young) kids. Let me tell you: kids are time sinks. Lovely time sinks, no doubt about that. I love them but it's no news that kids take time. And even then I feel like I'm not enough at home to give them the time they need (and to get everything else sorted out). But there's also our house which needs some love, and love means time I cannot spend on other things.&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;the extras&lt;/strong&gt; » There are a few "extra curricular" activities. We're actively engaged in the school of our kids, and in the youth movement the two eldest go to. And there's some sport here and there, and I have a demented grandmother in a nursing home, and she loves a visit now and then.&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;the scraps&lt;/strong&gt; » But also: I feel like I don't like doing the little things anymore. There's some much cool stuff to find out, but then there's the boilerplate code you have to write, and that, well, doesn't interest me anymore. And I feel it hinders me in getting to the real cool stuff.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The net result is that I keep making plans to build Brave New Things, but I hardly get around to it. And that's what scares me, because I'm not sure it will keep my on my toes for the future. Will this get harder and harder over time?&lt;/p&gt;
+
+&lt;p&gt;Because, I know there's probably a few "technology switches" before me. Again, nothing new and I've done this before: I went from Web-CGI-perl over to the Microsoft camp, making first websites but later desktop apps using .Net. And then I left .Net behind and went for iOS (surely a more jarring switch than the one before). Those switches weren't easy and took a lot of time and effort but were well rewarding in the long term.&lt;/p&gt;
+
+&lt;p&gt;Seeing how technology seemingly keeps speeding up even if you keep to your own niche (I can't follow everything that's come out of WWDC this year, for example), this is probably going to become harder in the future. And this worries me.&lt;/p&gt;
+
+&lt;p&gt;Then again, I don't have to keep on doing the same things that I'm doing now. Even now in my job which is still highly development oriented, I'm not doing a lot of development anymore myself. I review code, help people, work on app architecture, devise new ways to make things easier and faster so the team can work faster/better. This is learning experience in itself, and it's been a fun ride. But I don't want to become &lt;em&gt;only a manager&lt;/em&gt; just yet and I feel it is very important to stay on top of the changes happening in our industry.&lt;/p&gt;
+
+&lt;p&gt;Doing nothing is not an option, so I'm going to have to devise a plan to make "keeping up" feasible. Meanwhile, I'm just going to keep throwing myself at it with all the energy that I have. So frustrating, so much fun.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;update:&lt;/strong&gt; Seems &lt;a href="https://the-pastry-box-project.net/ed-finkler/2014-july-6"&gt;I'm not alone&lt;/a&gt;.&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-07-02:/blog/2014/07/02/a-swift-test/</id>
+    <title type="html">A Swift Test</title>
+    <published>2014-07-02T20:28:29Z</published>
+    <updated>2014-07-02T20:28:29Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/07/02/a-swift-test/"/>
+    <content type="html">
+
+&lt;p&gt;At the latest iCapps Monthly Teammeeting (today!), I presented our developers with a small Swift test.
+It was supposed to be a bit tongue in cheek, but also a bit serious. This new language coming out of Apple is pretty new but also here to stay, so it can't hurt to get on the bandwagon sooner rather than later. A few of us got to go to WWDC and see everything for themselves, the rest of us maybe spent some time with the videos or even started coding but I guess the majority hasn't really gotten around to seriously looking at this new language.&lt;/p&gt;
+
+&lt;p&gt;And so, to spike the interest a bit more, I made this little test to see how much we all knew about Swift. It's not complete by far and it only touches on a few specifics, but I had it set up as a multiple choice test so it was kind of hard to touch on every feature in the language (for example: try asking a question on the brand new enum syntax without spoiling it). And the main goal was to show the difference from Objective-C.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;The results were fascinating. There were 13 questions, and the number or correct answers ranged from 11 to 5. Most of the developers were around 6 or 8 correct answers. Two people managed to score 11 points.&lt;/p&gt;
+
+&lt;p&gt;Also, people seemed to like it even though it was a test. It was obvious it was "for fun", but after the session it spike several conversations about some of the topics touched. So that was a success, I guess.&lt;/p&gt;
+
+&lt;div style="width:600px; margin: 1em auto 0 auto;"&gt;
+&lt;script async class="speakerdeck-embed" data-id="ef16f290e44501311c6d56c19b776c40" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There's also a slide deck with the answers which I'm not going to embed but just link to so you can take &lt;a href="http://cl.ly/2e300O3t2E1s"&gt;a peek&lt;/a&gt; if you want.&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <id>tag:blog.inferis.org,2014-05-29:/blog/2014/05/29/wwdc-14/</id>
+    <title type="html">WWDC '14</title>
+    <published>2014-05-29T14:47:10Z</published>
+    <updated>2014-05-29T14:47:10Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2014/05/29/wwdc-14/"/>
+    <content type="html">
+
+&lt;p&gt;So, it's that time of the year again. WWDC is almost upon us. &lt;a href=""&gt;Like last year&lt;/a&gt;,  I won't be able to make it due to "agenda issues" (mainly the same as last year, but that's what happens when you have kids). But also I'm in the midst of an app release at &lt;a href="http://icapps.com"&gt;work&lt;/a&gt; and as a team/tech lead it would be less than ideal to skip a week for WWDC (which is actually more than a week since there's the &lt;em&gt;Jetlag Recovery Period&lt;/em&gt; too). So it wasn't in the stars this year.&lt;/p&gt;
+
+&lt;p&gt;I think I might be going again next year. Not sure if I will go for WWDC itself, but certainly for an AltWWDC experience. There's a lot of people going to SF next week which I'd really like to meet or talk to again. Sure, there's twitter, but nothing beats IRL contact. And the buzz around WWDC is just so invigourating, or at least it was in 2012, IMHO. So we'll see. I'll have some money set aside for next year, so at least that won't be a problem.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;Some predictions or hopes&lt;/h2&gt;
+
+&lt;p&gt;Now, for WWDC itself... There's not much stuff leaked this year, or maybe I just didn't follow much of the buzz around it. Sure there's the "health" stuff (healthbook?) and Apple's recent announcement that they're moving into the home automation market is interesting too, but apart from that there's not really a lot to go on.&lt;/p&gt;
+
+&lt;p&gt;What we won't see, I think:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;new phones (they'll keep that for september)&lt;/li&gt;
+&lt;li&gt;no iWatch (I don't see them doing all that stuff at once, and the same goes for devs). They might do something Fitbit-like if there's actual &lt;em&gt;Healthbook&lt;/em&gt; things in iOS8, but I'm not holding my breath for that.&lt;/li&gt;
+&lt;li&gt;No side-by-side apps on iPad.&lt;/li&gt;
+&lt;li&gt;Jony Ive on stage. Nope.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What we will see, I think:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A new mac: a Retina Air might be an option.&lt;/li&gt;
+&lt;li&gt;Or else: a retina Cinema Display to go with your fancy Mac pro&lt;/li&gt;
+&lt;li&gt;A possible update to the rMBP to have manage to drive that big ass screen.&lt;/li&gt;
+&lt;li&gt;
+&lt;em&gt;Something&lt;/em&gt; Home automation&lt;/li&gt;
+&lt;li&gt;iOS8 &amp;amp; OSX 10.10&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So, for iOS8:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;it will be the iOS that iOS7 should have been. I'm thinking more evolution, fine tuning, performance tweaks (if they manage to prolong battery life significantly, that will be a big plus). Visually it won't change much from iOS7, apart from some usability tweaks.&lt;/li&gt;
+&lt;li&gt;Better Maps&lt;/li&gt;
+&lt;li&gt;GameCenter gets the boot and is replaced with something else, or it's significantly revamped. I don't get the feeling a lot of people actually use it to it's potential.&lt;/li&gt;
+&lt;li&gt;It's too early for the Beats deal to have impact on any WWDC announcements, and I doubt that it will have impact on the iPhone/iOS8 launch in september too. But who knows.&lt;/li&gt;
+&lt;li&gt;Better inter-app communication. I expected this last year but I guess the iOS7 redesign made this a non-priority. However, I'm wondering how they will have implemented this: I'm guessing more "open in..." sheets are not a viable option.&lt;/li&gt;
+&lt;li&gt;An expansion on the iBeacon stuff. Not sure what, but there's more to be done there.&lt;/li&gt;
+&lt;li&gt;iMore has a good &lt;a href="http://www.imore.com/ios-8-wish-list-what-wed-love-see-wwdc-2014"&gt;wishlist&lt;/a&gt;, too. Lots of useful thinks there. Not going to see the Files.app, I think.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For OSX 10.10:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;a new look (more iOS7 like, but I hope not too flat). It won't be a "direct transplant" of the iOS7 look, but it'll certainly be inspired by it. Although: I like the look of OSX now, but probably said the same of iOS6 before iOS7. ;)&lt;/li&gt;
+&lt;li&gt;more integration between OSX and iOS. There's a lot of cool stuff to be done with iBeacons to have your devices work more seamlessly together. The key parts are in place: iCloud, iCloud Keychain and iBeacon are a powerful combo if used correctly (use your phone as a "password", or have iMessage show notifications on &lt;strong&gt;only one device&lt;/strong&gt; - imagine that).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Also: looking forward to Xcode6 although I think Xcode5 &lt;strong&gt;is&lt;/strong&gt; the best Xcode ever (which isn't saying a lot, though). They could learn from Appcode, a lot of low hanging refactoring fruit could be picked there. I'm also wondering if they will keep the simulator and not move to an actual emulator. Recent hardware certainly can handle iOS VMs very well, so why not? And there's surely an actual x86-64 version of iOS somewhere. But perhaps it's too early.&lt;/p&gt;
+
+&lt;p&gt;Finally: will the bots infrastructure they introduced last year get a decent overhaul? Because now it's too limited and too much of a black box to be actually usable. So either ditch it, or improve it, Apple.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;(Looking back at &lt;a href="http://blog.inferis.org/blog/2013/06/10/wwdc-2013-hopes-and-expectations/"&gt;my predictions&lt;/a&gt; for last year, it seems they were, eh, pretty hopeless. Oh well.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Videos&lt;/h2&gt;
+
+&lt;p&gt;As a lot of people I'll be following &lt;a href="https://www.apple.com/apple-events/june-2014/"&gt;the livestream of the keynote&lt;/a&gt; next monday. It's a different vibe than being in the keynote room, but it's close enough. And after that I'll be losing some sleep to keeping up with the WWDC videos. Because the best time to watch them is around WWDC itself, and not "later when I'll have time".&lt;/p&gt;
+
+</content>
+  </entry>
+</feed>
+

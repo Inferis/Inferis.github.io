@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+
+    <title>Inferical Writings - Categories for @protocols</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href=""><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Categories for @protocols</h1>
+                    
+
+                    
+                      <span class="meta">Posted: March 06, 2014</span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes() * 60;
+    var h = d.getHours() * 60 * 60;
+
+    var color  = Math.round((h + m + s )*(16777215/86400));
+
+    $(".intro-header").css("background-color", '#' + color.toString(16) );
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>Yup. Categories for protocols. You heard that right.
+It started with me asking about it on twitter:</p>
+
+<p><img class="tweet" src="https://twitter.com/inferis/status/441603940250288128" title="align=center"></p>
+
+<p>This question caused much confusion. "How is that even possible?" "Categories are used to
+extend existing classes, surely how can you extend a protocol?"</p>
+
+<!-- more -->
+
+<p>I also got the suggestion that protocols can extend other protocols:</p>
+
+<p><img class="tweet" src="https://twitter.com/bluecrowbar/status/441661650098466816" title="align=center"></p>
+
+<p>I knew about that, and it was not what I was looking for. I genuinly want categories for protocols.</p>
+
+<p>Let me explain.</p>
+
+<h2>Categories and protocols</h2>
+
+<p>Suppose I have these two protocols:</p>
+
+<pre><code class="language-objc highlight"><span class="k">@protocol</span> <span class="nc">EffectsView</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">)</span> <span class="n">NSArray</span><span class="o">*</span> <span class="n">effects</span><span class="p">;</span>
+<span class="c1">// more ...
+</span>
+<span class="k">@end</span>
+
+<span class="k">@protocol</span> <span class="nc">LayeredEffectsView</span> <span class="o">&lt;</span><span class="n">EffectsView</span><span class="o">&gt;</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">UIView</span><span class="o">&lt;</span><span class="n">EffectsView</span><span class="o">&gt;*</span> <span class="n">mainEffectsView</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">UIView</span><span class="o">&lt;</span><span class="n">EffectsView</span><span class="o">&gt;*</span> <span class="n">overlaidEffectsViw</span><span class="p">;</span>
+<span class="c1">// more ...
+</span>
+<span class="k">@end</span></code></pre>
+
+<p>Basically, the first one describes a view/object that has effects, the second one
+describes a view/object has 2 layered effect views (the actual code is different
+but equivalent - I changed the original code to protect the innocent).</p>
+
+<p>My UI uses these two view types interchangely. I do not want to use classes since
+I want to be free to embed any type of view, as long as it implements effect. Sometimes
+I want to have a layered effect view, sometimes I want to have a single effect view.</p>
+
+<p>Now I also have a container view that handles these effects. But it takes a
+layered view (for reasons not disclosed here):</p>
+
+<pre><code class="language-objc highlight"><span class="k">@interface</span> <span class="nc">EffectsContainerView</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="nf">initWithEffectsView</span><span class="p">:(</span><span class="n">UIView</span><span class="o">&lt;</span><span class="n">LayeredEffectsView</span><span class="o">&gt;*</span><span class="p">)</span><span class="nv">effectView</span><span class="p">;</span>
+
+<span class="k">@end</span></code></pre>
+
+<p>So when I want to use a simple effect view in this container view I need to wrap it into
+a layered view.</p>
+
+<pre><code class="language-objc highlight"><span class="n">StandardEffectsView</span><span class="o">*</span> <span class="n">standard</span> <span class="o">=</span> <span class="p">[</span><span class="n">StandardEffectsView</span> <span class="nf">new</span><span class="p">];</span>
+<span class="n">LayeredEffectsView</span><span class="o">*</span> <span class="n">layers</span> <span class="o">=</span> <span class="p">[[</span><span class="n">LayeredEffectsView</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithMainEffectsView</span><span class="p">:</span><span class="n">standard</span><span class="p">];</span>
+<span class="n">EffectsContainerView</span><span class="o">*</span> <span class="n">container</span> <span class="o">=</span> <span class="p">[</span><span class="n">EffectsContainerView</span> <span class="nf">alloc</span><span class="p">]</span> <span class="n">initWithEffectsView</span><span class="o">:</span><span class="n">layers</span><span class="p">];</span></code></pre>
+
+<p>While this works, it's a bit verbose (but hey, it's Cocoa, what did you expect).
+Still, while I was writing code I was thinking how useful it would be to be able to write:</p>
+
+<pre><code class="language-objc highlight"><span class="n">EffectsContainerView</span><span class="o">*</span> <span class="n">container</span> <span class="o">=</span> <span class="p">[</span><span class="n">EffectsContainerView</span> <span class="nf">alloc</span><span class="p">]</span> <span class="n">initWithEffectsView</span><span class="o">:</span><span class="p">[[</span><span class="n">StandardEffectsView</span> <span class="nf">new</span><span class="p">]</span> <span class="nf">layeredAsMain</span><span class="p">]];</span></code></pre>
+
+<p>Now I hear you say: you can do that!</p>
+
+<p>Of course I can. Just write a category on <code>StandardEffectsView</code> that handles that:</p>
+
+<pre><code class="language-objc highlight"><span class="k">@interface</span> <span class="nc">StandardEffectsView</span> <span class="p">(</span><span class="nl">Layered</span><span class="p">)</span>
+
+<span class="err">-</span> <span class="err">(</span><span class="nc">UIView</span><span class="o">&lt;</span><span class="n">LayeredEffectsView</span><span class="o">&gt;*</span><span class="p">)</span><span class="n">layeredAsMain</span><span class="p">;</span>
+
+<span class="k">@end</span></code></pre>
+
+<p>Sure. But what if I have a <code>SliderEffectsView</code> and a <code>ButtonEffectsView</code> and
+a <code>TableEffectsView</code>? I now have to write the same code for each class.</p>
+
+<ul>
+<li>I can't make a common superclass to define the category on,
+because I want the effects on a <code>UISlider</code>, <code>UIButton</code> and <code>UITableView</code>, for example.
+This is also tedious and error prone since every new class I add that implements
+this protocol would need to add this method.</li>
+<li>I could make a category on UIView, but then all <code>UIView</code>s would gain this method
+which is not what I want since the views on the <code>LayeredEffectsView</code> protocol
+are expected to implement <code>EffectsView</code>. So that wouldn't work, really.</li>
+<li>I could extend the <code>EffectsView</code> protocol to include the layeredAsMain method,
+but that would still require me to implement the same code on each class.</li>
+</ul>
+
+<p>So I thought: wouldn't it be cool if you can create category on a protocol?
+Something like:</p>
+
+<pre><code class="language-objc highlight"><span class="k">@interface</span> <span class="nc">UIView</span><span class="o">&lt;</span><span class="n">EffectsView</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">Layered</span><span class="p">)</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">UIView</span><span class="o">&lt;</span><span class="n">LayeredEffectsView</span><span class="o">&gt;*</span><span class="p">)</span><span class="n">layeredAsMain</span><span class="p">;</span>
+
+<span class="k">@end</span></code></pre>
+
+<p>This would have all UIView subclasses conforming to the <code>EffectsView</code> protocol
+gain the <code>layeredAsMain</code> method. But how would you implement it? A protocol is
+just that: a definition of how a class should act and you don't have any specific
+instance to work with.</p>
+
+<p>But do we need one? Adding a category on a protocol would allow you to extend
+all classes confirming to the protocol, and you only have the protocol information
+to work with. But that's just fine. The implementation of our category method
+above would become:</p>
+
+<pre><code class="language-objc highlight"><span class="k">@implementation</span> <span class="nc">UIView</span><span class="o">&lt;</span><span class="n">EffectsView</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">Layered</span><span class="p">)</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">UIView</span><span class="o">&lt;</span><span class="n">LayeredEffectsView</span><span class="o">&gt;*</span><span class="p">)</span><span class="n">layeredAsMain</span>
+<span class="p">{</span>
+  <span class="c1">// we could also use self.effects here, for example
+</span>  <span class="k">return</span> <span class="p">[[</span><span class="n">LayeredEffectsView</span> <span class="nf">alloc</span><span class="p">]</span> <span class="nf">initWithMainEffectsView</span><span class="p">:</span><span class="n">self</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">@end</span></code></pre>
+
+<p>Which works fine. We can use <code>self</code> because the protocol has to be implemented on
+an actual class, so at runtime an instance will be there. And that instance will
+conform to the protocol, so we can use it to it's full potential.
+And I only have to implement it once, and all <code>UIView</code> classes with <code>&lt;EffectsView&gt;</code>
+would be convertible to a layered view with once short, simple method.</p>
+
+<p>To elaborate a bit: in this case, <code>self</code> would be at least a <code>UIView</code> instance so
+we could use properties and methods from that class to, in addition to the
+protocol's stuff. In this case, we have an actual underlying class, but I guess
+it would work for "pure" protocols too:</p>
+
+<pre><code class="language-objc highlight"><span class="k">@protocol</span> <span class="nc">EffectsView</span> <span class="p">(</span><span class="n">Layered</span><span class="p">)</span>
+
+<span class="o">-</span> <span class="p">(</span><span class="n">UIView</span><span class="o">&lt;</span><span class="n">LayeredEffectsView</span><span class="o">&gt;*</span><span class="p">)</span><span class="n">layeredAsMain</span><span class="p">;</span>
+
+<span class="k">@end</span></code></pre>
+
+<p>Everything conforming to this protocol would gain this (irregardless of class).
+The confusing part becomes the implementation because that would mean a .m file
+for the protocol category but that's not too problematic. Just something we're not used to.
+There would be no class methods/properties to use, just protocol methods/properties.</p>
+
+<p>I might hear you make a last complaint: "how would an object know what method to
+run, if more that one category supplies the same method?"
+The same problem arises with plain class categories, so this is as problematic as
+it is now. So really no larger problem than before.</p>
+
+<h2>In closing</h2>
+
+<p>So yeah, categories for protocols. A generic way to extend a range of classes without
+having to resort to class hierarchies. Unconventional, I admit.</p>
+
+<p>For the moment, this isn't possible. The syntax described above doesn't work.
+Sure, I can work around it. Sure, it's a bit more verbose. Nothing much.</p>
+
+<p>But it would be cool to be able to do this, I think. :)</p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+
+</body>
+
+</html>

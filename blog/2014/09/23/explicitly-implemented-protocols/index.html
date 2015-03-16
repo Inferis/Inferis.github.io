@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+
+    <title>Inferical Writings - Explicitly implemented protocols</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href=""><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Explicitly implemented protocols</h1>
+                    
+
+                    
+                      <span class="meta">Posted: September 23, 2014</span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes() * 60;
+    var h = d.getHours() * 60 * 60;
+
+    var color  = Math.round((h + m + s )*(16777215/86400));
+
+    $(".intro-header").css("background-color", '#' + color.toString(16) );
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>While traveling home from NSSpain yesterday, I got an idea for a new app. Nothing groundbreaking, and more on that later, but it required the use of health kit. I also decided to write this one in Swift, for fun and profit but mostly for fun (and perhaps also because practice makes perfect).</p>
+
+<!-- more -->
+
+<h2>The problem</h2>
+
+<p>I soon stumbled on the "you need to authorize HealthKit access" mess. It's even more an issue in HealthKit than with the other APIs since you have to ask permission to read and/or write <em>for each type</em> of object you want to access.</p>
+
+<p>So I decided to write a sort of proxy class that would handle the requesting, shielding off that hassle (since I would be needing access in several parts of the code). A pattern I've used for this kind of APIs before is that you have the class with the public API, which have an "access" call (for example). That call takes a block with one parameter: the "priviledged" part of the API. When the block is called, you can be sure to have the proper permissions making your code simpler and more obvious. Something like this:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">HealthKitAccessorReader</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">someReadOperation</span><span class="p">(</span><span class="nv">someValue</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span>
+<span class="p">}</span>
+
+<span class="k">var</span> <span class="nv">accessor</span> <span class="o">=</span> <span class="kt">HealthKitAccessor</span><span class="p">(</span><span class="n">neededObjectType</span><span class="p">)</span>
+
+<span class="n">accessor</span><span class="o">.</span><span class="n">read</span> <span class="p">{</span> <span class="p">(</span><span class="nv">reader</span><span class="p">:</span> <span class="kt">HealthKitAccessorReader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="k">in</span>
+    <span class="n">reader</span><span class="o">.</span><span class="nf">someReadOperation</span><span class="p">(</span><span class="n">someValue</span><span class="p">)</span>
+<span class="p">}</span></code></pre>
+
+<p>Now I've made APIs like these before in C#, because I think it's an interesting and useful pattern. You're able to restrict access to certain parts of the API depending on the context the user of your API needs. In the example above, the <code>read</code> method only provides access to read operations. We could have a <code>write</code> method that only provides access to write operations (or even a <code>readwrite</code> which does both).</p>
+
+<p>And the way I'd do this in C# is using private interface implementations. This is a technique which allows you to  specify that an implementation of an interface method is only usable if you use the class which implements it <em>as an interface</em>. For example, given this declarations:</p>
+
+<pre><code class="language-csharp highlight"><span class="k">interface</span> <span class="n">IHealthKitAccessorReader</span> <span class="p">{</span>
+  <span class="n">Object</span> <span class="nf">someReadOperation</span><span class="p">(</span><span class="n">Object</span> <span class="n">someValue</span><span class="p">);</span>
+<span class="p">}</span>  
+
+<span class="k">class</span> <span class="nc">HealthKitAccessor</span> <span class="p">:</span> <span class="n">IHealthKitAccessorReader</span> <span class="p">{</span>
+  <span class="k">private</span> <span class="n">HKHealthKitStore</span> <span class="n">store</span> <span class="p">=</span> <span class="p">...;</span>
+
+  <span class="k">public</span> <span class="k">void</span> <span class="nf">read</span><span class="p">(</span><span class="n">Action</span><span class="p">&lt;</span><span class="n">IHealthKitAccessor</span><span class="p">&gt;</span> <span class="n">reader</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">makeSureYouHaveAccess</span><span class="p">();</span>
+    <span class="nf">reader</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">Object</span> <span class="n">IHealthKitAccessorReader</span><span class="p">.</span><span class="nf">someReadOperation</span><span class="p">(</span><span class="n">Object</span> <span class="n">someValue</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">store</span><span class="p">.</span><span class="nf">somethingSomething</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>you can do:</p>
+
+<pre><code class="language-csharp highlight"><span class="n">var</span> <span class="n">accessor</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">HealthKitAccessor</span><span class="p">();</span>
+<span class="n">accessor</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">reader</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="n">reader</span><span class="p">.</span><span class="nf">someReadOperation</span><span class="p">(</span><span class="n">someValue</span><span class="p">);</span> <span class="p">});</span></code></pre>
+
+<p>but you can't do:</p>
+
+<pre><code class="language-csharp highlight"><span class="n">var</span> <span class="n">accessor</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">HealthKitAccessor</span><span class="p">();</span>
+<span class="n">accessor</span><span class="p">.</span><span class="nf">someReadOperation</span><span class="p">(</span><span class="n">someValue</span><span class="p">);</span></code></pre>
+
+<p>even though <code>HealthKitAccessor</code> implements <code>IHealthKitAccessorReader</code>. This is because we explictly implemented the interface method, and so it's only available if we approach accessor as an instance of <code>IHealthKitAccessorReader</code>. So technically, you can do this:</p>
+
+<pre><code class="language-csharp highlight"><span class="n">var</span> <span class="n">accessor</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">HealthKitAccessor</span><span class="p">();</span>
+<span class="n">var</span> <span class="n">reader</span> <span class="p">=</span> <span class="n">accessor</span> <span class="k">as</span> <span class="n">IHealthKitAccessorReader</span><span class="p">;</span>
+<span class="n">reader</span><span class="p">.</span><span class="nf">someReadOperation</span><span class="p">(</span><span class="n">someValue</span><span class="p">);</span></code></pre>
+
+<p>which will work, even though it's not the intention of the API.</p>
+
+<p>I've found this technique pretty useful in the past to have a class implement an API but shield direct access to it without using the specialized calls. The interface calls do not show up in intellisense/autocompletion when using the class, so it's pretty obvious in use.</p>
+
+<p>And maybe this wasn't clear, but you can choose which of the interface methods to implement implicitly or explictly. So some methods could be available on the class, some couldn't. Also, this way you can have more than one method of the same name if more than one interface implements those methods:</p>
+
+<pre><code class="language-csharp highlight"><span class="k">interface</span> <span class="n">IFirstLine</span> <span class="p">{</span>
+  <span class="k">void</span> <span class="nf">Halp</span><span class="p">();</span>
+<span class="p">}</span>  
+
+<span class="k">interface</span> <span class="n">ISecondLine</span> <span class="p">{</span>
+  <span class="k">void</span> <span class="nf">Halp</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Support</span> <span class="p">:</span> <span class="n">IFirstLine</span><span class="p">,</span> <span class="n">ISecondLine</span> <span class="p">{</span>
+  <span class="k">void</span> <span class="nf">Halp</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// default to first line, this implements IFirstLine help, and exposes Halp on Support.
+</span>  <span class="p">}</span>
+
+  <span class="k">void</span> <span class="n">ISecondLine</span><span class="p">.</span><span class="nf">Halp</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// second line
+</span>  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>Now in Swift (and this ends the C# interlude), this isn't possible. Having the same structure like before but in Swift gives us this:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">HealthKitAccessorReader</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">someReadOperation</span><span class="p">(</span><span class="nv">someValue</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span>
+<span class="p">}</span>  
+
+<span class="kd">class</span> <span class="kt">HealthKitAccessor</span> <span class="p">:</span> <span class="kt">HealthKitAccessorReader</span> <span class="p">{</span>
+  <span class="kd">private</span> <span class="nv">store</span><span class="p">:</span> <span class="kt">HKHealthKitStore</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
+
+  <span class="kd">func</span> <span class="nf">read</span><span class="p">((</span><span class="nv">reader</span><span class="p">:</span> <span class="kt">HealthKitAccessorReader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">makeSureYouHaveAccess</span><span class="p">()</span>
+    <span class="nf">reader</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">someReadOperation</span><span class="p">(</span><span class="nv">someValue</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span> <span class="p">{</span>
+    <span class="n">store</span><span class="o">.</span><span class="nf">somethingSomething</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>But this allows us to call both <code>read</code> and <code>someReadOperation</code> on any instance of the class, which is not what we want:</p>
+
+<pre><code class="language-swift highlight"><span class="k">let</span> <span class="nv">accessor</span> <span class="o">=</span> <span class="kt">HealthKitAccessor</span><span class="p">()</span>
+<span class="n">accessor</span><span class="o">.</span><span class="n">read</span> <span class="p">{</span> <span class="p">(</span><span class="n">reader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="k">in</span>
+    <span class="n">reader</span><span class="o">.</span><span class="nf">someReadOperation</span><span class="p">(</span><span class="n">someValue</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// but this also works</span>
+<span class="n">reader</span><span class="o">.</span><span class="nf">someReadOperation</span><span class="p">(</span><span class="n">someValue</span><span class="p">)</span></code></pre>
+
+<h2>The fix</h2>
+
+<p>This does not mean we cannot use this pattern in Swift. We just need an inner proxy struct that implements the methods of the protocol:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">class</span> <span class="kt">HealthKitAccessor</span> <span class="p">{</span>
+  <span class="kd">private</span> <span class="nv">store</span><span class="p">:</span> <span class="kt">HKHealthKitStore</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
+
+  <span class="kd">func</span> <span class="nf">read</span><span class="p">((</span><span class="nv">reader</span><span class="p">:</span> <span class="kt">HealthKitAccessorReader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">makeSureYouHaveAccess</span><span class="p">()</span>
+    <span class="nf">reader</span><span class="p">(</span><span class="kt">Reader</span><span class="p">(</span><span class="k">self</span><span class="p">))</span>
+  <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="kd">struct</span> <span class="kt">Reader</span> <span class="p">:</span> <span class="kt">HealthKitAccessorReader</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">accessor</span> <span class="p">:</span> <span class="kt">HealthKitAccessor</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">accessor</span><span class="p">:</span> <span class="kt">HealthKitAccessor</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">accessor</span> <span class="o">=</span> <span class="n">accessor</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">someReadOperation</span><span class="p">(</span><span class="nv">someValue</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span> <span class="p">{</span>
+      <span class="n">accessor</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="nf">somethingSomething</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>This is not bad, of course. The code is a bit less obvious because you need to have this inner class (which might implement more than one protocol, of course). And in the implementation of that inner class you always need to deference the original object first before using it. But that's just that. In effect you're moving the gist of your implementation to the inner class instead of in the class itself. When writing more complex APIs (like fluent APIs), this might become a bit cumbersome. But again, that's just than and mostly a minor inconvenience. In a way the code is a little more correct that using the explicitly implemented interface, but I've found in the past that being able to use the root class directly is more clean codewise anyway. So it's a bit of a tradeoff between the-academic-way-to-do-it and code clarity.</p>
+
+<h2>Conclusion</h2>
+
+<p>I think that explictly implemented protocol methods would be a valuable addition to Swift. I think they'd be handy (the same for abstract classes, but that's another discussion) for the points given above. The benefit of being able to use all internals of the class directly without dereferencing the original object makes the implementation more clear and there's no need for an internal proxy class. While the pattern is possible to use in Swift is required a bit more code and thus maintenance when changing the API in the future. But I guess that's a reasonable price to pay (until they add explicitly implemented protocol methods).</p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+
+</body>
+
+</html>

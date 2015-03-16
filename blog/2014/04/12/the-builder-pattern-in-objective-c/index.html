@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+
+    <title>Inferical Writings - The Builder Pattern in Objective-C</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href=""><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>The Builder Pattern in Objective-C</h1>
+                    
+
+                    
+                      <span class="meta">Posted: April 12, 2014</span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes() * 60;
+    var h = d.getHours() * 60 * 60;
+
+    var color  = Math.round((h + m + s )*(16777215/86400));
+
+    $(".intro-header").css("background-color", '#' + color.toString(16) );
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>A <a href="http://www.annema.me/blog/post/2014/4/4/the-builder-pattern-in-objective-c">blogpost</a> by <a href="http://twitter.com/klaaspieter">Klaas Pieter Annema</a> is doing the rounds on twitter lately. It appears the builder pattern is quite new to iOS devs since everybody is raving about it. In my own humble opinion I do think it is a bit convoluted for what it's worth.</p>
+
+<p>The <a href="http://joris.kluivers.nl/blog/2014/04/08/the-builder-pattern-in-objective-c-foundation/">followup post</a> by <a href="http://twitter.com/kluivers">Joris Kluivers</a> makes better use of existing classes: <code>NSURLComponents</code> becomes the builder for an <code>NSURL</code>, and given that these classes are already present and used in other use-cases, the builder pattern makes a lot of sense this way.</p>
+
+<p>But I still feel that rolling just a builder class to construct an object is a bit overkill. But it turns out you don't need two classes: you just need to leverage another feature of Objective-C: protocols.</p>
+
+<!-- more -->
+
+<p>Let's go back to Klaas Pieters last iteration:</p>
+
+<pre><code class="language-objc highlight"><span class="n">Pizza</span> <span class="o">*</span><span class="n">pizza</span> <span class="o">=</span> <span class="p">[</span><span class="n">Pizza</span> <span class="nf">pizzaWithBlock</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">PizzaBuilder</span> <span class="o">*</span><span class="n">builder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="err">;</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">pepperoni</span> <span class="o">=</span> <span class="nb">YES</span><span class="err">;</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">mushrooms</span> <span class="o">=</span> <span class="nb">YES</span><span class="err">;</span>
+<span class="p">}];</span></code></pre>
+
+<p>This needs a builder object class (<code>PizzaBuilder</code>) and the object class (<code>Pizza</code>) itself. These are most likely very alike, although this doesn't have to be the case as Joris' Foundation example points out so succinctly.</p>
+
+<p>But you can also do it like this:</p>
+
+<pre><code class="language-objc highlight"><span class="n">Pizza</span> <span class="o">*</span><span class="n">pizza</span> <span class="o">=</span> <span class="p">[</span><span class="n">Pizza</span> <span class="nf">build</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">PizzaBuilder</span><span class="o">&gt;</span> <span class="n">builder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="err">;</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">pepperoni</span> <span class="o">=</span> <span class="nb">YES</span><span class="err">;</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">mushrooms</span> <span class="o">=</span> <span class="nb">YES</span><span class="err">;</span>
+<span class="p">}];</span></code></pre>
+
+<p>So we replaced the <code>PizzaBuilder</code> <strong>class</strong> with a <code>&lt;PizzaBuilder&gt;</code> <strong>protocol</strong>. The rest of the code stays exactly the same.</p>
+
+<p>How is this protocol defined?</p>
+
+<pre><code class="language-objc highlight"><span class="k">@protocol</span> <span class="nc">PizzaBuilder</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+
+<span class="err">@required</span>
+<span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setSize</span><span class="o">:</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="n">size</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setMushrooms</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">mushrooms</span><span class="p">;</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setPepperoni</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">pepperoni</span><span class="p">;</span>
+
+<span class="k">@end</span></code></pre>
+
+<p>It just defines a number of setter methods to set the pizza values. You could also define regular properties if you need to read your builder values, but in this case this is not necessary.</p>
+
+<p>The <code>pizzaWithBlock:</code> defined by Klaas Pieter becomes a <code>build:</code> method (I like methods that actually describe what they do, and in this case <code>build:</code> makes perfect sense, although you could contend that <code>pizzaWithBlock:</code> adheres more closely to what Apple does I guess):</p>
+
+<pre><code class="language-objc highlight"><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">build</span><span class="p">:(</span><span class="kt">void</span><span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">PizzaBuilder</span><span class="o">&gt;</span><span class="n">builder</span><span class="p">))</span><span class="nv">buildBlock</span> <span class="p">{</span>
+    <span class="n">Pizza</span><span class="o">*</span> <span class="n">pizza</span> <span class="o">=</span> <span class="p">[</span><span class="n">Pizza</span> <span class="nf">new</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">buildBlock</span><span class="p">)</span> <span class="n">buildBlock</span><span class="p">(</span><span class="n">pizza</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">pizza</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+
+<p>Now we just need to have <code>Pizza</code> implement <code>&lt;PizzaBuilder&gt;</code> but we can do that in the <code>Pizza.m</code> file in an extension category:</p>
+
+<pre><code class="language-objc highlight"><span class="c1">// in Pizza.h
+</span>
+<span class="k">@interface</span> <span class="nc">Pizza</span> <span class="p">:</span> <span class="nc">NSObject</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">size</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">mushrooms</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">pepperoni</span><span class="p">;</span>
+
+<span class="k">@end</span>
+
+<span class="c1">// in Pizza.m
+</span><span class="k">@interface</span> <span class="nc">Pizza</span> <span class="p">()</span> <span class="o">&lt;</span><span class="n">PizzaBuilder</span><span class="o">&gt;</span>
+
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">size</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">mushrooms</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">pepperoni</span><span class="p">;</span>
+
+<span class="k">@end</span>
+
+<span class="k">@implementation</span>
+
+<span class="c1">// ...
+</span>
+<span class="err">@</span><span class="nc">end</span></code></pre>
+
+<p>And now the builder can directly set the properties on the pizza itself. But this happens <em>in private</em>, and it's the sole responsiblilty of <code>Pizza</code> itself and not the outside world. Also notice that I made <code>Pizza</code> immutable, so its properties are not writable for that same outside world, and the class itself is responsible for its state (as it should be).</p>
+
+<p>But even better, <code>Pizza</code> is now free to provide whatever builder implementation it chooses so, so instead of becoming a <code>&lt;PizzaBuilder&gt;</code> itself for direct manipulation, it can actually construct an <code>ItalianPizzaBuilder</code> class (for example) that implements the <code>&lt;PizzaBuilder&gt;</code> protocol. To the user building a pizza this makes absolutely no difference so our current code won't break. Which is harder to do when using an actual class. So that's a lot cleaner. And if I want a New York style pizza I can have <code>Pizza</code> use a <code>NewYorkStylePizzaBuilder</code>.</p>
+
+<p>So, yeah, I'm a big fan of protocols. I try to use them where they make sense. They offer flexibility and are more futureproof than actual classes (which you still need for an actual implementation, of course). Also remember that protocols can inherit too, so you can have more complex <code>&lt;PizzaBuilder&gt;</code> protocols for more complex <code>Pizza</code> classes too.</p>
+
+<p>And oh: (I think that) if you actually need another object to build one object you need a <em>Factory</em>, not a <em>Builder</em>.</p>
+
+<h3>Update</h3>
+
+<p><a href="http://twitter.com/sgaw">Simon Wolf</a> points out that Xcode/clang doesn't recognizer the setters as "writeonly" properties:</p>
+
+<p><img class="tweet" src="https://twitter.com/sgaw/status/455052594126544896" title="align=center"></p>
+
+<p>Which I should have known because I looked up if there was a writeonly flag on a property (and there isn't, but there is a readonly flag).
+So, you need to either write:</p>
+
+<pre><code class="language-objc highlight"><span class="n">Pizza</span> <span class="o">*</span><span class="n">pizza</span> <span class="o">=</span> <span class="p">[</span><span class="n">Pizza</span> <span class="nf">build</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="n">id</span><span class="o">&lt;</span><span class="n">PizzaBuilder</span><span class="o">&gt;</span> <span class="n">builder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">builder</span> <span class="nf">setSize</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span><span class="err">;</span>
+    <span class="p">[</span><span class="n">builder</span> <span class="nf">setPepperoni</span><span class="p">:</span><span class="nb">YES</span><span class="p">]</span><span class="err">;</span>
+    <span class="p">[</span><span class="n">builder</span> <span class="nf">mushrooms</span><span class="p">:</span><span class="nb">YES</span><span class="p">]</span><span class="err">;</span>
+<span class="p">}];</span></code></pre>
+
+<p>or have the setters as regular properties (as mentioned before):</p>
+
+<pre><code class="language-objc highlight"><span class="k">@protocol</span> <span class="nc">PizzaBuilder</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span>
+
+<span class="err">@required</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">size</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">mushrooms</span><span class="p">;</span>
+<span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">assign</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">pepperoni</span><span class="p">;</span>
+
+<span class="k">@end</span></code></pre>
+
+<p>But in that case you also need to make sure your builder implementation properly returns the values, which might be more work in the end.</p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+
+</body>
+
+</html>

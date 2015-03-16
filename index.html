@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+
+    <title>Inferical Writings - Inferical Writings</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href=""><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Inferical Writings</h1>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes() * 60;
+    var h = d.getHours() * 60 * 60;
+
+    var color  = Math.round((h + m + s )*(16777215/86400));
+
+    $(".intro-header").css("background-color", '#' + color.toString(16) );
+})();
+
+</script>
+
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/11/30/easy-revealing/">Easy Revealing</a>
+      </h2>
+      <p class="post-meta">Posted: November 30, 2014</p>
+
+      
+
+<p>I have a confession to make: I like <a href="http://revealapp.com">Reveal</a>. It's such a great tool to discover why your UI doesn't appear as it should be. It's such a great way to get a decent look at the view hierarchy in your iOS app.</p>
+
+<p>Initially, loading Reveal required you to add the reveal framework to your project before running. While not a hassle, it was rather suboptimal because you had to remove it again before shipping the app.</p>
+
+<p>But when you run your project in the simulator, there's an easier way. Have it automatically start up the Reveal server, so that you don't have to connect manually, and don't have to pollute your project with a debugging lib. Why only in the Simulator? Well, the technique requires the dynamic loading of <code>libReveal.dylib</code>. This is possible on your Mac but not on your iOS device. And the Simulator runs on your Mac, so we can use this trick to load the Reveal lib at runtime without prerequiring it in the project (to be fair, you can dynamically load libs on the device, but you'd still need to add them to your project).</p>
+
+<p>So let's do that. First on: some LLDB tricks.</p>
+
+<div class="read-more"><a href="/blog/2014/11/30/easy-revealing/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/10/28/hunting-for-change/">Hunting for change</a>
+      </h2>
+      <p class="post-meta">Posted: October 28, 2014</p>
+
+      
+
+<p><em>(This blogpost expands on a number of tweets I published this evening)</em></p>
+
+<p>I've been looking for change all my life I think. Not actively. Or sometimes more active than at other moments. I've never been somebody who values status quo or who gets stuck in habits. I rarely get up at the time each morning, I'm not bothered when I get to lunch at 1pm instead of 12:30. I don't have to take the car to work each day, or I have no problem with skipping my daily train routine for another route or transportation option.</p>
+
+<p>Not sure where this comes from, but I'm kinda always on the lookout for new things. For example, I quite abruptly switched from .Net consultancy and programming to iOS development. This wasn't easy, you know. A whole new platform, a new language, a new way of doing things. But at the time I was given the opportunity to do this, and I took it with two hands. It was time for something new. Time to learn new things, time for change.</p>
+
+<div class="read-more"><a href="/blog/2014/10/28/hunting-for-change/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/09/23/explicitly-implemented-protocols/">Explicitly implemented protocols</a>
+      </h2>
+      <p class="post-meta">Posted: September 23, 2014</p>
+
+      
+
+<p>While traveling home from NSSpain yesterday, I got an idea for a new app. Nothing groundbreaking, and more on that later, but it required the use of health kit. I also decided to write this one in Swift, for fun and profit but mostly for fun (and perhaps also because practice makes perfect).</p>
+
+<div class="read-more"><a href="/blog/2014/09/23/explicitly-implemented-protocols/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/09/21/nsspain-2014/">NSSpain 2014</a>
+      </h2>
+      <p class="post-meta">Posted: September 21, 2014</p>
+
+      
+
+<p>So I did manage to go to NSSpain this year. Having missed it last year, I had vowed to go this year. But intentions don't always work out in the end, so it was a really last minute decision to actually go (props for my team at <a href="http://icapps.com">iCapps</a> to deliver awesome results so that I actually <em>could</em> go - I am proud of you guys and girls!). Also, a <em>very big thank you</em> to <a href="http://twitter.com/lascorbe">Luis</a> for helping me find a way to Logroño, which proved harder than expected (booking everything last minute doesn't help, of course).</p>
+
+<p>I'm very happy to have actually attended. The suddenly changed <a href="Error%20processing%20input,%20expected%20syntax:%20%7B%%20img%20%5Bclass%20name(s)%5D%20%5Bhttp%5Bs%5D:/%5D/path/to/image%20%5Bwidth%20%5Bheight%5D%5D%20%5Btitle%20text%20%7C%20%22title%20text%22%20%5B%22alt%20text%22%5D%5D%20%%7D">circumstances</a> before I left surely had an impact on my expierence. My thoughts and feelings were more at home than in Logroño, but I tried to make the best of it. Thought about "going back" several times, but I'm happy to have stayed. ;)</p>
+
+<p>Now, enough with the emotionalism (is that even a word?), how was NSSpain?</p>
+
+<div class="read-more"><a href="/blog/2014/09/21/nsspain-2014/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/09/19/goodbye/">Goodbye</a>
+      </h2>
+      <p class="post-meta">Posted: September 19, 2014</p>
+
+      
+
+<p><em>This post is somewhat a diversion from what I usually post, but recent events have had such profound impact on how I feel that I feel obliged (to myself) to write about this. (Unfortunately, my English is not proficient enough to convey all my thoughts and feelings, but I'm giving it a shot anyway).</em></p>
+
+<p>I want to say goodbye to a friend. A dear friend. A best friend.</p>
+
+<div class="read-more"><a href="/blog/2014/09/19/goodbye/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/09/14/cocoapod-all-the-things/">Cocoapod All The Things</a>
+      </h2>
+      <p class="post-meta">Posted: September 14, 2014</p>
+
+      
+
+<p>So, am I the only one who manages to get sidetracked a lot when working on (personal) projects?</p>
+
+<p>For example, I have a few generic components written for various projects. In the past I would just add a <code>vendor</code> folder to my project, put the component there and be done with it.</p>
+
+<p>But I've become to like CocoaPods to much that I cannot get myself to use this simple approach anymore. The CocoaPods approach makes using external libs so clean that it feels dirty not to (unless there's no other option).</p>
+
+<div class="read-more"><a href="/blog/2014/09/14/cocoapod-all-the-things/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/09/13/objective-c-or-swift/">Objective-C or Swift?</a>
+      </h2>
+      <p class="post-meta">Posted: September 13, 2014</p>
+
+      
+
+<p>I've been planning to get on the iOS8 boat for a while now (well, since they announced it, actually). But as one with a full life, I haven't gotten around to actually do much. I played around with some Swift, watched some WWDC14 sessions but that's about it.</p>
+
+<p>Until tonight: I want to start over again on <a href="http://dra.sh">Drash</a>. There's a half baked iteration made for iOS7 (the current app runs still on iOS6 but feels right into place on iOS7 thanks to its minimal interface). But iOS8 changes so much again that I feel that it's best to start over again.</p>
+
+<p>But then this begs the question: Objective-C or Swift?</p>
+
+<p>There's some pro and cons to both, I think.</p>
+
+<div class="read-more"><a href="/blog/2014/09/13/objective-c-or-swift/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/07/09/obsolete/">Obsolete</a>
+      </h2>
+      <p class="post-meta">Posted: July 09, 2014</p>
+
+      
+
+<p>I'm afraid of becoming obsolete.</p>
+
+<p>There, I've said it.</p>
+
+<p>Let me explain: I work in a highly competitive sector which changes rapidly. This is nothing new, of course. It's always been that way. But before, I was younger. Not that I'm really old now, but that big 4 slowly creeping closer doesn't count for nothing. But I guess this is not really about age: I'm happy to work in a team with a bunch of early 20 year olds and it feels that I can manage that just fine. Sure, there are "generational" differences but all in all it works out pretty nice (I can only hope they feel the same though).</p>
+
+<div class="read-more"><a href="/blog/2014/07/09/obsolete/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/07/02/a-swift-test/">A Swift Test</a>
+      </h2>
+      <p class="post-meta">Posted: July 02, 2014</p>
+
+      
+
+<p>At the latest iCapps Monthly Teammeeting (today!), I presented our developers with a small Swift test.
+It was supposed to be a bit tongue in cheek, but also a bit serious. This new language coming out of Apple is pretty new but also here to stay, so it can't hurt to get on the bandwagon sooner rather than later. A few of us got to go to WWDC and see everything for themselves, the rest of us maybe spent some time with the videos or even started coding but I guess the majority hasn't really gotten around to seriously looking at this new language.</p>
+
+<p>And so, to spike the interest a bit more, I made this little test to see how much we all knew about Swift. It's not complete by far and it only touches on a few specifics, but I had it set up as a multiple choice test so it was kind of hard to touch on every feature in the language (for example: try asking a question on the brand new enum syntax without spoiling it). And the main goal was to show the difference from Objective-C.</p>
+
+<div class="read-more"><a href="/blog/2014/07/02/a-swift-test/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/05/29/wwdc-14/">WWDC '14</a>
+      </h2>
+      <p class="post-meta">Posted: May 29, 2014</p>
+
+      
+
+<p>So, it's that time of the year again. WWDC is almost upon us. <a href="">Like last year</a>,  I won't be able to make it due to "agenda issues" (mainly the same as last year, but that's what happens when you have kids). But also I'm in the midst of an app release at <a href="http://icapps.com">work</a> and as a team/tech lead it would be less than ideal to skip a week for WWDC (which is actually more than a week since there's the <em>Jetlag Recovery Period</em> too). So it wasn't in the stars this year.</p>
+
+<p>I think I might be going again next year. Not sure if I will go for WWDC itself, but certainly for an AltWWDC experience. There's a lot of people going to SF next week which I'd really like to meet or talk to again. Sure, there's twitter, but nothing beats IRL contact. And the buzz around WWDC is just so invigourating, or at least it was in 2012, IMHO. So we'll see. I'll have some money set aside for next year, so at least that won't be a problem.</p>
+
+<div class="read-more"><a href="/blog/2014/05/29/wwdc-14/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="/blog/2014/05/03/show-me-some-id/">Show me some id</a>
+      </h2>
+      <p class="post-meta">Posted: May 03, 2014</p>
+
+      
+
+<p>Brent Simmons touches on the use of <a href="http://inessential.com/2014/05/03/abbreviations">abbreviations</a> in Cocoa. I've noticed this behaviour too, and other uncocoalike things too. This is especially apparant in code of devs coming from other programming language/platforms.</p>
+
+<div class="read-more"><a href="/blog/2014/05/03/show-me-some-id/">Continue reading ›</a></div>
+  </div>
+  <hr>
+
+
+
+
+  <!-- Pager -->
+  <ul class="pager">
+      <li class="next">
+          <a href="">Older Posts →</a>
+      </li>
+  </ul>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+
+</body>
+
+</html>

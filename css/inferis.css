@@ -1,0 +1,23 @@
+.read-more {
+  padding: 0 20px;
+  font-size: 18px;
+}
+
+.read-more a {
+  color: #999;
+}
+
+.container img.left {
+    float: left;
+    margin-right: 1.5em
+}
+
+.container img.right {
+    float: right;
+    margin-left: 1.5em
+}
+
+.container img.center {
+    display: block;
+    margin: 0 auto 1.5em
+}

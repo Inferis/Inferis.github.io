@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+
+    <title>Inferical Writings - Followup</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href=""><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Followup</h1>
+                    
+
+                    
+                      <span class="meta">Posted: March 08, 2014</span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes() * 60;
+    var h = d.getHours() * 60 * 60;
+
+    var color  = Math.round((h + m + s )*(16777215/86400));
+
+    $(".intro-header").css("background-color", '#' + color.toString(16) );
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>I was listening to the <a href="http://www.imore.com/debug-30-casey-liss-c-and-net">most recent</a> <a href="http://www.imore.com/debug">Debug</a> episode, the one featuring the ever apologetic <a href="http://twitter.com/caseyliss">@caseyliss</a> talking about C#. It's another great episode (but most of the Debug episodes are great - I love the interaction of <a href="http://twitter.com/gte">@gte</a> with his guests). I was particularly interested in this one since I have a similar background: I spent most of my working days on a Microsoft platform and produced a bucketload of C# code (ever since it came out early 2000). Since late 2010 I've been mostly dabbling in Objective-C on the iOS platform. So I was quite curious on what Casey had to say.</p>
+
+<p>While I'm not going to rehash everything here (go listen to the podcast), I agreed with most of it. I do think he forgot an important feature of generics and c# in general: "compile time breakage".</p>
+
+<!-- more -->
+
+<h2>Using models</h2>
+
+<p>Suppose you have this c# code, a model and some code that uses it.</p>
+
+<pre><code class="language-csharp highlight"><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">public</span> <span class="kt">uint</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// later, in a file far, far away
+</span><span class="n">oldPersons</span> <span class="p">=</span> <span class="n">AllPersons</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">"Tom"</span><span class="p">);</span></code></pre>
+
+<p>or, the same in Objective-C:</p>
+
+<pre><code class="language-objective-c highlight">@interface Person
+
+@property (nonatomic, strong) NSString* name;
+@property (nonatomic, assign) NSUInteger age;
+
+@end
+
+// later, in a file far, far away
+oldPersons = [allPersons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"Tom"]];</code></pre>
+
+<p><em>Objective-C, so consise. But I disgress.</em></p>
+
+<p>So, both code blocks do the same. They define a model, and a piece of code using the model in a file far, far away. This could be in a completely distant part of the current project, or even in another project.</p>
+
+<p>There's nothing special about this code in itself, and that wasn't the point I was getting at.</p>
+
+<h2>Let's refactor</h2>
+
+<p>But suppose you (or somebody else) decides to change the <code>Person</code> model and remove the <code>Name</code> property and replace it with <code>FirstName</code> and <code>LastName</code>.</p>
+
+<p>So then we have:</p>
+
+<pre><code class="language-csharp highlight"><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>  
+  <span class="k">public</span> <span class="kt">string</span> <span class="n">FirstName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">public</span> <span class="kt">string</span> <span class="n">LastName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">public</span> <span class="kt">uint</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<pre><code class="language-objective-c highlight">@interface Person
+
+@property (nonatomic, strong) NSString* firstName;
+@property (nonatomic, strong) NSString* lastName;
+@property (nonatomic, assign) NSUInteger age;
+
+@end</code></pre>
+
+<p>Now, for the result after splitting <code>Name</code>.</p>
+
+<p>The C# version will cause the compiler to break down with an error everywhere I've used <code>Name</code>. Because it's not there anymore. And so it becomes quite easy (but maybe tedious) to fix all errors. The same applies for our code in a file far, far away. It will break and you will need to fix it.</p>
+
+<pre><code class="language-csharp highlight"><span class="c1">// error will occur here ------------v
+</span><span class="n">oldPersons</span> <span class="p">=</span> <span class="n">AllPersons</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Name</span> <span class="p">==</span> <span class="s">"Tom"</span><span class="p">);</span></code></pre>
+
+<p>The fix is easy enough, but at least you get notified of the error.</p>
+
+<p>The Objective-C version will shrug along nicely for the most part. Using ARC made things a little better, because the compiler will now barf on unknown selectors. But if another <code>name</code> selector is declared in scope where it was used before, nothing much will happen (a warning, perhaps). Some uses will generate an error.
+But in the case of our file far, far away nothing will happen at compile time. The predicate is a string containing the name property. This will break at runtime, because there's no <code>name</code> property.  </p>
+
+<pre><code class="language-objective-c highlight">// this will compile fine even when there's no name property left
+oldPersons = [allPersons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"Tom"]];</code></pre>
+
+<p>I know there's a predicateWithBlock which would migitate the problem slightly, but block syntax is unwieldy enough for the code to become even more ugly:</p>
+
+<pre><code class="language-objective-c highlight">oldPersons = [allPersons filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+            return [[evaluatedObject name] isEqualToString:@"Tom"];
+        }];</code></pre>
+
+<p>Elegant, I think not (certainly not when compared to the C# version).</p>
+
+<h2>Expressions &amp; Generics</h2>
+
+<p>I feel this is one of the strengths of C#: expressions (and thus generics). You can express something typesafe at compile time and have it still only matter at runtime. This can flag problematic situations much sooner than in the Objective-C version (also: most people think that generics are for collections only, but they're so useful in a bunch of other cases).</p>
+
+<p>I'm not saying that Objective-C should gain generics. But expressions would be cool, I think. Being able to express language constructs as data could be extremely valuable (this would require a more accesible reflection system too, by the way).</p>
+
+<p>My ways of C# coding surely did change when they introduced the feature to the language/runtime, so my gut feeling is that Objective-C would benefit from it, too.</p>
+
+<h2>In closing</h2>
+
+<p>Getting back to NSPredicate, I'd like to mention this.</p>
+
+<p><a href="http://twitter.com/mattt">@mattt</a> of <a href="http://nshipster.com">NSHipster</a> fame is <a href="http://nshipster.com/nspredicate/">quite fond of NSPredicate</a>:</p>
+
+<blockquote>
+<p>NSPredicate is, and I know this is said a lot, truly one of the jewels of Cocoa. Other languages would be lucky to have something with half of its capabilities in a third-party library - let alone the standard library. Having it as a standard-issue component affords us as application and framework developers an incredible amount of leverage in working with data.</p>
+</blockquote>
+
+<p>Don't get me wrong: NSPredicate is awesome, but the Linq constructs (including generics and expressions) are a magnitude better.</p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+
+</body>
+
+</html>
