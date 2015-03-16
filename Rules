@@ -51,6 +51,13 @@ route '/feed' do
   '/feed.atom'
 end
 
+compile 'CNAME' do
+end
+
+route 'CNAME' do
+  '/CNAME'
+end
+
 compile '*' do
   if item[:extension] == 'md'
     filter :redcarpet, :options => { :fenced_code_blocks => true, :smartypants => true }
