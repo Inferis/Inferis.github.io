@@ -1,6 +1,6 @@
 <!-- Page Header -->
 <!-- Set your background image for this header on the line below. -->
-<header class="intro-header">
+<header class="intro-header" style="background-color: #eee;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -22,13 +22,15 @@
 
 (function() {
     var d = new Date();
-    var s = d.getSeconds();
-    var m = d.getMinutes() * 60;
-    var h = d.getHours() * 60 * 60;
+    var s = d.getSeconds() + "";
+    var m = d.getMinutes() + "";
+    var h = d.getHours() + "";
 
-    var color  = Math.round((h + m + s )*(16777215/86400));
+    if (s.length < 2) s = "0" + s;
+    if (m.length < 2) m = "0" + m;
+    if (h.length < 2) h = "0" + h;
 
-    $(".intro-header").css("background-color", '#' + color.toString(16) );
+    $(".intro-header").css("background-color", '#' + h + m + s);
 })();
 
 </script>
