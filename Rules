@@ -13,21 +13,65 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
+preprocess do
+  create_archives
+end
+
+compile '/posts/*' do
+  filter :octopress_img_tags
+  filter :redcarpet, :options => { :fenced_code_blocks => true, :smartypants => true }
+  filter :fix_code_blocks
+  filter :colorize_syntax, :default_colorizer => :rouge
+  layout 'post'
+end
+
+route '/posts/*' do
+  y,m,d,slug = /([0-9]+)\-([0-9]+)\-([0-9]+)\-([^\/]+)/.match(item.identifier).captures
+  begin
+    time = Time.parse("#{item[:created_at]}")
+    y = time.year
+    m = time.month.to_s.rjust(2, '0')
+    d = time.day.to_s.rjust(2, '0')
+  rescue
+  end
+
+  "/blog/#{y}/#{m}/#{d}/#{slug}/index.html"
+end
+
+route '/archives/*' do
+  "/blog#{item.identifier}index.html"
+end
+
+compile '/feed' do
+  filter :erb
+end
+
+route '/feed' do
+  '/feed.atom'
+end
+
 compile '*' do
-  if item[:extension] == 'css'
-    # don’t filter stylesheets
+  if item[:extension] == 'md'
+    filter :redcarpet, :options => { :fenced_code_blocks => true, :smartypants => true }
+    filter :fix_code_blocks
+    filter :colorize_syntax, :default_colorizer => :rouge
+    layout 'default'
+  elsif item_is_asset?(item)
+    # don’t filter assets
   elsif item.binary?
     # don’t filter binary items
   else
     filter :erb
+    filter :colorize_syntax, :default_colorizer => :rouge
     layout 'default'
   end
 end
 
 route '*' do
-  if item[:extension] == 'css'
+  if item_is_asset?(item)
+    # don’t filter assets
     # Write item with identifier /foo/ to /foo.css
-    item.identifier.chop + '.css'
+    item.identifier.chop
   elsif item.binary?
     # Write item with identifier /foo/ to /foo.ext
     item.identifier.chop + '.' + item[:extension]

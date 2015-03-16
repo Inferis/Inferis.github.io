@@ -62,6 +62,11 @@ data_sources:
     # UTF-8 (which they should be!), change this.
     encoding: utf-8
 
+  -
+    type: static
+    items_root: /
+    allow_periods_in_identifiers: true
+
 # Configuration for the “check” command, which run unit tests on the site.
 checks:
   # Configuration for the “internal_links” checker, which checks whether all
@@ -72,3 +77,6 @@ checks:
     # E.g.:
     #   exclude: ['^/server_status']
     exclude: []
+
+base_url: http://blog.inferis.org
+page_size: 10

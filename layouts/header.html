@@ -1,0 +1,34 @@
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1><%= item[:title] %></h1>
+                    <% unless item[:subtitle].nil?
+                      %><h2 class="subheading"><%= item[:subtitle] %></h2><%
+                    end %>
+
+                    <% unless @no_date %>
+                      <span class="meta">Posted: <%= formatted_date(item[:created_at]) %></span>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds();
+    var m = d.getMinutes() * 60;
+    var h = d.getHours() * 60 * 60;
+
+    var color  = Math.round((h + m + s )*(16777215/86400));
+
+    $(".intro-header").css("background-color", '#' + color.toString(16) );
+})();
+
+</script>

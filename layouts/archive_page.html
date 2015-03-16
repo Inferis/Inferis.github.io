@@ -1,0 +1,11 @@
+<% articles_for_month(@id).each do |post| %>
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="<%= post.path %>"><%= post[:title] %></a>
+      </h2>
+      <p class="post-meta">Posted: <%= formatted_date(post[:created_at]) %></p>
+
+      <%= get_post_start(post) %>
+  </div>
+  <hr>
+<% end %>

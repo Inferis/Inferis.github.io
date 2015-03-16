@@ -1,13 +1,26 @@
 ---
-title: Home
+title: Inferical Writings
 ---
-<h1>A Brand New nanoc Site</h1>
 
-<p>You’ve just created a new nanoc site. The page you are looking at right now is the home page for your site. To get started, consider replacing this default homepage with your own customized homepage. Some pointers on how to do so:</p>
+<% sorted_articles[0..@config[:page_size]].each do |post| %>
+  <div class="post-preview">
+      <h2 class="post-title">
+        <a href="<%= post.path %>"><%= post[:title] %></a>
+      </h2>
+      <p class="post-meta">Posted: <%= formatted_date(post[:created_at]) %></p>
 
-<ul>
-  <li><p><strong>Change this page’s content</strong> by editing the “index.html” file in the “content” directory. This is the actual page content, and therefore doesn’t include the header, sidebar or style information (those are part of the layout).</p></li>
-  <li><p><strong>Change the layout</strong>, which is the “default.html” file in the “layouts” directory, and create something unique (and hopefully less bland).</p></li>
-</ul>
+      <%= get_post_start(post) %>
+  </div>
+  <hr>
+<% end %>
 
-<p>If you need any help with customizing your nanoc web site, be sure to check out the documentation (see sidebar), and be sure to subscribe to the discussion group (also see sidebar). Enjoy!</p>
+<% unless sorted_articles.count < @config[:page_size] %>
+
+  <!-- Pager -->
+  <ul class="pager">
+      <li class="next">
+          <a href="">Older Posts &rarr;</a>
+      </li>
+  </ul>
+
+<% end %>
