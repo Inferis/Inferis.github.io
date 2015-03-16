@@ -24,7 +24,9 @@ def item_is_asset?(item)
 end
 
 def is_post_published(post)
-  return post[:published].nil? ? true : post[:published]
+  published = post[:published].nil? ? true : post[:published]
+  puts "p => #{post[:title]} -> #{post[:published]} (#{published})"
+  return published
 end
 
 def articles_by_month
@@ -43,8 +45,7 @@ def articles_by_month
 end
 
 def articles_for_month(id)
-  articles_to_group = sorted_articles.select { |a| is_post_published(a) }
-  articles_to_group = articles_to_group.sort_by { |a| Time.parse("#{a[:created_at]}") }
+  articles_to_group = sorted_articles.sort_by { |a| Time.parse("#{a[:created_at]}") }
 
   articles_to_group = articles_to_group.map do |a|
     begin
@@ -57,12 +58,16 @@ def articles_for_month(id)
   result = articles_to_group.select { |a| a[:id] == id }.map { |a| a[:item] }
 end
 
+def exclude_unpublished
+  @items = @items.delete_if { |a| !is_post_published(a) }
+end
+
 def create_archives
   articles_by_month().each do |key|
     @items << Nanoc::Item.new(
       "<%= render 'archive_page', :id => \"#{key[:id]}\" %>",
       { :title => key[:time].strftime("Archive for %B %Y") },
-      "/blog/archives/#{key[:id]}/"
+      "/blog/#{key[:id]}/"
     )
   end
 end

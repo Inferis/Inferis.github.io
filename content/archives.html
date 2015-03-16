@@ -4,6 +4,7 @@ title: Archives
 
 <ul>
   <% articles_by_month().each do |key|
-    %><li><%= link_to key[:time].strftime("%B %Y"), "/blog/archives/#{key[:id]}/" %></li><%
+    %><li><%= link_to key[:time].strftime("%B %Y"),
+      "/blog/#{key[:id]}/" %></li><%
   end %>
 </ul>
