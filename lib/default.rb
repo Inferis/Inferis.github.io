@@ -24,9 +24,7 @@ def item_is_asset?(item)
 end
 
 def is_post_published(post)
-  published = post[:published].nil? ? true : post[:published]
-  puts "p => #{post[:title]} -> #{post[:published]} (#{published})"
-  return published
+  post[:published].nil? ? true : post[:published]
 end
 
 def articles_by_month
