@@ -118,7 +118,12 @@
 
 <p>This morning, a tweet from <a href="http://www.twitter.com/tomclaus">@tomclaus</a> caught my eye:</p>
 
-<p><img class="tweet" src="https://twitter.com/tomclaus/status/365771642145734656" title="align=center"></p>
+<div class="embed tweet">
+<blockquote class="twitter-tweet" align="center" width="350">
+<p>Run iOS apps in the browser :: app.io <a href="http://t.co/vbZtQ1VL6x">http://t.co/vbZtQ1VL6x</a></p>— Tom Claus (@tomclaus) <a href="https://twitter.com/tomclaus/status/365771642145734656">August 9, 2013</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
 
 <p>Being in the apps business, this peaked my interest. So I went and signed up at <a href="http://app.io">app.io</a>, just out of curiosity.</p>
 
@@ -126,11 +131,11 @@
 
 <p>They've got three plans, it seems: Free, Pro and Business. Being the cheapskate that I am, I signed up for the free plan. It allows you to upload one app, and you've got only 5000 app plays per month. The Pro plan allows up to 5 apps and 20000 plays/month, and the Business plan is even larger with 20 apps and up to 100000 plays/month. Still, $309 per month is a lot of money.</p>
 
-<p><img class="img center" src="http://f.cl.ly/items/0R1v3T3e453y3H1D1V05/Image%202013.08.09%2012%3A36%3A51.png" width="500"></p>
+<p><img class="center" src="http://f.cl.ly/items/0R1v3T3e453y3H1D1V05/Image%202013.08.09%2012%3A36%3A51.png" width="500"></p>
 
 <p>So I signed up, activated the free plan. Uploading an app is very easy: you just need to zip a simulator build of your app and, upload that zip and they'll do the rest. So I zipped a recent build of Drash, and uploaded it to their server. They say it can take up to 3 minutes to process the app depending on the size, but it was pretty quick for Drash (it not being a large app, that makes sense). All it took was a few seconds. The result is a url where you can <a href="https://app.io/VJfCVB">see your app in action</a>.</p>
 
-<p><img class="img right" src="http://f.cl.ly/items/3x012o1D0o1R2N010J2N/Image%202013.08.09%2012%3A47%3A25.png"></p>
+<p><img class="right" src="http://f.cl.ly/items/3x012o1D0o1R2N010J2N/Image%202013.08.09%2012%3A47%3A25.png"></p>
 
 <p>What this appears to be doing is running your app in a simulator, and then screencapturing the simulator screen and sending the captures to your browser. This works pretty good, but it's not buttersmooth (as was to be expected I guess). The quality of the images is pretty low. You can see compression artifacts, screenshots are sent as JPGs, but they also send smaller GIFs for smaller screen updates (spinners, for example). The framerate isn't 60fps, so it's a bit stuttery. But all in all, you get a good idea of how the app works.</p>
 
@@ -237,13 +242,15 @@ You can press the home button on the onscreen "device" which restarts your app, 
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 

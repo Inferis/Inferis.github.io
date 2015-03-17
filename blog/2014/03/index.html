@@ -122,7 +122,12 @@
 <p>Yup. Categories for protocols. You heard that right.
 It started with me asking about it on twitter:</p>
 
-<p><img class="tweet" src="https://twitter.com/inferis/status/441603940250288128" title="align=center"></p>
+<div class="embed tweet">
+<blockquote class="twitter-tweet" align="center" width="350">
+<p>Defining a category on a protocol. Is that even possible? <a href="https://twitter.com/hashtag/objc?src=hash">#objc</a></p>— Tom Adriaenssen (@Inferis) <a href="https://twitter.com/Inferis/status/441603940250288128">March 6, 2014</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
 
 <p>This question caused much confusion. "How is that even possible?" "Categories are used to
 extend existing classes, surely how can you extend a protocol?"</p>
@@ -187,7 +192,7 @@ the class' implementation file. You read that right: thats an <strong>include</s
 
 <p>I've been using the feature quite a bit: it's a great way to inspect images or colors you're using in your app, for example. Works great on attributed strings, too.</p>
 
-<p><img class="img center" src="http://cl.ly/image/0f473u3W2f0L/Image%202014-03-14%20at%2010.00.01%20pm.png" width="500"></p>
+<p><img class="center" src="http://cl.ly/image/0f473u3W2f0L/Image%202014-03-14%20at%2010.00.01%20pm.png" width="500"></p>
 
 <p>Xcode 5.1 improves the feature even further with the addition of <code>debugQuickLookObject</code>. This method allows you to provide quick look content for any of your own classes. A bit like <code>debugDescription</code> but more advanced. I haven't had the time to look further into it.</p>
 
@@ -295,13 +300,15 @@ It's a 3-day conference about developing for OSX/iOS by <em>and</em> for develop
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 

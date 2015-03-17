@@ -137,7 +137,12 @@
 
 <p>This morning, a tweet from <a href="http://www.twitter.com/tomclaus">@tomclaus</a> caught my eye:</p>
 
-<p><img class="tweet" src="https://twitter.com/tomclaus/status/365771642145734656" title="align=center"></p>
+<div class="embed tweet">
+<blockquote class="twitter-tweet" align="center" width="350">
+<p>Run iOS apps in the browser :: app.io <a href="http://t.co/vbZtQ1VL6x">http://t.co/vbZtQ1VL6x</a></p>— Tom Claus (@tomclaus) <a href="https://twitter.com/tomclaus/status/365771642145734656">August 9, 2013</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
 
 <p>Being in the apps business, this peaked my interest. So I went and signed up at <a href="http://app.io">app.io</a>, just out of curiosity.</p>
 
@@ -228,13 +233,15 @@
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 

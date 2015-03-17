@@ -177,11 +177,11 @@
 
 <p>This will give you something like this:</p>
 
-<p><img class="img center" src="http://cl.ly/image/062A1a230h35/Image%202014-12-11%20at%2012.29.05%20am.png" width="600"></p>
+<p><img class="center" src="http://cl.ly/image/062A1a230h35/Image%202014-12-11%20at%2012.29.05%20am.png" width="600"></p>
 
 <p>After that, hit <code>^⌘Y</code> to continue the app (or just type <code>continue</code>). Now you can try to fire up the Reveal Client app, and connect to your app:</p>
 
-<p><img class="img center" src="http://cl.ly/image/2M2m0j1u0p1O/Image%202014-12-11%20at%2012.25.57%20am.png" width="600"></p>
+<p><img class="center" src="http://cl.ly/image/2M2m0j1u0p1O/Image%202014-12-11%20at%2012.25.57%20am.png" width="600"></p>
 
 <p>Success!</p>
 
@@ -206,7 +206,7 @@
 
 <p>Go to your app delegate file (or any other class you'll know that runs early in your app lifecycle), and add a new breakpoint. Then edit the breakpoint:</p>
 
-<p><img class="img center" src="http://cl.ly/image/0Q3m0Z1i0223/Image%202014-12-11%20at%2012.37.25%20am.png" width="600"></p>
+<p><img class="center" src="http://cl.ly/image/0Q3m0Z1i0223/Image%202014-12-11%20at%2012.37.25%20am.png" width="600"></p>
 
 <p>Basically:</p>
 
@@ -316,13 +316,15 @@
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 

@@ -120,7 +120,7 @@
 
 <p>I've been using the feature quite a bit: it's a great way to inspect images or colors you're using in your app, for example. Works great on attributed strings, too.</p>
 
-<p><img class="img center" src="http://cl.ly/image/0f473u3W2f0L/Image%202014-03-14%20at%2010.00.01%20pm.png" width="500"></p>
+<p><img class="center" src="http://cl.ly/image/0f473u3W2f0L/Image%202014-03-14%20at%2010.00.01%20pm.png" width="500"></p>
 
 <p>Xcode 5.1 improves the feature even further with the addition of <code>debugQuickLookObject</code>. This method allows you to provide quick look content for any of your own classes. A bit like <code>debugDescription</code> but more advanced. I haven't had the time to look further into it.</p>
 
@@ -130,13 +130,13 @@
 
 <p>But now it's friday, and reading the latest edition of <a href="http://iosdevweekly.com/issues/137">iOS Dev Weekly</a>, I saw a link titled  <a href="http://useyourloaf.com/blog/2014/03/12/xcode-debugger-quick-look.html">Quick Look on UIViews</a> (the article itself is called <em>Xcode Debugger Quick Look</em>). My interest was immediately peaked: the quick look feature does not provide any specific support for UIViews, and it's been more than once where I had thought: "dammit it want to see what this view looks like". Because now you get this:</p>
 
-<p><img class="img center" src="http://cl.ly/image/100g1D2L0s0v/Image%202014-03-14%20at%2010.24.22%20pm.png" width="500"></p>
+<p><img class="center" src="http://cl.ly/image/100g1D2L0s0v/Image%202014-03-14%20at%2010.24.22%20pm.png" width="500"></p>
 
 <p>Not very useful. So my hopes were high for that article to provide a way to visualise views. And while it provided that, there was no <em>general</em> way to inspect any view. There were specific examples for labels etc, but nothing generic.</p>
 
 <p>So I decided to implement this myself. Include "UIView+DebugQuickLook.m" into your project, and all your views automagically gain <code>debugQuickLookObject</code>. Like this:</p>
 
-<p><img class="img center" src="http://cl.ly/image/0n12410C260c/Image%202014-03-14%20at%2010.29.49%20pm.png" width="300"></p>
+<p><img class="center" src="http://cl.ly/image/0n12410C260c/Image%202014-03-14%20at%2010.29.49%20pm.png" width="300"></p>
 
 <h2>Internals</h2>
 
@@ -257,13 +257,15 @@
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 

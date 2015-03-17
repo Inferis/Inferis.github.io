@@ -126,7 +126,7 @@
 
 <p>And so I worked on it, in small increments. There was this issue with <a href="http://inferis.org">inferis.org</a> being hosted at <a href="http://discountasp.net">DiscountASP</a> which has been good for me in the past but has been feeling inadequate lately. So I had to move the server to my own VPS. Which also meant moving mail from DiscountAsp to somewhere else (Gmail for now). All in all not that much work, but I had other interests and stuff to do, so progress was slow. And after I moved inferis.org, I had to decide on a blogging platform. I used to use Wordpress and while that's a perfectly nice set of software, I wanted something else. Setting up databases, PHP, etcetera, I couldn't be bothered (ignoring the fact that I did just that for the site <a href="http://lievenadriaenssen.com">my brother</a> hosts on my VPS too, but never mind that). So I looked around, and settled on <a href="http://octopress.org">Octopress</a>. I've used Jekyll in the past, and liked it, so Octopress seemed like a good fit. So I cloned Octopress, and started fiddling. And stopped again, because Other Important Things needed my attention.</p>
 
-<p><img class="img right" src="http://cl.ly/image/3X2v3g1i3w3b/Image%202013.06.01%2022%3A08%3A37.png" width="300" height="219" title="'inferis.org now. Might replace it with this blog, later'">
+<p><img class="right" src="http://cl.ly/image/3X2v3g1i3w3b/Image%202013.06.01%2022%3A08%3A37.png" width="300" height="219" title="'inferis.org now. Might replace it with this blog, later'">
 But the desire to blog still ached. I found myself thinking "this would be worth blogging about", but due to the lack of a blog that wasn't going to happen, of course. So I continued my tinkering. I managed to decide to host on Github pages (who needs a VPS anyway), and even set up the DNS correctly. But blog.inferis.org kept showing a 404 with me thinking "I'll work on it tonight" but then never doing anything for it that night (every night). Four kids and a busy job can do that for you, I guess.</p>
 
 <p>Not so this weekend. The noise in my head was finally peaceful enough to actually do something with this blog. So I looked for a theme to use, wrote this post, configured some more stuff until I was content enough to put something online. It's not finished yet, and it will probably never be. But now I have this platform again to post my ramblings (I guess most of it will be coding stuff), and I can work on it and improve it incrementally. At least: that's the idea.</p>
@@ -218,13 +218,15 @@ But the desire to blog still ached. I found myself thinking "this would be worth
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 

@@ -124,13 +124,13 @@
 
 <p>In iOS7, there's the new Control Center, which you access at the bottom by swiping up from the edge. This is great, as it allows you quick access to some settings, access which wasn't there before. I've used it extensively to use the also-new flashlight functionality. The fact that you can access it so quickly is really useful. The Control Center is also accessibly on the lock screen, which makes it so great to use. No need to unlock, go to an app and change something: no, just swipe up, toggle the wanted setting and you're done.</p>
 
-<p><img class="img center" src="http://f.cl.ly/items/0X072Y0p0D0N3m1y4127/Screenshot%202013.08.06%2015.46.55.png" title="'Lock screen'"></p>
+<p><img class="center" src="http://f.cl.ly/items/0X072Y0p0D0N3m1y4127/Screenshot%202013.08.06%2015.46.55.png" title="'Lock screen'"></p>
 
 <p>But it interferes with the get-me-the-camera gesture that's been there since a few releases. I found this out the hard way while in France this weekend, and using the phone as a glorified camera. Which meant that I had to corner-swipe the camera icon up quite a bit, and that didn't always pan out as expected: I think I got the Control Center 1 times out of each 2 times I tried to get the camera. Result: missed photo opportunities. While not a big deal, if you're touting your flagship smartphone as a great picture taking device this shouldn't be happening. I haven't had much problem with every day use, but I don't take a lot of photos in that case. When using the phone as a camera as I did this weekend, it bothered me a lot more than expected.</p>
 
 <p>So while I don't know how Apple handles the gestures, I think it would be a good idea to shorten the Control Center gesture area a bit so that it does not overlap with the Camera gesture. Swiping up in the bottom right corner gives you the camera, swiping up everywhere else gives you the Control Center. Right now, you need to start swiping <em>on</em> the camera icon. Swiping from the edge gives the Control Center. But like I said, if you swipe up (even from the edge) in the neighbourhood of the lock screen camera icon, I think it's safe to assume the user wants the camera and not the Control Center.</p>
 
-<p><img class="img center" src="http://f.cl.ly/items/223j3P1l0S2D2s2u1j2R/Image%202013.08.06%2015%3A57%3A43.png" title="'Gesture areas'"></p>
+<p><img class="center" src="http://f.cl.ly/items/223j3P1l0S2D2s2u1j2R/Image%202013.08.06%2015%3A57%3A43.png" title="'Gesture areas'"></p>
 
 <p>There's another problem with the camera gesture anyway: since it's powered by the new dynamics system, your swipe gesture sometimes isn't "strong" enough to "throw" the lockscreen up. And so you have to try again. I've had that a few times last weekend, but far less than the Control Center swipe issue.</p>
 
@@ -221,13 +221,15 @@
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 

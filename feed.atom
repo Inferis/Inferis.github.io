@@ -2,13 +2,80 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2014-11-30T22:34:09Z</updated>
+  <updated>2015-03-17T00:00:00Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-03-17:/blog/2015/03/17/new-horizons/</id>
+    <title type="html">New Horizons</title>
+    <published>2015-03-17T00:00:00Z</published>
+    <updated>2015-03-17T00:00:00Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/03/17/new-horizons/"/>
+    <content type="html">
+
+&lt;p&gt;A tweet, 2 FaceTime interviews, a trip to Cupertino for 5 two-person interviews lasting a whole day (including lunch at the Caffé Macs), a bucketload of mails and 2 handfuls of international phonecalls.&lt;/p&gt;
+
+&lt;p&gt;That's what got me a job in the UIKit team at Apple.&lt;/p&gt;
+
+&lt;p&gt;It's safe to say it's been a crazy ride so far, and it's about to get even better.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;This tweet by &lt;a href="http://twitter.com/olg"&gt;Olivier Gutknecht&lt;/a&gt; started it all:&lt;/p&gt;
+
+&lt;div class="embed tweet"&gt;
+&lt;blockquote class="twitter-tweet"&gt;
+&lt;p&gt;Discovering great new APIs at WWDC is cool.
+But you know what's -really- cool? Creating these APIs.
+
+UIKit is hiring: &lt;a href="https://twitter.com/search?q=%24me&amp;amp;src=ctag"&gt;$me&lt;/a&gt; @ apple&lt;/p&gt;— Olivier Gutknecht (@olg) &lt;a href="https://twitter.com/olg/status/482759679877984256"&gt;June 28, 2014&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;And so it started...&lt;/h2&gt;
+
+&lt;p&gt;5 days later I sent Olivier a mail with my resume. At the time I assumed I'd get stuck somewhere along the process. It would be no more than an interesting exercise in seeing how good I was deemed. I had heard the process had multiple steps, of which the last being onsite interviews in California. And so I would have been happy to get invited to Cupertino, get rejected in the last round and be done with it.&lt;/p&gt;
+
+&lt;p&gt;It didn't quite turn out that way.&lt;br&gt;
+It actually landed me a job on the other side of the world, in a company and team I'd love to work in.&lt;/p&gt;
+
+&lt;p&gt;I'm not going to go into the details of the process. Other people have blogged about it, and my experience was largely the same. The FaceTime calls were mostly technical and not really easy (although I think now they really weren't that hard). And about the onsite interviews: I felt those were mostly for probing my personality (and a bit about my technical skills, of course). All in all, while it was a very tiring day, it was one of the most interesting experiences I've had. After that day, I knew I wanted to do this job. All in all, the whole interviewing process was very comfortable; I never had the feeling to be part of an "elite".&lt;/p&gt;
+
+&lt;p&gt;Because "working on frameworks", it's a job I've always wanted to do. Even in my .Net days I wanted to work for Microsoft, creating APIs or making tools for developers. I've spent a few years for a client building an internal (.Net based) RAD framework, and I enjoyed doing that a lot. The last 18 months working for &lt;a href="http://icapps.com"&gt;iCapps&lt;/a&gt; as technical lead for the &lt;a href="https://www.bolero.be/nl/platformen/mobile"&gt;Bolero&lt;/a&gt; project enforced that even more as part of my job was building internal frameworks for the rest of the team. It was so much fun building generic stuff, clear enough for (junior) developers to use.&lt;/p&gt;
+
+&lt;p&gt;And so when that tweet came, I decided to take the plunge. It was "now or never": I'll be turning 40 this summer, my kids are still young enough to move to the other side of the world (my eldest just turned 9). My experience gained after this wouldn't really matter after this point in time, so there was no point in waiting.&lt;/p&gt;
+
+&lt;p&gt;So 258 days after that tweet, I came to a final agreement with Apple about working for them. That's a long time. The fact that there was no hurry due to the H1-B visa process didn't really help. On the other hand: there were a lot of decisions to make. Moving a family of 6 to the US is no easy feat for all parties involved.&lt;/p&gt;
+
+&lt;h2&gt;Family&lt;/h2&gt;
+
+&lt;p&gt;And speaking about family: the hard part about this decision was moving there... by myself. The further I got in the process, the more reluctant my wife became about moving us over there. So currently, the plan is that I'll be moving there by myself to start the job, with my family coming later (we're talking about at least a few months). I feel this is both a good and a bad thing. The job is going to take a lot of effort, moving there is going to ask a lot of my resources, and being there by myself will not burden my family directly, apart from me not being there. It does mean that they'll have to miss their husband/father for weeks at a time (and I will have to miss my wife and kids) but at least they'll still be in their own social network of family and friends. I've heard enough stories of similar career moves with the spouse burning out overseas due to a lack of social network, so I'm going to be pretty cautious about this. And so we're making arrangements to alleviate the issues arising from the fact that we'll be split up. Nevertheless, it remains a big gamble, but I'm confident that it'll work out. Hopefully, once my wife experiences how nice California is, she will change her mind, and there's plenty of time to work on that.&lt;/p&gt;
+
+&lt;h2&gt;Yes or no?&lt;/h2&gt;
+
+&lt;p&gt;Making the decision between this job and my family was the hardest part in this whole "ordeal". Is a job worth leaving your wife and kids behind on another continent? Is declining an exceptional chance in your career because of your family a viable option, knowing that you really want to do this job, and that you'll suffer from it when turning it down?&lt;/p&gt;
+
+&lt;p&gt;So I thought about this &lt;em&gt;a lot&lt;/em&gt;. A lot of my waking time was spent thinking about what I should do. My mood was like a pendulum, going from "w00t THIS IS SO AWESOME!" to "OMG WTF AM I DOING?" all the time.&lt;/p&gt;
+
+&lt;p&gt;In the end I went for the positive choice, in my opinion. I could say "no" and things would safely stay the same as they were. I could say "yes", causing a lot of change, but giving a lot of new chances in a future I have no idea how it will pan out. So I decided to take the gamble. It might be a mistake, it might be the start of wonderful things.&lt;/p&gt;
+
+&lt;h2&gt;Go for it&lt;/h2&gt;
+
+&lt;p&gt;And so I posted my signed offer back to Apple while being here in Leicester at NSConference (luckily, there's a Fedex dropoff point in the middle of the city). There's no way back now. I'm terribly excited to be working at Apple. I'm looking forward to doing wonderful things, to experience living and working in the United States, to learn, to grow.&lt;/p&gt;
+
+&lt;h2&gt;Last hurdle: that H1-B&lt;/h2&gt;
+
+&lt;p&gt;The last hurdle is the H1-B visa. My application is in the works, but there's no guarantee that I'll get accepted. There are so many applications for so few available visas, so we'll have to see how it goes. I know one thing: I'm going to be so pissed off if I don't get in.&lt;/p&gt;
+
+&lt;p&gt;I don't know how it will work out. I'm just going to have to seize the day, every day.&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2014-11-30:/blog/2014/11/30/easy-revealing/</id>
     <title type="html">Easy Revealing</title>
@@ -78,11 +145,11 @@
 
 &lt;p&gt;This will give you something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class="img center" src="http://cl.ly/image/062A1a230h35/Image%202014-12-11%20at%2012.29.05%20am.png" width="600"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class="center" src="http://cl.ly/image/062A1a230h35/Image%202014-12-11%20at%2012.29.05%20am.png" width="600"&gt;&lt;/p&gt;
 
 &lt;p&gt;After that, hit &lt;code&gt;^⌘Y&lt;/code&gt; to continue the app (or just type &lt;code&gt;continue&lt;/code&gt;). Now you can try to fire up the Reveal Client app, and connect to your app:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class="img center" src="http://cl.ly/image/2M2m0j1u0p1O/Image%202014-12-11%20at%2012.25.57%20am.png" width="600"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class="center" src="http://cl.ly/image/2M2m0j1u0p1O/Image%202014-12-11%20at%2012.25.57%20am.png" width="600"&gt;&lt;/p&gt;
 
 &lt;p&gt;Success!&lt;/p&gt;
 
@@ -107,7 +174,7 @@
 
 &lt;p&gt;Go to your app delegate file (or any other class you'll know that runs early in your app lifecycle), and add a new breakpoint. Then edit the breakpoint:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class="img center" src="http://cl.ly/image/0Q3m0Z1i0223/Image%202014-12-11%20at%2012.37.25%20am.png" width="600"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class="center" src="http://cl.ly/image/0Q3m0Z1i0223/Image%202014-12-11%20at%2012.37.25%20am.png" width="600"&gt;&lt;/p&gt;
 
 &lt;p&gt;Basically:&lt;/p&gt;
 
@@ -156,7 +223,12 @@
 
 &lt;p&gt;And so my head seems awful full. It's not easy to find peace and quiet on the inside. This tweet by &lt;a href="http://twitter.com/bluecrowbar"&gt;@bluecrowbar&lt;/a&gt; quite nailed it:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class="tweet" src="https://twitter.com/bluecrowbar/status/520630884769488896" title="align=center"&gt;&lt;/p&gt;
+&lt;div class="embed tweet"&gt;
+&lt;blockquote class="twitter-tweet" align="center" width="350"&gt;
+&lt;p&gt;Relaxing makes me nervous.&lt;/p&gt;— Steven Vandeweghe (@bluecrowbar) &lt;a href="https://twitter.com/bluecrowbar/status/520630884769488896"&gt;October 10, 2014&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;/div&gt;
 
 &lt;p&gt;I feel like that all the time. It's not like I'm actually always working. I can spend the whole night on the couch trying to get anything done, which doesn't work out except for browsing Facebook or Twitter, telling myself I'll be doing this or that in 5 minutes (ah yes, procrastination, my friend). But I just don't do relaxing very good. I hardly make time to go out for drinks. I never go see a movie. We don't have a TV in our house and while I can watch TV on my iPad I hardly ever do (except for occasionaly binge watching of some Netflix series). I've tried gaming too. Mostly can't be bothered apart from the occasional spikes. I've been meaning to brew some beer but found no way to make some time for it. The little bit of intentional relaxing can be - wait for it - coding. Not because I have to, but because I can. Try things out, learn new stuff. But don't put me on a couch with a beer to watch some telly: no sir. I tend to try to play a game of squash every week. That works, most of the time. I have to force myself to stop the thinking and focus on the game, but in busy times I found even that hard.&lt;/p&gt;
 
@@ -333,7 +405,7 @@
 
 &lt;p&gt;So I did manage to go to NSSpain this year. Having missed it last year, I had vowed to go this year. But intentions don't always work out in the end, so it was a really last minute decision to actually go (props for my team at &lt;a href="http://icapps.com"&gt;iCapps&lt;/a&gt; to deliver awesome results so that I actually &lt;em&gt;could&lt;/em&gt; go - I am proud of you guys and girls!). Also, a &lt;em&gt;very big thank you&lt;/em&gt; to &lt;a href="http://twitter.com/lascorbe"&gt;Luis&lt;/a&gt; for helping me find a way to Logroño, which proved harder than expected (booking everything last minute doesn't help, of course).&lt;/p&gt;
 
-&lt;p&gt;I'm very happy to have actually attended. The suddenly changed &lt;a href="Error%20processing%20input,%20expected%20syntax:%20%7B%%20img%20%5Bclass%20name(s)%5D%20%5Bhttp%5Bs%5D:/%5D/path/to/image%20%5Bwidth%20%5Bheight%5D%5D%20%5Btitle%20text%20%7C%20%22title%20text%22%20%5B%22alt%20text%22%5D%5D%20%%7D"&gt;circumstances&lt;/a&gt; before I left surely had an impact on my expierence. My thoughts and feelings were more at home than in Logroño, but I tried to make the best of it. Thought about "going back" several times, but I'm happy to have stayed. ;)&lt;/p&gt;
+&lt;p&gt;I'm very happy to have actually attended. The suddenly changed &lt;a href="%7B%%20post_url%202014-09-19-goodbye%20%%7D"&gt;circumstances&lt;/a&gt; before I left surely had an impact on my expierence. My thoughts and feelings were more at home than in Logroño, but I tried to make the best of it. Thought about "going back" several times, but I'm happy to have stayed. ;)&lt;/p&gt;
 
 &lt;p&gt;Now, enough with the emotionalism (is that even a word?), how was NSSpain?&lt;/p&gt;
 
@@ -347,7 +419,7 @@
 
 &lt;p&gt;Another part of conferences is meeting people. This is simple and hard at the same time, because it requires actual human interaction with human beings you don't know. Quite a feat for geeks like us. At NSSpain it was even harder than other conferences I've been to, because if the high number of Spanish natives. So connecting to them isn't that simple. Nevertheless, I met a lot of new people and caught up with a few others. I totally appreciated &lt;a href="http://www.twitter.com/Daniel1of1"&gt;Daniel&lt;/a&gt; coming to thank me in person for buying a Hero ticket for &lt;a href="http://cmdrconf.com"&gt;Cmd-R Conf&lt;/a&gt;. It was fun to finally say hi to &lt;a href="http://twitter.com/orta"&gt;Orta&lt;/a&gt; in the flesh. He's as energetic in real life has he feels like on twitter. It was nice to see &lt;a href="http://twitter.com/StuffMC"&gt;StuffMC&lt;/a&gt;, that jack of all trades. It was fun to talk with a few of the speakers (after all, they're humans too -- on the other hand, you need to find one way to make a connection). And, oh, I hadn't expected to meet fellow Belgians on this conf, but there were five of us. The pitfall of which is that you automatically get attracted to each other -- at least that what happens for me -- so mingling with strangers becomes more difficult. I don't avoid my fellow countrymen, but I intentionally go find new/other people too.&lt;/p&gt;
 
-&lt;p&gt;And oh yeah: I spoke at a conference. *cheers* I had previously expressed interest in doing a lightning talk but hadn't given it extra thought because I never got confirmation (I also didn't ask for it, so there's nobody to blame). But when Luis approached me the first day with "Will you do a lightning talk?" I was a bit dumbfounded at first, but said yes nevertheless. I thought I could think of something. And so I did. Lightning talks are only five minutes, so I dismissed "something technical". I felt 5 mins were too short convey something technical towards the audience. And since we use GIFs (a lot) in our communication at work, I decided to talk about that. And it wasn't bad it seems, since I got quite a bit positive feedback on it. And making the talk was a good way to get rid of some of the &lt;a href="Error%20processing%20input,%20expected%20syntax:%20%7B%%20img%20%5Bclass%20name(s)%5D%20%5Bhttp%5Bs%5D:/%5D/path/to/image%20%5Bwidth%20%5Bheight%5D%5D%20%5Btitle%20text%20%7C%20%22title%20text%22%20%5B%22alt%20text%22%5D%5D%20%%7D"&gt;dark thoughts in my head&lt;/a&gt;. Afterwards I thought there was enough to say make this into a full 30 min talk, so I might just do that.&lt;/p&gt;
+&lt;p&gt;And oh yeah: I spoke at a conference. *cheers* I had previously expressed interest in doing a lightning talk but hadn't given it extra thought because I never got confirmation (I also didn't ask for it, so there's nobody to blame). But when Luis approached me the first day with "Will you do a lightning talk?" I was a bit dumbfounded at first, but said yes nevertheless. I thought I could think of something. And so I did. Lightning talks are only five minutes, so I dismissed "something technical". I felt 5 mins were too short convey something technical towards the audience. And since we use GIFs (a lot) in our communication at work, I decided to talk about that. And it wasn't bad it seems, since I got quite a bit positive feedback on it. And making the talk was a good way to get rid of some of the &lt;a href="%7B%%20post_url%202014-09-19-goodbye%20%%7D"&gt;dark thoughts in my head&lt;/a&gt;. Afterwards I thought there was enough to say make this into a full 30 min talk, so I might just do that.&lt;/p&gt;
 
 &lt;p&gt;Also: there were a lot more people there than I had expected! I assumed it would be a pretty small conference, but there were 215 attendees present (up from about a hundred last year). They're going to cap at 200 next year, because you could feel this was slightly above capacity.&lt;/p&gt;
 
@@ -510,75 +582,6 @@ It was supposed to be a bit tongue in cheek, but also a bit serious. This new la
 &lt;/div&gt;
 
 &lt;p&gt;There's also a slide deck with the answers which I'm not going to embed but just link to so you can take &lt;a href="http://cl.ly/2e300O3t2E1s"&gt;a peek&lt;/a&gt; if you want.&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2014-05-29:/blog/2014/05/29/wwdc-14/</id>
-    <title type="html">WWDC '14</title>
-    <published>2014-05-29T14:47:10Z</published>
-    <updated>2014-05-29T14:47:10Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2014/05/29/wwdc-14/"/>
-    <content type="html">
-
-&lt;p&gt;So, it's that time of the year again. WWDC is almost upon us. &lt;a href=""&gt;Like last year&lt;/a&gt;,  I won't be able to make it due to "agenda issues" (mainly the same as last year, but that's what happens when you have kids). But also I'm in the midst of an app release at &lt;a href="http://icapps.com"&gt;work&lt;/a&gt; and as a team/tech lead it would be less than ideal to skip a week for WWDC (which is actually more than a week since there's the &lt;em&gt;Jetlag Recovery Period&lt;/em&gt; too). So it wasn't in the stars this year.&lt;/p&gt;
-
-&lt;p&gt;I think I might be going again next year. Not sure if I will go for WWDC itself, but certainly for an AltWWDC experience. There's a lot of people going to SF next week which I'd really like to meet or talk to again. Sure, there's twitter, but nothing beats IRL contact. And the buzz around WWDC is just so invigourating, or at least it was in 2012, IMHO. So we'll see. I'll have some money set aside for next year, so at least that won't be a problem.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h2&gt;Some predictions or hopes&lt;/h2&gt;
-
-&lt;p&gt;Now, for WWDC itself... There's not much stuff leaked this year, or maybe I just didn't follow much of the buzz around it. Sure there's the "health" stuff (healthbook?) and Apple's recent announcement that they're moving into the home automation market is interesting too, but apart from that there's not really a lot to go on.&lt;/p&gt;
-
-&lt;p&gt;What we won't see, I think:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;new phones (they'll keep that for september)&lt;/li&gt;
-&lt;li&gt;no iWatch (I don't see them doing all that stuff at once, and the same goes for devs). They might do something Fitbit-like if there's actual &lt;em&gt;Healthbook&lt;/em&gt; things in iOS8, but I'm not holding my breath for that.&lt;/li&gt;
-&lt;li&gt;No side-by-side apps on iPad.&lt;/li&gt;
-&lt;li&gt;Jony Ive on stage. Nope.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;What we will see, I think:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;A new mac: a Retina Air might be an option.&lt;/li&gt;
-&lt;li&gt;Or else: a retina Cinema Display to go with your fancy Mac pro&lt;/li&gt;
-&lt;li&gt;A possible update to the rMBP to have manage to drive that big ass screen.&lt;/li&gt;
-&lt;li&gt;
-&lt;em&gt;Something&lt;/em&gt; Home automation&lt;/li&gt;
-&lt;li&gt;iOS8 &amp;amp; OSX 10.10&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;So, for iOS8:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;it will be the iOS that iOS7 should have been. I'm thinking more evolution, fine tuning, performance tweaks (if they manage to prolong battery life significantly, that will be a big plus). Visually it won't change much from iOS7, apart from some usability tweaks.&lt;/li&gt;
-&lt;li&gt;Better Maps&lt;/li&gt;
-&lt;li&gt;GameCenter gets the boot and is replaced with something else, or it's significantly revamped. I don't get the feeling a lot of people actually use it to it's potential.&lt;/li&gt;
-&lt;li&gt;It's too early for the Beats deal to have impact on any WWDC announcements, and I doubt that it will have impact on the iPhone/iOS8 launch in september too. But who knows.&lt;/li&gt;
-&lt;li&gt;Better inter-app communication. I expected this last year but I guess the iOS7 redesign made this a non-priority. However, I'm wondering how they will have implemented this: I'm guessing more "open in..." sheets are not a viable option.&lt;/li&gt;
-&lt;li&gt;An expansion on the iBeacon stuff. Not sure what, but there's more to be done there.&lt;/li&gt;
-&lt;li&gt;iMore has a good &lt;a href="http://www.imore.com/ios-8-wish-list-what-wed-love-see-wwdc-2014"&gt;wishlist&lt;/a&gt;, too. Lots of useful thinks there. Not going to see the Files.app, I think.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For OSX 10.10:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;a new look (more iOS7 like, but I hope not too flat). It won't be a "direct transplant" of the iOS7 look, but it'll certainly be inspired by it. Although: I like the look of OSX now, but probably said the same of iOS6 before iOS7. ;)&lt;/li&gt;
-&lt;li&gt;more integration between OSX and iOS. There's a lot of cool stuff to be done with iBeacons to have your devices work more seamlessly together. The key parts are in place: iCloud, iCloud Keychain and iBeacon are a powerful combo if used correctly (use your phone as a "password", or have iMessage show notifications on &lt;strong&gt;only one device&lt;/strong&gt; - imagine that).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Also: looking forward to Xcode6 although I think Xcode5 &lt;strong&gt;is&lt;/strong&gt; the best Xcode ever (which isn't saying a lot, though). They could learn from Appcode, a lot of low hanging refactoring fruit could be picked there. I'm also wondering if they will keep the simulator and not move to an actual emulator. Recent hardware certainly can handle iOS VMs very well, so why not? And there's surely an actual x86-64 version of iOS somewhere. But perhaps it's too early.&lt;/p&gt;
-
-&lt;p&gt;Finally: will the bots infrastructure they introduced last year get a decent overhaul? Because now it's too limited and too much of a black box to be actually usable. So either ditch it, or improve it, Apple.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;(Looking back at &lt;a href="http://blog.inferis.org/blog/2013/06/10/wwdc-2013-hopes-and-expectations/"&gt;my predictions&lt;/a&gt; for last year, it seems they were, eh, pretty hopeless. Oh well.)&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2&gt;Videos&lt;/h2&gt;
-
-&lt;p&gt;As a lot of people I'll be following &lt;a href="https://www.apple.com/apple-events/june-2014/"&gt;the livestream of the keynote&lt;/a&gt; next monday. It's a different vibe than being in the keynote room, but it's close enough. And after that I'll be losing some sleep to keeping up with the WWDC videos. Because the best time to watch them is around WWDC itself, and not "later when I'll have time".&lt;/p&gt;
 
 </content>
   </entry>

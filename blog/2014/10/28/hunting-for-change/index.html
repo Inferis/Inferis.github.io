@@ -130,7 +130,12 @@
 
 <p>And so my head seems awful full. It's not easy to find peace and quiet on the inside. This tweet by <a href="http://twitter.com/bluecrowbar">@bluecrowbar</a> quite nailed it:</p>
 
-<p><img class="tweet" src="https://twitter.com/bluecrowbar/status/520630884769488896" title="align=center"></p>
+<div class="embed tweet">
+<blockquote class="twitter-tweet" align="center" width="350">
+<p>Relaxing makes me nervous.</p>— Steven Vandeweghe (@bluecrowbar) <a href="https://twitter.com/bluecrowbar/status/520630884769488896">October 10, 2014</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
 
 <p>I feel like that all the time. It's not like I'm actually always working. I can spend the whole night on the couch trying to get anything done, which doesn't work out except for browsing Facebook or Twitter, telling myself I'll be doing this or that in 5 minutes (ah yes, procrastination, my friend). But I just don't do relaxing very good. I hardly make time to go out for drinks. I never go see a movie. We don't have a TV in our house and while I can watch TV on my iPad I hardly ever do (except for occasionaly binge watching of some Netflix series). I've tried gaming too. Mostly can't be bothered apart from the occasional spikes. I've been meaning to brew some beer but found no way to make some time for it. The little bit of intentional relaxing can be - wait for it - coding. Not because I have to, but because I can. Try things out, learn new stuff. But don't put me on a couch with a beer to watch some telly: no sir. I tend to try to play a game of squash every week. That works, most of the time. I have to force myself to stop the thinking and focus on the game, but in busy times I found even that hard.</p>
 
@@ -229,13 +234,15 @@
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 

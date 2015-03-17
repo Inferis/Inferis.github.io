@@ -126,7 +126,7 @@
 
 <!-- more -->
 
-<p><img class="img" src="http://cl.ly/image/1P0B0G3Y0K2K/Image%202013.10.12%2014%3A37%3A17.png" width="700"></p>
+<p><img src="http://cl.ly/image/1P0B0G3Y0K2K/Image%202013.10.12%2014%3A37%3A17.png" width="700"></p>
 
 <p>Also, this is conveying the same information twice: first you have the variable type, and then you repeat it in the cast. Just to satisy the compiler.
 And since we're talking about Objective-C here, a language which is dynamic enough that the actual type of the object at runtime could be something not even remotely the same as the type intended by the developer writing this code. So the cast is just "syntactic sugar" to make your code more safe and more obvious.</p>
@@ -146,7 +146,7 @@ And since we're talking about Objective-C here, a language which is dynamic enou
 
 <p>and it compiles without warning:</p>
 
-<p><img class="img" src="http://cl.ly/image/0r2U3u0w0G0B/Image%202013.10.12%2015%3A05%3A45.png" width="700"></p>
+<p><img src="http://cl.ly/image/0r2U3u0w0G0B/Image%202013.10.12%2015%3A05%3A45.png" width="700"></p>
 
 <p><em>(look ma, no warning!)</em></p>
 
@@ -244,13 +244,15 @@ And since we're talking about Objective-C here, a language which is dynamic enou
 <script src="/js/clean-blog.min.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  if (window.location.hostname != "localhost") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-155493-9', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
 
 </script>
 
