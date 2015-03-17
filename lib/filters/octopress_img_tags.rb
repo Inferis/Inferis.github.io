@@ -1,4 +1,9 @@
 class OctopressImgTags < OctopressFilter
+
+  def tag_name
+    "img"
+  end
+
   def run_octopress(tag_name, markup, params)
     attributes = ['class', 'src', 'width', 'height', 'title']
     if markup =~ /(?<class>\S.*\s+)?(?<src>(?:https?:\/\/|\/|\S+\/)\S+)(?:\s+(?<width>\d+))?(?:\s+(?<height>\d+))?(?<title>\s+.+)?/i

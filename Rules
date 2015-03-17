@@ -20,6 +20,7 @@ end
 
 compile '/posts/*' do
   filter :octopress_img_tags
+  filter :octopress_tweet_tags
   filter :redcarpet, :options => { :fenced_code_blocks => true, :smartypants => true }
   filter :fix_code_blocks
   filter :colorize_syntax, :default_colorizer => :rouge
@@ -60,6 +61,8 @@ end
 
 compile '*' do
   if item[:extension] == 'md'
+    filter :octopress_img_tags
+    filter :octopress_tweet_tags
     filter :redcarpet, :options => { :fenced_code_blocks => true, :smartypants => true }
     filter :fix_code_blocks
     filter :colorize_syntax, :default_colorizer => :rouge
