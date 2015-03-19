@@ -11,7 +11,7 @@
     <meta name="generator" content="nanoc 3.7.5">
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <title>Inferical Writings - Archive for March 2014</title>
+    <title>Inferical Writings - The Last NSConference</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/clean-blog.css" rel="stylesheet">
@@ -79,9 +79,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Archive for March 2014</h1>
+                    <h1>The Last NSConference</h1>
                     
 
+                    
+                      <span class="meta">Posted: March 19, 2015</span>
                     
                 </div>
             </div>
@@ -106,121 +108,52 @@
 </script>
 
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                
-  <div class="post-preview">
-      <h2 class="post-title">
-        <a href="/blog/2014/03/06/categories-for-at-protocols/">Categories for @protocols</a>
-      </h2>
-      <p class="post-meta">Posted: March 06, 2014</p>
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-      
+                  
 
-<p>Yup. Categories for protocols. You heard that right.
-It started with me asking about it on twitter:</p>
+<p>The last <a href="http://nsconference.com">NSConference</a>. I'm happy to say I was there. I'm sad to see it go.</p>
 
-<div class="embed tweet">
-<blockquote class="twitter-tweet" align="center" width="350">
-<p>Defining a category on a protocol. Is that even possible? <a href="https://twitter.com/hashtag/objc?src=hash">#objc</a></p>— Tom Adriaenssen (@Inferis) <a href="https://twitter.com/Inferis/status/441603940250288128">March 6, 2014</a>
-</blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
+<p>I attended three editions of NSConf. The first one was in 2013: due to scheduling reasons, I couldn't attend WWDC and so I was on the lookout for a replacement. NSConf seemed to be it, and I bought a ticket. I had known about NSConf before (given I'm relatively new to the Cocoa community, having only started in 2011), but I never got around to going. But buying that ticket was one of the best decisions ever made.</p>
 
-<p>This question caused much confusion. "How is that even possible?" "Categories are used to
-extend existing classes, surely how can you extend a protocol?"</p>
+<!-- more -->
 
-<div class="read-more"><a href="/blog/2014/03/06/categories-for-at-protocols/">Continue reading ›</a></div>
-  </div>
-  <hr>
+<h2>Friends &amp; Community</h2>
 
-  <div class="post-preview">
-      <h2 class="post-title">
-        <a href="/blog/2014/03/07/categories-for-at-protocols-2/">categories-for-@protocols (2)</a>
-      </h2>
-      <p class="post-meta">Posted: March 07, 2014</p>
+<p>Because I came back for seconds and now thirds. And by doing that, I made a lot of new friends. People I wouldn't otherwise have met. People who share similar values, people who do similar work. Each in their own way, all in familiar ways. And while all of us are introverts and hate to talk to strangers, NSConf did provide for a welcoming enough atmosphere to make meetups with other people happen.</p>
 
-      
+<p>I mean, you spend the day at a table with other people, so it's bound to happen that you'll be talking to each other. You stand in the queue for lunch, and you can't but start a conversation with the people around you. You go for coffee and talk to the guy next to you who's also getting coffee <em>(I thought about writing "girl" here - diversity and all - but alas the chance for that is unfortunately still too small in our community)</em>. But there's more life outside the conference venue too. You can have breakfast with people staying at your hotel, or go for a nice curry with a group of people you hardly know. And the bar nearby is a fertile breeding ground for new acquaintances and friendships. One caveat though: for all these things, I'm assuming that you know to tear your eyes away from that iPhone screen for a few minutes here and there.</p>
 
-<p>And a follow-up post for <a href="../../06/categories-for-at-protocols">this one</a>. Already!</p>
+<p>So the value of NSConference is not only the excellent talks that are given there, it's also the social aspect that's so important. The fact that the conference schedule is geared for social interaction makes it so interesting to attend: first you listen to a talk (talks which most of the time make you stop and think about the things said), and afterward you can reflect on that talk with your neighbors. Or not, and just show 'm that app your working on or that problem you're stuck with. Or tell 'm how hard it is combining a happy family life with a challenging job.</p>
 
-<p>I forgot about it, but <a href="http://twitter.com/pjaspers">@pjaspers</a> reminded me that
-we actually did something similar to this using "regular" language constructs.</p>
+<p>This is also why I was intent to share the news of my new job at Apple over there. Taking the job was a hard decision to make, and by making the news public I could talk to people about it, which helped to put things into perspective (and thanks for the support guys).</p>
 
-<p>What you could do:</p>
+<p>These are the reasons why I think that NSConference is a very valuable instrument in our community.</p>
 
-<ol>
-<li>extend the protocol with the method you need (as has been suggested before)</li>
-<li>implement the protocol extension method a seperate .m file (similarly named to
-the .h file the protocol is defined in, I guess). Forgo the @implementation/@end
-dance, just put the method code "naked" into the file.</li>
-<li>for each class conforming to the protocol do a <code>#include "Protocol+Implementation.m"</code> in
-the class' implementation file. You read that right: thats an <strong>include</strong> and not an <strong>import</strong>.</li>
-</ol>
+<h2>Gone, but not forgotten</h2>
 
-<div class="read-more"><a href="/blog/2014/03/07/categories-for-at-protocols-2/">Continue reading ›</a></div>
-  </div>
-  <hr>
+<p>But, it's also gone. <em>NSConference 7</em> was the last NSConference.</p>
 
-  <div class="post-preview">
-      <h2 class="post-title">
-        <a href="/blog/2014/03/08/followup/">Followup</a>
-      </h2>
-      <p class="post-meta">Posted: March 08, 2014</p>
+<p>It's a pity to see it go, and I can see why <a href="http://twitter.com/macdevnet">Scotty</a> and his team are stopping the "franchise". It might have grown beyond its bounds, and it's probably grown beyond a safe enough feeling of control. Perhaps it's also time for a new format.</p>
 
-      
+<p>I'm pretty confident that Scotty will come up with something new. Don't know where, don't know when, but it felt like it would happen eventually in one form or another.</p>
 
-<p>I was listening to the <a href="http://www.imore.com/debug-30-casey-liss-c-and-net">most recent</a> <a href="http://www.imore.com/debug">Debug</a> episode, the one featuring the ever apologetic <a href="http://twitter.com/caseyliss">@caseyliss</a> talking about C#. It's another great episode (but most of the Debug episodes are great - I love the interaction of <a href="http://twitter.com/gte">@gte</a> with his guests). I was particularly interested in this one since I have a similar background: I spent most of my working days on a Microsoft platform and produced a bucketload of C# code (ever since it came out early 2000). Since late 2010 I've been mostly dabbling in Objective-C on the iOS platform. So I was quite curious on what Casey had to say.</p>
+<p>And so I hope there will be an "NSConferenceTNG", a conference which will be even more inclusive than this last edition. We need more non-white, non-male people at events like these (and, in a broader way, also in our industry). We need to reach people who are hard to reach, who might even not known there's a beautiful and warm community out there. It will not only allow us to make better software, it will also allow us to better ourselves. And last but not least, through our better software and better self, we'll be able make a better world for everybody. And while that might sound cheese, I feel it's an applaudable goal.</p>
 
-<p>While I'm not going to rehash everything here (go listen to the podcast), I agreed with most of it. I do think he forgot an important feature of generics and c# in general: "compile time breakage".</p>
+<p>Thanks for the great time, my friends. Thank you Scotty and your team for the time you put into this. It has changed me and I'll never forget that.</p>
 
-<div class="read-more"><a href="/blog/2014/03/08/followup/">Continue reading ›</a></div>
-  </div>
-  <hr>
-
-  <div class="post-preview">
-      <h2 class="post-title">
-        <a href="/blog/2014/03/14/quick-look-for-uiview/">Quick Look for UIView</a>
-      </h2>
-      <p class="post-meta">Posted: March 14, 2014</p>
-
-      
-
-<p>Xcode 5.0 introduced an interesting new feature: <a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/CustomClassDisplay_in_QuickLook/Introduction/Introduction.html">Quick Look for variables</a>. Basically, it lets you inspect variables and their contents in a graphical way. This allows for interesting ways of viewing the state of your app.</p>
-
-<p>I've been using the feature quite a bit: it's a great way to inspect images or colors you're using in your app, for example. Works great on attributed strings, too.</p>
-
-<p><img class="center" src="http://cl.ly/image/0f473u3W2f0L/Image%202014-03-14%20at%2010.00.01%20pm.png" width="500"></p>
-
-<p>Xcode 5.1 improves the feature even further with the addition of <code>debugQuickLookObject</code>. This method allows you to provide quick look content for any of your own classes. A bit like <code>debugDescription</code> but more advanced. I haven't had the time to look further into it.</p>
-
-<div class="read-more"><a href="/blog/2014/03/14/quick-look-for-uiview/">Continue reading ›</a></div>
-  </div>
-  <hr>
-
-  <div class="post-preview">
-      <h2 class="post-title">
-        <a href="/blog/2014/03/17/inspiration/">Inspiration</a>
-      </h2>
-      <p class="post-meta">Posted: March 17, 2014</p>
-
-      
-
-<p>I am currently at <a href="http://nsconference.com">NSConference 6</a>. For those who haven't heard of NSConference, it's a "community conference for OSX and iOS developers".
-It's a 3-day conference about developing for OSX/iOS by <em>and</em> for developers. If you're an iOS or Mac developer based in Europe, it's a great way to meet the community and learn new stuff.</p>
-
-<p>The problem with these conferences is inspiration. The talks are usually pretty good, and get you fired up to start doing something. Not necessarily with the knowlegde you learn at the conference, but even with what you've been working on at home (or work). The great thing about NSConference (and in general about the smaller conferences) is that they're mixed technical and non-technical. Not everything is about "how to code this-and-that", but it's also how what other people have learned, passing on their experience onto the attendees. Sometimes the talks are mainly about your own "wetware" (thanks <a href="http://twitter.com/bmf">@bmf</a>!), how you deal with building apps and interaction with your customers, clients or colleagues.</p>
-
-<div class="read-more"><a href="/blog/2014/03/17/inspiration/">Continue reading ›</a></div>
-  </div>
-  <hr>
+<p><img class="center" src="http://c.inferis.org/image/2k0r1a3d1W2G/Chuck_Norris_salute.gif" title='"I salute you!"' alt='"I salute you!"'></p>
 
 
+
+                </div>
             </div>
         </div>
-    </div>
+    </article>
 
     <hr>
 

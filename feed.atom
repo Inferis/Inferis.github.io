@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-03-17T00:00:00Z</updated>
+  <updated>2015-03-18T23:00:00Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
@@ -10,10 +10,52 @@
     <uri>http://inferis.org</uri>
   </author>
   <entry>
+    <id>tag:blog.inferis.org,2015-03-19:/blog/2015/03/19/the-last-nsconference/</id>
+    <title type="html">The Last NSConference</title>
+    <published>2015-03-18T23:00:00Z</published>
+    <updated>2015-03-18T23:00:00Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/03/19/the-last-nsconference/"/>
+    <content type="html">
+
+&lt;p&gt;The last &lt;a href="http://nsconference.com"&gt;NSConference&lt;/a&gt;. I'm happy to say I was there. I'm sad to see it go.&lt;/p&gt;
+
+&lt;p&gt;I attended three editions of NSConf. The first one was in 2013: due to scheduling reasons, I couldn't attend WWDC and so I was on the lookout for a replacement. NSConf seemed to be it, and I bought a ticket. I had known about NSConf before (given I'm relatively new to the Cocoa community, having only started in 2011), but I never got around to going. But buying that ticket was one of the best decisions ever made.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;Friends &amp;amp; Community&lt;/h2&gt;
+
+&lt;p&gt;Because I came back for seconds and now thirds. And by doing that, I made a lot of new friends. People I wouldn't otherwise have met. People who share similar values, people who do similar work. Each in their own way, all in familiar ways. And while all of us are introverts and hate to talk to strangers, NSConf did provide for a welcoming enough atmosphere to make meetups with other people happen.&lt;/p&gt;
+
+&lt;p&gt;I mean, you spend the day at a table with other people, so it's bound to happen that you'll be talking to each other. You stand in the queue for lunch, and you can't but start a conversation with the people around you. You go for coffee and talk to the guy next to you who's also getting coffee &lt;em&gt;(I thought about writing "girl" here - diversity and all - but alas the chance for that is unfortunately still too small in our community)&lt;/em&gt;. But there's more life outside the conference venue too. You can have breakfast with people staying at your hotel, or go for a nice curry with a group of people you hardly know. And the bar nearby is a fertile breeding ground for new acquaintances and friendships. One caveat though: for all these things, I'm assuming that you know to tear your eyes away from that iPhone screen for a few minutes here and there.&lt;/p&gt;
+
+&lt;p&gt;So the value of NSConference is not only the excellent talks that are given there, it's also the social aspect that's so important. The fact that the conference schedule is geared for social interaction makes it so interesting to attend: first you listen to a talk (talks which most of the time make you stop and think about the things said), and afterward you can reflect on that talk with your neighbors. Or not, and just show 'm that app your working on or that problem you're stuck with. Or tell 'm how hard it is combining a happy family life with a challenging job.&lt;/p&gt;
+
+&lt;p&gt;This is also why I was intent to share the news of my new job at Apple over there. Taking the job was a hard decision to make, and by making the news public I could talk to people about it, which helped to put things into perspective (and thanks for the support guys).&lt;/p&gt;
+
+&lt;p&gt;These are the reasons why I think that NSConference is a very valuable instrument in our community.&lt;/p&gt;
+
+&lt;h2&gt;Gone, but not forgotten&lt;/h2&gt;
+
+&lt;p&gt;But, it's also gone. &lt;em&gt;NSConference 7&lt;/em&gt; was the last NSConference.&lt;/p&gt;
+
+&lt;p&gt;It's a pity to see it go, and I can see why &lt;a href="http://twitter.com/macdevnet"&gt;Scotty&lt;/a&gt; and his team are stopping the "franchise". It might have grown beyond its bounds, and it's probably grown beyond a safe enough feeling of control. Perhaps it's also time for a new format.&lt;/p&gt;
+
+&lt;p&gt;I'm pretty confident that Scotty will come up with something new. Don't know where, don't know when, but it felt like it would happen eventually in one form or another.&lt;/p&gt;
+
+&lt;p&gt;And so I hope there will be an "NSConferenceTNG", a conference which will be even more inclusive than this last edition. We need more non-white, non-male people at events like these (and, in a broader way, also in our industry). We need to reach people who are hard to reach, who might even not known there's a beautiful and warm community out there. It will not only allow us to make better software, it will also allow us to better ourselves. And last but not least, through our better software and better self, we'll be able make a better world for everybody. And while that might sound cheese, I feel it's an applaudable goal.&lt;/p&gt;
+
+&lt;p&gt;Thanks for the great time, my friends. Thank you Scotty and your team for the time you put into this. It has changed me and I'll never forget that.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2k0r1a3d1W2G/Chuck_Norris_salute.gif" title='"I salute you!"' alt='"I salute you!"'&gt;&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
     <id>tag:blog.inferis.org,2015-03-17:/blog/2015/03/17/new-horizons/</id>
     <title type="html">New Horizons</title>
-    <published>2015-03-17T00:00:00Z</published>
-    <updated>2015-03-17T00:00:00Z</updated>
+    <published>2015-03-16T23:00:00Z</published>
+    <updated>2015-03-16T23:00:00Z</updated>
     <link rel="alternate" href="http://blog.inferis.org/blog/2015/03/17/new-horizons/"/>
     <content type="html">
 
@@ -555,33 +597,6 @@ This was a key property of Bert. When he did something, he always went full out 
 &lt;p&gt;Doing nothing is not an option, so I'm going to have to devise a plan to make "keeping up" feasible. Meanwhile, I'm just going to keep throwing myself at it with all the energy that I have. So frustrating, so much fun.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;update:&lt;/strong&gt; Seems &lt;a href="https://the-pastry-box-project.net/ed-finkler/2014-july-6"&gt;I'm not alone&lt;/a&gt;.&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2014-07-02:/blog/2014/07/02/a-swift-test/</id>
-    <title type="html">A Swift Test</title>
-    <published>2014-07-02T20:28:29Z</published>
-    <updated>2014-07-02T20:28:29Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2014/07/02/a-swift-test/"/>
-    <content type="html">
-
-&lt;p&gt;At the latest iCapps Monthly Teammeeting (today!), I presented our developers with a small Swift test.
-It was supposed to be a bit tongue in cheek, but also a bit serious. This new language coming out of Apple is pretty new but also here to stay, so it can't hurt to get on the bandwagon sooner rather than later. A few of us got to go to WWDC and see everything for themselves, the rest of us maybe spent some time with the videos or even started coding but I guess the majority hasn't really gotten around to seriously looking at this new language.&lt;/p&gt;
-
-&lt;p&gt;And so, to spike the interest a bit more, I made this little test to see how much we all knew about Swift. It's not complete by far and it only touches on a few specifics, but I had it set up as a multiple choice test so it was kind of hard to touch on every feature in the language (for example: try asking a question on the brand new enum syntax without spoiling it). And the main goal was to show the difference from Objective-C.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;The results were fascinating. There were 13 questions, and the number or correct answers ranged from 11 to 5. Most of the developers were around 6 or 8 correct answers. Two people managed to score 11 points.&lt;/p&gt;
-
-&lt;p&gt;Also, people seemed to like it even though it was a test. It was obvious it was "for fun", but after the session it spike several conversations about some of the topics touched. So that was a success, I guess.&lt;/p&gt;
-
-&lt;div style="width:600px; margin: 1em auto 0 auto;"&gt;
-&lt;script async class="speakerdeck-embed" data-id="ef16f290e44501311c6d56c19b776c40" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"&gt;&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;p&gt;There's also a slide deck with the answers which I'm not going to embed but just link to so you can take &lt;a href="http://cl.ly/2e300O3t2E1s"&gt;a peek&lt;/a&gt; if you want.&lt;/p&gt;
 
 </content>
   </entry>
