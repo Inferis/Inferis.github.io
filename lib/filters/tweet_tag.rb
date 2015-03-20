@@ -41,7 +41,7 @@ class OctopressTweetTags < OctopressFilter
 
   def html_output_for(api_params)
     body = "Tweet could not be processed"
-    if response = live_response(api_params)
+    if response = cached_response(api_params) || live_response(api_params)
       body = response['html'] || response['error'] || body
     end
     "<div class='embed tweet'>#{body}</div>"
