@@ -5,13 +5,25 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1><%= item[:title] %></h1>
+                    <h1>
+                      <% if item[:externalurl] %>
+                        <a class="decorated" href="<%= item[:externalurl] %>"><%= item[:title] %></a> ↦
+                      <% else %>
+                        <%= item[:title] %>
+                      <% end %>
+                    </h1>
                     <% unless item[:subtitle].nil?
                       %><h2 class="subheading"><%= item[:subtitle] %></h2><%
                     end %>
 
-                    <% unless @no_date %>
-                      <span class="meta">Posted: <%= formatted_date(item[:created_at]) %></span>
+                    <% if item[:kind] == "article" %>
+                      <span class="meta">
+                        <% unless @no_date %>
+                        <%= formatted_date(item[:created_at]) %> ·
+                        <% end %>
+
+                        <a href="<%= item.path %>">∞</a>
+                      </span>
                     <% end %>
                 </div>
             </div>
