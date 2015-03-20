@@ -27,6 +27,10 @@ def is_post_published(post)
   post[:published].nil? ? true : post[:published]
 end
 
+def is_post_preview(post)
+  post[:preview].nil? ? false : post[:preview]
+end
+
 def articles_by_month
   articles_to_group = sorted_articles.select { |a| is_post_published(a) }
   articles_to_group = articles_to_group.sort_by { |a| Time.parse("#{a[:created_at]}") }
@@ -54,6 +58,10 @@ def articles_for_month(id)
   end
 
   result = articles_to_group.select { |a| a[:id] == id }.map { |a| a[:item] }
+end
+
+def sorted_articles
+  super.select { |a| !is_post_preview(a) }
 end
 
 def exclude_unpublished
