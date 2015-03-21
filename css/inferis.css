@@ -21,3 +21,12 @@
     display: block;
     margin: 0 auto 1.5em
 }
+
+h1 a, h1 a:hover {
+  color: white;
+}
+
+
+a.decorated {
+  text-decoration: underline;
+}
