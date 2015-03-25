@@ -3,14 +3,7 @@ title: Inferical Writings
 ---
 
 <% sorted_articles[0..@config[:page_size]].each do |post| %>
-  <div class="post-preview">
-      <h2 class="post-title">
-        <a href="<%= post.path %>"><%= post[:title] %></a>
-      </h2>
-      <p class="post-meta">Posted: <%= formatted_date(post[:created_at]) %></p>
-
-      <%= get_post_start(post) %>
-  </div>
+  <%= render 'post_preview', :post => post %>
   <hr>
 <% end %>
 
