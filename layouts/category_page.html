@@ -1,4 +1,4 @@
-<% articles_for_month(@id).each do |post| %>
+<% articles_in_category(@category).each do |post| %>
   <%= render 'post_preview', :post => post %>
   <hr>
 <% end %>

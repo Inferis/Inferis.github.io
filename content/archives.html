@@ -4,7 +4,7 @@ title: Archives
 
 <ul>
   <% articles_by_month().each do |key|
-    %><li><%= link_to key[:time].strftime("%B %Y"),
-      "/blog/#{key[:id]}/" %></li><%
+    count = articles_for_month(key[:id]).count
+    %><li><%= link_to key[:time].strftime("%B %Y"), "/blog/#{key[:id]}/" %> <span class="list-meta">(<%= count %> article<%= count == 1 ? "" : "s" %>)</span></li><%
   end %>
 </ul>

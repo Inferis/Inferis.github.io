@@ -23,6 +23,10 @@
                         <% end %>
 
                         <a href="<%= item.path %>">∞</a>
+
+                        <% if item[:categories] %>
+                        · <%= formatted_categories(item[:categories]) %>
+                        <% end %>
                       </span>
                     <% end %>
                 </div>

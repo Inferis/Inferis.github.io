@@ -1,0 +1,18 @@
+<div class="post-preview">
+    <h2 class="post-title">
+      <% if @post[:externalurl] %>
+        <a class="decorated" href="<%= @post[:externalurl] %>"><%= @post[:title] %></a> ↦
+      <% else %>
+        <a href="<%= @post.path %>"><%= @post[:title] %></a>
+      <% end %>
+    </h2>
+    <p class="post-meta">
+      <%= formatted_date(@post[:created_at]) %> ·
+      <a href="<%= @post.path %>">∞</a>
+      <% if @post[:categories] %>
+      · <%= formatted_categories(@post[:categories]) %>
+      <% end %>
+    </p>
+
+    <%= get_post_start(@post) %>
+</div>

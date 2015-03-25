@@ -60,8 +60,25 @@ def articles_for_month(id)
   result = articles_to_group.select { |a| a[:id] == id }.map { |a| a[:item] }
 end
 
+def articles_in_category(category)
+  sorted_articles.select{|a| a[:categories].include?(category) rescue false }
+end
+
 def sorted_articles
   super.select { |a| !is_post_preview(a) }
+end
+
+def all_categories
+  categories = []
+  sorted_articles.each do |item|
+    next if item[:categories].nil?
+    if item[:categories].respond_to?(:each)
+      item[:categories].each { |category| categories << category }
+    else
+      categories << item[:categories]
+    end
+  end
+  categories.uniq
 end
 
 def exclude_unpublished
@@ -78,6 +95,22 @@ def create_archives
   end
 end
 
+def flatten_all_categories
+  @items.each do |item|
+    item[:categories] = flattened_categories(item[:categories])
+  end
+end
+
+def create_categories
+  for category in all_categories
+    @items << Nanoc::Item.new(
+      "<%= render 'category_page', :category => \"#{category}\" %>",
+      { :title => category, :subtitle => "All posts related to #{category}" },
+      "/blog/category/#{category}/"
+    )
+  end
+end
+
 def formatted_date(date)
   begin
     date = Time.parse("#{date}")
@@ -85,4 +118,25 @@ def formatted_date(date)
   rescue
     "an unknown time"
   end
+end
+
+def flattened_categories(categories)
+  if categories.nil?
+    [ ]
+  elsif categories.respond_to?(:each)
+    categories
+  elsif categories.include?(',')
+    categories.split(/\s*,\s*/)
+  else
+    [ categories ]
+  end
+end
+
+def formatted_categories(categories)
+  categories.map { |c| category_link(c) }.join(", ")
+end
+
+def category_link(category)
+  href = @items["/blog/category/#{category}/"].path
+  "<a href=\"#{href}\">#{category}</a>"
 end

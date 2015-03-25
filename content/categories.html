@@ -1,0 +1,10 @@
+---
+title: All categories
+---
+
+<ul>
+  <% all_categories().each do |category|
+    count = articles_in_category(category).count
+    %><li><%= link_to category, "/blog/category/#{category}" %> <span class="list-meta">(<%= count %> article<%= count == 1 ? "" : "s" %>)</span></li><%
+  end %>
+</ul>
