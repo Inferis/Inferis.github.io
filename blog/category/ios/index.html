@@ -11,7 +11,7 @@
     <meta name="generator" content="nanoc 3.7.5">
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <title>Inferical Writings - Ios</title>
+    <title>Inferical Writings - ios</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/clean-blog.css" rel="stylesheet">
@@ -62,6 +62,9 @@
                   <a href="/blog/archives/">Archives</a>
               </li>
               <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
                   <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
               </li>
             </ul>
@@ -81,10 +84,10 @@
                 <div class="post-heading">
                     <h1>
                       
-                        Ios
+                        ios
                       
                     </h1>
-                    
+                    <h2 class="subheading">All posts related to ios</h2>
 
                     
                 </div>
@@ -115,6 +118,368 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2015/03/19/the-last-nsconference/">The Last NSConference</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 19, 2015 ·
+      <a href="/blog/2015/03/19/the-last-nsconference/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/conferences/">conferences</a>
+      
+    </p>
+
+    
+
+<p>The last <a href="http://nsconference.com">NSConference</a>. I'm happy to say I was there. I'm sad to see it go.</p>
+
+<p>I attended three editions of NSConf. The first one was in 2013: due to scheduling reasons, I couldn't attend WWDC and so I was on the lookout for a replacement. NSConf seemed to be it, and I bought a ticket. I had known about NSConf before (given I'm relatively new to the Cocoa community, having only started in 2011), but I never got around to going. But buying that ticket was one of the best decisions ever made.</p>
+
+<div class="read-more"><a href="/blog/2015/03/19/the-last-nsconference/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2015/03/17/new-horizons/">New Horizons</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 17, 2015 ·
+      <a href="/blog/2015/03/17/new-horizons/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/life/">life</a>, <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>A tweet, 2 FaceTime interviews, a trip to Cupertino for 5 two-person interviews lasting a whole day (including lunch at the Caffé Macs), a bucketload of mails and 2 handfuls of international phonecalls.</p>
+
+<p>That's what got me a job in the UIKit team at Apple.</p>
+
+<p>It's safe to say it's been a crazy ride so far, and it's about to get even better.</p>
+
+<div class="read-more"><a href="/blog/2015/03/17/new-horizons/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/11/30/easy-revealing/">Easy Revealing</a>
+      
+    </h2>
+    <p class="post-meta">
+      November 30, 2014 ·
+      <a href="/blog/2014/11/30/easy-revealing/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/debugging/">debugging</a>, <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>I have a confession to make: I like <a href="http://revealapp.com">Reveal</a>. It's such a great tool to discover why your UI doesn't appear as it should be. It's such a great way to get a decent look at the view hierarchy in your iOS app.</p>
+
+<p>Initially, loading Reveal required you to add the reveal framework to your project before running. While not a hassle, it was rather suboptimal because you had to remove it again before shipping the app.</p>
+
+<p>But when you run your project in the simulator, there's an easier way. Have it automatically start up the Reveal server, so that you don't have to connect manually, and don't have to pollute your project with a debugging lib. Why only in the Simulator? Well, the technique requires the dynamic loading of <code>libReveal.dylib</code>. This is possible on your Mac but not on your iOS device. And the Simulator runs on your Mac, so we can use this trick to load the Reveal lib at runtime without prerequiring it in the project (to be fair, you can dynamically load libs on the device, but you'd still need to add them to your project).</p>
+
+<p>So let's do that. First on: some LLDB tricks.</p>
+
+<div class="read-more"><a href="/blog/2014/11/30/easy-revealing/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/09/21/nsspain-2014/">NSSpain 2014</a>
+      
+    </h2>
+    <p class="post-meta">
+      September 21, 2014 ·
+      <a href="/blog/2014/09/21/nsspain-2014/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/conferences/">conferences</a>, <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>So I did manage to go to NSSpain this year. Having missed it last year, I had vowed to go this year. But intentions don't always work out in the end, so it was a really last minute decision to actually go (props for my team at <a href="http://icapps.com">iCapps</a> to deliver awesome results so that I actually <em>could</em> go - I am proud of you guys and girls!). Also, a <em>very big thank you</em> to <a href="http://twitter.com/lascorbe">Luis</a> for helping me find a way to Logroño, which proved harder than expected (booking everything last minute doesn't help, of course).</p>
+
+<p>I'm very happy to have actually attended. The suddenly changed <a href="%7B%%20post_url%202014-09-19-goodbye%20%%7D">circumstances</a> before I left surely had an impact on my expierence. My thoughts and feelings were more at home than in Logroño, but I tried to make the best of it. Thought about "going back" several times, but I'm happy to have stayed. ;)</p>
+
+<p>Now, enough with the emotionalism (is that even a word?), how was NSSpain?</p>
+
+<div class="read-more"><a href="/blog/2014/09/21/nsspain-2014/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/09/13/objective-c-or-swift/">Objective-C or Swift?</a>
+      
+    </h2>
+    <p class="post-meta">
+      September 13, 2014 ·
+      <a href="/blog/2014/09/13/objective-c-or-swift/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/development/">development</a>, <a href="/blog/category/swift/">swift</a>
+      
+    </p>
+
+    
+
+<p>I've been planning to get on the iOS8 boat for a while now (well, since they announced it, actually). But as one with a full life, I haven't gotten around to actually do much. I played around with some Swift, watched some WWDC14 sessions but that's about it.</p>
+
+<p>Until tonight: I want to start over again on <a href="http://dra.sh">Drash</a>. There's a half baked iteration made for iOS7 (the current app runs still on iOS6 but feels right into place on iOS7 thanks to its minimal interface). But iOS8 changes so much again that I feel that it's best to start over again.</p>
+
+<p>But then this begs the question: Objective-C or Swift?</p>
+
+<p>There's some pro and cons to both, I think.</p>
+
+<div class="read-more"><a href="/blog/2014/09/13/objective-c-or-swift/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/05/02/the-setneedslayout-pattern/">The setNeedsLayout pattern</a>
+      
+    </h2>
+    <p class="post-meta">
+      May 02, 2014 ·
+      <a href="/blog/2014/05/02/the-setneedslayout-pattern/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>For the project I'm working on we ran into a performance issue on iPhone4 where an interaction would lock up the phone for a few seconds. It ran fine on iPhone5 and in the Simulator, but there was a severe hangup in on the older device. Investigation in Instruments revealed to problem to be autolayout. A lot of time (&gt;3 seconds) was spent recalculating layout.</p>
+
+<p>So I first hunted for <code>[view layoutIfNeeded]</code> calls, replacing them by <code>[view setNeedsLayout]</code> where applicable (sometimes you actually want to layout immediately if you need to do more stuff based on the layout results, but this is rarely the case). To no real avail, the issue remained extremely slow.</p>
+
+<p>Digging in further, I found that two different call trees were doing autolayout of a certain part of the screen at the same time. This was all happening on the main thread which explained the lockup (no surprises there though). But in the timespan of the 2 seconds Instruments reported where (the major part of the) lockup was, there were two blocks where setting a label caused at least 800ms of autolayout calculations. So that's 1.6s accounted for. Which seemed like a good starting point to optimize.</p>
+
+<p>The code was just setting properties (in this case: a title label and a response handler block), but they both touched the same label twice. I pondered on coalescing the two properties in one method but it seemed like an unsatisfying solution. And so I decided to copy a pattern Apple uses too regarding UI: the 'setNeedsLayout' pattern.</p>
+
+<div class="read-more"><a href="/blog/2014/05/02/the-setneedslayout-pattern/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/04/12/the-builder-pattern-in-objective-c/">The Builder Pattern in Objective-C</a>
+      
+    </h2>
+    <p class="post-meta">
+      April 12, 2014 ·
+      <a href="/blog/2014/04/12/the-builder-pattern-in-objective-c/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>A <a href="http://www.annema.me/blog/post/2014/4/4/the-builder-pattern-in-objective-c">blogpost</a> by <a href="http://twitter.com/klaaspieter">Klaas Pieter Annema</a> is doing the rounds on twitter lately. It appears the builder pattern is quite new to iOS devs since everybody is raving about it. In my own humble opinion I do think it is a bit convoluted for what it's worth.</p>
+
+<p>The <a href="http://joris.kluivers.nl/blog/2014/04/08/the-builder-pattern-in-objective-c-foundation/">followup post</a> by <a href="http://twitter.com/kluivers">Joris Kluivers</a> makes better use of existing classes: <code>NSURLComponents</code> becomes the builder for an <code>NSURL</code>, and given that these classes are already present and used in other use-cases, the builder pattern makes a lot of sense this way.</p>
+
+<p>But I still feel that rolling just a builder class to construct an object is a bit overkill. But it turns out you don't need two classes: you just need to leverage another feature of Objective-C: protocols.</p>
+
+<div class="read-more"><a href="/blog/2014/04/12/the-builder-pattern-in-objective-c/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/03/14/quick-look-for-uiview/">Quick Look for UIView</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 14, 2014 ·
+      <a href="/blog/2014/03/14/quick-look-for-uiview/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>Xcode 5.0 introduced an interesting new feature: <a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/CustomClassDisplay_in_QuickLook/Introduction/Introduction.html">Quick Look for variables</a>. Basically, it lets you inspect variables and their contents in a graphical way. This allows for interesting ways of viewing the state of your app.</p>
+
+<p>I've been using the feature quite a bit: it's a great way to inspect images or colors you're using in your app, for example. Works great on attributed strings, too.</p>
+
+<p><img class="center" src="http://cl.ly/image/0f473u3W2f0L/Image%202014-03-14%20at%2010.00.01%20pm.png" width="500"></p>
+
+<p>Xcode 5.1 improves the feature even further with the addition of <code>debugQuickLookObject</code>. This method allows you to provide quick look content for any of your own classes. A bit like <code>debugDescription</code> but more advanced. I haven't had the time to look further into it.</p>
+
+<div class="read-more"><a href="/blog/2014/03/14/quick-look-for-uiview/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2013/08/09/app-dot-io/">app.io</a>
+      
+    </h2>
+    <p class="post-meta">
+      August 09, 2013 ·
+      <a href="/blog/2013/08/09/app-dot-io/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>This morning, a tweet from <a href="http://www.twitter.com/tomclaus">@tomclaus</a> caught my eye:</p>
+
+<div class="embed tweet">
+<blockquote class="twitter-tweet" align="center" width="350">
+<p>Run iOS apps in the browser :: app.io <a href="http://t.co/vbZtQ1VL6x">http://t.co/vbZtQ1VL6x</a></p>— Tom Claus (@tomclaus) <a href="https://twitter.com/tomclaus/status/365771642145734656">August 9, 2013</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p>Being in the apps business, this peaked my interest. So I went and signed up at <a href="http://app.io">app.io</a>, just out of curiosity.</p>
+
+<div class="read-more"><a href="/blog/2013/08/09/app-dot-io/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2013/06/10/wwdc-2013-hopes-and-expectations/">WWDC 2013 Hopes and Expectations</a>
+      
+    </h2>
+    <p class="post-meta">
+      June 10, 2013 ·
+      <a href="/blog/2013/06/10/wwdc-2013-hopes-and-expectations/">∞</a>
+      
+      · <a href="/blog/category/wwdc/">wwdc</a>, <a href="/blog/category/apple/">apple</a>, <a href="/blog/category/mac/">mac</a>, <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/xcode/">xcode</a>
+      
+    </p>
+
+    
+
+<p>No real predictions post. You never know with Apple what they're going to produce at a developer event, so I won't go there.
+What I will do is list what I'd like to see. Mostly iOS stuff, because that's what I do.</p>
+
+<div class="read-more"><a href="/blog/2013/06/10/wwdc-2013-hopes-and-expectations/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a class="decorated" href="http://techcrunch.com/2013/06/09/how-apples-ios-fragmentation-problems-distort-design-thinking/">iOS Fragmentation</a> ↦
+      
+    </h2>
+    <p class="post-meta">
+      June 10, 2013 ·
+      <a href="/blog/2013/06/10/ios-fragmentation/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/android/">android</a>, <a href="/blog/category/fanboism/">fanboism</a>
+      
+    </p>
+
+    
+
+<p>Kevin Marks writes how about the way iOS handles iPhone vs iPad screen sizes is actually worse than how Android handles it (by doing nothing and "autoscaling" apps). It's a funny read even if it wasn't intended to be. The comments are priceless, too.</p>
+
+<p><em>(Note: VPs at web companies shouldn't be pretending to know everything about native development - and vice versa.)</em></p>
+
+
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2013/06/08/wwdc-predictions/">WWDC Predictions</a>
+      
+    </h2>
+    <p class="post-meta">
+      June 08, 2013 ·
+      <a href="/blog/2013/06/08/wwdc-predictions/">∞</a>
+      
+      · <a href="/blog/category/wwdc/">wwdc</a>, <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/osx/">osx</a>
+      
+    </p>
+
+    
+
+<p>My predictions for the WWDC keynote:</p>
+
+<ul>
+<li>We won't see Jony Ive on stage</li>
+<li>I'm guessing Federighi will take over Forestalls part (on the other hand, how mindbending it would be to have Forstall do the iOS part!)</li>
+<li>Ive will do (at least one) video where he'll do his tilted head magic telling us how they designed the best iOS experience ever (it will be "truly the result of years of innovation and hard work").</li>
+</ul>
+
+<p>I wonder if he'll manage to sneak in an "aluminium" in the iOS video, though.</p>
+
+
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a class="decorated" href="http://david-smith.org/blog/2013/06/06/a-clockwork-update/">Clockwork updates</a> ↦
+      
+    </h2>
+    <p class="post-meta">
+      June 06, 2013 ·
+      <a href="/blog/2013/06/06/clockwork-updates/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>David Smith writes about iOS adoption rates. It seems that it just takes over a week to get to 50% adoption whenever Apple releases a new version of iOS. The second chart says it all: 10% is still on iOS5 (and even 4.x) but the rest is on iOS6 or greater. 70% is on iOS 6.1.3.</p>
+
+<p>That's pretty impressive.</p>
+
+<p>(Also: I love how the graphs are interactive)</p>
+
+
+</div>
+
+  <hr>
+
+
             </div>
         </div>
     </div>

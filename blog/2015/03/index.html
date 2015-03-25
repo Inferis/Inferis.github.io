@@ -62,6 +62,9 @@
                   <a href="/blog/archives/">Archives</a>
               </li>
               <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
                   <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
               </li>
             </ul>
@@ -116,14 +119,20 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
   <div class="post-preview">
-      <h2 class="post-title">
-        
-          <a href="/blog/2015/03/17/new-horizons/">New Horizons</a>
-        
-      </h2>
-      <p class="post-meta">March 17, 2015 · <a href="/blog/2015/03/17/new-horizons/">∞</a></p>
-
+    <h2 class="post-title">
       
+        <a href="/blog/2015/03/17/new-horizons/">New Horizons</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 17, 2015 ·
+      <a href="/blog/2015/03/17/new-horizons/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/life/">life</a>, <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
 
 <p>A tweet, 2 FaceTime interviews, a trip to Cupertino for 5 two-person interviews lasting a whole day (including lunch at the Caffé Macs), a bucketload of mails and 2 handfuls of international phonecalls.</p>
 
@@ -132,103 +141,56 @@
 <p>It's safe to say it's been a crazy ride so far, and it's about to get even better.</p>
 
 <div class="read-more"><a href="/blog/2015/03/17/new-horizons/">Continue reading ›</a></div>
-  </div>
+</div>
+
   <hr>
 
   <div class="post-preview">
-      <h2 class="post-title">
-        
-          <a href="/blog/2015/03/19/the-last-nsconference/">The Last NSConference</a>
-        
-      </h2>
-      <p class="post-meta">March 19, 2015 · <a href="/blog/2015/03/19/the-last-nsconference/">∞</a></p>
-
+    <h2 class="post-title">
       
+        <a href="/blog/2015/03/19/the-last-nsconference/">The Last NSConference</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 19, 2015 ·
+      <a href="/blog/2015/03/19/the-last-nsconference/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/conferences/">conferences</a>
+      
+    </p>
+
+    
 
 <p>The last <a href="http://nsconference.com">NSConference</a>. I'm happy to say I was there. I'm sad to see it go.</p>
 
 <p>I attended three editions of NSConf. The first one was in 2013: due to scheduling reasons, I couldn't attend WWDC and so I was on the lookout for a replacement. NSConf seemed to be it, and I bought a ticket. I had known about NSConf before (given I'm relatively new to the Cocoa community, having only started in 2011), but I never got around to going. But buying that ticket was one of the best decisions ever made.</p>
 
 <div class="read-more"><a href="/blog/2015/03/19/the-last-nsconference/">Continue reading ›</a></div>
-  </div>
+</div>
+
   <hr>
 
   <div class="post-preview">
-      <h2 class="post-title">
-        
-          <a href="/blog/2015/03/25/swiftyas/">SwiftyAs</a>
-        
-      </h2>
-      <p class="post-meta">March 25, 2015 · <a href="/blog/2015/03/25/swiftyas/">∞</a></p>
-
+    <h2 class="post-title">
       
+        <a href="/blog/2015/03/25/swiftyas/">SwiftyAs</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 25, 2015 ·
+      <a href="/blog/2015/03/25/swiftyas/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/swift/">swift</a>, <a href="/blog/category/open%20source/">open source</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
 
 <p>Let me introduce: <a href="https://github.com/inferis/SwiftyAs">SwiftyAs</a>. It's a tiny little library to provide sort of the same functionality as <code>as?</code> from Swift in Objective-C. Let me explain...</p>
 
-<h2>The gist</h2>
+<div class="read-more"><a href="/blog/2015/03/25/swiftyas/">Continue reading ›</a></div>
+</div>
 
-<p>In Swift, you can use the <code>as?</code> operator to safely cast a variable to another type (albeit Optional). If the actual type at runtime doesn't match, Swift turns it into a <code>nil</code>, and otherwise you just get the variable as an optional. Pretty handy:</p>
-
-<pre><code class="language-swift highlight highlight"><span class="k">let</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">AnyObject</span> <span class="o">=</span> <span class="kt">NSDictionary</span><span class="p">()</span>
-
-<span class="k">let</span> <span class="nv">array</span><span class="p">:</span> <span class="n">source</span> <span class="k">as</span><span class="p">?</span> <span class="kt">NSArray</span>
-<span class="c1">// array = nil</span>
-<span class="k">let</span> <span class="nv">dict</span><span class="p">:</span> <span class="n">source</span> <span class="k">as</span><span class="p">?</span> <span class="kt">NSDictionary</span>
-<span class="c1">// dict = source</span></code></pre>
-
-<p>Now with <strong>SwiftyAs</strong> you can do kind of the same in Objective-C:</p>
-
-<pre><code class="language-objc highlight highlight"><span class="n">NSObject</span> <span class="o">*</span><span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nf">new</span><span class="p">];</span>
-
-<span class="n">NSArray</span><span class="o">*</span> <span class="n">array</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="n">as</span><span class="p">(</span><span class="n">NSArray</span><span class="p">);</span>
-<span class="c1">// array = nil
-</span><span class="n">NSDictionary</span><span class="o">*</span> <span class="n">dict</span> <span class="o">=</span> <span class="n">source</span><span class="p">.</span><span class="n">as</span><span class="p">(</span><span class="n">NSDictionary</span><span class="p">);</span>
-<span class="o">//</span> <span class="n">dict</span> <span class="o">=</span> <span class="n">source</span></code></pre>
-
-<p>There's nothing new under the sun here, and you can do exactly the same with an if statement and a <code>isKindOfClass:</code> check:</p>
-
-<pre><code class="language-objc highlight highlight"><span class="n">NSObject</span> <span class="o">*</span><span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDictionary</span> <span class="nf">new</span><span class="p">];</span>
-<span class="n">NSArray</span> <span class="o">*</span><span class="n">array</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">([</span><span class="n">source</span> <span class="nf">isKindOfObject</span><span class="p">:[</span><span class="n">NSArray</span> <span class="nf">Class</span><span class="p">]])</span> <span class="p">{</span>
-    <span class="n">array</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSArray</span><span class="o">*</span><span class="p">)</span><span class="n">source</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-
-<p>but that's more cumbersome and I think the SwiftyAs way is a lot more readable.</p>
-
-<h3>Innards</h3>
-
-<p>So how does this work?</p>
-
-<p>SwiftyAs introduces a category on <code>NSObject</code>, providing a readonly block property taking a <code>Class</code> and returning an <code>id</code>. The class represents the desired type.</p>
-
-<pre><code class="language-objc highlight highlight"><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">id</span><span class="p">(</span><span class="o">^</span><span class="n">as</span><span class="p">)(</span><span class="n">Class</span> <span class="n">ofClass</span><span class="p">);</span></code></pre>
-
-<p>The implementation does nothing more then forementioned <code>isKindOfClass:</code> check, but in a block (since that is what the property represents):</p>
-
-<pre><code class="language-objc highlight highlight"><span class="k">-</span> <span class="p">(</span><span class="n">id</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">__unsafe_unretained</span> <span class="n">Class</span><span class="p">))</span><span class="n">as</span> <span class="p">{</span>
-    <span class="n">__weak</span> <span class="n">typeof</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="n">welf</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">^</span><span class="p">(</span><span class="n">Class</span> <span class="n">ofClass</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">welf</span> <span class="nf">isKindOfClass</span><span class="p">:</span><span class="n">ofClass</span><span class="p">]</span> <span class="p">?</span> <span class="n">welf</span> <span class="p">:</span> <span class="nb">nil</span><span class="p">;</span>
-    <span class="p">};</span>
-<span class="p">}</span></code></pre>
-
-<p>We need to do some trickery with passing self as weak, because there's no assurance (or obligation) that the <code>as</code> property block is going to used right away. You could take the block, store it somewhere else and call it later if you wanted. Although that's not the intended and common case use, we do have to cater for it.</p>
-
-<p>And so we reference self as weak inside the block, so that any lingering <code>as</code> references won't cause the parent object to remain retained. And if the object's gone, we just return <code>nil</code> anyway which is kinda the intended behavior.</p>
-
-<h3>Tiny but easy</h3>
-
-<p>So it's a really tiny library (if you even could call it that?). It's just category on NSObject providing the <code>as</code> "keyword" in Objective-C. You can't use it on objects of type <code>id</code> because that's how categories work in Objective-C, but hey, I can live with that.</p>
-
-<p>So there. Available as a CocoaPod, of course:</p>
-
-<pre><code>pod 'SwiftyAs', '~&gt; 1.0'
-</code></pre>
-
-<p>Enjoy!</p>
-
-
-  </div>
   <hr>
 
 

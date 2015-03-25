@@ -11,7 +11,7 @@
     <meta name="generator" content="nanoc 3.7.5">
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <title>Inferical Writings - Debugging</title>
+    <title>Inferical Writings - debugging</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/clean-blog.css" rel="stylesheet">
@@ -62,6 +62,9 @@
                   <a href="/blog/archives/">Archives</a>
               </li>
               <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
                   <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
               </li>
             </ul>
@@ -81,10 +84,10 @@
                 <div class="post-heading">
                     <h1>
                       
-                        Debugging
+                        debugging
                       
                     </h1>
-                    
+                    <h2 class="subheading">All posts related to debugging</h2>
 
                     
                 </div>
@@ -115,6 +118,36 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/11/30/easy-revealing/">Easy Revealing</a>
+      
+    </h2>
+    <p class="post-meta">
+      November 30, 2014 ·
+      <a href="/blog/2014/11/30/easy-revealing/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/debugging/">debugging</a>, <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>I have a confession to make: I like <a href="http://revealapp.com">Reveal</a>. It's such a great tool to discover why your UI doesn't appear as it should be. It's such a great way to get a decent look at the view hierarchy in your iOS app.</p>
+
+<p>Initially, loading Reveal required you to add the reveal framework to your project before running. While not a hassle, it was rather suboptimal because you had to remove it again before shipping the app.</p>
+
+<p>But when you run your project in the simulator, there's an easier way. Have it automatically start up the Reveal server, so that you don't have to connect manually, and don't have to pollute your project with a debugging lib. Why only in the Simulator? Well, the technique requires the dynamic loading of <code>libReveal.dylib</code>. This is possible on your Mac but not on your iOS device. And the Simulator runs on your Mac, so we can use this trick to load the Reveal lib at runtime without prerequiring it in the project (to be fair, you can dynamically load libs on the device, but you'd still need to add them to your project).</p>
+
+<p>So let's do that. First on: some LLDB tricks.</p>
+
+<div class="read-more"><a href="/blog/2014/11/30/easy-revealing/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+
             </div>
         </div>
     </div>

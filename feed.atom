@@ -19,6 +19,8 @@
 
 &lt;p&gt;Let me introduce: &lt;a href="https://github.com/inferis/SwiftyAs"&gt;SwiftyAs&lt;/a&gt;. It's a tiny little library to provide sort of the same functionality as &lt;code&gt;as?&lt;/code&gt; from Swift in Objective-C. Let me explain...&lt;/p&gt;
 
+&lt;!-- more --&gt;
+
 &lt;h2&gt;The gist&lt;/h2&gt;
 
 &lt;p&gt;In Swift, you can use the &lt;code&gt;as?&lt;/code&gt; operator to safely cast a variable to another type (albeit Optional). If the actual type at runtime doesn't match, Swift turns it into a &lt;code&gt;nil&lt;/code&gt;, and otherwise you just get the variable as an optional. Pretty handy:&lt;/p&gt;

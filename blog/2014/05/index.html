@@ -62,6 +62,9 @@
                   <a href="/blog/archives/">Archives</a>
               </li>
               <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
                   <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
               </li>
             </ul>
@@ -116,14 +119,20 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
   <div class="post-preview">
-      <h2 class="post-title">
-        
-          <a href="/blog/2014/05/02/the-setneedslayout-pattern/">The setNeedsLayout pattern</a>
-        
-      </h2>
-      <p class="post-meta">May 02, 2014 · <a href="/blog/2014/05/02/the-setneedslayout-pattern/">∞</a></p>
-
+    <h2 class="post-title">
       
+        <a href="/blog/2014/05/02/the-setneedslayout-pattern/">The setNeedsLayout pattern</a>
+      
+    </h2>
+    <p class="post-meta">
+      May 02, 2014 ·
+      <a href="/blog/2014/05/02/the-setneedslayout-pattern/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
 
 <p>For the project I'm working on we ran into a performance issue on iPhone4 where an interaction would lock up the phone for a few seconds. It ran fine on iPhone5 and in the Simulator, but there was a severe hangup in on the older device. Investigation in Instruments revealed to problem to be autolayout. A lot of time (&gt;3 seconds) was spent recalculating layout.</p>
 
@@ -134,41 +143,56 @@
 <p>The code was just setting properties (in this case: a title label and a response handler block), but they both touched the same label twice. I pondered on coalescing the two properties in one method but it seemed like an unsatisfying solution. And so I decided to copy a pattern Apple uses too regarding UI: the 'setNeedsLayout' pattern.</p>
 
 <div class="read-more"><a href="/blog/2014/05/02/the-setneedslayout-pattern/">Continue reading ›</a></div>
-  </div>
+</div>
+
   <hr>
 
   <div class="post-preview">
-      <h2 class="post-title">
-        
-          <a href="/blog/2014/05/03/show-me-some-id/">Show me some id</a>
-        
-      </h2>
-      <p class="post-meta">May 03, 2014 · <a href="/blog/2014/05/03/show-me-some-id/">∞</a></p>
-
+    <h2 class="post-title">
       
+        <a href="/blog/2014/05/03/show-me-some-id/">Show me some id</a>
+      
+    </h2>
+    <p class="post-meta">
+      May 03, 2014 ·
+      <a href="/blog/2014/05/03/show-me-some-id/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
 
 <p>Brent Simmons touches on the use of <a href="http://inessential.com/2014/05/03/abbreviations">abbreviations</a> in Cocoa. I've noticed this behaviour too, and other uncocoalike things too. This is especially apparant in code of devs coming from other programming language/platforms.</p>
 
 <div class="read-more"><a href="/blog/2014/05/03/show-me-some-id/">Continue reading ›</a></div>
-  </div>
+</div>
+
   <hr>
 
   <div class="post-preview">
-      <h2 class="post-title">
-        
-          <a href="/blog/2014/05/29/wwdc-14/">WWDC '14</a>
-        
-      </h2>
-      <p class="post-meta">May 29, 2014 · <a href="/blog/2014/05/29/wwdc-14/">∞</a></p>
-
+    <h2 class="post-title">
       
+        <a href="/blog/2014/05/29/wwdc-14/">WWDC '14</a>
+      
+    </h2>
+    <p class="post-meta">
+      May 29, 2014 ·
+      <a href="/blog/2014/05/29/wwdc-14/">∞</a>
+      
+      · <a href="/blog/category/apple/">apple</a>, <a href="/blog/category/wwdc/">wwdc</a>
+      
+    </p>
+
+    
 
 <p>So, it's that time of the year again. WWDC is almost upon us. <a href="">Like last year</a>,  I won't be able to make it due to "agenda issues" (mainly the same as last year, but that's what happens when you have kids). But also I'm in the midst of an app release at <a href="http://icapps.com">work</a> and as a team/tech lead it would be less than ideal to skip a week for WWDC (which is actually more than a week since there's the <em>Jetlag Recovery Period</em> too). So it wasn't in the stars this year.</p>
 
 <p>I think I might be going again next year. Not sure if I will go for WWDC itself, but certainly for an AltWWDC experience. There's a lot of people going to SF next week which I'd really like to meet or talk to again. Sure, there's twitter, but nothing beats IRL contact. And the buzz around WWDC is just so invigourating, or at least it was in 2012, IMHO. So we'll see. I'll have some money set aside for next year, so at least that won't be a problem.</p>
 
 <div class="read-more"><a href="/blog/2014/05/29/wwdc-14/">Continue reading ›</a></div>
-  </div>
+</div>
+
   <hr>
 
 

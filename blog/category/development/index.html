@@ -11,7 +11,7 @@
     <meta name="generator" content="nanoc 3.7.5">
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <title>Inferical Writings - Development</title>
+    <title>Inferical Writings - development</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/clean-blog.css" rel="stylesheet">
@@ -62,6 +62,9 @@
                   <a href="/blog/archives/">Archives</a>
               </li>
               <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
                   <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
               </li>
             </ul>
@@ -81,10 +84,10 @@
                 <div class="post-heading">
                     <h1>
                       
-                        Development
+                        development
                       
                     </h1>
-                    
+                    <h2 class="subheading">All posts related to development</h2>
 
                     
                 </div>
@@ -115,6 +118,473 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2015/03/25/swiftyas/">SwiftyAs</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 25, 2015 ·
+      <a href="/blog/2015/03/25/swiftyas/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/swift/">swift</a>, <a href="/blog/category/open%20source/">open source</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>Let me introduce: <a href="https://github.com/inferis/SwiftyAs">SwiftyAs</a>. It's a tiny little library to provide sort of the same functionality as <code>as?</code> from Swift in Objective-C. Let me explain...</p>
+
+<div class="read-more"><a href="/blog/2015/03/25/swiftyas/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2015/03/19/the-last-nsconference/">The Last NSConference</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 19, 2015 ·
+      <a href="/blog/2015/03/19/the-last-nsconference/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/conferences/">conferences</a>
+      
+    </p>
+
+    
+
+<p>The last <a href="http://nsconference.com">NSConference</a>. I'm happy to say I was there. I'm sad to see it go.</p>
+
+<p>I attended three editions of NSConf. The first one was in 2013: due to scheduling reasons, I couldn't attend WWDC and so I was on the lookout for a replacement. NSConf seemed to be it, and I bought a ticket. I had known about NSConf before (given I'm relatively new to the Cocoa community, having only started in 2011), but I never got around to going. But buying that ticket was one of the best decisions ever made.</p>
+
+<div class="read-more"><a href="/blog/2015/03/19/the-last-nsconference/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2015/03/17/new-horizons/">New Horizons</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 17, 2015 ·
+      <a href="/blog/2015/03/17/new-horizons/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/life/">life</a>, <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>A tweet, 2 FaceTime interviews, a trip to Cupertino for 5 two-person interviews lasting a whole day (including lunch at the Caffé Macs), a bucketload of mails and 2 handfuls of international phonecalls.</p>
+
+<p>That's what got me a job in the UIKit team at Apple.</p>
+
+<p>It's safe to say it's been a crazy ride so far, and it's about to get even better.</p>
+
+<div class="read-more"><a href="/blog/2015/03/17/new-horizons/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/11/30/easy-revealing/">Easy Revealing</a>
+      
+    </h2>
+    <p class="post-meta">
+      November 30, 2014 ·
+      <a href="/blog/2014/11/30/easy-revealing/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/debugging/">debugging</a>, <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>I have a confession to make: I like <a href="http://revealapp.com">Reveal</a>. It's such a great tool to discover why your UI doesn't appear as it should be. It's such a great way to get a decent look at the view hierarchy in your iOS app.</p>
+
+<p>Initially, loading Reveal required you to add the reveal framework to your project before running. While not a hassle, it was rather suboptimal because you had to remove it again before shipping the app.</p>
+
+<p>But when you run your project in the simulator, there's an easier way. Have it automatically start up the Reveal server, so that you don't have to connect manually, and don't have to pollute your project with a debugging lib. Why only in the Simulator? Well, the technique requires the dynamic loading of <code>libReveal.dylib</code>. This is possible on your Mac but not on your iOS device. And the Simulator runs on your Mac, so we can use this trick to load the Reveal lib at runtime without prerequiring it in the project (to be fair, you can dynamically load libs on the device, but you'd still need to add them to your project).</p>
+
+<p>So let's do that. First on: some LLDB tricks.</p>
+
+<div class="read-more"><a href="/blog/2014/11/30/easy-revealing/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/09/23/explicitly-implemented-protocols/">Explicitly implemented protocols</a>
+      
+    </h2>
+    <p class="post-meta">
+      September 23, 2014 ·
+      <a href="/blog/2014/09/23/explicitly-implemented-protocols/">∞</a>
+      
+      · <a href="/blog/category/swift/">swift</a>, <a href="/blog/category/development/">development</a>, <a href="/blog/category/csharp/">csharp</a>, <a href="/blog/category/patterns/">patterns</a>
+      
+    </p>
+
+    
+
+<p>While traveling home from NSSpain yesterday, I got an idea for a new app. Nothing groundbreaking, and more on that later, but it required the use of health kit. I also decided to write this one in Swift, for fun and profit but mostly for fun (and perhaps also because practice makes perfect).</p>
+
+<div class="read-more"><a href="/blog/2014/09/23/explicitly-implemented-protocols/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/09/21/nsspain-2014/">NSSpain 2014</a>
+      
+    </h2>
+    <p class="post-meta">
+      September 21, 2014 ·
+      <a href="/blog/2014/09/21/nsspain-2014/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/conferences/">conferences</a>, <a href="/blog/category/ios/">ios</a>
+      
+    </p>
+
+    
+
+<p>So I did manage to go to NSSpain this year. Having missed it last year, I had vowed to go this year. But intentions don't always work out in the end, so it was a really last minute decision to actually go (props for my team at <a href="http://icapps.com">iCapps</a> to deliver awesome results so that I actually <em>could</em> go - I am proud of you guys and girls!). Also, a <em>very big thank you</em> to <a href="http://twitter.com/lascorbe">Luis</a> for helping me find a way to Logroño, which proved harder than expected (booking everything last minute doesn't help, of course).</p>
+
+<p>I'm very happy to have actually attended. The suddenly changed <a href="%7B%%20post_url%202014-09-19-goodbye%20%%7D">circumstances</a> before I left surely had an impact on my expierence. My thoughts and feelings were more at home than in Logroño, but I tried to make the best of it. Thought about "going back" several times, but I'm happy to have stayed. ;)</p>
+
+<p>Now, enough with the emotionalism (is that even a word?), how was NSSpain?</p>
+
+<div class="read-more"><a href="/blog/2014/09/21/nsspain-2014/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/09/14/cocoapod-all-the-things/">Cocoapod All The Things</a>
+      
+    </h2>
+    <p class="post-meta">
+      September 14, 2014 ·
+      <a href="/blog/2014/09/14/cocoapod-all-the-things/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/cocoapods/">cocoapods</a>
+      
+    </p>
+
+    
+
+<p>So, am I the only one who manages to get sidetracked a lot when working on (personal) projects?</p>
+
+<p>For example, I have a few generic components written for various projects. In the past I would just add a <code>vendor</code> folder to my project, put the component there and be done with it.</p>
+
+<p>But I've become to like CocoaPods to much that I cannot get myself to use this simple approach anymore. The CocoaPods approach makes using external libs so clean that it feels dirty not to (unless there's no other option).</p>
+
+<div class="read-more"><a href="/blog/2014/09/14/cocoapod-all-the-things/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/09/13/objective-c-or-swift/">Objective-C or Swift?</a>
+      
+    </h2>
+    <p class="post-meta">
+      September 13, 2014 ·
+      <a href="/blog/2014/09/13/objective-c-or-swift/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/development/">development</a>, <a href="/blog/category/swift/">swift</a>
+      
+    </p>
+
+    
+
+<p>I've been planning to get on the iOS8 boat for a while now (well, since they announced it, actually). But as one with a full life, I haven't gotten around to actually do much. I played around with some Swift, watched some WWDC14 sessions but that's about it.</p>
+
+<p>Until tonight: I want to start over again on <a href="http://dra.sh">Drash</a>. There's a half baked iteration made for iOS7 (the current app runs still on iOS6 but feels right into place on iOS7 thanks to its minimal interface). But iOS8 changes so much again that I feel that it's best to start over again.</p>
+
+<p>But then this begs the question: Objective-C or Swift?</p>
+
+<p>There's some pro and cons to both, I think.</p>
+
+<div class="read-more"><a href="/blog/2014/09/13/objective-c-or-swift/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/07/02/a-swift-test/">A Swift Test</a>
+      
+    </h2>
+    <p class="post-meta">
+      July 02, 2014 ·
+      <a href="/blog/2014/07/02/a-swift-test/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/icapps/">icapps</a>
+      
+    </p>
+
+    
+
+<p>At the latest iCapps Monthly Teammeeting (today!), I presented our developers with a small Swift test.
+It was supposed to be a bit tongue in cheek, but also a bit serious. This new language coming out of Apple is pretty new but also here to stay, so it can't hurt to get on the bandwagon sooner rather than later. A few of us got to go to WWDC and see everything for themselves, the rest of us maybe spent some time with the videos or even started coding but I guess the majority hasn't really gotten around to seriously looking at this new language.</p>
+
+<p>And so, to spike the interest a bit more, I made this little test to see how much we all knew about Swift. It's not complete by far and it only touches on a few specifics, but I had it set up as a multiple choice test so it was kind of hard to touch on every feature in the language (for example: try asking a question on the brand new enum syntax without spoiling it). And the main goal was to show the difference from Objective-C.</p>
+
+<div class="read-more"><a href="/blog/2014/07/02/a-swift-test/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/05/03/show-me-some-id/">Show me some id</a>
+      
+    </h2>
+    <p class="post-meta">
+      May 03, 2014 ·
+      <a href="/blog/2014/05/03/show-me-some-id/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>Brent Simmons touches on the use of <a href="http://inessential.com/2014/05/03/abbreviations">abbreviations</a> in Cocoa. I've noticed this behaviour too, and other uncocoalike things too. This is especially apparant in code of devs coming from other programming language/platforms.</p>
+
+<div class="read-more"><a href="/blog/2014/05/03/show-me-some-id/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/05/02/the-setneedslayout-pattern/">The setNeedsLayout pattern</a>
+      
+    </h2>
+    <p class="post-meta">
+      May 02, 2014 ·
+      <a href="/blog/2014/05/02/the-setneedslayout-pattern/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>For the project I'm working on we ran into a performance issue on iPhone4 where an interaction would lock up the phone for a few seconds. It ran fine on iPhone5 and in the Simulator, but there was a severe hangup in on the older device. Investigation in Instruments revealed to problem to be autolayout. A lot of time (&gt;3 seconds) was spent recalculating layout.</p>
+
+<p>So I first hunted for <code>[view layoutIfNeeded]</code> calls, replacing them by <code>[view setNeedsLayout]</code> where applicable (sometimes you actually want to layout immediately if you need to do more stuff based on the layout results, but this is rarely the case). To no real avail, the issue remained extremely slow.</p>
+
+<p>Digging in further, I found that two different call trees were doing autolayout of a certain part of the screen at the same time. This was all happening on the main thread which explained the lockup (no surprises there though). But in the timespan of the 2 seconds Instruments reported where (the major part of the) lockup was, there were two blocks where setting a label caused at least 800ms of autolayout calculations. So that's 1.6s accounted for. Which seemed like a good starting point to optimize.</p>
+
+<p>The code was just setting properties (in this case: a title label and a response handler block), but they both touched the same label twice. I pondered on coalescing the two properties in one method but it seemed like an unsatisfying solution. And so I decided to copy a pattern Apple uses too regarding UI: the 'setNeedsLayout' pattern.</p>
+
+<div class="read-more"><a href="/blog/2014/05/02/the-setneedslayout-pattern/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/04/12/the-builder-pattern-in-objective-c/">The Builder Pattern in Objective-C</a>
+      
+    </h2>
+    <p class="post-meta">
+      April 12, 2014 ·
+      <a href="/blog/2014/04/12/the-builder-pattern-in-objective-c/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>A <a href="http://www.annema.me/blog/post/2014/4/4/the-builder-pattern-in-objective-c">blogpost</a> by <a href="http://twitter.com/klaaspieter">Klaas Pieter Annema</a> is doing the rounds on twitter lately. It appears the builder pattern is quite new to iOS devs since everybody is raving about it. In my own humble opinion I do think it is a bit convoluted for what it's worth.</p>
+
+<p>The <a href="http://joris.kluivers.nl/blog/2014/04/08/the-builder-pattern-in-objective-c-foundation/">followup post</a> by <a href="http://twitter.com/kluivers">Joris Kluivers</a> makes better use of existing classes: <code>NSURLComponents</code> becomes the builder for an <code>NSURL</code>, and given that these classes are already present and used in other use-cases, the builder pattern makes a lot of sense this way.</p>
+
+<p>But I still feel that rolling just a builder class to construct an object is a bit overkill. But it turns out you don't need two classes: you just need to leverage another feature of Objective-C: protocols.</p>
+
+<div class="read-more"><a href="/blog/2014/04/12/the-builder-pattern-in-objective-c/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/03/17/inspiration/">Inspiration</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 17, 2014 ·
+      <a href="/blog/2014/03/17/inspiration/">∞</a>
+      
+      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/wetware/">wetware</a>, <a href="/blog/category/conferences/">conferences</a>
+      
+    </p>
+
+    
+
+<p>I am currently at <a href="http://nsconference.com">NSConference 6</a>. For those who haven't heard of NSConference, it's a "community conference for OSX and iOS developers".
+It's a 3-day conference about developing for OSX/iOS by <em>and</em> for developers. If you're an iOS or Mac developer based in Europe, it's a great way to meet the community and learn new stuff.</p>
+
+<p>The problem with these conferences is inspiration. The talks are usually pretty good, and get you fired up to start doing something. Not necessarily with the knowlegde you learn at the conference, but even with what you've been working on at home (or work). The great thing about NSConference (and in general about the smaller conferences) is that they're mixed technical and non-technical. Not everything is about "how to code this-and-that", but it's also how what other people have learned, passing on their experience onto the attendees. Sometimes the talks are mainly about your own "wetware" (thanks <a href="http://twitter.com/bmf">@bmf</a>!), how you deal with building apps and interaction with your customers, clients or colleagues.</p>
+
+<div class="read-more"><a href="/blog/2014/03/17/inspiration/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/03/14/quick-look-for-uiview/">Quick Look for UIView</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 14, 2014 ·
+      <a href="/blog/2014/03/14/quick-look-for-uiview/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>Xcode 5.0 introduced an interesting new feature: <a href="https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/CustomClassDisplay_in_QuickLook/Introduction/Introduction.html">Quick Look for variables</a>. Basically, it lets you inspect variables and their contents in a graphical way. This allows for interesting ways of viewing the state of your app.</p>
+
+<p>I've been using the feature quite a bit: it's a great way to inspect images or colors you're using in your app, for example. Works great on attributed strings, too.</p>
+
+<p><img class="center" src="http://cl.ly/image/0f473u3W2f0L/Image%202014-03-14%20at%2010.00.01%20pm.png" width="500"></p>
+
+<p>Xcode 5.1 improves the feature even further with the addition of <code>debugQuickLookObject</code>. This method allows you to provide quick look content for any of your own classes. A bit like <code>debugDescription</code> but more advanced. I haven't had the time to look further into it.</p>
+
+<div class="read-more"><a href="/blog/2014/03/14/quick-look-for-uiview/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/03/08/followup/">Followup</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 08, 2014 ·
+      <a href="/blog/2014/03/08/followup/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>, <a href="/blog/category/csharp/">csharp</a>
+      
+    </p>
+
+    
+
+<p>I was listening to the <a href="http://www.imore.com/debug-30-casey-liss-c-and-net">most recent</a> <a href="http://www.imore.com/debug">Debug</a> episode, the one featuring the ever apologetic <a href="http://twitter.com/caseyliss">@caseyliss</a> talking about C#. It's another great episode (but most of the Debug episodes are great - I love the interaction of <a href="http://twitter.com/gte">@gte</a> with his guests). I was particularly interested in this one since I have a similar background: I spent most of my working days on a Microsoft platform and produced a bucketload of C# code (ever since it came out early 2000). Since late 2010 I've been mostly dabbling in Objective-C on the iOS platform. So I was quite curious on what Casey had to say.</p>
+
+<p>While I'm not going to rehash everything here (go listen to the podcast), I agreed with most of it. I do think he forgot an important feature of generics and c# in general: "compile time breakage".</p>
+
+<div class="read-more"><a href="/blog/2014/03/08/followup/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/03/07/categories-for-at-protocols-2/">categories-for-@protocols (2)</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 07, 2014 ·
+      <a href="/blog/2014/03/07/categories-for-at-protocols-2/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>And a follow-up post for <a href="../../06/categories-for-at-protocols">this one</a>. Already!</p>
+
+<p>I forgot about it, but <a href="http://twitter.com/pjaspers">@pjaspers</a> reminded me that
+we actually did something similar to this using "regular" language constructs.</p>
+
+<p>What you could do:</p>
+
+<ol>
+<li>extend the protocol with the method you need (as has been suggested before)</li>
+<li>implement the protocol extension method a seperate .m file (similarly named to
+the .h file the protocol is defined in, I guess). Forgo the @implementation/@end
+dance, just put the method code "naked" into the file.</li>
+<li>for each class conforming to the protocol do a <code>#include "Protocol+Implementation.m"</code> in
+the class' implementation file. You read that right: thats an <strong>include</strong> and not an <strong>import</strong>.</li>
+</ol>
+
+<div class="read-more"><a href="/blog/2014/03/07/categories-for-at-protocols-2/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2014/03/06/categories-for-at-protocols/">Categories for @protocols</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 06, 2014 ·
+      <a href="/blog/2014/03/06/categories-for-at-protocols/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>Yup. Categories for protocols. You heard that right.
+It started with me asking about it on twitter:</p>
+
+<div class="embed tweet">
+<blockquote class="twitter-tweet" align="center" width="350">
+<p>Defining a category on a protocol. Is that even possible? <a href="https://twitter.com/hashtag/objc?src=hash">#objc</a></p>— Tom Adriaenssen (@Inferis) <a href="https://twitter.com/Inferis/status/441603940250288128">March 6, 2014</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p>This question caused much confusion. "How is that even possible?" "Categories are used to
+extend existing classes, surely how can you extend a protocol?"</p>
+
+<div class="read-more"><a href="/blog/2014/03/06/categories-for-at-protocols/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+
             </div>
         </div>
     </div>
