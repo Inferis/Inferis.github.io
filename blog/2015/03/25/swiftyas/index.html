@@ -175,7 +175,7 @@
 
 <pre><code class="language-objc highlight"><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">id</span><span class="p">(</span><span class="o">^</span><span class="n">as</span><span class="p">)(</span><span class="n">Class</span> <span class="n">ofClass</span><span class="p">);</span></code></pre>
 
-<p>The implementation does nothing more then forementioned <code>isKindOfClass:</code> check, but in a block (since that is what the property represents):</p>
+<p>The implementation does nothing more than aforementioned <code>isKindOfClass:</code> check, but in a block (since that is what the property represents):</p>
 
 <pre><code class="language-objc highlight"><span class="k">-</span> <span class="p">(</span><span class="n">id</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">__unsafe_unretained</span> <span class="n">Class</span><span class="p">))</span><span class="n">as</span> <span class="p">{</span>
     <span class="n">__weak</span> <span class="n">typeof</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="n">welf</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
