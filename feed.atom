@@ -2,13 +2,87 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-03-18T23:00:00Z</updated>
+  <updated>2015-03-25T05:53:38Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-03-25:/blog/2015/03/25/swiftyas/</id>
+    <title type="html">SwiftyAs</title>
+    <published>2015-03-25T05:53:38Z</published>
+    <updated>2015-03-25T05:53:38Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/03/25/swiftyas/"/>
+    <content type="html">
+
+&lt;p&gt;Let me introduce: &lt;a href="https://github.com/inferis/SwiftyAs"&gt;SwiftyAs&lt;/a&gt;. It's a tiny little library to provide sort of the same functionality as &lt;code&gt;as?&lt;/code&gt; from Swift in Objective-C. Let me explain...&lt;/p&gt;
+
+&lt;h2&gt;The gist&lt;/h2&gt;
+
+&lt;p&gt;In Swift, you can use the &lt;code&gt;as?&lt;/code&gt; operator to safely cast a variable to another type (albeit Optional). If the actual type at runtime doesn't match, Swift turns it into a &lt;code&gt;nil&lt;/code&gt;, and otherwise you just get the variable as an optional. Pretty handy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;source&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;NSDictionary&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;array&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="kt"&gt;NSArray&lt;/span&gt;
+&lt;span class="c1"&gt;// array = nil&lt;/span&gt;
+&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="kt"&gt;NSDictionary&lt;/span&gt;
+&lt;span class="c1"&gt;// dict = source&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now with &lt;strong&gt;SwiftyAs&lt;/strong&gt; you can do kind of the same in Objective-C:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;NSObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSDictionary&lt;/span&gt; &lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+&lt;span class="n"&gt;NSArray&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSArray&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="c1"&gt;// array = nil
+&lt;/span&gt;&lt;span class="n"&gt;NSDictionary&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSDictionary&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="n"&gt;dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There's nothing new under the sun here, and you can do exactly the same with an if statement and a &lt;code&gt;isKindOfClass:&lt;/code&gt; check:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;NSObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSDictionary&lt;/span&gt; &lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="nf"&gt;isKindOfObject&lt;/span&gt;&lt;span class="p"&gt;:[&lt;/span&gt;&lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="nf"&gt;Class&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSArray&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;but that's more cumbersome and I think the SwiftyAs way is a lot more readable.&lt;/p&gt;
+
+&lt;h3&gt;Innards&lt;/h3&gt;
+
+&lt;p&gt;So how does this work?&lt;/p&gt;
+
+&lt;p&gt;SwiftyAs introduces a category on &lt;code&gt;NSObject&lt;/code&gt;, providing a readonly block property taking a &lt;code&gt;Class&lt;/code&gt; and returning an &lt;code&gt;id&lt;/code&gt;. The class represents the desired type.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;@property&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nonatomic&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;strong&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;readonly&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="n"&gt;as&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;ofClass&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The implementation does nothing more then forementioned &lt;code&gt;isKindOfClass:&lt;/code&gt; check, but in a block (since that is what the property represents):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="n"&gt;__unsafe_unretained&lt;/span&gt; &lt;span class="n"&gt;Class&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="n"&gt;as&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;__weak&lt;/span&gt; &lt;span class="n"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;welf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;ofClass&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;welf&lt;/span&gt; &lt;span class="nf"&gt;isKindOfClass&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ofClass&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="n"&gt;welf&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We need to do some trickery with passing self as weak, because there's no assurance (or obligation) that the &lt;code&gt;as&lt;/code&gt; property block is going to used right away. You could take the block, store it somewhere else and call it later if you wanted. Although that's not the intended and common case use, we do have to cater for it.&lt;/p&gt;
+
+&lt;p&gt;And so we reference self as weak inside the block, so that any lingering &lt;code&gt;as&lt;/code&gt; references won't cause the parent object to remain retained. And if the object's gone, we just return &lt;code&gt;nil&lt;/code&gt; anyway which is kinda the intended behavior.&lt;/p&gt;
+
+&lt;h3&gt;Tiny but easy&lt;/h3&gt;
+
+&lt;p&gt;So it's a really tiny library (if you even could call it that?). It's just category on NSObject providing the &lt;code&gt;as&lt;/code&gt; "keyword" in Objective-C. You can't use it on objects of type &lt;code&gt;id&lt;/code&gt; because that's how categories work in Objective-C, but hey, I can live with that.&lt;/p&gt;
+
+&lt;p&gt;So there. Available as a CocoaPod, of course:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod 'SwiftyAs', '~&amp;gt; 1.0'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Enjoy!&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-03-19:/blog/2015/03/19/the-last-nsconference/</id>
     <title type="html">The Last NSConference</title>
@@ -551,52 +625,6 @@ This was a key property of Bert. When he did something, he always went full out 
 &lt;p&gt;Given that I want to be productive and have this new app out pretty soon, I'm going for Objective-C. I feel that Swift is going to pose too much of a distraction from actually developing the app. There's also the new stuff in iOS8 (I'm planning to add an extension too, so there's much to learn), going with Swift means 2 new things in one new app, and that might prove too much of slowdown. And I want to finish this, and not get beached along the way in the little language details.&lt;/p&gt;
 
 &lt;p&gt;The next project? Swift. I promise.&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2014-07-09:/blog/2014/07/09/obsolete/</id>
-    <title type="html">Obsolete</title>
-    <published>2014-07-09T07:52:20Z</published>
-    <updated>2014-07-09T07:52:20Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2014/07/09/obsolete/"/>
-    <content type="html">
-
-&lt;p&gt;I'm afraid of becoming obsolete.&lt;/p&gt;
-
-&lt;p&gt;There, I've said it.&lt;/p&gt;
-
-&lt;p&gt;Let me explain: I work in a highly competitive sector which changes rapidly. This is nothing new, of course. It's always been that way. But before, I was younger. Not that I'm really old now, but that big 4 slowly creeping closer doesn't count for nothing. But I guess this is not really about age: I'm happy to work in a team with a bunch of early 20 year olds and it feels that I can manage that just fine. Sure, there are "generational" differences but all in all it works out pretty nice (I can only hope they feel the same though).&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;But while the rapid changes in our industry seemed like &lt;em&gt;only an opportunity&lt;/em&gt; in the past, they now feel like an &lt;em&gt;opportunity&lt;/em&gt;
-  ) (because they still are), but also like a sort of &lt;em&gt;burden&lt;/em&gt;. I would love to learn more stuff and make new things, but the main problem is time. There's seldom time to work on sideprojects or learning new technology.&lt;/p&gt;
-
-&lt;p&gt;This is due to a number of factors:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;
-&lt;strong&gt;the job&lt;/strong&gt; » I have a highly fulfilling job while I love to do but takes a large part of my time budget. Yeah, you can tag this one with #firstworldproblems. This is a blessing but also a curse: I learn a lot in my role as a lead developer but not necessarily on the subjects that are so rapidly changing. And that leaves less time for learning new tech. (Then again, I can't complain. There are also people still doing WinForms, I guess).&lt;/li&gt;
-&lt;li&gt;
-&lt;strong&gt;the kids&lt;/strong&gt; » I have a wife, and moreover: we have four (young) kids. Let me tell you: kids are time sinks. Lovely time sinks, no doubt about that. I love them but it's no news that kids take time. And even then I feel like I'm not enough at home to give them the time they need (and to get everything else sorted out). But there's also our house which needs some love, and love means time I cannot spend on other things.&lt;/li&gt;
-&lt;li&gt;
-&lt;strong&gt;the extras&lt;/strong&gt; » There are a few "extra curricular" activities. We're actively engaged in the school of our kids, and in the youth movement the two eldest go to. And there's some sport here and there, and I have a demented grandmother in a nursing home, and she loves a visit now and then.&lt;/li&gt;
-&lt;li&gt;
-&lt;strong&gt;the scraps&lt;/strong&gt; » But also: I feel like I don't like doing the little things anymore. There's some much cool stuff to find out, but then there's the boilerplate code you have to write, and that, well, doesn't interest me anymore. And I feel it hinders me in getting to the real cool stuff.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The net result is that I keep making plans to build Brave New Things, but I hardly get around to it. And that's what scares me, because I'm not sure it will keep my on my toes for the future. Will this get harder and harder over time?&lt;/p&gt;
-
-&lt;p&gt;Because, I know there's probably a few "technology switches" before me. Again, nothing new and I've done this before: I went from Web-CGI-perl over to the Microsoft camp, making first websites but later desktop apps using .Net. And then I left .Net behind and went for iOS (surely a more jarring switch than the one before). Those switches weren't easy and took a lot of time and effort but were well rewarding in the long term.&lt;/p&gt;
-
-&lt;p&gt;Seeing how technology seemingly keeps speeding up even if you keep to your own niche (I can't follow everything that's come out of WWDC this year, for example), this is probably going to become harder in the future. And this worries me.&lt;/p&gt;
-
-&lt;p&gt;Then again, I don't have to keep on doing the same things that I'm doing now. Even now in my job which is still highly development oriented, I'm not doing a lot of development anymore myself. I review code, help people, work on app architecture, devise new ways to make things easier and faster so the team can work faster/better. This is learning experience in itself, and it's been a fun ride. But I don't want to become &lt;em&gt;only a manager&lt;/em&gt; just yet and I feel it is very important to stay on top of the changes happening in our industry.&lt;/p&gt;
-
-&lt;p&gt;Doing nothing is not an option, so I'm going to have to devise a plan to make "keeping up" feasible. Meanwhile, I'm just going to keep throwing myself at it with all the energy that I have. So frustrating, so much fun.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;update:&lt;/strong&gt; Seems &lt;a href="https://the-pastry-box-project.net/ed-finkler/2014-july-6"&gt;I'm not alone&lt;/a&gt;.&lt;/p&gt;
 
 </content>
   </entry>
