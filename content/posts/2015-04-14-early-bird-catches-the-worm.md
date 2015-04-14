@@ -17,6 +17,8 @@ But then you have kids, and they have to go to school eventually, and your life 
 
 ## Switch
 
+{% img right https://igcdn-photos-d-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11116903_1575156929405611_575215853_n.jpg 350 %}
+
 Last summer I switched to a completely different schedule: I was tech lead for a large iOS project at the time, and my job consistent of both guiding the dev team (7 devs) and doing some "high level" coding. I found that that first part would be taking up all of my time, and that finding time for the coding part was becoming harder. Additionally, I was so drained after coming home from work that I rarely got to doing some more work. And so I thought: let's try this morning thing.
 
 And so I started to get up at 5:30 in the morning so that I could be at work at around 7am. That would give me 2 hours of coding/preparation time before the rest of the team would come in at around 9am. It was hard at first. I wasn't used to these hours at all, and my body protested.
@@ -39,6 +41,8 @@ Another thing to consider were school days. These were not really an issue in th
 
 ## Back to early
 
+{% img right https://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11084974_844591128947976_1060421944_n.jpg 350 %}
+
 But I kinda missed those early mornings. And so with the days getting longer now, and starting project in Brussels leading a team of devs, I decide to try to get back into the rhythm. I'm not there yet: some days are harder to get up than others, and because work is not as pressing as it is last year and the team is smaller there's no real need to actually having to get up early. But I enjoy the wee hours. So much nicer to get to work, so much quieter early hours. And when I want I'm home at a reasonable time to spend some time with my kids.
 
 Summer's only beginning, and I'm looking forward to some early mornings. Not all of them, depending on schedule and needs. But it's good to be up early and feel productive.  
@@ -48,5 +52,11 @@ Overall, I'd say I feel better as a morning person than as a night person. And t
 ## Future
 
 Finally, and here's the naive me speaking, I'm hoping to continue this once I move to California. The better weather there will probably have a benefical effect on being able to get up early (although winter days will be as short as in Belgium). I also have the crazy idea of biking to work there (no idea if that it's actually feasible, though), to keep the "wake up exercise" effect.
+
+**Update**: [Alex Repty](https://twitter.com/arepty) mentions that Cupertino has about a hour extra daylight at the winter solstice than Belgium:
+
+{% tweet https://twitter.com/arepty/status/587900199693058049 center %}
+
+As evidenced by: [Belgium](http://cloud.alexrepty.com/0F1F08051t2O) vs [Cupertino](http://cloud.alexrepty.com/051K3O1F0934). So that's good. 😊
 
 But we'll see about that when we get there. ¯\\\_(ツ)\_/¯  
