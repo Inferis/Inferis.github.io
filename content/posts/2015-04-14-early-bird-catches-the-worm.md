@@ -13,7 +13,7 @@ This is a big change for me. I used to be a "late night" person. My day used to 
 
 <!-- more -->
 
-But then you have kids, and they have to go to school eventually, and your life starts to fall into a more regular schedule. Not that that changed my at-night habits a lot. Although it did mean that there was no slacking possible in the morning (getting 4 kids to school can be, eh, daunting), I continued to try to be productive at night. But I had to admit that those long hours would take their toll eventually, and I wasn't as productive as I used to be. I started to spend nights before my computer, doing nothing more than *wilf*-ing around, not doing anything useful at all. Not good, and a waste of time.
+But then you have kids, and they have to go to school eventually, and your life starts to fall into a more regular schedule. Not that that changed my at-night habits a lot. Although it did mean that there was no slacking possible in the morning (getting 4 kids to school can be, eh, daunting), I continued to try to be productive at night. But I had to admit that those long hours would take their toll eventually, and I wasn't as productive as I used to be. I started to spend nights before my computer, doing nothing more than [wilfing](http://www.urbandictionary.com/define.php?term=Wilfing) around, not doing anything useful at all. Not good, and a waste of time.
 
 ## Switch
 
