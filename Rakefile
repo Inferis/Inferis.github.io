@@ -17,7 +17,7 @@ task :new_post, :title do |t, args|
     post.puts "title: \"#{title}\""
     post.puts "created_at: #{Time.now}"
     post.puts 'kind: article'
-    post.puts 'published: false'
+    post.puts 'preview: true'
     post.puts "---\n\n"
   end
 end
