@@ -122,6 +122,31 @@
   <div class="post-preview">
     <h2 class="post-title">
       
+        <a href="/blog/2015/04/22/scripts-in-your-app-bundle/">Scripts in your app bundle</a>
+      
+    </h2>
+    <p class="post-meta">
+      April 22, 2015 ·
+      <a href="/blog/2015/04/22/scripts-in-your-app-bundle/">∞</a>
+      
+      · 
+      
+    </p>
+
+    
+
+<p>It appears Apple changed something in the iOS bundle upload : it now requires that all executables in your app bundle are signed (this might be applicable for Mac uploads too, but I haven't tried). I hear you think: isn't this the case anyway, but there might be more executables in your bundle than you expect.</p>
+
+<p>Of course, there's the binary for your app, which obviously is executable. But there could be more too: if you include shell scripts, for example, which are marked executable (<code>chmod u+x script.sh</code>) then iTunes Connect now considers them as actual executables and now requires them to be codesigned.</p>
+
+<div class="read-more"><a href="/blog/2015/04/22/scripts-in-your-app-bundle/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
         <a href="/blog/2015/04/20/gliding/">Gliding</a>
       
     </h2>
@@ -375,33 +400,6 @@
 <p>I want to say goodbye to a friend. A dear friend. A best friend.</p>
 
 <div class="read-more"><a href="/blog/2014/09/19/goodbye/">Continue reading ›</a></div>
-</div>
-
-  <hr>
-
-  <div class="post-preview">
-    <h2 class="post-title">
-      
-        <a href="/blog/2014/09/14/cocoapod-all-the-things/">Cocoapod All The Things</a>
-      
-    </h2>
-    <p class="post-meta">
-      September 14, 2014 ·
-      <a href="/blog/2014/09/14/cocoapod-all-the-things/">∞</a>
-      
-      · <a href="/blog/category/development/">development</a>, <a href="/blog/category/cocoapods/">cocoapods</a>
-      
-    </p>
-
-    
-
-<p>So, am I the only one who manages to get sidetracked a lot when working on (personal) projects?</p>
-
-<p>For example, I have a few generic components written for various projects. In the past I would just add a <code>vendor</code> folder to my project, put the component there and be done with it.</p>
-
-<p>But I've become to like CocoaPods to much that I cannot get myself to use this simple approach anymore. The CocoaPods approach makes using external libs so clean that it feels dirty not to (unless there's no other option).</p>
-
-<div class="read-more"><a href="/blog/2014/09/14/cocoapod-all-the-things/">Continue reading ›</a></div>
 </div>
 
   <hr>

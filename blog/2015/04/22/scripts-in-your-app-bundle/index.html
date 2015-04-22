@@ -135,7 +135,7 @@
 
 <p>It appears Apple changed something in the iOS bundle upload : it now requires that all executables in your app bundle are signed (this might be applicable for Mac uploads too, but I haven't tried). I hear you think: isn't this the case anyway, but there might be more executables in your bundle than you expect.</p>
 
-<p>Of course, there's the binary for your app, which obviously is executable. But there could be more too: if you include shell or ruby scripts, for example, which are marked executable (<code>chmod u+x script.rb</code>) then iTunes Connect now considers them as actual executables and now requires them to be codesigned.</p>
+<p>Of course, there's the binary for your app, which obviously is executable. But there could be more too: if you include shell scripts, for example, which are marked executable (<code>chmod u+x script.sh</code>) then iTunes Connect now considers them as actual executables and now requires them to be codesigned.</p>
 
 <!-- more -->
 
@@ -169,11 +169,11 @@
 
 <p>So that's kind of non-obvious.</p>
 
-<p>The tricky part here is that the inclusion of this file is a bit out of your reach. The author of the Podspec decided to include it as a reason and all you asked for was <code>pod 'CrittercismSDK'</code>. No way of manually excluding the file, not even by unticking a box even if that meant you had to do this after every <code>pod install</code>. So you're either stuck waiting until the authors update their Podspec file.</p>
+<p>The tricky part here is that the inclusion of this file is a bit out of your reach. The author of the Podspec decided to include it as a reason and all you asked for was <code>pod 'CrittercismSDK'</code>. No way of manually excluding the file, not even by unticking a box even if that meant you had to do this after every <code>pod install</code>. So you're either stuck waiting until the authors update their Podspec file, or you could do it yourself (for now).</p>
 
 <h2>Fixing the podspec, temporary</h2>
 
-<p>Or you could duplicate the offending podspec locally and fix it. In the case of the Crittercism spec this means omitting the .sh file from resources:</p>
+<p>How? By duplicating the offending podspec locally and fix it. In the case of the Crittercism spec this means omitting the .sh file from resources:</p>
 
 <pre><code class="language-ruby highlight"><span class="no">Pod</span><span class="o">::</span><span class="no">Spec</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
   <span class="p">.</span><span class="nf">.</span><span class="p">.</span>

@@ -2,13 +2,83 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-04-20T05:52:07Z</updated>
+  <updated>2015-04-22T13:02:23Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-04-22:/blog/2015/04/22/scripts-in-your-app-bundle/</id>
+    <title type="html">Scripts in your app bundle</title>
+    <published>2015-04-22T13:02:23Z</published>
+    <updated>2015-04-22T13:02:23Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/04/22/scripts-in-your-app-bundle/"/>
+    <content type="html">
+
+&lt;p&gt;It appears Apple changed something in the iOS bundle upload : it now requires that all executables in your app bundle are signed (this might be applicable for Mac uploads too, but I haven't tried). I hear you think: isn't this the case anyway, but there might be more executables in your bundle than you expect.&lt;/p&gt;
+
+&lt;p&gt;Of course, there's the binary for your app, which obviously is executable. But there could be more too: if you include shell scripts, for example, which are marked executable (&lt;code&gt;chmod u+x script.sh&lt;/code&gt;) then iTunes Connect now considers them as actual executables and now requires them to be codesigned.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;This is evidenced by an error like this one:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.stack.imgur.com/KzOct.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;(Taken from a &lt;a href="http://stackoverflow.com/questions/29788601/error-itms-90035-xcode"&gt;Stack Overflow post on the error&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Problem solving&lt;/h2&gt;
+
+&lt;p&gt;So there's two options:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;a href="https://developer.apple.com/library/mac/documentation/Security/Conceptual/CodeSigningGuide/Introduction/Introduction.html"&gt;codesign&lt;/a&gt; your included scripts&lt;/li&gt;
+&lt;li&gt;remove your scripts from the bundle&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Option 2 will most likely always be the thing you'll want to do, unless you actually want to run the script in your app (to be honest: I'm not even sure that's actually possible on iOS given the security issues).&lt;/p&gt;
+
+&lt;p&gt;Getting rid of the scripts is easy: find the script in Xcode and make sure it's not included in any of your targets. If it's not there, you're probably safe. If you still get errors, it might end up in your bundle through another way than Xcode. This can be an external script including the file in your bundle, for example. Which brings me to the harder part of the problem...&lt;/p&gt;
+
+&lt;p&gt;Namely, when you're using CocoaPods which do include executable scripts as a resource (for god knows what reason). An example of this is the &lt;a href="https://github.com/willowtreeapps/Crittercism-iOS"&gt;Crittercism pod&lt;/a&gt;: they include a &lt;code&gt;dsym_upload.sh&lt;/code&gt; as a resource, probably as an easy way to distribute the file. If you look at the project file, you won't see the file marked as included in any target:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/3f1v3s251p1M2W1M3O3S/Image%202015-04-22%20at%203.32.19%20pm.png"&gt;&lt;/p&gt;
+
+&lt;p&gt;But it &lt;strong&gt;does&lt;/strong&gt; get copied into your bundle by the &lt;code&gt;Copy Pods Resources&lt;/code&gt; build phase, which has no reference at all to the culprit in question (because it generically copies all pod resources into the app bundle):&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/0k3Y131w0q0h3E2A2H04/Image%202015-04-22%20at%203.34.01%20pm.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;So that's kind of non-obvious.&lt;/p&gt;
+
+&lt;p&gt;The tricky part here is that the inclusion of this file is a bit out of your reach. The author of the Podspec decided to include it as a reason and all you asked for was &lt;code&gt;pod 'CrittercismSDK'&lt;/code&gt;. No way of manually excluding the file, not even by unticking a box even if that meant you had to do this after every &lt;code&gt;pod install&lt;/code&gt;. So you're either stuck waiting until the authors update their Podspec file, or you could do it yourself (for now).&lt;/p&gt;
+
+&lt;h2&gt;Fixing the podspec, temporary&lt;/h2&gt;
+
+&lt;p&gt;How? By duplicating the offending podspec locally and fix it. In the case of the Crittercism spec this means omitting the .sh file from resources:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-ruby highlight"&gt;&lt;span class="no"&gt;Pod&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;.&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+  &lt;span class="nf"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;resources&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'CrittercismSDK-crashonly/Resources/*'&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# add this line below&lt;/span&gt;
+  &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;exclude_files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"**/*.sh"&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;According to the &lt;a href="http://guides.cocoapods.org/syntax/podspec.html#exclude_files"&gt;Podspec syntax reference&lt;/a&gt; &lt;code&gt;exclude_files&lt;/code&gt; defines "A list of file patterns that should be excluded from the other file patterns.". Which is exactly what we need. There might already be a line like this in the podspec, so you might need to append to it instead of adding it, so take a good look first.&lt;/p&gt;
+
+&lt;p&gt;Now that you fixed the your local copy of the podspec, use that one in your podfile. Which is as easy as adding a &lt;code&gt;podspec&lt;/code&gt; reference for the pod:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-ruby highlight"&gt;&lt;span class="n"&gt;pod&lt;/span&gt; &lt;span class="s1"&gt;'CrittercismSDK'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:podspec&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'CrittercismSDK.podspec'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Of course, you'll only want to do this if this blocks your release. You'll need to keep monitoring the offending podspec(s) for actual fixes to that you can continue using the version you want. By capturing the podspec and storing it locally, you effectively use the version of a pod at the moment of capture, also in the future.&lt;/p&gt;
+
+&lt;p&gt;But it's a good compromise to make to get that app out of the door, which is what counts at the end of the day. Just ship it. 😎&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-04-20:/blog/2015/04/20/gliding/</id>
     <title type="html">Gliding</title>
@@ -665,37 +735,6 @@ It actually landed me a job on the other side of the world, in a company and tea
 &lt;p&gt;Also: there were a lot more people there than I had expected! I assumed it would be a pretty small conference, but there were 215 attendees present (up from about a hundred last year). They're going to cap at 200 next year, because you could feel this was slightly above capacity.&lt;/p&gt;
 
 &lt;p&gt;Chances are high I'll be back next year. I had a very enjoyable time, learned a lot of stuff, was in great company. Thanks to &lt;a href="http://twitter.com/lascorbe"&gt;Luis&lt;/a&gt; and &lt;a href="http://twitter.com/borjareinares"&gt;Borja&lt;/a&gt; for organising. Great job, guys.&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2014-09-19:/blog/2014/09/19/goodbye/</id>
-    <title type="html">Goodbye</title>
-    <published>2014-09-19T03:38:12Z</published>
-    <updated>2014-09-19T03:38:12Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2014/09/19/goodbye/"/>
-    <content type="html">
-
-&lt;p&gt;&lt;em&gt;This post is somewhat a diversion from what I usually post, but recent events have had such profound impact on how I feel that I feel obliged (to myself) to write about this. (Unfortunately, my English is not proficient enough to convey all my thoughts and feelings, but I'm giving it a shot anyway).&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;I want to say goodbye to a friend. A dear friend. A best friend.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;Tuesday evening we got the news that &lt;a href="http://twitter.com/sjarelwan"&gt;Bert&lt;/a&gt; had deceased. Bert was a long time friend (I've known him for about 15 years), and the godfather of my youngest daughter. He was traveling in India as a host to a party of about 6 people.  This was the first time he did this (through an organisation called &lt;a href="http://joker.be/en"&gt;Joker&lt;/a&gt;. He had looked forward to this tour, preparing for it all summer, looking up information, booking hotels, trips and events for his group.
-This was a key property of Bert. When he did something, he always went full out (which also had its annoying side effects, to be honest). He could really put himself behind the things he was doing, and he always did them well. The tour in India is a good example, but this was also the case when we were both active in &lt;a href="http://www.chiro.be/english"&gt;Chiro&lt;/a&gt; (a local youth movement in Belgium). We spent several years together there, and the click between us was quite immediate. We shared the same kind of humour, and our greatest passing in that time was Chiro. We organised training &amp;amp; courses for Chiro together (education for people in leadership positions), we created new games and activities, and made sure they were executed well. A lot of nights were spent together having fun over beers, we played boardgames, we sang, but we also had deep conversations about anything possible. It was a lot of fun and Bert was an integral part of this. Together with &lt;a href="http://twitter.com/spiffman"&gt;Jeroen&lt;/a&gt; we were known as "De Sjarels" amongst our friends. Mostly because the three of us were famous for dicking around whenever possible. (I'm not sure how to convey the word "Sjarel" - which actually is Flemish slang - but "Banter Boy" covers it, I think). This name stuck, and to this date we were still "De 3 Sjarels". We might be a bit older, but the fun was still there when the three of us were together.&lt;/p&gt;
-
-&lt;p&gt;But then our time at Chiro ended and our contact became less frequent. I can't say that I really missed Bert, but lives change and our ways parted. At least, for a little while. I am fortunate to have 4 children, and Bert was high on the list of potential godfathers. And we were most delighted he accepted the godfathership for our youngest daughter Mitte 4 years ago. Becoming godfather/godmother of a child created a sort of family bond, and our contact flared up again. The good times of yonder were back, albeit at a different pace. I loved having Bert present at parties and birthdays. We met up more, and it felt good.&lt;/p&gt;
-
-&lt;p&gt;And then he moved to our street, which we thought was a surprising move (for him, moving from the city to a local village), but in hindsight it proved a good idea. It was great having Bert as a neighbour. Our lives both were busy enough that we did not spent every night at one or another place, but having a best friend as a neighbour certainly is a blessing.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://www.flickr.com/photos/inferis/15023080730"&gt;&lt;img src="https://farm6.staticflickr.com/5559/15023080730_aa52fb0510.jpg" width="500" height="333"&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;\&lt;/em&gt;sighs**&lt;/p&gt;
-
-&lt;p&gt;So it pains me a lot to lose you, Bert. I have a load of awesome memories of you and the things we did together. I'm sure we made a difference for a lot of young people, something I hold dearly in my heart. My daughter is still little but I'm sure she loved you in her own way, and it was obvious you did love her a lot, too. She's never going to expierence your passion and fire, and I pity her for that. We will never again be able to drink a glass of whisky (of which you were an avid lover) or a fine beer (like Quadruple La Trappe, your favorite) together. Our next gathering of god-mothers and -fathers will be awkward without you present. You'll be missed by everyone of us.&lt;/p&gt;
-
-&lt;p&gt;I have to face it: you'll never be back. But you'll also never be forgotten. So long, my best friend. Until we meet again.&lt;/p&gt;
 
 </content>
   </entry>
