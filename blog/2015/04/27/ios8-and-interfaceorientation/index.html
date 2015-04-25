@@ -220,11 +220,10 @@ $$1 = 0x + 0y + 1$$</p>
 
 <p>So when we want the angle from this matrix, we'd need to reverse the the matrix calculations. This is as simple as taking any of the a/b/c/d matrix elements and reverse it:</p>
 
-<p>$$\alpha = acos(a) = asin(b) = -asin(c) = acos(d)$$</p>
+<p>$$\alpha = acos(a) = acos(d)$$
+$$\alpha = asin(b) = -asin(c)$$</p>
 
-<p>In this case, we can safely rely on this, since we know the transform will be <em>only</em> a rotation transform, without any extra scaling or translation.</p>
-
-<p>In a more general case, it's more safe to use <code>atan2</code> to get to the angle:</p>
+<p>Now using <code>acos</code> or <code>asin</code> to get the angle has a tiny problem: each input in the valid range can result in 2 angles (this is due to how sine and cosine functions work, of course). The <code>atan2</code> function doesn't have this problem since it uses two inputs to calculate the result. It's also better in our case since an affine transform can also contain a scale transform, which has no impact on the result if we use <code>atan2</code>. So here we go:</p>
 
 <pre><code class="language-objc highlight"><span class="n">angle</span> <span class="o">=</span> <span class="n">atan2f</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">//</span> <span class="n">or</span> <span class="n">atan2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">c</span><span class="p">)</span></code></pre>
 
