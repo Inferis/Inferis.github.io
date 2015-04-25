@@ -166,7 +166,7 @@
 
 <p>So we can use this <code>targetTransform</code> to go from the current interface orientation to the target interfaceorientation: we just need to "add" the rotation to the interface orientation value.</p>
 
-<h2>Some work and math</h2>
+<h2>Some work, some math</h2>
 
 <p>The approach we'll be taking will be somewhat generic. Generic because we'll calculate the number of 90º "segments" we'll have to go through, and switch to the "next" interfaceorientation for each segment. In the end, we'll have the correct orientation.</p>
 
@@ -198,7 +198,7 @@
    tx &amp; ty &amp; 1
   \end{bmatrix}$$</p>
 
-<p>For those not well versed in matrix algebra: you traverse each item of the source 1x3 matrix and multiply it with corresponding row, and adding these results together. You do this for each column so that you end up with a new 1x3 matrix.</p>
+<p>For those not well versed in matrix algebra: you traverse each item of the source 1x3 matrix and multiply it with the corresponding row, and then adding these results together. You do this for each column so that you end up with a new 1x3 matrix.</p>
 
 <p>Which results in the following equations:</p>
 
@@ -206,7 +206,7 @@
 $$y' = bx + dy + ty$$
 $$1 = 0x + 0y + 1$$</p>
 
-<p>That last one is useless, so we can discard it.</p>
+<p>That last one is useless, so we can ignore it.</p>
 
 <p>CGAffineTransform is merely a struct representing the useful values of this matrix, and the transforms you use in your code are just representations of this matrix which is used <a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_affine/dq_affine.html">by Quartz</a> to perform the calculations using the equations above. In effect: the matrix <em>links</em> two coordinate systems — it specifies how points in one coordinate system map to points in another.</p>
 
@@ -223,7 +223,7 @@ $$1 = 0x + 0y + 1$$</p>
 <p>$$\alpha = acos(a) = acos(d)$$
 $$\alpha = asin(b) = -asin(c)$$</p>
 
-<p>Now using <code>acos</code> or <code>asin</code> to get the angle has a tiny problem: each input in the valid range can result in 2 angles (this is due to how sine and cosine functions work, of course). The <code>atan2</code> function doesn't have this problem since it uses two inputs to calculate the result. It's also better in our case since an affine transform can also contain a scale transform, which has no impact on the result if we use <code>atan2</code>. So here we go:</p>
+<p>Now using <code>acos</code> or <code>asin</code> to get the angle has a tiny problem: each input can result in 2 solutions (this is due to how sine and cosine functions work, of course). The <code>atan2</code> function doesn't have this problem since it uses two inputs to calculate the result. It's also better in our case since an affine transform can also contain a scale transform, which has no impact on the result if we use <code>atan2</code>. So here we go:</p>
 
 <pre><code class="language-objc highlight"><span class="n">angle</span> <span class="o">=</span> <span class="n">atan2f</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">//</span> <span class="n">or</span> <span class="n">atan2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">c</span><span class="p">)</span></code></pre>
 
@@ -231,12 +231,12 @@ $$\alpha = asin(b) = -asin(c)$$</p>
 
 <p>If you want to know more about the maths behind this, check out <a href="http://en.wikipedia.org/wiki/Euler_angles">Euler angles</a> and <a href="http://staff.city.ac.uk/%7Esbbh653/publications/euler.pdf">this paper</a>.</p>
 
-<p>And we don't want the actual angle, but the number of 90º segments of our rotation:</p>
+<p>Back to our calculations: we actually don't want the angle, but the number of 90º segments of our rotation:</p>
 
 <pre><code class="language-objc highlight"><span class="n">CGFloat</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">atan2f</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">b</span><span class="p">,</span> <span class="n">transform</span><span class="p">.</span><span class="n">a</span><span class="p">);</span>
 <span class="n">NSInteger</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">roundf</span><span class="p">(</span><span class="n">angle</span> <span class="o">/</span> <span class="n">M_PI_2</span><span class="p">);</span></code></pre>
 
-<p>We explicitly round the division by <code>π/2</code>; relying on the implicit CGFloat to NSInteger conversion isn't good enough since it just takes the integral part of the float (in effect <code>floorf(...)</code>) which is <em>not</em> what you want.</p>
+<p>We explicitly round the division by <code>π/2</code>; relying on the implicit <em>CGFloat</em> to <em>NSInteger</em> conversion isn't good enough since it just takes the integral part of the float (in effect <code>floorf(...)</code>) which is <em>not</em> what you want.</p>
 
 <p>Note that the angle of rotation will be the inverse of how you rotate the device: if you rotate the device clockwise, the angle of the transform will be negative (and thus counter-clockwise): the transform "counters" the rotation to get back to where we were before the rotation (albeit with other dimensions).</p>
 
