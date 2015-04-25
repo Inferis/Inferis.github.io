@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <title>Inferical Writings - Using interfaceOrientation with iOS8 transitions</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
+                  <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-color: #eee;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>
+                      
+                        Using interfaceOrientation with iOS8 transitions
+                      
+                    </h1>
+                    
+
+                    
+                      <span class="meta">
+                        
+                        April 27, 2015 ·
+                        
+
+                        <a href="/blog/2015/04/27/ios8-and-interfaceorientation/">∞</a>
+
+                        
+                        · 
+                        
+                      </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds() + "";
+    var m = d.getMinutes() + "";
+    var h = d.getHours() + "";
+
+    if (s.length < 2) s = "0" + s;
+    if (m.length < 2) m = "0" + m;
+    if (h.length < 2) h = "0" + h;
+
+    $(".intro-header").css("background-color", '#' + h + m + s);
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>Working on an app today, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in <code>UIViewController</code> are deprecated:</p>
+
+<pre><code class="language-objc highlight"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">);</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willAnimateRotationToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">3</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span></code></pre>
+
+<p>As you can see, they want you to use <code>viewWillTransitionToSize:withTransitionCoordinator:</code> instead.</p>
+
+<p>So, no problem, we'll just implement that method. The only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?</p>
+
+<!-- more -->
+
+<p>Because: what if you do want the old behavior? Not everybody has the luxury of going iOS8 only; sure, you can still use the old callbacks - for now. They won't get called once you implement <code>viewWillTransitionToSize:withTransitionCoordinator:</code>, but you might want fallback behavior in addition to the new behavior.</p>
+
+<p>And anyhow, I thought I would be a good exercise to see how we could use this new callback to derive our new interface orientation. Adaptive UI and all, but sometimes is just darn handy to know how your device is held.</p>
+
+<p>Turns out, it's not very hard, but it's not a trivial amount of code.</p>
+
+<p>I looked up session 214 of WWDC 2014: <em>View Controller Advancements in iOS8</em> by Bruce Nilo (📹 <a href="http://devstreaming.apple.com/videos/wwdc/2014/214xxq2mdbtmp23/214/214_hd_view_controller_advancements_in_ios_8.mov">video</a> &amp; 📈 <a href="http://devstreaming.apple.com/videos/wwdc/2014/214xxq2mdbtmp23/214/214_view_controller_advancements_in_ios_8.pdf">slides</a>). It's a very interesting talk since he goes into all of the changes they've made, including the changes in rotation behavior.</p>
+
+<p>A particular slide peaked my interest:</p>
+
+<p><img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/0r1R2E132l3n2P1O472S/rotation.jpg" width="750"></p>
+
+<p>Notice the <code>[self orientationFromTransform:[t targetTransform]]</code>. He doesn't go into it (obviously), but I knew what to do.</p>
+
+<p>With some experimentation, it looks like the transform you get via <code>targetTransform</code> is the rotation transform resulting from rotating your device. So if you turn from portrait to landscape it will be a 90º (or <code>π/2</code> or even <code>M_PI_2</code>) rotation, and if you go from landscape left to landscape right it will a 180º rotation. Depending on the direction of the rotation, the angle will be either positive or negative.</p>
+
+<p>So we can use this <code>targetTransform</code> to go from the current interface orientation to the target interfaceorientation: we just need to "add" the rotation to the interface orientation value.</p>
+
+<h2>Some work and math</h2>
+
+<p>The approach we'll be taking will be somewhat generic. Generic because we'll calculate the number of 90º "segments" we'll have to go through, and switch to the "next" interfaceorientation for each segment. In the end, we'll have the correct orientation.</p>
+
+<p>This sounds easier than it proved to be. The first problem is calculating how many segments we need from the transform. We can calculate this from the <a href="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CGAffineTransform/index.html#//apple_ref/c/tdef/CGAffineTransform">affine transform</a>, which is - and you may or may not know this - a struct representing a matrix. In code, this looks like this:</p>
+
+<pre><code class="language-objc highlight"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">CGAffineTransform</span> <span class="n">CGAffineTransform</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">CGAffineTransform</span> <span class="p">{</span>
+  <span class="n">CGFloat</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
+  <span class="n">CGFloat</span> <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">;</span>
+<span class="p">};</span></code></pre>
+
+<p>This is a representation of this matrix:</p>
+
+<p>$$\begin{bmatrix}
+  a &amp; b &amp; 0 \\
+  c &amp; d &amp; 0 \\
+  tx &amp; ty &amp; 1
+ \end{bmatrix}$$</p>
+
+<p>This transformation matrix is used to transform the coordinates of the source point <code>(x,y)</code> to a target point <code>(x',y')</code>:</p>
+
+<p>$$\begin{bmatrix}
+  x' &amp; y' &amp; 1
+ \end{bmatrix} = \begin{bmatrix}
+   x &amp; y &amp; 1
+  \end{bmatrix} \times \begin{bmatrix}
+   a &amp; b &amp; 0 \\
+   c &amp; d &amp; 0 \\
+   tx &amp; ty &amp; 1
+  \end{bmatrix}$$</p>
+
+<p>For those not well versed in matrix algebra: you traverse each item of the source 1x3 matrix and multiply it with corresponding row, and adding these results together. You do this for each column so that you end up with a new 1x3 matrix.</p>
+
+<p>Which results in the following equations:</p>
+
+<p>$$x' = ax + cy + tx$$
+$$y' = bx + dy + ty$$
+$$1 = 0x + 0y + 1$$</p>
+
+<p>That last one is useless, so we can discard it.</p>
+
+<p>CGAffineTransform is merely a struct representing the useful values of this matrix, and the transforms you use in your code are just representations of this matrix which is used <a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_affine/dq_affine.html">by Quartz</a> to perform the calculations using the equations above. In effect: the matrix <em>links</em> two coordinate systems — it specifies how points in one coordinate system map to points in another.</p>
+
+<p>So back to our rotation: how does the <a href="http://en.wikipedia.org/wiki/Rotation_matrix">matrix for a rotation</a> look like? Like this (where <code>α</code> is the angle of the rotation) (for Quartz):</p>
+
+<p>$$\begin{bmatrix}
+ cos \alpha &amp; sin \alpha &amp; 0 \\
+ -sin \alpha &amp; cos \alpha &amp; 0 \\
+ 0 &amp; 0 &amp; 1
+\end{bmatrix}$$</p>
+
+<p>So when we want the angle from this matrix, we'd need to reverse the the matrix calculations. This is as simple as taking any of the a/b/c/d matrix elements and reverse it:</p>
+
+<p>$$\alpha = acos(a) = asin(b) = -asin(c) = acos(d)$$</p>
+
+<p>In this case, we can safely rely on this, since we know the transform will be <em>only</em> a rotation transform, without any extra scaling or translation.</p>
+
+<p>In a more general case, it's more safe to use <code>atan2</code> to get to the angle:</p>
+
+<pre><code class="language-objc highlight"><span class="n">angle</span> <span class="o">=</span> <span class="n">atan2f</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">//</span> <span class="n">or</span> <span class="n">atan2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="n">c</span><span class="p">)</span></code></pre>
+
+<p><em>Watch out, the atan2 function takes the <code>y</code> parameter first -&gt; RTFM!</em></p>
+
+<p>If you want to know more about the maths behind this, check out <a href="http://en.wikipedia.org/wiki/Euler_angles">Euler angles</a> and <a href="http://staff.city.ac.uk/%7Esbbh653/publications/euler.pdf">this paper</a>.</p>
+
+<p>And we don't want the actual angle, but the number of 90º segments of our rotation:</p>
+
+<pre><code class="language-objc highlight"><span class="n">CGFloat</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">atan2f</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">b</span><span class="p">,</span> <span class="n">transform</span><span class="p">.</span><span class="n">a</span><span class="p">);</span>
+<span class="n">NSInteger</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">roundf</span><span class="p">(</span><span class="n">angle</span> <span class="o">/</span> <span class="n">M_PI_2</span><span class="p">);</span></code></pre>
+
+<p>We explicitly round the division by <code>π/2</code>; relying on the implicit CGFloat to NSInteger conversion isn't good enough since it just takes the integral part of the float (in effect <code>floorf(...)</code>) which is <em>not</em> what you want.</p>
+
+<p>Note that the angle of rotation will be the inverse of how you rotate the device: if you rotate the device clockwise, the angle of the transform will be negative (and thus counter-clockwise): the transform "counters" the rotation to get back to where we were before the rotation (albeit with other dimensions).</p>
+
+<h2>interfaceOrientation: from ➢ to</h2>
+
+<p>Now that we know the angle and multiplier, it's time to transform our interface orientation according to this angle. This isn't hard, but it is cumbersome due to how the UIInterfaceOrientation enum is defined:</p>
+
+<pre><code class="language-objc highlight"><span class="c1">// Note that UIInterfaceOrientationLandscapeLeft is equal to
+// UIDeviceOrientationLandscapeRight (and vice versa). This is because rotating
+// the device to the left requires rotating the content to the right.
+</span><span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">,</span> <span class="n">UIInterfaceOrientation</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">UIInterfaceOrientationUnknown</span>            <span class="o">=</span> <span class="n">UIDeviceOrientationUnknown</span><span class="p">,</span>
+    <span class="n">UIInterfaceOrientationPortrait</span>           <span class="o">=</span> <span class="n">UIDeviceOrientationPortrait</span><span class="p">,</span>
+    <span class="n">UIInterfaceOrientationPortraitUpsideDown</span> <span class="o">=</span> <span class="n">UIDeviceOrientationPortraitUpsideDown</span><span class="p">,</span>
+    <span class="n">UIInterfaceOrientationLandscapeLeft</span>      <span class="o">=</span> <span class="n">UIDeviceOrientationLandscapeRight</span><span class="p">,</span>
+    <span class="n">UIInterfaceOrientationLandscapeRight</span>     <span class="o">=</span> <span class="n">UIDeviceOrientationLandscapeLeft</span>
+<span class="p">};</span></code></pre>
+
+<p>As you can see, it's just a mapping of the corresponding UIDeviceOrientation values, which are defined like this:</p>
+
+<pre><code class="language-objc highlight"><span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">,</span> <span class="n">UIDeviceOrientation</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">UIDeviceOrientationUnknown</span><span class="p">,</span>
+    <span class="n">UIDeviceOrientationPortrait</span><span class="p">,</span>        <span class="c1">// Device oriented vertically, home btn -&gt; bottom
+</span>    <span class="n">UIDeviceOrientationPortraitUpsideDown</span><span class="p">,</span> <span class="c1">// Device oriented vertically, home btn -&gt; top
+</span>    <span class="n">UIDeviceOrientationLandscapeLeft</span><span class="p">,</span>   <span class="c1">// Device oriented horizontally, home btn -&gt; right
+</span>    <span class="n">UIDeviceOrientationLandscapeRight</span><span class="p">,</span>  <span class="c1">// Device oriented horizontally, home btn -&gt; left
+</span>    <span class="n">UIDeviceOrientationFaceUp</span><span class="p">,</span>          <span class="c1">// Device oriented flat, face up
+</span>    <span class="n">UIDeviceOrientationFaceDown</span>         <span class="c1">// Device oriented flat, face down
+</span><span class="p">};</span></code></pre>
+
+<p><em>As an aside: You'll notice that there's no equivalent interface orientation for the <code>UIDeviceOrientationFaceUp</code> and <code>UIDeviceOrientationFaceDown</code>, because they make no sense for the interface orientation: it remains the same whether you have the device face up or face down.</em></p>
+
+<p>I show this because my first idea was to <em>cycle</em> through the orientation values by adding or substracting 1 from each value, wrapping around a the minimum and maximum values of the enum. But looking at these definitions: this is not possible. First of all, the interface orientation values are based on the device orientation values, which have 2 more values we don't care about. And secondly, even if we could use the natural order of the device orientation values, they are shuffled around in the <code>UIInterfaceOrientationLandscapeLeft</code> and <code>UIInterfaceOrientationLandscapeRight</code> switcharoo in the definition of <code>UIInterfaceOrientation</code>.</p>
+
+<p>The net result is that we need to resort to an ugly switch statement:</p>
+
+<pre><code class="language-objc highlight"><span class="k">if</span> <span class="p">(</span><span class="n">multiplier</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// clockwise rotation
+</span>    <span class="k">while</span> <span class="p">(</span><span class="n">multiplier</span><span class="o">++</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">orientation</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">:</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationLandscapeLeft</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">UIInterfaceOrientationLandscapeLeft</span><span class="p">:</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">:</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">:</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">multiplier</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// counter-clockwise rotation
+</span>    <span class="k">while</span> <span class="p">(</span><span class="n">multiplier</span><span class="o">--</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">orientation</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">:</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">:</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">:</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationLandscapeLeft</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="n">UIInterfaceOrientationLandscapeLeft</span><span class="p">:</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>When I said ugly, I meant ugly. 😭 But there's no real other way to do this, I guess: if there is, please let me know.
+I initially thought this would also be a bit more robust future wise (you never know when Apple adds another interface orientation), but this code is just as brittle as the <em>addition based</em> code I intentionally wanted to use.</p>
+
+<h2>Finally</h2>
+
+<p>The final resulting function:</p>
+
+<pre><code class="language-objc highlight"><span class="k">-</span> <span class="p">(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nf">orientationByTransforming</span><span class="p">:(</span><span class="n">CGAffineTransform</span><span class="p">)</span><span class="nv">transform</span> <span class="nf">fromOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">c</span>
+<span class="p">{</span>
+    <span class="n">CGFloat</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">atan2f</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">b</span><span class="p">,</span> <span class="n">transform</span><span class="p">.</span><span class="n">a</span><span class="p">);</span>
+    <span class="n">NSInteger</span> <span class="n">multiplier</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">roundf</span><span class="p">(</span><span class="n">angle</span> <span class="o">/</span> <span class="n">M_PI_2</span><span class="p">);</span>
+    <span class="n">UIInterfaceOrientation</span> <span class="n">orientation</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">interfaceOrientation</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">multiplier</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// clockwise rotation
+</span>        <span class="k">while</span> <span class="p">(</span><span class="n">multiplier</span><span class="o">++</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">orientation</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationLandscapeLeft</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="n">UIInterfaceOrientationLandscapeLeft</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="nl">default:</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">multiplier</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// counter-clockwise rotation
+</span>        <span class="k">while</span> <span class="p">(</span><span class="n">multiplier</span><span class="o">--</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">orientation</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationLandscapeLeft</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">case</span> <span class="n">UIInterfaceOrientationLandscapeLeft</span><span class="p">:</span>
+                    <span class="n">orientation</span> <span class="o">=</span> <span class="n">UIInterfaceOrientationPortrait</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="nl">default:</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="n">orientation</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+
+<p>It's also available as <a href="https://gist.github.com/Inferis/26ded6e1e8e625b3cd67">a gist</a>, by the way. And I'll leave the Swift version as an exercise to the reader. 😉</p>
+
+<h2>Postscriptum</h2>
+
+<p>I later refactored the code not to rely on the interface orientation, which is probably better anyway; but having done the exercise I did want to share it with the world. I did not find an 'out-of-the-box' solution right away, which either shows that it's a hard problem to tackle or that it's not really a problem needed to be tackled. But here I am, having tackled it, so sharing it for anyone else to use wouldn't hurt anyone, right?</p>
+
+<p>And finally, I'll admit this: I learned a lot of this in high school and university, but had to actively relearn this when researching this post. Not using these mathematics (apart from the obvious ones you'd use in daily life I'd guess), resulted in the knowledge either being gone or stuck somewhere in the outback of my brain. However, it was fun to learn this anyway. And while I found an actual usable code solution before diving into the maths, I'd really like to understand what I'm actually doing instead of just relying on a copy-paste solution.</p>
+
+<p>So yeah: learning for fun <strong>and</strong> profit.</p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  if (window.location.hostname != "localhost") {
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+</html>
