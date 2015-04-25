@@ -242,7 +242,7 @@ $$\alpha = asin(b) = -asin(c)$$</p>
 
 <h2>interfaceOrientation: from ➢ to</h2>
 
-<p>Now that we know the angle and multiplier, it's time to transform our interface orientation according to this angle. This isn't hard, but it is cumbersome due to how the UIInterfaceOrientation enum is defined:</p>
+<p>Now that we know the angle and multiplier, it's time to transform our interface orientation according to this angle. This isn't hard, but it is cumbersome due to how the <code>UIInterfaceOrientation</code> enum is defined:</p>
 
 <pre><code class="language-objc highlight"><span class="c1">// Note that UIInterfaceOrientationLandscapeLeft is equal to
 // UIDeviceOrientationLandscapeRight (and vice versa). This is because rotating
@@ -255,7 +255,7 @@ $$\alpha = asin(b) = -asin(c)$$</p>
     <span class="n">UIInterfaceOrientationLandscapeRight</span>     <span class="o">=</span> <span class="n">UIDeviceOrientationLandscapeLeft</span>
 <span class="p">};</span></code></pre>
 
-<p>As you can see, it's just a mapping of the corresponding UIDeviceOrientation values, which are defined like this:</p>
+<p>As you can see, it's just a mapping of the corresponding <code>UIDeviceOrientation</code> values, which are defined like this:</p>
 
 <pre><code class="language-objc highlight"><span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">,</span> <span class="n">UIDeviceOrientation</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">UIDeviceOrientationUnknown</span><span class="p">,</span>
