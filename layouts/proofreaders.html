@@ -1,0 +1,16 @@
+<% if @item[:proofreaders] %>
+
+<p class="proofread">
+  This post was proofread by:
+  <%= @item[:proofreaders].split(/\s*,\s*/).map { |reader|
+    if reader.end_with?('@')
+      reader = reader[0...-1]
+      "<a href=\"https://twitter.com/#{reader}\">@#{reader}</a>"
+    else
+      reader
+    end
+  }.join ', '
+  %>. Many thanks!
+</p>
+
+<% end %>
