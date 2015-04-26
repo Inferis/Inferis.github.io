@@ -33,6 +33,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
 
@@ -155,11 +156,9 @@
 <li>remove your scripts from the bundle</li>
 </ol>
 
-<p>Option 2 will most likely always be the thing you'll want to do, unless you actually want to run the script in your app (to be honest: I'm not even sure that's actually possible on iOS given the security issues).</p>
+<p>Option 2 will most likely always be the thing you'll want to do, unless you actually want to run the script in your app (to be honest: I'm not even sure that's even possible on iOS given the security issues).</p>
 
-<p>Getting rid of the scripts is easy: find the script in Xcode and make sure it's not included in any of your targets. If it's not there, you're probably safe. If you still get errors, it might end up in your bundle through another way than Xcode. This can be an external script including the file in your bundle, for example. Which brings me to the harder part of the problem...</p>
-
-<p>Namely, when you're using CocoaPods which do include executable scripts as a resource (for god knows what reason). An example of this is the <a href="https://github.com/willowtreeapps/Crittercism-iOS">Crittercism pod</a>: they include a <code>dsym_upload.sh</code> as a resource, probably as an easy way to distribute the file. If you look at the project file, you won't see the file marked as included in any target:</p>
+<p>Getting rid of the scripts is easy: find the script in Xcode and make sure it's not included in any of your targets. If it's not there, you're probably safe. If you still get errors, it might end up in your bundle through another way than Xcode. This can be an external script including the file in your bundle, for example. Which brings me to the harder part of the problem... Namely, when you're using CocoaPods that include executable scripts as a resource (for god knows what reason). An example of this is the <a href="https://github.com/willowtreeapps/Crittercism-iOS">Crittercism pod</a>: they include a <code>dsym_upload.sh</code> as a resource, probably as an easy way to distribute the file. If you look at the project file, you won't see the file marked as included in any target:</p>
 
 <p><img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/3f1v3s251p1M2W1M3O3S/Image%202015-04-22%20at%203.32.19%20pm.png"></p>
 
@@ -169,9 +168,9 @@
 
 <p>So that's kind of non-obvious.</p>
 
-<p>The tricky part here is that the inclusion of this file is a bit out of your reach. The author of the Podspec decided to include it as a reason and all you asked for was <code>pod 'CrittercismSDK'</code>. No way of manually excluding the file, not even by unticking a box even if that meant you had to do this after every <code>pod install</code>. So you're either stuck waiting until the authors update their Podspec file, or you could do it yourself (for now).</p>
+<p>The tricky part here is that the inclusion of this file is a bit out of your reach. The author of the Podspec decided to include it for some reason and all you asked for was <code>pod 'CrittercismSDK'</code>. There is no way of manually excluding the file, not even by unticking a box even if that meant you had to do this after every <code>pod install</code>. So you're stuck waiting until the authors update their Podspec file, or you could do it yourself (for now).</p>
 
-<h2>Fixing the podspec, temporary</h2>
+<h2>Fixing the podspec, temporarily</h2>
 
 <p>How? By duplicating the offending podspec locally and fix it. In the case of the Crittercism spec this means omitting the .sh file from resources:</p>
 
@@ -185,13 +184,22 @@
 
 <p>According to the <a href="http://guides.cocoapods.org/syntax/podspec.html#exclude_files">Podspec syntax reference</a> <code>exclude_files</code> defines "A list of file patterns that should be excluded from the other file patterns.". Which is exactly what we need. There might already be a line like this in the podspec, so you might need to append to it instead of adding it, so take a good look first.</p>
 
-<p>Now that you fixed the your local copy of the podspec, use that one in your podfile. Which is as easy as adding a <code>podspec</code> reference for the pod:</p>
+<p>Now that you fixed your local copy of the podspec, use that one in your podfile. Which is as easy as adding a <code>podspec</code> reference for the pod:</p>
 
 <pre><code class="language-ruby highlight"><span class="n">pod</span> <span class="s1">'CrittercismSDK'</span><span class="p">,</span> <span class="ss">:podspec</span> <span class="o">=&gt;</span> <span class="s1">'CrittercismSDK.podspec'</span></code></pre>
 
-<p>Of course, you'll only want to do this if this blocks your release. You'll need to keep monitoring the offending podspec(s) for actual fixes to that you can continue using the version you want. By capturing the podspec and storing it locally, you effectively use the version of a pod at the moment of capture, also in the future.</p>
+<p>Of course, you'll only want to do this if this blocks your release. You'll need to keep monitoring the offending podspec(s) for actual fixes so that you can continue using the version you want. By capturing the podspec and storing it locally, you effectively use the version of a pod at the moment of capture, also in the future.</p>
 
 <p>But it's a good compromise to make to get that app out of the door, which is what counts at the end of the day. Just ship it. 😎</p>
+
+
+
+                  
+
+<p class="proofread">
+  This post was proofread by:
+  <a href="https://twitter.com/siegel">@siegel</a>, <a href="https://twitter.com/iCyberPaul">@iCyberPaul</a>, <a href="https://twitter.com/bazscott">@bazscott</a>. Many thanks!
+</p>
 
 
 

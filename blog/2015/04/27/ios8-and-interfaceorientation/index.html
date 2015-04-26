@@ -34,7 +34,6 @@
     <![endif]-->
 
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
 </head>
 
 
@@ -150,7 +149,7 @@
 
 <p>Because: what if you do want the old behavior? Not everybody has the luxury of going iOS8 only; sure, you can still use the old callbacks - for now. They won't get called once you implement <code>viewWillTransitionToSize:withTransitionCoordinator:</code>, but you might want fallback behavior in addition to the new behavior.</p>
 
-<p>And anyhow, I thought I would be a good exercise to see how we could use this new callback to derive our new interface orientation. Adaptive UI and all, but sometimes is just darn handy to know how your device is held.</p>
+<p>And anyhow, I thought it would be a good exercise to see how we could use this new callback to derive our new interface orientation. Adaptive UI and all, but sometimes is just darn handy to know how your device is held.</p>
 
 <p>Turns out, it's not very hard, but it's not a trivial amount of code.</p>
 
@@ -269,7 +268,7 @@ $$\alpha = asin(b) = -asin(c)$$</p>
 
 <p><em>As an aside: You'll notice that there's no equivalent interface orientation for the <code>UIDeviceOrientationFaceUp</code> and <code>UIDeviceOrientationFaceDown</code>, because they make no sense for the interface orientation: it remains the same whether you have the device face up or face down.</em></p>
 
-<p>I show this because my first idea was to <em>cycle</em> through the orientation values by adding or substracting 1 from each value, wrapping around a the minimum and maximum values of the enum. But looking at these definitions: this is not possible. First of all, the interface orientation values are based on the device orientation values, which have 2 more values we don't care about. And secondly, even if we could use the natural order of the device orientation values, they are shuffled around in the <code>UIInterfaceOrientationLandscapeLeft</code> and <code>UIInterfaceOrientationLandscapeRight</code> switcharoo in the definition of <code>UIInterfaceOrientation</code>.</p>
+<p>I show this because my first idea was to <em>cycle</em> through the orientation values by adding or substracting 1 from each value, wrapping around at the minimum and maximum values of the enum. But looking at these definitions: this is not possible. First of all, the interface orientation values are based on the device orientation values, which have 2 more values we don't care about. And secondly, even if we could use the natural order of the device orientation values, they are shuffled around in the <code>UIInterfaceOrientationLandscapeLeft</code> and <code>UIInterfaceOrientationLandscapeRight</code> switcharoo in the definition of <code>UIInterfaceOrientation</code>.</p>
 
 <p>The net result is that we need to resort to an ugly switch statement:</p>
 
@@ -384,6 +383,15 @@ I initially thought this would also be a bit more robust future wise (you never 
 <p>And finally, I'll admit this: I learned a lot of the math behind this in high school and university, but had to actively relearn it all when researching this code and blogpost. Not using these mathematics (apart from the obvious ones you'd use in daily life I guess), resulted in the knowledge either being gone or stuck somewhere in the outback of my brain. However, it was fun to get reacquainted with this knowledge anyway. And while I found an actual usable code solution before diving into the maths myself, I'd really like to understand what I'm actually doing instead of just relying on a copy-paste solution.</p>
 
 <p>So yeah: learning for fun <strong>and</strong> profit. Who knew?</p>
+
+
+
+                  
+
+<p class="proofread">
+  This post was proofread by:
+  <a href="https://twitter.com/cocoakevin">@cocoakevin</a>, <a href="https://twitter.com/bartverhavert">@bartverhavert</a>. Many thanks!
+</p>
 
 
 

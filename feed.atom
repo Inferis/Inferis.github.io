@@ -2,13 +2,273 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-04-22T13:02:23Z</updated>
+  <updated>2015-04-26T23:43:30Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-04-27:/blog/2015/04/27/ios8-and-interfaceorientation/</id>
+    <title type="html">Using interfaceOrientation with iOS8 transitions</title>
+    <published>2015-04-26T23:43:30Z</published>
+    <updated>2015-04-26T23:43:30Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/04/27/ios8-and-interfaceorientation/"/>
+    <content type="html">
+
+&lt;p&gt;Working on an app today, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in &lt;code&gt;UIViewController&lt;/code&gt; are deprecated:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;willRotateToInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;toInterfaceOrientation&lt;/span&gt; &lt;span class="nf"&gt;duration&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;NSTimeInterval&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;duration&lt;/span&gt; &lt;span class="n"&gt;NS_DEPRECATED_IOS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;didRotateFromInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;fromInterfaceOrientation&lt;/span&gt; &lt;span class="n"&gt;NS_DEPRECATED_IOS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;willAnimateRotationToInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;toInterfaceOrientation&lt;/span&gt; &lt;span class="nf"&gt;duration&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;NSTimeInterval&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;duration&lt;/span&gt; &lt;span class="n"&gt;NS_DEPRECATED_IOS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, they want you to use &lt;code&gt;viewWillTransitionToSize:withTransitionCoordinator:&lt;/code&gt; instead.&lt;/p&gt;
+
+&lt;p&gt;So, no problem, we'll just implement that method. The only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;Because: what if you do want the old behavior? Not everybody has the luxury of going iOS8 only; sure, you can still use the old callbacks - for now. They won't get called once you implement &lt;code&gt;viewWillTransitionToSize:withTransitionCoordinator:&lt;/code&gt;, but you might want fallback behavior in addition to the new behavior.&lt;/p&gt;
+
+&lt;p&gt;And anyhow, I thought it would be a good exercise to see how we could use this new callback to derive our new interface orientation. Adaptive UI and all, but sometimes is just darn handy to know how your device is held.&lt;/p&gt;
+
+&lt;p&gt;Turns out, it's not very hard, but it's not a trivial amount of code.&lt;/p&gt;
+
+&lt;p&gt;I looked up session 214 of WWDC 2014: &lt;em&gt;View Controller Advancements in iOS8&lt;/em&gt; by Bruce Nilo (📹 &lt;a href="http://devstreaming.apple.com/videos/wwdc/2014/214xxq2mdbtmp23/214/214_hd_view_controller_advancements_in_ios_8.mov"&gt;video&lt;/a&gt; &amp;amp; 📈 &lt;a href="http://devstreaming.apple.com/videos/wwdc/2014/214xxq2mdbtmp23/214/214_view_controller_advancements_in_ios_8.pdf"&gt;slides&lt;/a&gt;). It's a very interesting talk since he goes into all of the changes they've made, including the changes in rotation behavior.&lt;/p&gt;
+
+&lt;p&gt;A particular slide peaked my interest:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/0r1R2E132l3n2P1O472S/rotation.jpg" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;Notice the &lt;code&gt;[self orientationFromTransform:[t targetTransform]]&lt;/code&gt;. He doesn't go into it (obviously), but I knew what to do.&lt;/p&gt;
+
+&lt;p&gt;With some experimentation, it looks like the transform you get via &lt;code&gt;targetTransform&lt;/code&gt; is the rotation transform resulting from rotating your device. So if you turn from portrait to landscape it will be a 90º (or &lt;code&gt;π/2&lt;/code&gt; or even &lt;code&gt;M_PI_2&lt;/code&gt;) rotation, and if you go from landscape left to landscape right it will a 180º rotation. Depending on the direction of the rotation, the angle will be either positive or negative.&lt;/p&gt;
+
+&lt;p&gt;So we can use this &lt;code&gt;targetTransform&lt;/code&gt; to go from the current interface orientation to the target interfaceorientation: we just need to "add" the rotation to the interface orientation value.&lt;/p&gt;
+
+&lt;h2&gt;Some work, some math&lt;/h2&gt;
+
+&lt;p&gt;The approach we'll be taking will be somewhat generic. Generic because we'll calculate the number of 90º "segments" we'll have to go through, and switch to the "next" interfaceorientation for each segment. In the end, we'll have the correct orientation.&lt;/p&gt;
+
+&lt;p&gt;This sounds easier than it proved to be. The first problem is calculating how many segments we need from the transform. We can calculate this from the &lt;a href="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CGAffineTransform/index.html#//apple_ref/c/tdef/CGAffineTransform"&gt;affine transform&lt;/a&gt;, which is - and you may or may not know this - a struct representing a matrix. In code, this looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;CGAffineTransform&lt;/span&gt; &lt;span class="n"&gt;CGAffineTransform&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;CGAffineTransform&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;CGFloat&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="n"&gt;CGFloat&lt;/span&gt; &lt;span class="n"&gt;tx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ty&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a representation of this matrix:&lt;/p&gt;
+
+&lt;p&gt;$$\begin{bmatrix}
+  a &amp;amp; b &amp;amp; 0 \\
+  c &amp;amp; d &amp;amp; 0 \\
+  tx &amp;amp; ty &amp;amp; 1
+ \end{bmatrix}$$&lt;/p&gt;
+
+&lt;p&gt;This transformation matrix is used to transform the coordinates of the source point &lt;code&gt;(x,y)&lt;/code&gt; to a target point &lt;code&gt;(x',y')&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;$$\begin{bmatrix}
+  x' &amp;amp; y' &amp;amp; 1
+ \end{bmatrix} = \begin{bmatrix}
+   x &amp;amp; y &amp;amp; 1
+  \end{bmatrix} \times \begin{bmatrix}
+   a &amp;amp; b &amp;amp; 0 \\
+   c &amp;amp; d &amp;amp; 0 \\
+   tx &amp;amp; ty &amp;amp; 1
+  \end{bmatrix}$$&lt;/p&gt;
+
+&lt;p&gt;For those not well versed in matrix algebra: you traverse each item of the source 1x3 matrix and multiply it with the corresponding row, and then adding these results together. You do this for each column so that you end up with a new 1x3 matrix.&lt;/p&gt;
+
+&lt;p&gt;Which results in the following equations:&lt;/p&gt;
+
+&lt;p&gt;$$x' = ax + cy + tx$$
+$$y' = bx + dy + ty$$
+$$1 = 0x + 0y + 1$$&lt;/p&gt;
+
+&lt;p&gt;That last one is useless, so we can ignore it.&lt;/p&gt;
+
+&lt;p&gt;CGAffineTransform is merely a struct representing the useful values of this matrix, and the transforms you use in your code are just representations of this matrix which is used &lt;a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_affine/dq_affine.html"&gt;by Quartz&lt;/a&gt; to perform the calculations using the equations above. In effect: the matrix &lt;em&gt;links&lt;/em&gt; two coordinate systems — it specifies how points in one coordinate system map to points in another.&lt;/p&gt;
+
+&lt;p&gt;So back to our rotation: how does the &lt;a href="http://en.wikipedia.org/wiki/Rotation_matrix"&gt;matrix for a rotation&lt;/a&gt; look like? Like this (where &lt;code&gt;α&lt;/code&gt; is the angle of the rotation) (for Quartz):&lt;/p&gt;
+
+&lt;p&gt;$$\begin{bmatrix}
+ cos \alpha &amp;amp; sin \alpha &amp;amp; 0 \\
+ -sin \alpha &amp;amp; cos \alpha &amp;amp; 0 \\
+ 0 &amp;amp; 0 &amp;amp; 1
+\end{bmatrix}$$&lt;/p&gt;
+
+&lt;p&gt;So when we want the angle from this matrix, we'd need to reverse the the matrix calculations. This is as simple as taking any of the a/b/c/d matrix elements and reverse it:&lt;/p&gt;
+
+&lt;p&gt;$$\alpha = acos(a) = acos(d)$$
+$$\alpha = asin(b) = -asin(c)$$&lt;/p&gt;
+
+&lt;p&gt;Now using &lt;code&gt;acos&lt;/code&gt; or &lt;code&gt;asin&lt;/code&gt; to get the angle has a tiny problem: each input can result in 2 solutions (this is due to how sine and cosine functions work, of course). The &lt;code&gt;atan2&lt;/code&gt; function doesn't have this problem since it uses two inputs to calculate the result. It's also better in our case since an affine transform can also contain a scale transform, which has no impact on the result if we use &lt;code&gt;atan2&lt;/code&gt;. So here we go:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;atan2f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;atan2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;Watch out, the atan2 function takes the &lt;code&gt;y&lt;/code&gt; parameter first -&amp;gt; RTFM!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;If you want to know more about the maths behind this, check out &lt;a href="http://en.wikipedia.org/wiki/Euler_angles"&gt;Euler angles&lt;/a&gt; and &lt;a href="http://staff.city.ac.uk/%7Esbbh653/publications/euler.pdf"&gt;this paper&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Back to our calculations: we actually don't want the angle, but the number of 90º segments of our rotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;CGFloat&lt;/span&gt; &lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;atan2f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="n"&gt;NSInteger&lt;/span&gt; &lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;roundf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;M_PI_2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We explicitly round the division by &lt;code&gt;π/2&lt;/code&gt;; relying on the implicit &lt;em&gt;CGFloat&lt;/em&gt; to &lt;em&gt;NSInteger&lt;/em&gt; conversion isn't good enough since it just takes the integral part of the float (in effect &lt;code&gt;floorf(...)&lt;/code&gt;) which is &lt;em&gt;not&lt;/em&gt; what you want.&lt;/p&gt;
+
+&lt;p&gt;Note that the angle of rotation will be the inverse of how you rotate the device: if you rotate the device clockwise, the angle of the transform will be negative (and thus counter-clockwise): the transform "counters" the rotation to get back to where we were before the rotation (albeit with other dimensions).&lt;/p&gt;
+
+&lt;h2&gt;interfaceOrientation: from ➢ to&lt;/h2&gt;
+
+&lt;p&gt;Now that we know the angle and multiplier, it's time to transform our interface orientation according to this angle. This isn't hard, but it is cumbersome due to how the &lt;code&gt;UIInterfaceOrientation&lt;/code&gt; enum is defined:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="c1"&gt;// Note that UIInterfaceOrientationLandscapeLeft is equal to
+// UIDeviceOrientationLandscapeRight (and vice versa). This is because rotating
+// the device to the left requires rotating the content to the right.
+&lt;/span&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="nf"&gt;NS_ENUM&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;UIInterfaceOrientationUnknown&lt;/span&gt;            &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationUnknown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;           &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;      &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;     &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationLandscapeLeft&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, it's just a mapping of the corresponding &lt;code&gt;UIDeviceOrientation&lt;/code&gt; values, which are defined like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="nf"&gt;NS_ENUM&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;UIDeviceOrientationUnknown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;UIDeviceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="c1"&gt;// Device oriented vertically, home btn -&amp;gt; bottom
+&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="c1"&gt;// Device oriented vertically, home btn -&amp;gt; top
+&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;   &lt;span class="c1"&gt;// Device oriented horizontally, home btn -&amp;gt; right
+&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="c1"&gt;// Device oriented horizontally, home btn -&amp;gt; left
+&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationFaceUp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;          &lt;span class="c1"&gt;// Device oriented flat, face up
+&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationFaceDown&lt;/span&gt;         &lt;span class="c1"&gt;// Device oriented flat, face down
+&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;As an aside: You'll notice that there's no equivalent interface orientation for the &lt;code&gt;UIDeviceOrientationFaceUp&lt;/code&gt; and &lt;code&gt;UIDeviceOrientationFaceDown&lt;/code&gt;, because they make no sense for the interface orientation: it remains the same whether you have the device face up or face down.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I show this because my first idea was to &lt;em&gt;cycle&lt;/em&gt; through the orientation values by adding or substracting 1 from each value, wrapping around at the minimum and maximum values of the enum. But looking at these definitions: this is not possible. First of all, the interface orientation values are based on the device orientation values, which have 2 more values we don't care about. And secondly, even if we could use the natural order of the device orientation values, they are shuffled around in the &lt;code&gt;UIInterfaceOrientationLandscapeLeft&lt;/code&gt; and &lt;code&gt;UIInterfaceOrientationLandscapeRight&lt;/code&gt; switcharoo in the definition of &lt;code&gt;UIInterfaceOrientation&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The net result is that we need to resort to an ugly switch statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// clockwise rotation
+&lt;/span&gt;    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// counter-clockwise rotation
+&lt;/span&gt;    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When I said ugly, I meant ugly. 😭 But there's no real other way to do this, I guess: if there is, please let me know.
+I initially thought this would also be a bit more robust future wise (you never know when Apple adds another interface orientation), but this code is just as brittle as the &lt;em&gt;addition based&lt;/em&gt; code I intentionally wanted to use.&lt;/p&gt;
+
+&lt;h2&gt;Finally&lt;/h2&gt;
+
+&lt;p&gt;The final resulting function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;orientationByTransforming&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;CGAffineTransform&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;transform&lt;/span&gt; &lt;span class="nf"&gt;fromOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;c&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;CGFloat&lt;/span&gt; &lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;atan2f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;NSInteger&lt;/span&gt; &lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;roundf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;M_PI_2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt; &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;interfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// clockwise rotation
+&lt;/span&gt;        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="nl"&gt;default:&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// counter-clockwise rotation
+&lt;/span&gt;        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+                &lt;span class="nl"&gt;default:&lt;/span&gt;
+                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It's also available as &lt;a href="https://gist.github.com/Inferis/26ded6e1e8e625b3cd67"&gt;a gist&lt;/a&gt;, by the way. And I'll leave the Swift version as an exercise to the reader. 😉&lt;/p&gt;
+
+&lt;h2&gt;Postscriptum&lt;/h2&gt;
+
+&lt;p&gt;I later refactored the code not to rely on the interface orientation, which is probably better anyway; but having done the exercise I did want to share it with the world. I did not find an 'out-of-the-box' solution right away, which either shows that it's a hard problem to tackle or that it's not really a problem needed to be tackled. But here I am, having tackled it, so sharing it for anyone else to use wouldn't hurt anyone, right?&lt;/p&gt;
+
+&lt;p&gt;And finally, I'll admit this: I learned a lot of the math behind this in high school and university, but had to actively relearn it all when researching this code and blogpost. Not using these mathematics (apart from the obvious ones you'd use in daily life I guess), resulted in the knowledge either being gone or stuck somewhere in the outback of my brain. However, it was fun to get reacquainted with this knowledge anyway. And while I found an actual usable code solution before diving into the maths myself, I'd really like to understand what I'm actually doing instead of just relying on a copy-paste solution.&lt;/p&gt;
+
+&lt;p&gt;So yeah: learning for fun &lt;strong&gt;and&lt;/strong&gt; profit. Who knew?&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-04-22:/blog/2015/04/22/scripts-in-your-app-bundle/</id>
     <title type="html">Scripts in your app bundle</title>
@@ -39,11 +299,9 @@
 &lt;li&gt;remove your scripts from the bundle&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Option 2 will most likely always be the thing you'll want to do, unless you actually want to run the script in your app (to be honest: I'm not even sure that's actually possible on iOS given the security issues).&lt;/p&gt;
+&lt;p&gt;Option 2 will most likely always be the thing you'll want to do, unless you actually want to run the script in your app (to be honest: I'm not even sure that's even possible on iOS given the security issues).&lt;/p&gt;
 
-&lt;p&gt;Getting rid of the scripts is easy: find the script in Xcode and make sure it's not included in any of your targets. If it's not there, you're probably safe. If you still get errors, it might end up in your bundle through another way than Xcode. This can be an external script including the file in your bundle, for example. Which brings me to the harder part of the problem...&lt;/p&gt;
-
-&lt;p&gt;Namely, when you're using CocoaPods which do include executable scripts as a resource (for god knows what reason). An example of this is the &lt;a href="https://github.com/willowtreeapps/Crittercism-iOS"&gt;Crittercism pod&lt;/a&gt;: they include a &lt;code&gt;dsym_upload.sh&lt;/code&gt; as a resource, probably as an easy way to distribute the file. If you look at the project file, you won't see the file marked as included in any target:&lt;/p&gt;
+&lt;p&gt;Getting rid of the scripts is easy: find the script in Xcode and make sure it's not included in any of your targets. If it's not there, you're probably safe. If you still get errors, it might end up in your bundle through another way than Xcode. This can be an external script including the file in your bundle, for example. Which brings me to the harder part of the problem... Namely, when you're using CocoaPods that include executable scripts as a resource (for god knows what reason). An example of this is the &lt;a href="https://github.com/willowtreeapps/Crittercism-iOS"&gt;Crittercism pod&lt;/a&gt;: they include a &lt;code&gt;dsym_upload.sh&lt;/code&gt; as a resource, probably as an easy way to distribute the file. If you look at the project file, you won't see the file marked as included in any target:&lt;/p&gt;
 
 &lt;p&gt;&lt;img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/3f1v3s251p1M2W1M3O3S/Image%202015-04-22%20at%203.32.19%20pm.png"&gt;&lt;/p&gt;
 
@@ -53,9 +311,9 @@
 
 &lt;p&gt;So that's kind of non-obvious.&lt;/p&gt;
 
-&lt;p&gt;The tricky part here is that the inclusion of this file is a bit out of your reach. The author of the Podspec decided to include it as a reason and all you asked for was &lt;code&gt;pod 'CrittercismSDK'&lt;/code&gt;. No way of manually excluding the file, not even by unticking a box even if that meant you had to do this after every &lt;code&gt;pod install&lt;/code&gt;. So you're either stuck waiting until the authors update their Podspec file, or you could do it yourself (for now).&lt;/p&gt;
+&lt;p&gt;The tricky part here is that the inclusion of this file is a bit out of your reach. The author of the Podspec decided to include it for some reason and all you asked for was &lt;code&gt;pod 'CrittercismSDK'&lt;/code&gt;. There is no way of manually excluding the file, not even by unticking a box even if that meant you had to do this after every &lt;code&gt;pod install&lt;/code&gt;. So you're stuck waiting until the authors update their Podspec file, or you could do it yourself (for now).&lt;/p&gt;
 
-&lt;h2&gt;Fixing the podspec, temporary&lt;/h2&gt;
+&lt;h2&gt;Fixing the podspec, temporarily&lt;/h2&gt;
 
 &lt;p&gt;How? By duplicating the offending podspec locally and fix it. In the case of the Crittercism spec this means omitting the .sh file from resources:&lt;/p&gt;
 
@@ -69,11 +327,11 @@
 
 &lt;p&gt;According to the &lt;a href="http://guides.cocoapods.org/syntax/podspec.html#exclude_files"&gt;Podspec syntax reference&lt;/a&gt; &lt;code&gt;exclude_files&lt;/code&gt; defines "A list of file patterns that should be excluded from the other file patterns.". Which is exactly what we need. There might already be a line like this in the podspec, so you might need to append to it instead of adding it, so take a good look first.&lt;/p&gt;
 
-&lt;p&gt;Now that you fixed the your local copy of the podspec, use that one in your podfile. Which is as easy as adding a &lt;code&gt;podspec&lt;/code&gt; reference for the pod:&lt;/p&gt;
+&lt;p&gt;Now that you fixed your local copy of the podspec, use that one in your podfile. Which is as easy as adding a &lt;code&gt;podspec&lt;/code&gt; reference for the pod:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class="language-ruby highlight"&gt;&lt;span class="n"&gt;pod&lt;/span&gt; &lt;span class="s1"&gt;'CrittercismSDK'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:podspec&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'CrittercismSDK.podspec'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Of course, you'll only want to do this if this blocks your release. You'll need to keep monitoring the offending podspec(s) for actual fixes to that you can continue using the version you want. By capturing the podspec and storing it locally, you effectively use the version of a pod at the moment of capture, also in the future.&lt;/p&gt;
+&lt;p&gt;Of course, you'll only want to do this if this blocks your release. You'll need to keep monitoring the offending podspec(s) for actual fixes so that you can continue using the version you want. By capturing the podspec and storing it locally, you effectively use the version of a pod at the moment of capture, also in the future.&lt;/p&gt;
 
 &lt;p&gt;But it's a good compromise to make to get that app out of the door, which is what counts at the end of the day. Just ship it. 😎&lt;/p&gt;
 
@@ -103,7 +361,7 @@
 
 &lt;p&gt;&lt;img class="center" src="https://farm8.staticflickr.com/7633/17029598880_74bf022f5c_z.jpg"&gt;&lt;/p&gt;
 
-&lt;p&gt;Then, we geared up ("so how does this parachute work exactly?", "don't touch this or we'll lose the cockpit", ...), they sat me down in the second seat of the glider and Jelle explained what dial was used for what purpose. To be honest: I'm not the stupidest guy in the pack, but it was a lot of information to take in, even though I wasn't going to do any flying myself. But then again, it was the first time I set foot in a glider, or in a small airplane all together: all the other planes I've flown along with were quite a bit bigger. 😅 My gear - I had my camera with me - was tucked away by my side, because I was told that the ride my be a bit bumpy.&lt;/p&gt;
+&lt;p&gt;Then, we geared up ("so how does this parachute work exactly?", "don't touch this or we'll lose the cockpit", ...), they sat me down in the second seat of the glider and Jelle explained what dial was used for what purpose. To be honest: I'm not the stupidest guy in the pack, but it was a lot of information to take in, even though I wasn't going to do any flying myself. But then again, it was the first time I set foot in a glider, or in a small airplane all together: all the other planes I've flown along with were quite a bit bigger. 😅 My gear - I had my camera with me - was tucked away by my side, because I was told that the ride may be a bit bumpy.&lt;/p&gt;
 
 &lt;p&gt;This apparently had to do with the weather: the sky was virtually clear except for a few patches of clouds here and there and the sun was out. This meant a lot of heat was generated at ground level. Heat means rising air which is good for a glider but this also meant a lot of agitation: the forces of nature helping us up could also be a bit quirky at times. They would also have effect on my feeling of balance: I was given a small puking bag just in case. I wouldn't have been the first to throw up in the back seat of a twin glider, I've been told.&lt;/p&gt;
 
@@ -123,7 +381,7 @@
 
 &lt;p&gt;&lt;img class="center" src="https://farm6.staticflickr.com/5469/16594642524_4bf5a3e4da_z.jpg"&gt;&lt;/p&gt;
 
-&lt;p&gt;So yeah: a very nice afternoon indeed. I'd gladly do it again, even though my stomach wouldn't agree now. I'm thinking that once you get use to it and know what to expect, I might become less "unpleasant". We'll see, there might be another time.&lt;/p&gt;
+&lt;p&gt;So yeah: a very nice afternoon indeed. I'd gladly do it again, even though my stomach wouldn't agree now. I'm thinking that once you get used to it and know what to expect, I might become less "unpleasant". We'll see, there might be another time.&lt;/p&gt;
 
 &lt;p&gt;&lt;img class="center" src="https://farm9.staticflickr.com/8690/17029545180_fb463338ed_z.jpg"&gt;&lt;/p&gt;
 
@@ -703,38 +961,6 @@ It actually landed me a job on the other side of the world, in a company and tea
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;I think that explictly implemented protocol methods would be a valuable addition to Swift. I think they'd be handy (the same for abstract classes, but that's another discussion) for the points given above. The benefit of being able to use all internals of the class directly without dereferencing the original object makes the implementation more clear and there's no need for an internal proxy class. While the pattern is possible to use in Swift is required a bit more code and thus maintenance when changing the API in the future. But I guess that's a reasonable price to pay (until they add explicitly implemented protocol methods).&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2014-09-21:/blog/2014/09/21/nsspain-2014/</id>
-    <title type="html">NSSpain 2014</title>
-    <published>2014-09-21T06:37:23Z</published>
-    <updated>2014-09-21T06:37:23Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2014/09/21/nsspain-2014/"/>
-    <content type="html">
-
-&lt;p&gt;So I did manage to go to NSSpain this year. Having missed it last year, I had vowed to go this year. But intentions don't always work out in the end, so it was a really last minute decision to actually go (props for my team at &lt;a href="http://icapps.com"&gt;iCapps&lt;/a&gt; to deliver awesome results so that I actually &lt;em&gt;could&lt;/em&gt; go - I am proud of you guys and girls!). Also, a &lt;em&gt;very big thank you&lt;/em&gt; to &lt;a href="http://twitter.com/lascorbe"&gt;Luis&lt;/a&gt; for helping me find a way to Logroño, which proved harder than expected (booking everything last minute doesn't help, of course).&lt;/p&gt;
-
-&lt;p&gt;I'm very happy to have actually attended. The suddenly changed &lt;a href="%7B%%20post_url%202014-09-19-goodbye%20%%7D"&gt;circumstances&lt;/a&gt; before I left surely had an impact on my expierence. My thoughts and feelings were more at home than in Logroño, but I tried to make the best of it. Thought about "going back" several times, but I'm happy to have stayed. ;)&lt;/p&gt;
-
-&lt;p&gt;Now, enough with the emotionalism (is that even a word?), how was NSSpain?&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;It was so good. First of all, I really like Logroño. It's not the easiest city to travel to, but once you get there: it's a very nice and friendly city. And a cheap city, too. A three course lunch for 9 euros: try to beat that (of course, it's no haute cuisine, but the portions are usually more than big enough). Also, as capital of the Rioja province, they virtually give you a wine for free. And the wine is good, too. So, yeah, Logroño is a great place to stay. Nice atmosphere, and a clean and friendly city. You should visit it (maybe next year's NSSpain?)&lt;/p&gt;
-
-&lt;p&gt;The conference itself was very good too. The announced speakers and their topics were very appealing (the most part of why I actually wanted to go), and most of them delivered. It was a good combination of topics. Some were technical, some were about more human things and how we interact. I especially loved the session by &lt;a href="http://twitter.com/humorthatworks"&gt;Andrew Tarvin&lt;/a&gt; about progamming/humans/humour. It was fun and interesting at the same time (ain't we lucky!). Also, I liked the various sessions about testing and code quality (those by &lt;a href="http://twitter.com/secboffin"&gt;Graham Lee&lt;/a&gt; and &lt;a href="https://twitter.com/viteinfinite"&gt;Simone Civetta&lt;/a&gt; were particularly interesting to me). &lt;a href="http://twitter.com/mikeash"&gt;Mike Ash&lt;/a&gt;'s talk was insanely technical (yay pointers in Swift) but so, so good. The talk about scale by &lt;a href="http://twitter.com/micheletitolo"&gt;Michele Titolo&lt;/a&gt; certainly resonated with me (not specifically for the users/hardware scale, but for part about the team scale). &lt;a href="http://twitter.com/davidronnqvist"&gt;David Rönnqvist&lt;/a&gt;'s Scenekit talk was insanely amazing on the visuals (best "slides" ever). He made SceneKit look so simple (and perhaps it is, certainly something to check out). And props to &lt;a href="http://twitter.com/mattjgalloway"&gt;Matt Galloway&lt;/a&gt; for going on stage for the Swift Q/A, handling our barrage of questions. No real way to prepare other than having 5 years of Swift development experience. The other talks were equally as good mostly. The quality was very good all in all, but that was to be expected with this kind-of-stellar lineup. The only real dissappointing talk was the one by &lt;a href="http://twitter.com/soffes"&gt;Sam Soffes&lt;/a&gt;. Maybe it were my expectations, not sure, but there was nothing to take away from this other that he loves &lt;code&gt;NSBundle&lt;/code&gt; and &lt;code&gt;UICollectionView&lt;/code&gt;. A more specific, deeper dive into one feature would have been better, I think.&lt;/p&gt;
-
-&lt;p&gt;Apart from the content, the atmosphere was more relaxed than at other conferences. We hardly started on time, the schedule was interpreted loosy. Some arrangements were communicated "last minute". But that was quite okay. I was never bothered by it. Perhaps that's the Spanish influence on things.&lt;/p&gt;
-
-&lt;p&gt;Another part of conferences is meeting people. This is simple and hard at the same time, because it requires actual human interaction with human beings you don't know. Quite a feat for geeks like us. At NSSpain it was even harder than other conferences I've been to, because if the high number of Spanish natives. So connecting to them isn't that simple. Nevertheless, I met a lot of new people and caught up with a few others. I totally appreciated &lt;a href="http://www.twitter.com/Daniel1of1"&gt;Daniel&lt;/a&gt; coming to thank me in person for buying a Hero ticket for &lt;a href="http://cmdrconf.com"&gt;Cmd-R Conf&lt;/a&gt;. It was fun to finally say hi to &lt;a href="http://twitter.com/orta"&gt;Orta&lt;/a&gt; in the flesh. He's as energetic in real life has he feels like on twitter. It was nice to see &lt;a href="http://twitter.com/StuffMC"&gt;StuffMC&lt;/a&gt;, that jack of all trades. It was fun to talk with a few of the speakers (after all, they're humans too -- on the other hand, you need to find one way to make a connection). And, oh, I hadn't expected to meet fellow Belgians on this conf, but there were five of us. The pitfall of which is that you automatically get attracted to each other -- at least that what happens for me -- so mingling with strangers becomes more difficult. I don't avoid my fellow countrymen, but I intentionally go find new/other people too.&lt;/p&gt;
-
-&lt;p&gt;And oh yeah: I spoke at a conference. *cheers* I had previously expressed interest in doing a lightning talk but hadn't given it extra thought because I never got confirmation (I also didn't ask for it, so there's nobody to blame). But when Luis approached me the first day with "Will you do a lightning talk?" I was a bit dumbfounded at first, but said yes nevertheless. I thought I could think of something. And so I did. Lightning talks are only five minutes, so I dismissed "something technical". I felt 5 mins were too short convey something technical towards the audience. And since we use GIFs (a lot) in our communication at work, I decided to talk about that. And it wasn't bad it seems, since I got quite a bit positive feedback on it. And making the talk was a good way to get rid of some of the &lt;a href="%7B%%20post_url%202014-09-19-goodbye%20%%7D"&gt;dark thoughts in my head&lt;/a&gt;. Afterwards I thought there was enough to say make this into a full 30 min talk, so I might just do that.&lt;/p&gt;
-
-&lt;p&gt;Also: there were a lot more people there than I had expected! I assumed it would be a pretty small conference, but there were 215 attendees present (up from about a hundred last year). They're going to cap at 200 next year, because you could feel this was slightly above capacity.&lt;/p&gt;
-
-&lt;p&gt;Chances are high I'll be back next year. I had a very enjoyable time, learned a lot of stuff, was in great company. Thanks to &lt;a href="http://twitter.com/lascorbe"&gt;Luis&lt;/a&gt; and &lt;a href="http://twitter.com/borjareinares"&gt;Borja&lt;/a&gt; for organising. Great job, guys.&lt;/p&gt;
 
 </content>
   </entry>
