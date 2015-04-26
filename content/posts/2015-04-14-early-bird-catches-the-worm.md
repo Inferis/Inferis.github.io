@@ -5,6 +5,7 @@ kind: article
 categories:
 - life
 - lifehacks
+proofreaders: @siegel, @iCyberPaul, @bazscott
 ---
 
 I'm starting to become an early-morning person.
