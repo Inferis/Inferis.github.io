@@ -214,7 +214,7 @@
 
     
 
-<p>Working on an app today, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in <code>UIViewController</code> are deprecated:</p>
+<p>Working on an app last week, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in <code>UIViewController</code> are deprecated:</p>
 
 <pre><code class="language-objc highlight highlight"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span>
 <span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">);</span>

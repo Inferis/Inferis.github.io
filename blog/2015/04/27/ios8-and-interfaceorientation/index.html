@@ -134,7 +134,7 @@
 
                   
 
-<p>Working on an app today, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in <code>UIViewController</code> are deprecated:</p>
+<p>Working on an app last week, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in <code>UIViewController</code> are deprecated:</p>
 
 <pre><code class="language-objc highlight"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span>
 <span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">);</span>
@@ -378,7 +378,7 @@ I initially thought this would also be a bit more robust future wise (you never 
 
 <h2>Postscriptum</h2>
 
-<p>I later refactored the code not to rely on the interface orientation, which is probably better anyway; but having done the exercise I did want to share it with the world. I did not find an 'out-of-the-box' solution right away, which either shows that it's a hard problem to tackle or that it's not really a problem needed to be tackled. But here I am, having tackled it, so sharing it for anyone else to use wouldn't hurt anyone, right?</p>
+<p>I later refactored the code not to rely on the interface orientation, which is probably better anyway; but having done the exercise I did want to share it with the world. I googled it, but not find an 'out-of-the-box' solution right away, which either shows that it's a hard problem to tackle or that it's not really a problem needed to be tackled. But here I am, having tackled it, so sharing it for anyone else to use wouldn't hurt anyone, right?</p>
 
 <p>And finally, I'll admit this: I learned a lot of the math behind this in high school and university, but had to actively relearn it all when researching this code and blogpost. Not using these mathematics (apart from the obvious ones you'd use in daily life I guess), resulted in the knowledge either being gone or stuck somewhere in the outback of my brain. However, it was fun to get reacquainted with this knowledge anyway. And while I found an actual usable code solution before diving into the maths myself, I'd really like to understand what I'm actually doing instead of just relying on a copy-paste solution.</p>
 
