@@ -7,6 +7,7 @@ categories:
 - life
 - ios
 kind: article
+proofreaders: bmf@, qnoid@, ashfurrow@
 ---
 
 A tweet, 2 FaceTime interviews, a trip to Cupertino for 5 two-person interviews lasting a whole day (including lunch at the Caffé Macs), a bucketload of mails and 2 handfuls of international phonecalls.

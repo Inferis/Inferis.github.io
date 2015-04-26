@@ -7,6 +7,7 @@ categories:
 - development
 - ios
 - conferences
+proofreaders: siegel@, tomklaasen@
 ---
 
 The last [NSConference](http://nsconference.com). I'm happy to say I was there. I'm sad to see it go.
