@@ -11,7 +11,7 @@ require 'openssl'
 
 class OctopressTweetTags < OctopressFilter
 
-  TWITTER_OEMBED_URL = "https://api.twitter.com/1/statuses/oembed.json"
+  TWITTER_OEMBED_URL = "https://api.twitter.com/1/statuses/oembed.json" unless TWITTER_OEMBED_URL
 
   def tag_name
     "tweet"
