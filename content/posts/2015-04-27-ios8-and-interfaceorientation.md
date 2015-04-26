@@ -2,7 +2,7 @@
 title: "Using interfaceOrientation with iOS8 transitions"
 created_at: 2015-04-27 9:20:30 +0200
 kind: article
-proofreaders: cmaddern@, cocoakevin@
+proofreaders: cocoakevin@, bartverhavert@
 ---
 
 Working on an app today, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in `UIViewController` are deprecated:
@@ -22,7 +22,7 @@ So, no problem, we'll just implement that method. The only thing is: what if you
 
 Because: what if you do want the old behavior? Not everybody has the luxury of going iOS8 only; sure, you can still use the old callbacks - for now. They won't get called once you implement `viewWillTransitionToSize:withTransitionCoordinator:`, but you might want fallback behavior in addition to the new behavior.
 
-And anyhow, I thought I would be a good exercise to see how we could use this new callback to derive our new interface orientation. Adaptive UI and all, but sometimes is just darn handy to know how your device is held.
+And anyhow, I thought it would be a good exercise to see how we could use this new callback to derive our new interface orientation. Adaptive UI and all, but sometimes is just darn handy to know how your device is held.
 
 Turns out, it's not very hard, but it's not a trivial amount of code.
 
@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, UIDeviceOrientation) {
 
 *As an aside: You'll notice that there's no equivalent interface orientation for the `UIDeviceOrientationFaceUp` and `UIDeviceOrientationFaceDown`, because they make no sense for the interface orientation: it remains the same whether you have the device face up or face down.*
 
-I show this because my first idea was to *cycle* through the orientation values by adding or substracting 1 from each value, wrapping around a the minimum and maximum values of the enum. But looking at these definitions: this is not possible. First of all, the interface orientation values are based on the device orientation values, which have 2 more values we don't care about. And secondly, even if we could use the natural order of the device orientation values, they are shuffled around in the `UIInterfaceOrientationLandscapeLeft` and `UIInterfaceOrientationLandscapeRight` switcharoo in the definition of `UIInterfaceOrientation`.
+I show this because my first idea was to *cycle* through the orientation values by adding or substracting 1 from each value, wrapping around at the minimum and maximum values of the enum. But looking at these definitions: this is not possible. First of all, the interface orientation values are based on the device orientation values, which have 2 more values we don't care about. And secondly, even if we could use the natural order of the device orientation values, they are shuffled around in the `UIInterfaceOrientationLandscapeLeft` and `UIInterfaceOrientationLandscapeRight` switcharoo in the definition of `UIInterfaceOrientation`.
 
 The net result is that we need to resort to an ugly switch statement:
 
