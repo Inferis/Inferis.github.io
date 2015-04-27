@@ -1,11 +1,11 @@
 ---
 title: "Using interfaceOrientation with iOS8 transitions"
-created_at: 2015-04-27 9:20:30 +0200
+created_at: 2015-04-27 1:43:30 +0200
 kind: article
 proofreaders: cocoakevin@, bartverhavert@
 ---
 
-Working on an app today, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in `UIViewController` are deprecated:
+Working on an app last week, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in `UIViewController` are deprecated:
 
 ```objc
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration NS_DEPRECATED_IOS(2_0,8_0, "Implement viewWillTransitionToSize:withTransitionCoordinator: instead");
@@ -265,7 +265,7 @@ It's also available as [a gist](https://gist.github.com/Inferis/26ded6e1e8e625b3
 
 ## Postscriptum
 
-I later refactored the code not to rely on the interface orientation, which is probably better anyway; but having done the exercise I did want to share it with the world. I did not find an 'out-of-the-box' solution right away, which either shows that it's a hard problem to tackle or that it's not really a problem needed to be tackled. But here I am, having tackled it, so sharing it for anyone else to use wouldn't hurt anyone, right?
+I later refactored the code not to rely on the interface orientation, which is probably better anyway; but having done the exercise I did want to share it with the world. I googled it, but not find an 'out-of-the-box' solution right away, which either shows that it's a hard problem to tackle or that it's not really a problem needed to be tackled. But here I am, having tackled it, so sharing it for anyone else to use wouldn't hurt anyone, right?
 
 And finally, I'll admit this: I learned a lot of the math behind this in high school and university, but had to actively relearn it all when researching this code and blogpost. Not using these mathematics (apart from the obvious ones you'd use in daily life I guess), resulted in the knowledge either being gone or stuck somewhere in the outback of my brain. However, it was fun to get reacquainted with this knowledge anyway. And while I found an actual usable code solution before diving into the maths myself, I'd really like to understand what I'm actually doing instead of just relying on a copy-paste solution.
 
