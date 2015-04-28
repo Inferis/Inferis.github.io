@@ -141,9 +141,12 @@
 
 <span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willAnimateRotationToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">3</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span></code></pre>
 
-<p>As you can see, they want you to use <code>viewWillTransitionToSize:withTransitionCoordinator:</code> instead.</p>
+<p>As you can see, they want you to use <code>viewWillTransitionToSize:withTransitionCoordinator:</code> instead.
+So, no problem, we'll just implement that method.</p>
 
-<p>So, no problem, we'll just implement that method. The only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?</p>
+<p><strong>Update:</strong> <em>I'd like to stress this a little more: the reason they've changed these behaviors is for a reason. Your app mostly likely is way better off using adaptive layout using size classes, Auto Layout and manual corrections using the new transition callbacks.</em></p>
+
+<p>Now, the only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?</p>
 
 <!-- more -->
 
@@ -317,6 +320,28 @@ $$\alpha = asin(b) = -asin(c)$$</p>
 
 <p>When I said ugly, I meant ugly. 😭 But there's no real other way to do this, I guess: if there is, please let me know.
 I initially thought this would also be a bit more robust future wise (you never know when Apple adds another interface orientation), but this code is just as brittle as the <em>addition based</em> code I intentionally wanted to use.</p>
+
+<p><strong>Update:</strong> <a href="https://twitter.com/cooliopenguin">Joerg Schwieder</a> gives a more consise and thus probably better approach:</p>
+
+<pre><code class="language-objc highlight"><span class="k">-</span> <span class="p">(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nf">relativeInterfaceOrientationFromRotationAngle</span><span class="p">:(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">angle</span> <span class="p">{</span>
+    <span class="n">NSArray</span> <span class="o">*</span> <span class="n">conversionMatrix</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span> <span class="err">@</span><span class="p">(</span><span class="n">UIInterfaceOrientationPortrait</span><span class="p">),</span>
+                                    <span class="err">@</span><span class="p">(</span><span class="n">UIInterfaceOrientationLandscapeRight</span><span class="p">),</span>
+                                    <span class="err">@</span><span class="p">(</span><span class="n">UIInterfaceOrientationPortraitUpsideDown</span><span class="p">),</span>
+                                    <span class="err">@</span><span class="p">(</span><span class="n">UIInterfaceOrientationMaskLandscapeLeft</span><span class="p">)];</span>
+
+    <span class="n">NSInteger</span> <span class="n">oldIndex</span> <span class="o">=</span> <span class="p">[</span><span class="n">conversionMatrix</span> <span class="nf">indexOfObject</span><span class="p">:</span><span class="err">@</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">interfaceOrientation</span><span class="p">)];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">oldIndex</span> <span class="o">==</span> <span class="n">NSNotFound</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UIInterfaceOrientationUnknown</span><span class="p">;</span>
+    <span class="n">NSInteger</span> <span class="n">newIndex</span> <span class="o">=</span> <span class="p">(</span><span class="n">oldIndex</span> <span class="o">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="n">roundf</span><span class="p">(</span><span class="n">angle</span> <span class="o">/</span> <span class="n">M_PI_2</span><span class="p">))</span> <span class="o">%</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">newIndex</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">newIndex</span> <span class="o">+=</span><span class="mi">4</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">conversionMatrix</span><span class="p">[</span><span class="nf">newIndex</span><span class="p">]</span> <span class="nf">intValue</span><span class="p">];</span>
+<span class="p">}</span></code></pre>
+
+<p>This uses the round robin approach that I intentionally wanted to use, but of course within a self-constrained array. Pretty smart, and I've should have probably thought of this myself. 😰😉</p>
+
+<p><em>(This code is also available as <a href="https://gist.github.com/coolio107/f843789e5225c1f6fc9b">a gist</a>)</em></p>
 
 <h2>Finally</h2>
 

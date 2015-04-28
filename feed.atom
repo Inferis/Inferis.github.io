@@ -24,9 +24,12 @@
 
 &lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;willAnimateRotationToInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;toInterfaceOrientation&lt;/span&gt; &lt;span class="nf"&gt;duration&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;NSTimeInterval&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;duration&lt;/span&gt; &lt;span class="n"&gt;NS_DEPRECATED_IOS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;As you can see, they want you to use &lt;code&gt;viewWillTransitionToSize:withTransitionCoordinator:&lt;/code&gt; instead.&lt;/p&gt;
+&lt;p&gt;As you can see, they want you to use &lt;code&gt;viewWillTransitionToSize:withTransitionCoordinator:&lt;/code&gt; instead.
+So, no problem, we'll just implement that method.&lt;/p&gt;
 
-&lt;p&gt;So, no problem, we'll just implement that method. The only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;em&gt;I'd like to stress this a little more: the reason they've changed these behaviors is for a reason. Your app mostly likely is way better off using adaptive layout using size classes, Auto Layout and manual corrections using the new transition callbacks.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, the only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?&lt;/p&gt;
 
 &lt;!-- more --&gt;
 
@@ -200,6 +203,28 @@ $$\alpha = asin(b) = -asin(c)$$&lt;/p&gt;
 
 &lt;p&gt;When I said ugly, I meant ugly. 😭 But there's no real other way to do this, I guess: if there is, please let me know.
 I initially thought this would also be a bit more robust future wise (you never know when Apple adds another interface orientation), but this code is just as brittle as the &lt;em&gt;addition based&lt;/em&gt; code I intentionally wanted to use.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;a href="https://twitter.com/cooliopenguin"&gt;Joerg Schwieder&lt;/a&gt; gives a more consise and thus probably better approach:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;relativeInterfaceOrientationFromRotationAngle&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;CGFloat&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;angle&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;conversionMatrix&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                                    &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                                    &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+                                    &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientationMaskLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;)];&lt;/span&gt;
+
+    &lt;span class="n"&gt;NSInteger&lt;/span&gt; &lt;span class="n"&gt;oldIndex&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;conversionMatrix&lt;/span&gt; &lt;span class="nf"&gt;indexOfObject&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;interfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)];&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;oldIndex&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;NSNotFound&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationUnknown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="n"&gt;NSInteger&lt;/span&gt; &lt;span class="n"&gt;newIndex&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;oldIndex&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;roundf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;M_PI_2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;newIndex&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;newIndex&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;conversionMatrix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nf"&gt;newIndex&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="nf"&gt;intValue&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This uses the round robin approach that I intentionally wanted to use, but of course within a self-constrained array. Pretty smart, and I've should have probably thought of this myself. 😰😉&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;(This code is also available as &lt;a href="https://gist.github.com/coolio107/f843789e5225c1f6fc9b"&gt;a gist&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
 
 &lt;h2&gt;Finally&lt;/h2&gt;
 
