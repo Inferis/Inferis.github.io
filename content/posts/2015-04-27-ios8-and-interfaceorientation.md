@@ -15,8 +15,11 @@ Working on an app last week, I needed a way to respond to rotation events in a v
 ```
 
 As you can see, they want you to use `viewWillTransitionToSize:withTransitionCoordinator:` instead.
+So, no problem, we'll just implement that method.
 
-So, no problem, we'll just implement that method. The only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?
+**Update:** *I'd like to stress this a little more: the reason they've changed these behaviors is for a reason. Your app mostly likely is way better off using adaptive layout using size classes, Auto Layout and manual corrections using the new transition callbacks.*
+
+Now, the only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?
 
 <!-- more -->
 
@@ -202,6 +205,30 @@ else if (multiplier > 0) {
 
 When I said ugly, I meant ugly. 😭 But there's no real other way to do this, I guess: if there is, please let me know.
 I initially thought this would also be a bit more robust future wise (you never know when Apple adds another interface orientation), but this code is just as brittle as the *addition based* code I intentionally wanted to use.
+
+**Update:** [Joerg Schwieder](https://twitter.com/cooliopenguin) gives a more consise and thus probably better approach:
+
+```objc
+- (UIInterfaceOrientation)relativeInterfaceOrientationFromRotationAngle:(CGFloat)angle {
+    NSArray * conversionMatrix = @[ @(UIInterfaceOrientationPortrait),
+                                    @(UIInterfaceOrientationLandscapeRight),
+                                    @(UIInterfaceOrientationPortraitUpsideDown),
+                                    @(UIInterfaceOrientationMaskLandscapeLeft)];
+
+    NSInteger oldIndex = [conversionMatrix indexOfObject:@(self.interfaceOrientation)];
+    if (oldIndex == NSNotFound)
+        return UIInterfaceOrientationUnknown;
+    NSInteger newIndex = (oldIndex - (NSInteger)roundf(angle / M_PI_2)) % 4;
+    while (newIndex < 0) {
+        newIndex +=4;
+    }
+    return [conversionMatrix[newIndex] intValue];
+}
+```
+
+This uses the round robin approach that I intentionally wanted to use, but of course within a self-constrained array. Pretty smart, and I've should have probably thought of this myself. 😰😉
+
+*(This code is also available as [a gist](https://gist.github.com/coolio107/f843789e5225c1f6fc9b))*
 
 ## Finally
 
