@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <title>Inferical Writings - Nanoc</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
+                  <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-color: #eee;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>
+                      
+                        Nanoc
+                      
+                    </h1>
+                    
+
+                    
+                      <span class="meta">
+                        
+                        April 30, 2015 ·
+                        
+
+                        <a href="/blog/2015/04/30/nanoc/">∞</a>
+
+                        
+                        · 
+                        
+                      </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds() + "";
+    var m = d.getMinutes() + "";
+    var h = d.getHours() + "";
+
+    if (s.length < 2) s = "0" + s;
+    if (m.length < 2) m = "0" + m;
+    if (h.length < 2) h = "0" + h;
+
+    $(".intro-header").css("background-color", '#' + h + m + s);
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>The current iteration of this blog runs on an "engine" called <a href="http://nanoc.ws">Nanoc</a>. Nanoc, you say?</p>
+
+<blockquote>
+<p>nanoc is a static site generator, fit for building anything from a small personal blog to a large corporate web site.</p>
+</blockquote>
+
+<p>The keywords here is "static site generator". This means that I build/generate the site locally on my machine, and then push it to a server on the internets for all you to see. There's no dynamic site running, built in PHP or ruby or whatever. Just plain HTML files, some CSS, a bit of Javascript and some images or videos.</p>
+
+<!-- more -->
+
+<h2>Why nanoc?</h2>
+
+<p>The previous iteration of my blog was build on Octopress. The principle was the same: Octopress is built on Jekyll, and Jekyll is also a static site generator (there are <a href="https://staticsitegenerators.net">many others</a>, by the way). But I felt constrained by using Octopress. I don't know why exactly, but I think it started when I wanted to put a new theme on my blog; the current one at the time was a quick-n-dirty job to get started, and after a year on the blog I felt it was time to put some more personalized paint on it. I did not have to time build a full new theme from scratch so I was looking for an "almost there" theme which I could then modify.</p>
+
+<p>I guess I was put off by the (seemingly) complexity of the Octopress themes. I did not directly find my way around them, and installing/maintaining them felt like too much work for what it was worth. But even apart from that, due to the out-of-the-box nature of Octopress, trying to change it to fit your own needs was not straightforward. Might be good for starting of quickly, but not for more advanced use.</p>
+
+<p>So started putting off revamping the blog, either until I found the courage to get the work done, or until I found something new.</p>
+
+<p>And then I saw <a href="http://ikennd.ac">Daniel Kennett</a> doing a <a href="http://ikennd.ac/blog/2015/02/rebrand/">post</a> about switching to Nanoc and I knew I was "in love" immediately. This was what I needed. Raw but malleable, ruby, and at first sight: not <em>too</em> complicated.</p>
+
+<h2>Start over</h2>
+
+<p>The next steps were:</p>
+
+<pre><code class="language-sh highlight">sudo gem install nanoc
+nanoc create-site blog.inferis.org</code></pre>
+
+<p>And off I was. To be honest: the bare bones site that <code>create-site</code> creates is <em>really</em> bare bones. But I felt this was good, because there's not to much to worry about. You can learn from your site's source and the generated html how things work. Now don't understand me wrong: this took some time and wasn't an easy task. But it wasn't complex either, and the most important part: it was fun exploring how everything worked. You take baby steps here, moving from one issue to another, building up gradually.</p>
+
+<p>Sometimes I hit some brick walls, taking wrong approaches, being stuck for no apparent reason. But it felt like programming, not like configuring. Those brick walls became challenges, and I was eager to find a solution for them. Given that, the <a href="">Nanoc documentation</a> is really good, but as usual the guides only cover the basic things. Once you go deeper it becomes harder to find good information. There's a few other people tinkering with Nanoc, and blogging about it, and those blogposts were helpful (I'll probably do some more technical posts on my nanoc ventures later on). Also, since everything is open source, you can just consult the source code to see what's going on and work with that.</p>
+
+<h2>NSConference</h2>
+
+<p>So I was almost done when <a href="http://nsconference.com">NSConference 7</a> came. I wanted to blog about my move to Apple during NSConference, so I started a final sprint to finish the blog so I could switch to nanoc and ditch Octopress. Turned out it was more work than expected (e.g. the code blocks issue -- see below -- took quite a bit of messing around to fix). But by the end of the first day of the conf I felt I was finished and published the site.</p>
+
+<p>I've been happy with it ever since, fine-tuning things here and there, adding initial non-necessary features back in (categories, for example). I feel I have a robust and easy to augment codebase now, and that makes the developer in me very happy.</p>
+
+<h2>Current setup</h2>
+
+<p>Some details about my current nanoc setup?</p>
+
+<h4>Markdown</h4>
+
+<p>My posts are all written in Markdown and parsed using the redcarpet gem, using the following configuration:</p>
+
+<pre><code class="language-ruby highlight"><span class="n">filter</span> <span class="ss">:redcarpet</span><span class="p">,</span>
+       <span class="ss">:options</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:fenced_code_blocks</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:smartypants</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:tables</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">}</span></code></pre>
+
+<p>I love using Markdown to write content. It's great for embedding code (especially with the fenced code blocks), and you don't get distracted about the layout too much. And if I'm every inclined to do so, it's easy to generate a paper version of this blog; there's enough tools out there to generate PDFs from Markdown.</p>
+
+<h4>Theme</h4>
+
+<p>I'm using a variation of the <a href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog Theme</a> (thanks, <a href="http://ashfurrow.com">Ash Furrow</a> for the inspiration). I modified it slighly to personalise it a bit. There's more I want to do but that's for another time.</p>
+
+<p>The theme is made up from a bunch of static files compromising the base of the theme; these are stored in a separate folder which is merged in when generating the site:</p>
+
+<pre><code class="language-ruby highlight"><span class="o">-</span>
+  <span class="ss">type: </span><span class="n">static</span>
+  <span class="ss">items_root: </span><span class="sr">/
+  allow_periods_in_identifiers: true</span></code></pre>
+
+<p>This works because nanoc has support for multiple data sources, and nanoc combines the "dynamic" source (the posts) and the static source together to generate the final result. This also means that you could have your posts in an Oracle database if you wanted. 😜</p>
+
+<h4>Custom filters</h4>
+
+<p>Filters are nanoc's way of transforming your source content to content that you view in the site. As mentioned before, I'm using the <em>redcarpet</em> filter to transform the Markdown posts into HTML.</p>
+
+<p>Nanoc comes with a bunch of filters, and there are another set of them out on the internet. You can use plain <em>erb</em> if you wanted, or use a different Markdown parser (e.g. <em>Kramdown</em>). But it's very easy to come up with your own filters too.</p>
+
+<p>I wrote a couple for my blog specifically:</p>
+
+<ul>
+<li>
+<code>fixcodeblocks.rb</code> fixes the redcarpet generated codeblocks (using Nokogiri) to conform to the HTML that the code highlighter filter expected (took me some time to find out why that was, by the way).</li>
+<li>
+<code>octopress_img_tags.rb</code> is a filter I ported from the Octopress install which supports the {% img %} syntax from Jekyll.</li>
+<li>
+<code>tweet_tag.rb</code> is another Octopress style filter that filters {% tweet %} tags into an embedded tweet</li>
+</ul>
+
+<p>There's probably more to come as I expand the blog, but that's it for now.</p>
+
+<h4>Niceties</h4>
+
+<ul>
+<li>I added categories/tags because that's what you do.</li>
+<li>I added a <code>published</code> metadata item for posts, which you can set to false so that the post is excluded when generating the site. Very handy for WIP posts.</li>
+<li>I also added a <code>preview</code> metadata item for posts; setting this to true does generate the page with the article itself, but it omits the same article in the rest of the site. It won't appear on the homepage, in the archives or category browsers or in the atom feed. I did this so I could publish posts for proofreading (just pass the link to proofreaders) but without alerting the Rest-Of-The-World.</li>
+</ul>
+
+<h2>Pros/cons</h2>
+
+<h4>Cons</h4>
+
+<ul>
+<li>steep learning curve</li>
+<li>you need a Mac to deploy your site (generation + cli tools)</li>
+<li>requires knowledge of Ruby</li>
+</ul>
+
+<p>You can also be throw off by the not-to-obvious error messages when something goes wrong:</p>
+
+<pre><code class="language-text highlight">$&gt; nanoc
+Loading site data… done
+Compiling site…
+
+Captain! We’ve been hit!
+
+Message:
+
+NoMethodError: undefined method `encoding' for nil:NilClass
+
+Compilation stack:
+
+  - [item]   /posts/2015-04-30-nanoc/ (rep default)
+
+Stack trace:
+
+  0. /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/cgi/util.rb:7:in `escape'
+  1. lib/filters/tweet_tag.rb:65:in `block in url_params_for'
+  2. lib/filters/tweet_tag.rb:64:in `map'
+  3. lib/filters/tweet_tag.rb:64:in `url_params_for'
+  4. lib/filters/tweet_tag.rb:70:in `cache_file_for'
+  5. lib/filters/tweet_tag.rb:59:in `cached_response'
+  6. lib/filters/tweet_tag.rb:44:in `html_output_for'
+  7. lib/filters/tweet_tag.rb:39:in `run_octopress'
+  8. lib/filters/OctopressFilter.rb:11:in `block in run'
+  9. lib/filters/OctopressFilter.rb:9:in `gsub'
+  ... 36 more lines omitted. See full crash log for details.
+
+If you believe this is a bug in nanoc, please do report it at
+-&gt; https://github.com/nanoc/nanoc/issues/new &lt;-
+
+A detailed crash log has been written to ./crash.log.</code></pre>
+
+<p>But then again, it's just parsing the throw error correctly, find the culprit and continue.</p>
+
+<h4>Pros</h4>
+
+<ul>
+<li>very, very flexible</li>
+<li>static: no fear of performance problems or server breakdowns - it's just files</li>
+<li>well documented</li>
+</ul>
+
+<p>But above all: once you get the hand of it, it's so much fun to hack on it. If you know how it works, it's pretty easy to set it to your hand and modify it as you see fit. It almost feels like an app/program you're working on.</p>
+
+<p>I'm currently using Nanoc 3.7.5, and they're working on 4.0. Judging from the <a href="http://nanoc.ws/docs/nanoc-4-upgrade-guide/">upgrade guide</a> a lot of the peculiarities I found a bit daunting at first are smoothed out. This will probably make it easier to start with Nanoc.</p>
+
+<h2>Open Source</h2>
+
+<p>So <a href="http://nanoc.ws">check it out</a> if you're looking for something new. It's <a href="https://github.com/nanoc">open source</a>, so there's no excuse not to dive in or to contribute. 😊</p>
+
+<p>Speaking of contribute: the complete source of this blog is open source (thanks again to <a href="http://ashfurrow.com">Ash Furrow</a> for the inspiration). You can see all the code I wrote or changed at <a href="the%20%60nanoc%60%20branch%20contains%20the%20source%20code,%20the%20%60master%60%20branch%20is%20the%20generated%20site">http://github.com/inferis/inferis.github.io</a>. The cool thing about this is that people send pull requests to fix typos: it hasn't happened often, but when it happens, I love it. 😘</p>
+
+
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  if (window.location.hostname != "localhost") {
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+</html>
