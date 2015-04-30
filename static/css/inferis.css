@@ -43,3 +43,7 @@ a.decorated {
   font-size: 18px;
   color: #808080;
 }
+
+blockquote p {
+  margin-top: 0;
+}
