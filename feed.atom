@@ -2,13 +2,178 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-04-26T23:43:30Z</updated>
+  <updated>2015-04-30T07:30:03Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-04-30:/blog/2015/04/30/nanoc/</id>
+    <title type="html">Nanoc</title>
+    <published>2015-04-30T07:30:03Z</published>
+    <updated>2015-04-30T07:30:03Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/04/30/nanoc/"/>
+    <content type="html">
+
+&lt;p&gt;The current iteration of this blog runs on an "engine" called &lt;a href="http://nanoc.ws"&gt;Nanoc&lt;/a&gt;. Nanoc, you say?&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;nanoc is a static site generator, fit for building anything from a small personal blog to a large corporate web site.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The keywords here is "static site generator". This means that I build/generate the site locally on my machine, and then push it to a server on the internets for all you to see. There's no dynamic site running, built in PHP or ruby or whatever. Just plain HTML files, some CSS, a bit of Javascript and some images or videos.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;Why nanoc?&lt;/h2&gt;
+
+&lt;p&gt;The previous iteration of my blog was built on Octopress. The principle was the same: Octopress is built on Jekyll, and Jekyll is also a static site generator (there are &lt;a href="https://staticsitegenerators.net"&gt;many others&lt;/a&gt;, by the way). But I felt constrained by using Octopress. I don't know why exactly, but I think it started when I wanted to put a new theme on my blog; the current one at the time was a quick-n-dirty job to get started, and after a year on the blog I felt it was time to put some more personalized paint on it. I did not have to time build a full new theme from scratch so I was looking for an "almost there" theme which I could then modify.&lt;/p&gt;
+
+&lt;p&gt;I guess I was put off by the (seeming) complexity of the Octopress themes. I did not directly find my way around them, and installing/maintaining them felt like too much work for what it was worth. But even apart from that, due to the out-of-the-box nature of Octopress, trying to change it to fit your own needs was not straightforward. Might be good for starting off quickly, but not for more advanced use.&lt;/p&gt;
+
+&lt;p&gt;So started putting off revamping the blog, either until I found the courage to get the work done, or until I found something new.&lt;/p&gt;
+
+&lt;p&gt;And then I saw &lt;a href="http://ikennd.ac"&gt;Daniel Kennett&lt;/a&gt; doing a &lt;a href="http://ikennd.ac/blog/2015/02/rebrand/"&gt;post&lt;/a&gt; about switching to Nanoc and I knew I was "in love" immediately. This was what I needed. Raw but malleable, ruby, and at first sight: not &lt;em&gt;too&lt;/em&gt; complicated.&lt;/p&gt;
+
+&lt;h2&gt;Start over&lt;/h2&gt;
+
+&lt;p&gt;The next steps were:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-sh highlight"&gt;sudo gem install nanoc
+nanoc create-site blog.inferis.org&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And off I was. To be honest: the bare-bones site that &lt;code&gt;create-site&lt;/code&gt; creates is &lt;em&gt;really&lt;/em&gt; bare-bones. But I felt this was good, because there's not to much to worry about. You can learn from your site's source and the generated html how things work. Now don't understand me wrong: this took some time and wasn't an easy task. But it wasn't complex either, and the most important part: it was fun exploring how everything worked. You take baby steps here, moving from one issue to another, building up gradually.&lt;/p&gt;
+
+&lt;p&gt;Sometimes I hit some brick walls, taking wrong approaches, being stuck for no apparent reason. But it felt like programming, not like configuring. Those brick walls became challenges, and I was eager to find a solution for them. Given that, the &lt;a href="http://nanoc.ws/docs/"&gt;Nanoc documentation&lt;/a&gt; is really good, but as usual the guides only cover the basic things. Once you go deeper it becomes harder to find good information. There's a few other people tinkering with Nanoc, and blogging about it, and those blogposts were helpful (I'll probably do some more technical posts on my nanoc ventures later on). Also, since everything is open source, you can just consult the source code to see what's going on and work with that.&lt;/p&gt;
+
+&lt;h2&gt;NSConference&lt;/h2&gt;
+
+&lt;p&gt;So I was almost done when &lt;a href="http://nsconference.com"&gt;NSConference 7&lt;/a&gt; came. I wanted to blog about my move to Apple during NSConference, so I started a final sprint to finish the blog so I could switch to nanoc and ditch Octopress. Turned out it was more work than expected (e.g. the code blocks issue -- see below -- took quite a bit of messing around to fix). But by the end of the first day of the conf I felt I was finished and published the site.&lt;/p&gt;
+
+&lt;p&gt;I've been happy with it ever since, fine-tuning things here and there, adding initial non-necessary features back in (categories, for example). I feel I have a robust and easy to augment codebase now, and that makes the developer in me very happy.&lt;/p&gt;
+
+&lt;h2&gt;Current setup&lt;/h2&gt;
+
+&lt;p&gt;Some details about my current nanoc setup?&lt;/p&gt;
+
+&lt;h4&gt;Markdown&lt;/h4&gt;
+
+&lt;p&gt;My posts are all written in Markdown and parsed using the redcarpet gem, using the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-ruby highlight"&gt;&lt;span class="n"&gt;filter&lt;/span&gt; &lt;span class="ss"&gt;:redcarpet&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+       &lt;span class="ss"&gt;:options&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;:fenced_code_blocks&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kp"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:smartypants&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kp"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:tables&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="kp"&gt;true&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I love using Markdown to write content. It's great for embedding code (especially with the fenced code blocks), and you don't get distracted about the layout too much. And if I'm every inclined to do so, it's easy to generate a paper version of this blog; there's enough tools out there to generate PDFs from Markdown.&lt;/p&gt;
+
+&lt;h4&gt;Theme&lt;/h4&gt;
+
+&lt;p&gt;I'm using a variation of the &lt;a href="http://startbootstrap.com/template-overviews/clean-blog/"&gt;Clean Blog Theme&lt;/a&gt; (thanks, &lt;a href="http://ashfurrow.com"&gt;Ash Furrow&lt;/a&gt; for the inspiration). I modified it slighly to personalise it a bit. There's more I want to do but that's for another time.&lt;/p&gt;
+
+&lt;p&gt;The theme is made up from a bunch of static files compromising the base of the theme; these are stored in a separate folder which is merged in when generating the site:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-ruby highlight"&gt;&lt;span class="o"&gt;-&lt;/span&gt;
+  &lt;span class="ss"&gt;type: &lt;/span&gt;&lt;span class="n"&gt;static&lt;/span&gt;
+  &lt;span class="ss"&gt;items_root: &lt;/span&gt;&lt;span class="sr"&gt;/
+  allow_periods_in_identifiers: true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This works because nanoc has support for multiple data sources, and nanoc combines the "dynamic" source (the posts) and the static source together to generate the final result. This also means that you could have your posts in an Oracle database if you wanted. 😜&lt;/p&gt;
+
+&lt;h4&gt;Custom filters&lt;/h4&gt;
+
+&lt;p&gt;Filters are nanoc's way of transforming your source content to content that you view in the site. As mentioned before, I'm using the &lt;em&gt;redcarpet&lt;/em&gt; filter to transform the Markdown posts into HTML.&lt;/p&gt;
+
+&lt;p&gt;Nanoc comes with a bunch of filters, and there are another set of them out on the internet. You can use plain &lt;em&gt;erb&lt;/em&gt; if you wanted, or use a different Markdown parser (e.g. &lt;em&gt;Kramdown&lt;/em&gt;). But it's very easy to come up with your own filters too.&lt;/p&gt;
+
+&lt;p&gt;I wrote a couple for my blog specifically:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;code&gt;fixcodeblocks.rb&lt;/code&gt; fixes the redcarpet generated codeblocks (using Nokogiri) to conform to the HTML that the code highlighter filter expected (took me some time to find out why that was, by the way).&lt;/li&gt;
+&lt;li&gt;
+&lt;code&gt;octopress_img_tags.rb&lt;/code&gt; is a filter I ported from the Octopress install which supports the {% img %} syntax from Jekyll.&lt;/li&gt;
+&lt;li&gt;
+&lt;code&gt;tweet_tag.rb&lt;/code&gt; is another Octopress style filter that filters {% tweet %} tags into an embedded tweet&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There's probably more to come as I expand the blog, but that's it for now.&lt;/p&gt;
+
+&lt;h4&gt;Niceties&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I added categories/tags because that's what you do.&lt;/li&gt;
+&lt;li&gt;I added a &lt;code&gt;published&lt;/code&gt; metadata item for posts, which you can set to false so that the post is excluded when generating the site. Very handy for WIP posts.&lt;/li&gt;
+&lt;li&gt;I also added a &lt;code&gt;preview&lt;/code&gt; metadata item for posts; setting this to true does generate the page with the article itself, but it omits the same article in the rest of the site. It won't appear on the homepage, in the archives or category browsers or in the atom feed. I did this so I could publish posts for proofreading (just pass the link to proofreaders) but without alerting the Rest-Of-The-World.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Pros/cons&lt;/h2&gt;
+
+&lt;h4&gt;Cons&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;steep learning curve&lt;/li&gt;
+&lt;li&gt;you need a Mac to deploy your site (generation + cli tools)&lt;/li&gt;
+&lt;li&gt;requires knowledge of Ruby&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can also be thrown off by the not-to-obvious error messages when something goes wrong:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-text highlight"&gt;$&amp;gt; nanoc
+Loading site data… done
+Compiling site…
+
+Captain! We’ve been hit!
+
+Message:
+
+NoMethodError: undefined method `encoding' for nil:NilClass
+
+Compilation stack:
+
+  - [item]   /posts/2015-04-30-nanoc/ (rep default)
+
+Stack trace:
+
+  0. /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/cgi/util.rb:7:in `escape'
+  1. lib/filters/tweet_tag.rb:65:in `block in url_params_for'
+  2. lib/filters/tweet_tag.rb:64:in `map'
+  3. lib/filters/tweet_tag.rb:64:in `url_params_for'
+  4. lib/filters/tweet_tag.rb:70:in `cache_file_for'
+  5. lib/filters/tweet_tag.rb:59:in `cached_response'
+  6. lib/filters/tweet_tag.rb:44:in `html_output_for'
+  7. lib/filters/tweet_tag.rb:39:in `run_octopress'
+  8. lib/filters/OctopressFilter.rb:11:in `block in run'
+  9. lib/filters/OctopressFilter.rb:9:in `gsub'
+  ... 36 more lines omitted. See full crash log for details.
+
+If you believe this is a bug in nanoc, please do report it at
+-&amp;gt; https://github.com/nanoc/nanoc/issues/new &amp;lt;-
+
+A detailed crash log has been written to ./crash.log.&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But then again, it's just parsing the throw error correctly, find the culprit and continue.&lt;/p&gt;
+
+&lt;h4&gt;Pros&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;very, very flexible&lt;/li&gt;
+&lt;li&gt;static: no fear of performance problems or server breakdowns - it's just files&lt;/li&gt;
+&lt;li&gt;well documented&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But above all: once you get the hang of it, it's so much fun to hack on it. If you know how it works, it's pretty easy to set it to your hand and modify it as you see fit. It almost feels like an app/program you're working on.&lt;/p&gt;
+
+&lt;p&gt;I'm currently using Nanoc 3.7.5, and they're working on 4.0. Judging from the &lt;a href="http://nanoc.ws/docs/nanoc-4-upgrade-guide/"&gt;upgrade guide&lt;/a&gt; a lot of the peculiarities I found a bit daunting at first are smoothed out. This will probably make it easier to start with Nanoc.&lt;/p&gt;
+
+&lt;h2&gt;Open Source&lt;/h2&gt;
+
+&lt;p&gt;So &lt;a href="http://nanoc.ws"&gt;check it out&lt;/a&gt; if you're looking for something new. It's &lt;a href="https://github.com/nanoc"&gt;open source&lt;/a&gt;, so there's no excuse not to dive in or to contribute. 😊&lt;/p&gt;
+
+&lt;p&gt;Speaking of contribute: the complete source of this blog is open source (thanks again to &lt;a href="http://ashfurrow.com"&gt;Ash Furrow&lt;/a&gt; for the inspiration). You can see all the code I wrote or changed at &lt;a href="the%20%60nanoc%60%20branch%20contains%20the%20source%20code,%20the%20%60master%60%20branch%20is%20the%20generated%20site"&gt;http://github.com/inferis/inferis.github.io&lt;/a&gt;. The cool thing about this is that people send pull requests to fix typos: it hasn't happened often, but when it happens, I love it. 😘&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-04-27:/blog/2015/04/27/ios8-and-interfaceorientation/</id>
     <title type="html">Using interfaceOrientation with iOS8 transitions</title>
@@ -835,157 +1000,6 @@ It actually landed me a job on the other side of the world, in a company and tea
 &lt;p&gt;So yeah, always looking for change. Stay hungry, stay foolish, I guess. But sometimes, you're full. And the hard part is when to stop in time to clear your metaphorical stomach. I usually fail at that.&lt;/p&gt;
 
 &lt;p&gt;Now if you'll excuse me, I have a new version of OSX to install because this current one is getting stale.&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2014-09-23:/blog/2014/09/23/explicitly-implemented-protocols/</id>
-    <title type="html">Explicitly implemented protocols</title>
-    <published>2014-09-23T14:07:27Z</published>
-    <updated>2014-09-23T14:07:27Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2014/09/23/explicitly-implemented-protocols/"/>
-    <content type="html">
-
-&lt;p&gt;While traveling home from NSSpain yesterday, I got an idea for a new app. Nothing groundbreaking, and more on that later, but it required the use of health kit. I also decided to write this one in Swift, for fun and profit but mostly for fun (and perhaps also because practice makes perfect).&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h2&gt;The problem&lt;/h2&gt;
-
-&lt;p&gt;I soon stumbled on the "you need to authorize HealthKit access" mess. It's even more an issue in HealthKit than with the other APIs since you have to ask permission to read and/or write &lt;em&gt;for each type&lt;/em&gt; of object you want to access.&lt;/p&gt;
-
-&lt;p&gt;So I decided to write a sort of proxy class that would handle the requesting, shielding off that hassle (since I would be needing access in several parts of the code). A pattern I've used for this kind of APIs before is that you have the class with the public API, which have an "access" call (for example). That call takes a block with one parameter: the "priviledged" part of the API. When the block is called, you can be sure to have the proper permissions making your code simpler and more obvious. Something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="nv"&gt;accessor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;neededObjectType&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Void&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
-    &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now I've made APIs like these before in C#, because I think it's an interesting and useful pattern. You're able to restrict access to certain parts of the API depending on the context the user of your API needs. In the example above, the &lt;code&gt;read&lt;/code&gt; method only provides access to read operations. We could have a &lt;code&gt;write&lt;/code&gt; method that only provides access to write operations (or even a &lt;code&gt;readwrite&lt;/code&gt; which does both).&lt;/p&gt;
-
-&lt;p&gt;And the way I'd do this in C# is using private interface implementations. This is a technique which allows you to  specify that an implementation of an interface method is only usable if you use the class which implements it &lt;em&gt;as an interface&lt;/em&gt;. For example, given this declarations:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="k"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;IHealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;  
-
-&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;HealthKitAccessor&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;IHealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="n"&gt;HKHealthKitStore&lt;/span&gt; &lt;span class="n"&gt;store&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="p"&gt;...;&lt;/span&gt;
-
-  &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Action&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;IHealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="nf"&gt;makeSureYouHaveAccess&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-    &lt;span class="nf"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-
-  &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="n"&gt;IHealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;somethingSomething&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;you can do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reader&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="p"&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;but you can't do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;even though &lt;code&gt;HealthKitAccessor&lt;/code&gt; implements &lt;code&gt;IHealthKitAccessorReader&lt;/code&gt;. This is because we explictly implemented the interface method, and so it's only available if we approach accessor as an instance of &lt;code&gt;IHealthKitAccessorReader&lt;/code&gt;. So technically, you can do this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;IHealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;which will work, even though it's not the intention of the API.&lt;/p&gt;
-
-&lt;p&gt;I've found this technique pretty useful in the past to have a class implement an API but shield direct access to it without using the specialized calls. The interface calls do not show up in intellisense/autocompletion when using the class, so it's pretty obvious in use.&lt;/p&gt;
-
-&lt;p&gt;And maybe this wasn't clear, but you can choose which of the interface methods to implement implicitly or explictly. So some methods could be available on the class, some couldn't. Also, this way you can have more than one method of the same name if more than one interface implements those methods:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-csharp highlight"&gt;&lt;span class="k"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;IFirstLine&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Halp&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;  
-
-&lt;span class="k"&gt;interface&lt;/span&gt; &lt;span class="n"&gt;ISecondLine&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Halp&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Support&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;IFirstLine&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ISecondLine&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Halp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// default to first line, this implements IFirstLine help, and exposes Halp on Support.
-&lt;/span&gt;  &lt;span class="p"&gt;}&lt;/span&gt;
-
-  &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;ISecondLine&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Halp&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// second line
-&lt;/span&gt;  &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now in Swift (and this ends the C# interlude), this isn't possible. Having the same structure like before but in Swift gives us this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;  
-
-&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="nv"&gt;store&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HKHealthKitStore&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-
-  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="nf"&gt;makeSureYouHaveAccess&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="nf"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-
-  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;somethingSomething&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But this allows us to call both &lt;code&gt;read&lt;/code&gt; and &lt;code&gt;someReadOperation&lt;/code&gt; on any instance of the class, which is not what we want:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;accessor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Void&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
-    &lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="c1"&gt;// but this also works&lt;/span&gt;
-&lt;span class="n"&gt;reader&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2&gt;The fix&lt;/h2&gt;
-
-&lt;p&gt;This does not mean we cannot use this pattern in Swift. We just need an inner proxy struct that implements the methods of the protocol:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="nv"&gt;store&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HKHealthKitStore&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-
-  &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="nf"&gt;makeSureYouHaveAccess&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="nf"&gt;reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;Reader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;self&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-
-  &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kd"&gt;struct&lt;/span&gt; &lt;span class="kt"&gt;Reader&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessorReader&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;accessor&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt;
-
-    &lt;span class="nf"&gt;init&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;accessor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;HealthKitAccessor&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-      &lt;span class="k"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-
-    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;someReadOperation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;someValue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-      &lt;span class="n"&gt;accessor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;store&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;somethingSomething&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is not bad, of course. The code is a bit less obvious because you need to have this inner class (which might implement more than one protocol, of course). And in the implementation of that inner class you always need to deference the original object first before using it. But that's just that. In effect you're moving the gist of your implementation to the inner class instead of in the class itself. When writing more complex APIs (like fluent APIs), this might become a bit cumbersome. But again, that's just than and mostly a minor inconvenience. In a way the code is a little more correct that using the explicitly implemented interface, but I've found in the past that being able to use the root class directly is more clean codewise anyway. So it's a bit of a tradeoff between the-academic-way-to-do-it and code clarity.&lt;/p&gt;
-
-&lt;h2&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;I think that explictly implemented protocol methods would be a valuable addition to Swift. I think they'd be handy (the same for abstract classes, but that's another discussion) for the points given above. The benefit of being able to use all internals of the class directly without dereferencing the original object makes the implementation more clear and there's no need for an internal proxy class. While the pattern is possible to use in Swift is required a bit more code and thus maintenance when changing the API in the future. But I guess that's a reasonable price to pay (until they add explicitly implemented protocol methods).&lt;/p&gt;
 
 </content>
   </entry>
