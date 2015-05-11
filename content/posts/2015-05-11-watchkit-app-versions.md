@@ -4,7 +4,7 @@ created_at: 2015-05-11 18:15:28 +0200
 kind: article
 ---
 
-I came across [this article](http://ikennd.ac/blog/2015/05/build-time-cfbundleversion-values-in-watchkit-apps/) by Daniel Kellett this morning. I had seen him tweet about it too, but checking my feeds (yeah, I still do that, albeit not daily) I noticed he also made a post about it.
+I came across [this article](http://ikennd.ac/blog/2015/05/build-time-cfbundleversion-values-in-watchkit-apps/) by Daniel Kennett this morning. I had seen him tweet about it too, but checking my feeds (yeah, I still do that, albeit not daily) I noticed he also made a post about it.
 
 Having toyed a lot with build configurations and their associated settings configuration, I was curious how he solved the issue.
 
@@ -129,7 +129,7 @@ The first line looks for all Info.plist files under the source root and *touches
 
 The second line waits a bit before continuing. This adds an extra half second to your build but this fixes the problem with the parallellized builds: by waiting a bit before continuing, we make sure the last change is picked up nicely for all build runs.
 
-Now, these two lines are the icing on the case and shouldn't be really necessary for a real world scenario where the versions don't change often. But in case these issue do bite you, here's a solution.
+Now, these two lines are the icing on the cake and shouldn't be really necessary for a real world scenario where the versions don't change often. But in case these issues do bite you, here's a solution.
 
 ## Conclusion
 
