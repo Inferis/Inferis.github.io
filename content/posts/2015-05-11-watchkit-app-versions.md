@@ -138,3 +138,5 @@ There's still no "out of the box" solution for this version numbering issue. I d
 Having access to the build steps like Daniel asks would be nice but I don't think it's necessary for this problem, because we can fix it with plain old configuration. The only downside is that you need to add the script for each scheme you have in your project, but that's (IMHO) a small price to pay.
 
 Thanks again to Daniel for the original post which I thought was very interesting, and by which I learned that you can use preprocessing for `Info.plist` files too: something I hadn't discovered before. It's always nice to learn something new. 🌟
+
+Oh yeah: you can find [the demo project](https://github.com/Inferis/WatchVersionThingy) on Github.
