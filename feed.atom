@@ -146,6 +146,8 @@ sleep 0.5&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Thanks again to Daniel for the original post which I thought was very interesting, and by which I learned that you can use preprocessing for &lt;code&gt;Info.plist&lt;/code&gt; files too: something I hadn't discovered before. It's always nice to learn something new. 🌟&lt;/p&gt;
 
+&lt;p&gt;Oh yeah: you can find &lt;a href="https://github.com/Inferis/WatchVersionThingy"&gt;the demo project&lt;/a&gt; on Github.&lt;/p&gt;
+
 </content>
   </entry>
   <entry>
