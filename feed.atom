@@ -17,7 +17,7 @@
     <link rel="alternate" href="http://blog.inferis.org/blog/2015/05/11/watchkit-app-versions/"/>
     <content type="html">
 
-&lt;p&gt;I came across &lt;a href="http://ikennd.ac/blog/2015/05/build-time-cfbundleversion-values-in-watchkit-apps/"&gt;this article&lt;/a&gt; by Daniel Kellett this morning. I had seen him tweet about it too, but checking my feeds (yeah, I still do that, albeit not daily) I noticed he also made a post about it.&lt;/p&gt;
+&lt;p&gt;I came across &lt;a href="http://ikennd.ac/blog/2015/05/build-time-cfbundleversion-values-in-watchkit-apps/"&gt;this article&lt;/a&gt; by Daniel Kennett this morning. I had seen him tweet about it too, but checking my feeds (yeah, I still do that, albeit not daily) I noticed he also made a post about it.&lt;/p&gt;
 
 &lt;p&gt;Having toyed a lot with build configurations and their associated settings configuration, I was curious how he solved the issue.&lt;/p&gt;
 
@@ -136,7 +136,7 @@ sleep 0.5&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The second line waits a bit before continuing. This adds an extra half second to your build but this fixes the problem with the parallellized builds: by waiting a bit before continuing, we make sure the last change is picked up nicely for all build runs.&lt;/p&gt;
 
-&lt;p&gt;Now, these two lines are the icing on the case and shouldn't be really necessary for a real world scenario where the versions don't change often. But in case these issue do bite you, here's a solution.&lt;/p&gt;
+&lt;p&gt;Now, these two lines are the icing on the cake and shouldn't be really necessary for a real world scenario where the versions don't change often. But in case these issues do bite you, here's a solution.&lt;/p&gt;
 
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 
