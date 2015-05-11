@@ -2,13 +2,152 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-04-30T07:30:03Z</updated>
+  <updated>2015-05-11T16:15:28Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-05-11:/blog/2015/05/11/watchkit-app-versions/</id>
+    <title type="html">Watchkit app versions</title>
+    <published>2015-05-11T16:15:28Z</published>
+    <updated>2015-05-11T16:15:28Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/05/11/watchkit-app-versions/"/>
+    <content type="html">
+
+&lt;p&gt;I came across &lt;a href="http://ikennd.ac/blog/2015/05/build-time-cfbundleversion-values-in-watchkit-apps/"&gt;this article&lt;/a&gt; by Daniel Kellett this morning. I had seen him tweet about it too, but checking my feeds (yeah, I still do that, albeit not daily) I noticed he also made a post about it.&lt;/p&gt;
+
+&lt;p&gt;Having toyed a lot with build configurations and their associated settings configuration, I was curious how he solved the issue.&lt;/p&gt;
+
+&lt;p&gt;I'd have to concur with Daniel: the solution is horrible. 8 Steps to get this working, with aggregate targets and disabling of parallelization of the project: Not Good™.&lt;/p&gt;
+
+&lt;p&gt;But my interest was piqued, and so I tried to recreate his problem (not hard) and find a better solution. I assumed it would still be hacky, but less hacky than Daniel's "Horrible" solution.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;Step 0&lt;/h2&gt;
+
+&lt;p&gt;Create iPhone app, add Watchkit extension. In this case, just an empty app that displays the version of the app in a label (both on the watch and the phone). Or use existing iPhone + Watch apps.&lt;/p&gt;
+
+&lt;h2&gt;Step 1&lt;/h2&gt;
+
+&lt;p&gt;In the root of your project, add a shell script that we'll use to define the version settings:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2J2p3L1Q2o30/Image%202015-05-11%20at%207.05.55%20pm.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;The contents of the scripts are similar to the script Daniel creates:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-sh highlight"&gt;&lt;span class="c"&gt;#!/bin/sh&lt;/span&gt;
+
+&lt;span class="nv"&gt;S&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;date &lt;span class="s2"&gt;"+%S"&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;M&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;date &lt;span class="s2"&gt;"+%M"&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;D&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;date&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="nv"&gt;GENERATED_BUNDLE_VERSION&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;S&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+&lt;span class="nv"&gt;GENERATED_BUNDLE_SHORTVERSION&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;M&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;.&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;S&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+
+&lt;span class="nv"&gt;SRCROOT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SRCROOT&lt;/span&gt;&lt;span class="k"&gt;:-&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"// Generated: &lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;D&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &amp;gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SRCROOT&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/Version.xcconfig"&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"GENERATED_BUNDLE_VERSION = &lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;GENERATED_BUNDLE_VERSION&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SRCROOT&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/Version.xcconfig"&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"GENERATED_BUNDLE_SHORTVERSION = &lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;GENERATED_BUNDLE_SHORTVERSION&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &amp;gt;&amp;gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;SRCROOT&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/Version.xcconfig"&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"Generated: &lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;GENERATED_BUNDLE_VERSION&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; &amp;amp; &lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;GENERATED_BUNDLE_SHORTVERSION&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This script generates a file &lt;code&gt;Version.xcconfig&lt;/code&gt; in the root of the project, containing two build settings: &lt;code&gt;GENERATED_BUNDLE_VERSION&lt;/code&gt; and &lt;code&gt;GENERATED_BUNDLE_SHORTVERSION&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is slightly different since we use the date of the system here to generate the version numbers, and Daniel's approach is more &lt;em&gt;real life&lt;/em&gt; than mine using the git commit hash, but I wanted something that would change regularly for testing purposes. You'll obviously want to change the source for &lt;code&gt;GENERATED_BUNDLE_VERSION&lt;/code&gt; and &lt;code&gt;GENERATED_BUNDLE_SHORTVERSION&lt;/code&gt; to something more sensible.&lt;/p&gt;
+
+&lt;h2&gt;Step 2&lt;/h2&gt;
+
+&lt;p&gt;Integrate the script to your project, not as a &lt;em&gt;Build Phase&lt;/em&gt;, but as a &lt;em&gt;Build Pre-Action&lt;/em&gt;. You can find these under the schemes of your project:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/161A0v25191W/Image%202015-05-11%20at%207.14.59%20pm.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;You can define pre-actions and post-actions for every "Product Action" of the project. This is defined in the scheme, so you'll have to do this for all schemes defined in the project where you want this to happen. In our case, this is twice since Xcode creates a default scheme for the app and a scheme for the watchkit app (basically because it's a lot easier to run them that way).&lt;/p&gt;
+
+&lt;p&gt;This is also why we made a script; you could also paste the code right into the action window textarea like Daniel did. That works as good, but then you'd have to change the code for every scheme when you want a change (which is at least twice in our case), so I prefer to put scripts in their own file. It's also easier to edit them this way.&lt;/p&gt;
+
+&lt;p&gt;Don't forget to specify to "take the buildsettings" from the appropriate target, otherwise the &lt;code&gt;$SRCROOT&lt;/code&gt; variable we use in the script (and to invoke it) is not set.&lt;/p&gt;
+
+&lt;h2&gt;Step 3&lt;/h2&gt;
+
+&lt;p&gt;Build the project. This should generate a &lt;code&gt;Version.xcconfig&lt;/code&gt; along side the &lt;code&gt;Version.sh&lt;/code&gt; file. Add this xcconfig file to the project:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/1g1L1B0k0w0e/Image%202015-05-11%20at%207.23.24%20pm.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;Don't add it to a target (uncheck all the boxes); we don't want it included in a build product, but it needs to be in the project... because we want to use it as base setting for our project's configurations:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/07153B0F1Y25/Image%202015-05-11%20at%207.28.28%20pm.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;This makes sure that the settings defined in the config file are usable in our project. Since we add them at project level, they will be present for &lt;em&gt;every target&lt;/em&gt; which is &lt;strong&gt;exactly&lt;/strong&gt; what we want. You can verify this by looking at user defined settings in &lt;em&gt;Build Settings&lt;/em&gt; (all the way to the bottom):&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/3r0a3s1h1Z3g/Image%202015-05-11%20at%207.49.08%20pm.png" width="675"&gt;&lt;/p&gt;
+
+&lt;h2&gt;Step 4&lt;/h2&gt;
+
+&lt;p&gt;Now we need to incorporate the generated settings into the Info.plist files. By default, the &lt;em&gt;Expand Build Settings in Info.plist File&lt;/em&gt; is set to &lt;code&gt;YES&lt;/code&gt;, so we don't have to take precautions for this like Daniel did, because his version settings were in a header file. I had no clue that you could do this, by the way, and it allows for interesting approaches for other problems. 😍&lt;/p&gt;
+
+&lt;p&gt;So for every &lt;code&gt;Info.plist&lt;/code&gt; file, change the hardcoded &lt;code&gt;CFBundleVersion&lt;/code&gt; and &lt;code&gt;CFBundleShortVersionString&lt;/code&gt; values to the values we get from the settings, like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-xml highlight"&gt;&lt;span class="nt"&gt;&amp;lt;plist&lt;/span&gt; &lt;span class="na"&gt;version=&lt;/span&gt;&lt;span class="s"&gt;"1.0"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+   ...
+   &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;CFBundleShortVersionString&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+   &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;$(GENERATED_BUNDLE_SHORTVERSION)&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+   &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;CFBundleVersion&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+   &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;$(GENERATED_BUNDLE_VERSION)&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+   ...
+&lt;span class="nt"&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will look like this in when you inspect the project:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2R383y10101i/Image%202015-05-11%20at%207.57.25%20pm.png" width="400"&gt;&lt;/p&gt;
+
+&lt;h2&gt;Step 5&lt;/h2&gt;
+
+&lt;p&gt;There is no step 5. Well, except for: build your app (I have no Watch yet so I can't show you a fancy hairy wrist with the demo app running), and continue developing.&lt;/p&gt;
+
+&lt;h2&gt;Caveat&lt;/h2&gt;
+
+&lt;p&gt;Now once in a while you might get the original error because thanks to (what I presume to be) Xcode caching things: it seems the changes to the Version.xcconfig file aren't picked up right away or Xcode doesn't notice it was changed.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2s270O1i462K/Image%202015-05-11%20at%208.06.53%20pm.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;It seems that this also has to do with the parallelized builds: it looks like Xcode is running the pre-action scripts for each run it can parallellize, causing slight changes in the resulting values.&lt;/p&gt;
+
+&lt;p&gt;Now, this is more an obvious problem for this demo project since the values change so often but in a real world case this won't happen as much (see Daniel's script, for example). And when this occurs, you can clean the project and rebuild in which case all plist files will be updated. But still, this does not make me happy and for larger project can cause quite a bit of delay.&lt;/p&gt;
+
+&lt;p&gt;Additionally, the updated values sometimes aren't picked up directly due to the same caching playing its role. So most of the time you don't see the updated version inside the app unless you clean or reopen the project. This is usually not a problem since the use case for these versions are only applicable for release builds, but it's not pretty.&lt;/p&gt;
+
+&lt;h2&gt;Step 1 (🙈)&lt;/h2&gt;
+
+&lt;p&gt;But both problems can be remedied pretty simple by augmenting our script with 2 lines:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-sh highlight"&gt;&lt;span class="c"&gt;# finishing touch&lt;/span&gt;
+find &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$SRCROOT&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; -name Info.plist -exec touch &lt;span class="s2"&gt;"{}"&lt;/span&gt; &lt;span class="se"&gt;\;&lt;/span&gt;
+
+&lt;span class="c"&gt;# haste makes waste&lt;/span&gt;
+sleep 0.5&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first line looks for all Info.plist files under the source root and &lt;em&gt;touches&lt;/em&gt; them. Xcode will pick them up as changed and incorporate the updated version settings into the build.&lt;/p&gt;
+
+&lt;p&gt;The second line waits a bit before continuing. This adds an extra half second to your build but this fixes the problem with the parallellized builds: by waiting a bit before continuing, we make sure the last change is picked up nicely for all build runs.&lt;/p&gt;
+
+&lt;p&gt;Now, these two lines are the icing on the case and shouldn't be really necessary for a real world scenario where the versions don't change often. But in case these issue do bite you, here's a solution.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;There's still no "out of the box" solution for this version numbering issue. I don't know why you need to set the version of each extension manually while Xcode could be doing this itself since it's mandatory anyway. The steps above make it a bit simpler to have a general system of version numbers for your app and your (WatchKit) extensions, using tools we have to our disposal anyway.&lt;/p&gt;
+
+&lt;p&gt;Having access to the build steps like Daniel asks would be nice but I don't think it's necessary for this problem, because we can fix it with plain old configuration. The only downside is that you need to add the script for each scheme you have in your project, but that's (IMHO) a small price to pay.&lt;/p&gt;
+
+&lt;p&gt;Thanks again to Daniel for the original post which I thought was very interesting, and by which I learned that you can use preprocessing for &lt;code&gt;Info.plist&lt;/code&gt; files too: something I hadn't discovered before. It's always nice to learn something new. 🌟&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-04-30:/blog/2015/04/30/nanoc/</id>
     <title type="html">Nanoc</title>
@@ -170,7 +309,7 @@ A detailed crash log has been written to ./crash.log.&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;So &lt;a href="http://nanoc.ws"&gt;check it out&lt;/a&gt; if you're looking for something new. It's &lt;a href="https://github.com/nanoc"&gt;open source&lt;/a&gt;, so there's no excuse not to dive in or to contribute. 😊&lt;/p&gt;
 
-&lt;p&gt;Speaking of contribute: the complete source of this blog is open source (thanks again to &lt;a href="http://ashfurrow.com"&gt;Ash Furrow&lt;/a&gt; for the inspiration). You can see all the code I wrote or changed at &lt;a href="the%20%60nanoc%60%20branch%20contains%20the%20source%20code,%20the%20%60master%60%20branch%20is%20the%20generated%20site"&gt;http://github.com/inferis/inferis.github.io&lt;/a&gt;. The cool thing about this is that people send pull requests to fix typos: it hasn't happened often, but when it happens, I love it. 😘&lt;/p&gt;
+&lt;p&gt;Speaking of contribute: the complete source of this blog is open source (thanks again to &lt;a href="http://ashfurrow.com"&gt;Ash Furrow&lt;/a&gt; for the inspiration). You can see all the code I wrote or changed at &lt;a href=""&gt;http://github.com/inferis/inferis.github.io&lt;/a&gt; (the &lt;code&gt;nanoc&lt;/code&gt; branch contains the source code, the &lt;code&gt;master&lt;/code&gt; branch is the generated site). The cool thing about this is that people send pull requests to fix typos: it hasn't happened often, but when it happens, I love it. 😘&lt;/p&gt;
 
 </content>
   </entry>
@@ -957,49 +1096,6 @@ It actually landed me a job on the other side of the world, in a company and tea
 &lt;p&gt;On a related note, it might be worthwhile to read up on LLDB techniques by reading &lt;a href="http://www.objc.io/issue-19/lldb-debugging.html"&gt;this article&lt;/a&gt; in objc.io's &lt;a href="http://www.objc.io/issue-19/"&gt;19th installment&lt;/a&gt; (which is all about debugging). Some neat tricks in there.&lt;/p&gt;
 
 &lt;p&gt;And finally, thanks to Reveal for an awesome app. Xcode6's Debug View Hierarchy is interesting but more limited than Reveal (and it doesn't always yield the correct results). Reveal rocks.&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2014-10-28:/blog/2014/10/28/hunting-for-change/</id>
-    <title type="html">Hunting for change</title>
-    <published>2014-10-28T22:24:28Z</published>
-    <updated>2014-10-28T22:24:28Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2014/10/28/hunting-for-change/"/>
-    <content type="html">
-
-&lt;p&gt;&lt;em&gt;(This blogpost expands on a number of tweets I published this evening)&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;I've been looking for change all my life I think. Not actively. Or sometimes more active than at other moments. I've never been somebody who values status quo or who gets stuck in habits. I rarely get up at the time each morning, I'm not bothered when I get to lunch at 1pm instead of 12:30. I don't have to take the car to work each day, or I have no problem with skipping my daily train routine for another route or transportation option.&lt;/p&gt;
-
-&lt;p&gt;Not sure where this comes from, but I'm kinda always on the lookout for new things. For example, I quite abruptly switched from .Net consultancy and programming to iOS development. This wasn't easy, you know. A whole new platform, a new language, a new way of doing things. But at the time I was given the opportunity to do this, and I took it with two hands. It was time for something new. Time to learn new things, time for change.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;The downside seems to be that my head is almost always full of ideas, things to think about or stuff that I want to do. The additional downside is that these ideas/things/stuff are very personal (and most of the time related to coding, to be honest). The hard part is that it's hard to apply the same virtuosity to other areas which might be able to use it. For example, I find it hard to put any time in improving our house, or even think about it. It's not that I don't want to (who doesn't want a nice house to live in?) but it feels like most of the time I cannot be bothered. A sort of apathy which I have for certain things but not for (a few) specific others.&lt;/p&gt;
-
-&lt;p&gt;By the way, this also happens in conversations. I can genuinely start a conversion, but get "bored" in the middle of it. It's absolutely not intentional and it (most of the time) is not even the fault of the people I'm talking to. But it is entirely possible to enter a "looking for a fuck to give" state without even knowing it myself. And then the conversion ends, and then I'm left thinking: I could have asked that or that. But I didn't. It's not that I don't like the conversation. My mind just wanders off and then I'm fucked. (Told you I'm strange. Didn't I?)&lt;/p&gt;
-
-&lt;p&gt;And so my head seems awful full. It's not easy to find peace and quiet on the inside. This tweet by &lt;a href="http://twitter.com/bluecrowbar"&gt;@bluecrowbar&lt;/a&gt; quite nailed it:&lt;/p&gt;
-
-&lt;div class="embed tweet"&gt;
-&lt;blockquote class="twitter-tweet" align="center" width="350"&gt;
-&lt;p&gt;Relaxing makes me nervous.&lt;/p&gt;— Steven Vandeweghe (@bluecrowbar) &lt;a href="https://twitter.com/bluecrowbar/status/520630884769488896"&gt;October 10, 2014&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I feel like that all the time. It's not like I'm actually always working. I can spend the whole night on the couch trying to get anything done, which doesn't work out except for browsing Facebook or Twitter, telling myself I'll be doing this or that in 5 minutes (ah yes, procrastination, my friend). But I just don't do relaxing very good. I hardly make time to go out for drinks. I never go see a movie. We don't have a TV in our house and while I can watch TV on my iPad I hardly ever do (except for occasionaly binge watching of some Netflix series). I've tried gaming too. Mostly can't be bothered apart from the occasional spikes. I've been meaning to brew some beer but found no way to make some time for it. The little bit of intentional relaxing can be - wait for it - coding. Not because I have to, but because I can. Try things out, learn new stuff. But don't put me on a couch with a beer to watch some telly: no sir. I tend to try to play a game of squash every week. That works, most of the time. I have to force myself to stop the thinking and focus on the game, but in busy times I found even that hard.&lt;/p&gt;
-
-&lt;p&gt;There's just so many things I want to do or try or see. And people to meet, talk to, learn from. But then there's life which comes interfering with any plans you make trying to make that possible. So many dreams to chase, so many opportunities to twart those plans.&lt;/p&gt;
-
-&lt;p&gt;So I've thought: maybe I should embrace life as it is. Just go along. Take it easy, just go to work, get it done, get back home and enjoy my wife and kids. Follow the flow. Do as &lt;a href="http://www.twitter.com/bmf"&gt;Mike Lee&lt;/a&gt; apparently did, get off the interwebs for a little while or at least cut back. Find your own tempo in the context of your family and friends.&lt;/p&gt;
-
-&lt;p&gt;I'm afraid that won't work for me. So easily bored, so hungry to learn more (in my limited field of work, to be honest. I haven't found the need to learn music, for example). So trying to do my job like it should. So trying to be likeable for who I am. Wanting to share the things I learn with other people (blogposts, teaching, sharing with coworkers) to make the world a better place even if it's only that little bit.&lt;/p&gt;
-
-&lt;p&gt;So yeah, always looking for change. Stay hungry, stay foolish, I guess. But sometimes, you're full. And the hard part is when to stop in time to clear your metaphorical stomach. I usually fail at that.&lt;/p&gt;
-
-&lt;p&gt;Now if you'll excuse me, I have a new version of OSX to install because this current one is getting stale.&lt;/p&gt;
 
 </content>
   </entry>

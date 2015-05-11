@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <title>Inferical Writings - Watchkit app versions</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
+                  <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-color: #eee;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>
+                      
+                        Watchkit app versions
+                      
+                    </h1>
+                    
+
+                    
+                      <span class="meta">
+                        
+                        May 11, 2015 ·
+                        
+
+                        <a href="/blog/2015/05/11/watchkit-app-versions/">∞</a>
+
+                        
+                        · 
+                        
+                      </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds() + "";
+    var m = d.getMinutes() + "";
+    var h = d.getHours() + "";
+
+    if (s.length < 2) s = "0" + s;
+    if (m.length < 2) m = "0" + m;
+    if (h.length < 2) h = "0" + h;
+
+    $(".intro-header").css("background-color", '#' + h + m + s);
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>I came across <a href="http://ikennd.ac/blog/2015/05/build-time-cfbundleversion-values-in-watchkit-apps/">this article</a> by Daniel Kellett this morning. I had seen him tweet about it too, but checking my feeds (yeah, I still do that, albeit not daily) I noticed he also made a post about it.</p>
+
+<p>Having toyed a lot with build configurations and their associated settings configuration, I was curious how he solved the issue.</p>
+
+<p>I'd have to concur with Daniel: the solution is horrible. 8 Steps to get this working, with aggregate targets and disabling of parallelization of the project: Not Good™.</p>
+
+<p>But my interest was piqued, and so I tried to recreate his problem (not hard) and find a better solution. I assumed it would still be hacky, but less hacky than Daniel's "Horrible" solution.</p>
+
+<!-- more -->
+
+<h2>Step 0</h2>
+
+<p>Create iPhone app, add Watchkit extension. In this case, just an empty app that displays the version of the app in a label (both on the watch and the phone). Or use existing iPhone + Watch apps.</p>
+
+<h2>Step 1</h2>
+
+<p>In the root of your project, add a shell script that we'll use to define the version settings:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/2J2p3L1Q2o30/Image%202015-05-11%20at%207.05.55%20pm.png" width="750"></p>
+
+<p>The contents of the scripts are similar to the script Daniel creates:</p>
+
+<pre><code class="language-sh highlight"><span class="c">#!/bin/sh</span>
+
+<span class="nv">S</span><span class="o">=</span><span class="k">$(</span>date <span class="s2">"+%S"</span><span class="k">)</span>
+<span class="nv">M</span><span class="o">=</span><span class="k">$(</span>date <span class="s2">"+%M"</span><span class="k">)</span>
+<span class="nv">D</span><span class="o">=</span><span class="k">$(</span>date<span class="k">)</span>
+
+<span class="nv">GENERATED_BUNDLE_VERSION</span><span class="o">=</span><span class="k">${</span><span class="nv">S</span><span class="k">}</span>
+<span class="nv">GENERATED_BUNDLE_SHORTVERSION</span><span class="o">=</span><span class="k">${</span><span class="nv">M</span><span class="k">}</span>.<span class="k">${</span><span class="nv">S</span><span class="k">}</span>
+
+<span class="nv">SRCROOT</span><span class="o">=</span><span class="k">${</span><span class="nv">SRCROOT</span><span class="k">:-</span><span class="p">.</span><span class="k">}</span>
+
+<span class="nb">echo</span> <span class="s2">"// Generated: </span><span class="k">${</span><span class="nv">D</span><span class="k">}</span><span class="s2">"</span> &gt; <span class="s2">"</span><span class="k">${</span><span class="nv">SRCROOT</span><span class="k">}</span><span class="s2">/Version.xcconfig"</span>
+<span class="nb">echo</span> <span class="s2">"GENERATED_BUNDLE_VERSION = </span><span class="k">${</span><span class="nv">GENERATED_BUNDLE_VERSION</span><span class="k">}</span><span class="s2">"</span> &gt;&gt; <span class="s2">"</span><span class="k">${</span><span class="nv">SRCROOT</span><span class="k">}</span><span class="s2">/Version.xcconfig"</span>
+<span class="nb">echo</span> <span class="s2">"GENERATED_BUNDLE_SHORTVERSION = </span><span class="k">${</span><span class="nv">GENERATED_BUNDLE_SHORTVERSION</span><span class="k">}</span><span class="s2">"</span> &gt;&gt; <span class="s2">"</span><span class="k">${</span><span class="nv">SRCROOT</span><span class="k">}</span><span class="s2">/Version.xcconfig"</span>
+
+<span class="nb">echo</span> <span class="s2">"Generated: </span><span class="k">${</span><span class="nv">GENERATED_BUNDLE_VERSION</span><span class="k">}</span><span class="s2"> &amp; </span><span class="k">${</span><span class="nv">GENERATED_BUNDLE_SHORTVERSION</span><span class="k">}</span><span class="s2">"</span></code></pre>
+
+<p>This script generates a file <code>Version.xcconfig</code> in the root of the project, containing two build settings: <code>GENERATED_BUNDLE_VERSION</code> and <code>GENERATED_BUNDLE_SHORTVERSION</code>.</p>
+
+<p>This is slightly different since we use the date of the system here to generate the version numbers, and Daniel's approach is more <em>real life</em> than mine using the git commit hash, but I wanted something that would change regularly for testing purposes. You'll obviously want to change the source for <code>GENERATED_BUNDLE_VERSION</code> and <code>GENERATED_BUNDLE_SHORTVERSION</code> to something more sensible.</p>
+
+<h2>Step 2</h2>
+
+<p>Integrate the script to your project, not as a <em>Build Phase</em>, but as a <em>Build Pre-Action</em>. You can find these under the schemes of your project:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/161A0v25191W/Image%202015-05-11%20at%207.14.59%20pm.png" width="750"></p>
+
+<p>You can define pre-actions and post-actions for every "Product Action" of the project. This is defined in the scheme, so you'll have to do this for all schemes defined in the project where you want this to happen. In our case, this is twice since Xcode creates a default scheme for the app and a scheme for the watchkit app (basically because it's a lot easier to run them that way).</p>
+
+<p>This is also why we made a script; you could also paste the code right into the action window textarea like Daniel did. That works as good, but then you'd have to change the code for every scheme when you want a change (which is at least twice in our case), so I prefer to put scripts in their own file. It's also easier to edit them this way.</p>
+
+<p>Don't forget to specify to "take the buildsettings" from the appropriate target, otherwise the <code>$SRCROOT</code> variable we use in the script (and to invoke it) is not set.</p>
+
+<h2>Step 3</h2>
+
+<p>Build the project. This should generate a <code>Version.xcconfig</code> along side the <code>Version.sh</code> file. Add this xcconfig file to the project:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/1g1L1B0k0w0e/Image%202015-05-11%20at%207.23.24%20pm.png" width="750"></p>
+
+<p>Don't add it to a target (uncheck all the boxes); we don't want it included in a build product, but it needs to be in the project... because we want to use it as base setting for our project's configurations:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/07153B0F1Y25/Image%202015-05-11%20at%207.28.28%20pm.png" width="750"></p>
+
+<p>This makes sure that the settings defined in the config file are usable in our project. Since we add them at project level, they will be present for <em>every target</em> which is <strong>exactly</strong> what we want. You can verify this by looking at user defined settings in <em>Build Settings</em> (all the way to the bottom):</p>
+
+<p><img class="center" src="http://c.inferis.org/image/3r0a3s1h1Z3g/Image%202015-05-11%20at%207.49.08%20pm.png" width="675"></p>
+
+<h2>Step 4</h2>
+
+<p>Now we need to incorporate the generated settings into the Info.plist files. By default, the <em>Expand Build Settings in Info.plist File</em> is set to <code>YES</code>, so we don't have to take precautions for this like Daniel did, because his version settings were in a header file. I had no clue that you could do this, by the way, and it allows for interesting approaches for other problems. 😍</p>
+
+<p>So for every <code>Info.plist</code> file, change the hardcoded <code>CFBundleVersion</code> and <code>CFBundleShortVersionString</code> values to the values we get from the settings, like this:</p>
+
+<pre><code class="language-xml highlight"><span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+   ...
+   <span class="nt">&lt;key&gt;</span>CFBundleShortVersionString<span class="nt">&lt;/key&gt;</span>
+   <span class="nt">&lt;string&gt;</span>$(GENERATED_BUNDLE_SHORTVERSION)<span class="nt">&lt;/string&gt;</span>
+   <span class="nt">&lt;key&gt;</span>CFBundleVersion<span class="nt">&lt;/key&gt;</span>
+   <span class="nt">&lt;string&gt;</span>$(GENERATED_BUNDLE_VERSION)<span class="nt">&lt;/string&gt;</span>
+   ...
+<span class="nt">&lt;/dict&gt;</span></code></pre>
+
+<p>This will look like this in when you inspect the project:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/2R383y10101i/Image%202015-05-11%20at%207.57.25%20pm.png" width="400"></p>
+
+<h2>Step 5</h2>
+
+<p>There is no step 5. Well, except for: build your app (I have no Watch yet so I can't show you a fancy hairy wrist with the demo app running), and continue developing.</p>
+
+<h2>Caveat</h2>
+
+<p>Now once in a while you might get the original error because thanks to (what I presume to be) Xcode caching things: it seems the changes to the Version.xcconfig file aren't picked up right away or Xcode doesn't notice it was changed.</p>
+
+<p><img class="center" src="http://c.inferis.org/image/2s270O1i462K/Image%202015-05-11%20at%208.06.53%20pm.png" width="750"></p>
+
+<p>It seems that this also has to do with the parallelized builds: it looks like Xcode is running the pre-action scripts for each run it can parallellize, causing slight changes in the resulting values.</p>
+
+<p>Now, this is more an obvious problem for this demo project since the values change so often but in a real world case this won't happen as much (see Daniel's script, for example). And when this occurs, you can clean the project and rebuild in which case all plist files will be updated. But still, this does not make me happy and for larger project can cause quite a bit of delay.</p>
+
+<p>Additionally, the updated values sometimes aren't picked up directly due to the same caching playing its role. So most of the time you don't see the updated version inside the app unless you clean or reopen the project. This is usually not a problem since the use case for these versions are only applicable for release builds, but it's not pretty.</p>
+
+<h2>Step 1 (🙈)</h2>
+
+<p>But both problems can be remedied pretty simple by augmenting our script with 2 lines:</p>
+
+<pre><code class="language-sh highlight"><span class="c"># finishing touch</span>
+find <span class="s2">"</span><span class="nv">$SRCROOT</span><span class="s2">"</span> -name Info.plist -exec touch <span class="s2">"{}"</span> <span class="se">\;</span>
+
+<span class="c"># haste makes waste</span>
+sleep 0.5</code></pre>
+
+<p>The first line looks for all Info.plist files under the source root and <em>touches</em> them. Xcode will pick them up as changed and incorporate the updated version settings into the build.</p>
+
+<p>The second line waits a bit before continuing. This adds an extra half second to your build but this fixes the problem with the parallellized builds: by waiting a bit before continuing, we make sure the last change is picked up nicely for all build runs.</p>
+
+<p>Now, these two lines are the icing on the case and shouldn't be really necessary for a real world scenario where the versions don't change often. But in case these issue do bite you, here's a solution.</p>
+
+<h2>Conclusion</h2>
+
+<p>There's still no "out of the box" solution for this version numbering issue. I don't know why you need to set the version of each extension manually while Xcode could be doing this itself since it's mandatory anyway. The steps above make it a bit simpler to have a general system of version numbers for your app and your (WatchKit) extensions, using tools we have to our disposal anyway.</p>
+
+<p>Having access to the build steps like Daniel asks would be nice but I don't think it's necessary for this problem, because we can fix it with plain old configuration. The only downside is that you need to add the script for each scheme you have in your project, but that's (IMHO) a small price to pay.</p>
+
+<p>Thanks again to Daniel for the original post which I thought was very interesting, and by which I learned that you can use preprocessing for <code>Info.plist</code> files too: something I hadn't discovered before. It's always nice to learn something new. 🌟</p>
+
+
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  if (window.location.hostname != "localhost") {
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+</html>
