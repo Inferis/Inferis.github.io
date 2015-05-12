@@ -265,6 +265,34 @@ sleep 0.5</code></pre>
 
 <p>Oh yeah: you can find <a href="https://github.com/Inferis/WatchVersionThingy">the demo project</a> on Github.</p>
 
+<h2><em>Update</em></h2>
+
+<p>After posting this, Daniel mentions on Twitter that he considered a config file, but he didn't want to spoil the repo with changing version file:</p>
+
+<div class="embed tweet">
+<blockquote class="twitter-tweet" align="center" width="350">
+<p lang="en" dir="ltr"><a href="https://twitter.com/Inferis">@Inferis</a> I considered a config file, but updating it would dirty the repo. Since my numbers are based on commits, it’s be an infinite loop.</p>— Daniel Kennett (@iKenndac) <a href="https://twitter.com/iKenndac/status/597843683132755968">May 11, 2015</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p>I can see that's not what you want, and the easy solution is that you can put the file in your <code>.gitignore</code> settings so that it doesn't get pushed to the repo. However, this might cause the Version.xcconfig file to go red in your project explorer, which doesn't look as nice:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/3u2N3i250S06/Image%202015-05-12%20at%207.06.02%20am.png" width="276"></p>
+
+<p>But to me, it's no real problem anyway: you can either put it in a folder where you don't see it (like the build products), or just build the project and it's fine. The red is only there when initially checking out the repo.</p>
+
+<p>But then Daniel Tull (ALL THE DANIELS) chimed in:</p>
+
+<div class="embed tweet">
+<blockquote class="twitter-tweet" align="center" width="350">
+<p lang="en" dir="ltr"><a href="https://twitter.com/iKenndac">@iKenndac</a> <a href="https://twitter.com/Inferis">@Inferis</a> I generate a header for the plist in the scheme pre-build script. The middle ground between your methods. ☺️</p>— Daniel Tull (@danielctull) <a href="https://twitter.com/danielctull/status/597871444429774849">May 11, 2015</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<p>Indeed, you can use the header approach as a sort of middle ground: you don't get the pesky missing file (sometimes) because the generated header is not included in the project (which <strong>is</strong> necessary for the config file), but it requires you to do more setup up front. Depending on what you like, you can choose whatever approach you'd like, since their net effect is the same.</p>
+
 
 
                   

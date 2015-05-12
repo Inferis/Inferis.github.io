@@ -148,6 +148,34 @@ sleep 0.5&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Oh yeah: you can find &lt;a href="https://github.com/Inferis/WatchVersionThingy"&gt;the demo project&lt;/a&gt; on Github.&lt;/p&gt;
 
+&lt;h2&gt;&lt;em&gt;Update&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;After posting this, Daniel mentions on Twitter that he considered a config file, but he didn't want to spoil the repo with changing version file:&lt;/p&gt;
+
+&lt;div class="embed tweet"&gt;
+&lt;blockquote class="twitter-tweet" align="center" width="350"&gt;
+&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/Inferis"&gt;@Inferis&lt;/a&gt; I considered a config file, but updating it would dirty the repo. Since my numbers are based on commits, it’s be an infinite loop.&lt;/p&gt;— Daniel Kennett (@iKenndac) &lt;a href="https://twitter.com/iKenndac/status/597843683132755968"&gt;May 11, 2015&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I can see that's not what you want, and the easy solution is that you can put the file in your &lt;code&gt;.gitignore&lt;/code&gt; settings so that it doesn't get pushed to the repo. However, this might cause the Version.xcconfig file to go red in your project explorer, which doesn't look as nice:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/3u2N3i250S06/Image%202015-05-12%20at%207.06.02%20am.png" width="276"&gt;&lt;/p&gt;
+
+&lt;p&gt;But to me, it's no real problem anyway: you can either put it in a folder where you don't see it (like the build products), or just build the project and it's fine. The red is only there when initially checking out the repo.&lt;/p&gt;
+
+&lt;p&gt;But then Daniel Tull (ALL THE DANIELS) chimed in:&lt;/p&gt;
+
+&lt;div class="embed tweet"&gt;
+&lt;blockquote class="twitter-tweet" align="center" width="350"&gt;
+&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/iKenndac"&gt;@iKenndac&lt;/a&gt; &lt;a href="https://twitter.com/Inferis"&gt;@Inferis&lt;/a&gt; I generate a header for the plist in the scheme pre-build script. The middle ground between your methods. ☺️&lt;/p&gt;— Daniel Tull (@danielctull) &lt;a href="https://twitter.com/danielctull/status/597871444429774849"&gt;May 11, 2015&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Indeed, you can use the header approach as a sort of middle ground: you don't get the pesky missing file (sometimes) because the generated header is not included in the project (which &lt;strong&gt;is&lt;/strong&gt; necessary for the config file), but it requires you to do more setup up front. Depending on what you like, you can choose whatever approach you'd like, since their net effect is the same.&lt;/p&gt;
+
 </content>
   </entry>
   <entry>
