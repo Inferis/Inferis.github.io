@@ -140,3 +140,21 @@ Having access to the build steps like Daniel asks would be nice but I don't thin
 Thanks again to Daniel for the original post which I thought was very interesting, and by which I learned that you can use preprocessing for `Info.plist` files too: something I hadn't discovered before. It's always nice to learn something new. 🌟
 
 Oh yeah: you can find [the demo project](https://github.com/Inferis/WatchVersionThingy) on Github.
+
+## *Update*
+
+After posting this, Daniel mentions on Twitter that he considered a config file, but he didn't want to spoil the repo with changing version file:
+
+{% tweet https://twitter.com/iKenndac/status/597843683132755968 align=center %}
+
+I can see that's not what you want, and the easy solution is that you can put the file in your `.gitignore` settings so that it doesn't get pushed to the repo. However, this might cause the Version.xcconfig file to go red in your project explorer, which doesn't look as nice:
+
+{% img center http://c.inferis.org/image/3u2N3i250S06/Image%202015-05-12%20at%207.06.02%20am.png 276 %}
+
+But to me, it's no real problem anyway: you can either put it in a folder where you don't see it (like the build products), or just build the project and it's fine. The red is only there when initially checking out the repo.
+
+But then Daniel Tull (ALL THE DANIELS) chimed in:
+
+{% tweet https://twitter.com/danielctull/status/597871444429774849 align=center %}
+
+Indeed, you can use the header approach as a sort of middle ground: you don't get the pesky missing file (sometimes) because the generated header is not included in the project (which **is** necessary for the config file), but it requires you to do more setup up front. Depending on what you like, you can choose whatever approach you'd like, since their net effect is the same.
