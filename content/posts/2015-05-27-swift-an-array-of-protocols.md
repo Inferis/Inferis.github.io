@@ -172,9 +172,9 @@ protocol Equatable {
 }
 ```
 
-Notice the `Self` type. This denotes that the method will use an instance of the actual type implementing the protocol. In this case, it makes sure we're comparing two objects of the same type with each other. This actually makes sense from a semantic standpoint: it's a pretty good assumption that objects need to be of the same type to be considered equal.
+Notice the `Self` type. This denotes that the method will use the actual type that's implementing the protocol. In this case, it makes sure we're comparing two objects of the same type with each other. This actually makes sense from a semantic standpoint: it's a pretty good assumption that objects need to be of the same type to be considered equal.
 
-But this doesn't help us. We can't use `Equatable`, and thus we can't use `find`. We'll have to find another way.
+But this doesn't help us: we can't use `Equatable`, and thus we can't use `find`. We'll have to find another way.
 
 ## Our own ==
 
@@ -215,11 +215,11 @@ func ==(lhs: ThingyNotifier, rhs: ThingyNotifier) -> Bool
 }
 ```
 
-... it's kind of useless since you still need to do comparing of ThingyNotifier instances and always returning `true` or `false` isn't going to do that. There's nothing else to work with, so you're stuck.
+... it's kind of useless since you still need to do comparing of ThingyNotifier instances and always returning `true` or `false` isn't going to do that. Since we have nothing else to work with, we're stuck.
 
 ### A solution
 
-Since we can't do this in pure-pure Swift, let's include *Foundation* into the party. How about we declare ThingyNotifier to have to conform to `NSObjectProtocol`? In my use case, this wasn't a problem since the notifier instances would be `UIViewController` instances anyway, but I guess this puts a bit of a limitation on what target objects you can use.
+Since we can't do this in pure-pure Swift, let's include *Foundation* into the party. How about we declare `ThingyNotifier` to have to conform to `NSObjectProtocol`? In my use case, this wasn't a problem since the notifier instances would be `UIViewController` instances anyway, but I guess this puts a bit of a limitation on what target objects you can use in the more general case.
 
 ```swift
 protocol ThingyNotifier : NSObjectProtocol {
@@ -228,7 +228,7 @@ protocol ThingyNotifier : NSObjectProtocol {
 }
 ```
 
-But it does introduce `isEqual()` into the equation! So now our `removeNotifier` will become:
+But it does introduce `isEqual()` into the equation. So now our `removeNotifier` implementation will become:
 
 ```swift
 func removeNotifier(notifier: ThingyNotifier) {
@@ -241,7 +241,7 @@ func removeNotifier(notifier: ThingyNotifier) {
 }
 ```
 
-And that works as expected. Like I said before, this introduces an extra requirement to conform to the `NSObject` protocol, which might be problematic depending on how you want to use this. But in practice, it's likely that the objects you're using as `ThingyNotifiers` are a subclass of NSObject anyway.
+And that works as expected. Like I said before, this introduces an extra requirement to conform to the `NSObject` protocol, which might be problematic depending on how you want to use this. But in practice, it's likely that the objects you're using as `ThingyNotifiers` are a subclass of `NSObject` anyway.
 
 I can hear you think: "*but what if I just add an equality method myself?*". Let's just copy the `isEqual` method signature from `NSObjectProtocol` and we're good, right?
 
@@ -258,7 +258,7 @@ Result:
 
 {% img center http://c.inferis.org/image/39081y3E1C1T/nope.gif %}
 
-Objects conforming to `ThingyNotifier` now have to implement this method too and on top of it you cannot freeload on the `NSObjectProtocol` implementation anyway:
+Why? Objects conforming to `ThingyNotifier` now have to implement this method too and on top of it you cannot freeload on the `NSObjectProtocol` implementation anyway:
 
 {% img center http://c.inferis.org/image/3w0P3p0a2I41/Image%202015-05-27%20at%209.16.19%20am.png 750 %}
 
