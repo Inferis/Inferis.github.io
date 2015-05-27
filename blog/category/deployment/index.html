@@ -11,7 +11,7 @@
     <meta name="generator" content="nanoc 3.7.5">
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <title>Inferical Writings - Archive for April 2015</title>
+    <title>Inferical Writings - deployment</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/clean-blog.css" rel="stylesheet">
@@ -85,10 +85,10 @@
                 <div class="post-heading">
                     <h1>
                       
-                        Archive for April 2015
+                        deployment
                       
                     </h1>
-                    
+                    <h2 class="subheading">All posts related to deployment</h2>
 
                     
                 </div>
@@ -122,60 +122,6 @@
   <div class="post-preview">
     <h2 class="post-title">
       
-        <a href="/blog/2015/04/14/early-bird-catches-the-worm/">The early bird catches the worm</a>
-      
-    </h2>
-    <p class="post-meta">
-      April 14, 2015 ·
-      <a href="/blog/2015/04/14/early-bird-catches-the-worm/">∞</a>
-      
-      · <a href="/blog/category/life/">life</a>, <a href="/blog/category/lifehacks/">lifehacks</a>
-      
-    </p>
-
-    
-
-<p>I'm starting to become an early-morning person.</p>
-
-<p>This is a big change for me. I used to be a "late night" person. My day used to consist of 2 parts: the day(job) part and the night part. Going home after work (or whatever) meant there were at least a few hours left in the day to be (even more) productive. And so I spent countless nights behind my computer's screen (because "being productive" equals "coding", that <em>is</em> imperative), coding away into the wee hours of night. The morning after would prove difficult but nothing that coffee couldn't solve. And the weekend usually gave good opportunities for sleeping in to catch up on some sleep. And so I was no morning person at all, meaning that "get up at 8am" was usually a very difficult task. Also, I had no fixed schedule in my life back then. I woke up when needed, I went to sleep when I felt like it, I rarely had breakfast/lunch/dinner at relatively fixed times.</p>
-
-<div class="read-more"><a href="/blog/2015/04/14/early-bird-catches-the-worm/">Continue reading ›</a></div>
-</div>
-
-  <hr>
-
-  <div class="post-preview">
-    <h2 class="post-title">
-      
-        <a href="/blog/2015/04/20/gliding/">Gliding</a>
-      
-    </h2>
-    <p class="post-meta">
-      April 20, 2015 ·
-      <a href="/blog/2015/04/20/gliding/">∞</a>
-      
-      · <a href="/blog/category/life/">life</a>, <a href="/blog/category/awesomeness/">awesomeness</a>
-      
-    </p>
-
-    
-
-<p>I went gliding! And it was awesome.</p>
-
-<p>My friend and co-worker <a href="http://twitter.com/fousa">Jelle Vandebeeck</a> has been a glider pilot for (what he claims - and I have no reason to doubt it) 15 years now. Last year, just for fun, I mentioned I would like to get off the ground with him (in a glider, of course). He wasn't dismissive of it, so we went to search for a good date.</p>
-
-<p>Unfortunately, due to scheduling conflicts and weather conditions I didn't get the chance to actually go flying. No worries, there would be other moments.</p>
-
-<p>And so, now that flying season started again, there were no races to be flown yet, the weather looked good and I was able to free some time (there's always so much to do, but it's about setting priorities), which meant that this weekend <strong>we were on</strong>!</p>
-
-<div class="read-more"><a href="/blog/2015/04/20/gliding/">Continue reading ›</a></div>
-</div>
-
-  <hr>
-
-  <div class="post-preview">
-    <h2 class="post-title">
-      
         <a href="/blog/2015/04/22/scripts-in-your-app-bundle/">Scripts in your app bundle</a>
       
     </h2>
@@ -194,70 +140,6 @@
 <p>Of course, there's the binary for your app, which obviously is executable. But there could be more too: if you include shell scripts, for example, which are marked executable (<code>chmod u+x script.sh</code>) then iTunes Connect now considers them as actual executables and now requires them to be codesigned.</p>
 
 <div class="read-more"><a href="/blog/2015/04/22/scripts-in-your-app-bundle/">Continue reading ›</a></div>
-</div>
-
-  <hr>
-
-  <div class="post-preview">
-    <h2 class="post-title">
-      
-        <a href="/blog/2015/04/27/ios8-and-interfaceorientation/">Using interfaceOrientation with iOS8 transitions</a>
-      
-    </h2>
-    <p class="post-meta">
-      April 27, 2015 ·
-      <a href="/blog/2015/04/27/ios8-and-interfaceorientation/">∞</a>
-      
-      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/uikit/">uikit</a>
-      
-    </p>
-
-    
-
-<p>Working on an app last week, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in <code>UIViewController</code> are deprecated:</p>
-
-<pre><code class="language-objc highlight highlight"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span>
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">);</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willAnimateRotationToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">3</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span></code></pre>
-
-<p>As you can see, they want you to use <code>viewWillTransitionToSize:withTransitionCoordinator:</code> instead.
-So, no problem, we'll just implement that method.</p>
-
-<p><strong>Update:</strong> <em>I'd like to stress this a little more: the reason they've changed these behaviors is for a reason. Your app mostly likely is way better off using adaptive layout using size classes, Auto Layout and manual corrections using the new transition callbacks.</em></p>
-
-<p>Now, the only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?</p>
-
-<div class="read-more"><a href="/blog/2015/04/27/ios8-and-interfaceorientation/">Continue reading ›</a></div>
-</div>
-
-  <hr>
-
-  <div class="post-preview">
-    <h2 class="post-title">
-      
-        <a href="/blog/2015/04/30/nanoc/">Nanoc</a>
-      
-    </h2>
-    <p class="post-meta">
-      April 30, 2015 ·
-      <a href="/blog/2015/04/30/nanoc/">∞</a>
-      
-      · <a href="/blog/category/ruby/">ruby</a>, <a href="/blog/category/blogging/">blogging</a>
-      
-    </p>
-
-    
-
-<p>The current iteration of this blog runs on an "engine" called <a href="http://nanoc.ws">Nanoc</a>. Nanoc, you say?</p>
-
-<blockquote>
-<p>nanoc is a static site generator, fit for building anything from a small personal blog to a large corporate web site.</p>
-</blockquote>
-
-<p>The keywords here is "static site generator". This means that I build/generate the site locally on my machine, and then push it to a server on the internets for all you to see. There's no dynamic site running, built in PHP or ruby or whatever. Just plain HTML files, some CSS, a bit of Javascript and some images or videos.</p>
-
-<div class="read-more"><a href="/blog/2015/04/30/nanoc/">Continue reading ›</a></div>
 </div>
 
   <hr>

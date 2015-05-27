@@ -122,6 +122,41 @@
   <div class="post-preview">
     <h2 class="post-title">
       
+        <a href="/blog/2015/04/27/ios8-and-interfaceorientation/">Using interfaceOrientation with iOS8 transitions</a>
+      
+    </h2>
+    <p class="post-meta">
+      April 27, 2015 ·
+      <a href="/blog/2015/04/27/ios8-and-interfaceorientation/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/uikit/">uikit</a>
+      
+    </p>
+
+    
+
+<p>Working on an app last week, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in <code>UIViewController</code> are deprecated:</p>
+
+<pre><code class="language-objc highlight highlight"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span>
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">);</span>
+
+<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willAnimateRotationToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">3</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span></code></pre>
+
+<p>As you can see, they want you to use <code>viewWillTransitionToSize:withTransitionCoordinator:</code> instead.
+So, no problem, we'll just implement that method.</p>
+
+<p><strong>Update:</strong> <em>I'd like to stress this a little more: the reason they've changed these behaviors is for a reason. Your app mostly likely is way better off using adaptive layout using size classes, Auto Layout and manual corrections using the new transition callbacks.</em></p>
+
+<p>Now, the only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?</p>
+
+<div class="read-more"><a href="/blog/2015/04/27/ios8-and-interfaceorientation/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
         <a href="/blog/2015/03/25/swiftyas/">SwiftyAs</a>
       
     </h2>
