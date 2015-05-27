@@ -6,7 +6,6 @@ categories:
 - swift
 - opensource
 - development
-preview: true
 proofreaders: joericoach@, fousa@, whakkee@ #,  damon__jones@, istx25@
 ---
 
@@ -278,6 +277,6 @@ Anyway, thanks to Joe (and the team) for the help. Much appreciated! 👍
 
 ### Example code
 
-You can find a playground with the code of this post on [Github](https://github.com/Inferis/ThingyNotifier), if you care to play with it some more.
+You can find a playground with the code included in this post on [Github](https://github.com/Inferis/ThingyNotifier), if you care to play with it some more.
 
 And oh, if there's another approach, I'd love to hear it!
