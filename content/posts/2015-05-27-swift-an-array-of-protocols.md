@@ -7,7 +7,7 @@ categories:
 - opensource
 - development
 preview: true
-proofreaders: joericoach@, damon__jones@, istx25@
+proofreaders: joericoach@, fousa@, whakkee@ #,  damon__jones@, istx25@
 ---
 
 I was working on a side project yesterday, a side project which I decided to develop using Swift. My day job mostly consists of Objective-C (which I still love) but all the hip kids are doing Swift and it doesn't hurt to keep along with the latest trend, right? And learning is fun.
@@ -268,11 +268,11 @@ And! Our equality check doesn't work anymore:
 
 So, all in all, this `NSObjectProtocol` approach isn't too bad.
 
-### A Real Pure™ Swift solution.
+### A Real Pure™ Swift solution?
 
-Confession time, I lied before: there is a kind of pure Swift solution. [Joe Groff](https://twitter.com/jckarter) of the Swift team at Apple provided [one](https://gist.github.com/jckarter/49e10f5b58eb5ad81646), but in my opinion and for this case it's such a contraption (if you'll pardon my French) that it becomes counterproductive to use. It makes the API I want to provide needlessly complex, but it **is** a pure Swift solution so I guess it has that going for it. 😉
+So, as far as I know, there's no pure Swift solution to this. [Joe Groff](https://twitter.com/jckarter) of the Swift team at Apple provided a trampoline to a solution which I tried to implement. Alas, his solution – while clever – caused other problems. For example: you can't have the `+=` and `-=` operators (or any operator) operating on protocol instances if the protocol somehow employs the `Self` type, causing us to get back to the same error as mentioned before. Which leaves us empty handed yet again. 😉
 
-Also, I love how the Swift team reaches out to us for problems like this. They cannot solve them all but they are very helpful and even getting these problems noticed by them makes me feel like there's a good chance they'll be actually solved in the future. Who knows, right?
+This reminds me to mention how I love how the Swift team reaches out to us for problems like this. They cannot solve them all but they are very helpful and even getting these problems noticed by them makes me feel like there's a good chance they'll be actually solved in the future. Who knows, right?
 
 Anyway, thanks to Joe (and the team) for the help. Much appreciated! 👍
 
