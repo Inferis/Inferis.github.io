@@ -360,11 +360,11 @@ A naive implementation could be:</p>
 
 <p>So, all in all, this <code>NSObjectProtocol</code> approach isn't too bad.</p>
 
-<h3>A Real Pure™ Swift solution.</h3>
+<h3>A Real Pure™ Swift solution?</h3>
 
-<p>Confession time, I lied before: there is a kind of pure Swift solution. <a href="https://twitter.com/jckarter">Joe Groff</a> of the Swift team at Apple provided <a href="https://gist.github.com/jckarter/49e10f5b58eb5ad81646">one</a>, but in my opinion and for this case it's such a contraption (if you'll pardon my french) that it becomes counterproductive to use. It makes the API I want to provide needlessly complex, but it <strong>is</strong> a pure Swift solution so I guess it has that going for it. 😉</p>
+<p>So, as far as I know, there's no pure Swift solution to this. <a href="https://twitter.com/jckarter">Joe Groff</a> of the Swift team at Apple provided a trampoline to a solution which I tried to implement. Alas, his solution -- while clever -- caused other problems. For example: you can't have the <code>+=</code> and <code>-=</code> operators (or any operator) on the protocol if the protocol somehow uses the <code>Self</code> type, causing us to get back to the same error as mentioned before. Which leaves us empty handed yet again. 😉</p>
 
-<p>Also, I love how the Swift team reaches out to us for problems like this. They cannot solve them all but they are very helpful and even getting these problems noticed by them makes me feel like there's a good chance they'll be actually solved in the future. Who knows, right?</p>
+<p>This reminds me to mention how I love how the Swift team reaches out to us for problems like this. They cannot solve them all but they are very helpful and even getting these problems noticed by them makes me feel like there's a good chance they'll be actually solved in the future. Who knows, right?</p>
 
 <p>Anyway, thanks to Joe (and the team) for the help. Much appreciated! 👍</p>
 
@@ -380,7 +380,7 @@ A naive implementation could be:</p>
 
 <p class="proofread">
   This post was proofread by:
-  <a href="https://twitter.com/joericoach">@joericoach</a>, <a href="https://twitter.com/damon__jones">@damon__jones</a>, <a href="https://twitter.com/istx25">@istx25</a>. Many thanks!
+  <a href="https://twitter.com/joericoach">@joericoach</a>, <a href="https://twitter.com/fousa">@fousa</a>, <a href="https://twitter.com/whakkee">@whakkee</a>. Many thanks!
 </p>
 
 
