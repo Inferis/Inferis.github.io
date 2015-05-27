@@ -7,6 +7,7 @@ categories:
 - opensource
 - development
 preview: true
+proofreaders: joericoach@, damon__jones@, istx25@
 ---
 
 I was working on a side project yesterday which I decided to do in Swift. My day job mostly consists of Objective-C (which I still love) but all the hip kids are doing Swift and it doesn't hurt to keep along with the latest trend, right?
@@ -58,7 +59,7 @@ class ThingyManager {
 
 *(Note: The actual code was obviously different but similar.)*
 
-This is pretty simple: I have a `ThingyManager` which manages thingies (not very good in this case, but I disgress), and whenever something changes I'd like to notifier one or more instances of said changes. This is where `ThingyNotifier` comes in; as you can see, there's more than one thing to be notified of.
+This is pretty simple: I have a `ThingyManager` which manages thingies (not very good in this case, but I disgress), and whenever something changes I'd like to notify one or more instances of said changes. This is where `ThingyNotifier` comes in; as you can see, there's more than one thing to be notified of.
 
 You'll also notice that there are 3 methods left to be implemented: `addNotifier`, `removeNotifier` and `notifyAll`.
 
