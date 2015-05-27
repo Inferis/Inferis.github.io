@@ -2,13 +2,263 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-05-11T16:15:28Z</updated>
+  <updated>2015-05-27T05:03:27Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-05-27:/blog/2015/05/27/swift-an-array-of-protocols/</id>
+    <title type="html">Swift: an array of protocols</title>
+    <published>2015-05-27T05:03:27Z</published>
+    <updated>2015-05-27T05:03:27Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/05/27/swift-an-array-of-protocols/"/>
+    <content type="html">
+
+&lt;p&gt;I was working on a side project yesterday, a side project which I decided to develop using Swift. My day job mostly consists of Objective-C (which I still love) but all the hip kids are doing Swift and it doesn't hurt to keep along with the latest trend, right? And learning is fun.&lt;/p&gt;
+
+&lt;p&gt;So I was coding away, and I had this component which needed to notify several other components of certain events that happened. In practice this meant that I needed a sort of &lt;em&gt;multicast delegate&lt;/em&gt;. Now, I could have solved this the old Cocoa way by using notifications, but I try to stay away from them unless it really makes sense. The contract they offer is pretty loose (which can be handy too), but I wanted to try something more set-in-stone right now.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;The setup&lt;/h2&gt;
+
+&lt;p&gt;So I created this class and protocol.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;  &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOneThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyName&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOtherThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyId&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="kt"&gt;ThingyManager&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;doOneThingy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;thingyName&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"one-thing"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"other-thing"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="n"&gt;notifyAll&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;notifier&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
+            &lt;span class="n"&gt;notifier&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;didDoOneThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;thingyName&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+          &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;doOtherThingy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;thingyId&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;notifyAll&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;notifier&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
+          &lt;span class="n"&gt;notifier&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;didDoOtherThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;thingyId&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;addNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// to be implemented&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;removeNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// to be implemented&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;notifyAll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;notify&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// to be implemented&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;(Note: The actual code was obviously different but similar.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This is pretty simple: I have a &lt;code&gt;ThingyManager&lt;/code&gt; which manages thingies (not very good in this case, but I disgress), and whenever something changes I'd like to notify one or more instances of said changes. This is where &lt;code&gt;ThingyNotifier&lt;/code&gt; comes in; and as you can see, there's more than one thing to be notified of. This is like the delegate pattern, but as a &lt;code&gt;1-&amp;gt;n&lt;/code&gt; connection instead of a &lt;code&gt;1-&amp;gt;1&lt;/code&gt; connection.&lt;/p&gt;
+
+&lt;p&gt;You'll also notice that there are 3 methods still left to be implemented: &lt;code&gt;addNotifier&lt;/code&gt;, &lt;code&gt;removeNotifier&lt;/code&gt; and &lt;code&gt;notifyAll&lt;/code&gt;. We'll cover these later.&lt;/p&gt;
+
+&lt;p&gt;Additionally, I'd like to sprinkle some operator magic on top so that using these notifiers becomes more intuitive:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;left&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyManager&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;right&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;ThingyManager&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;left&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;addNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;right&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;left&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;left&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyManager&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;right&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;ThingyManager&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;left&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;removeNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;right&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;left&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This just wraps our &lt;code&gt;addNotifier&lt;/code&gt; and &lt;code&gt;removeNotifier&lt;/code&gt; in &lt;code&gt;+=&lt;/code&gt; and &lt;code&gt;-=&lt;/code&gt; calls, and so I can use this class like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="kt"&gt;ThatController&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;thingyManager&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;thingyManager&lt;/span&gt;
+
+  &lt;span class="nf"&gt;init&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyManager&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyManager&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;thingyManager&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;thingyManager&lt;/span&gt;
+    &lt;span class="n"&gt;thingyManager&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="k"&gt;self&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="nf"&gt;deinit&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;thingyManager&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="k"&gt;self&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which is nice (IMHO) and invokes some fond memories of using multicast delegates in my C# days.&lt;/p&gt;
+
+&lt;h2&gt;// to be implemented&lt;/h2&gt;
+
+&lt;p&gt;But now those three methods remain. Let's implement them.&lt;/p&gt;
+
+&lt;p&gt;First of all, we need a place to store our &lt;code&gt;ThingyNotifier&lt;/code&gt; instances:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="nv"&gt;notifiers&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We'll just use an array of &lt;code&gt;ThingyNotifier&lt;/code&gt;. Easy.&lt;/p&gt;
+
+&lt;p&gt;Now onto &lt;code&gt;notifyAll&lt;/code&gt;, which is just an iteration over said array to invoke the block on each notifier:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;notifyAll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;notify&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;notifier&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;notifiers&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nf"&gt;notify&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Again, easy.&lt;/p&gt;
+
+&lt;p&gt;Next up: &lt;code&gt;addNotifier&lt;/code&gt;. This is even easier, just add the notifier to our array:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;addNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And finally &lt;code&gt;removeNotifier&lt;/code&gt;. Here's where things get tricky (you felt this coming, right?).
+A naive implementation could be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;removeNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;index&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nf"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;removeAtIndex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But alas, the compiler disagrees:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/1b3f0W103t37/Image%202015-05-27%20at%207.48.13%20am.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;Now the error is a bit sparse on information, but looking at the (current) definition of &lt;code&gt;find&lt;/code&gt; gives us more information:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;C&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;CollectionType&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="kt"&gt;C&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Generator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Element&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Equatable&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;domain&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;C&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;value&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;C&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Generator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Element&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;C&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kt"&gt;Index&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It turns out that the element of the collection type we're trying to find something in must conform to &lt;code&gt;Equatable&lt;/code&gt;. That makes sense since how else would &lt;code&gt;find&lt;/code&gt; know if it has found the element it is looking for? There must be some kind of test for equality.&lt;/p&gt;
+
+&lt;p&gt;So, the solution is easy, right? Just make &lt;code&gt;ThingyNotifier&lt;/code&gt; conform to &lt;code&gt;Equatable&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Equatable&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOneThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyName&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOtherThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyId&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nope. This introduces a slew of new errors (of the same type):&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/1Z0b2L3M0v08/Image%202015-05-27%20at%207.58.20%20am.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;Looking at the definition of &lt;code&gt;Equatable&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;Equatable&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;lhs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="k"&gt;Self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;rhs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="k"&gt;Self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Bool&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice the &lt;code&gt;Self&lt;/code&gt; type. This denotes that the method will use the actual type that's implementing the protocol. In this case, it makes sure we're comparing two objects of the same type with each other. This actually makes sense from a semantic standpoint: it's a pretty good assumption that objects need to be of the same type to be considered equal.&lt;/p&gt;
+
+&lt;p&gt;But this doesn't help us: we can't use &lt;code&gt;Equatable&lt;/code&gt;, and thus we can't use &lt;code&gt;find&lt;/code&gt;. We'll have to find another way.&lt;/p&gt;
+
+&lt;h2&gt;Our own ==&lt;/h2&gt;
+
+&lt;p&gt;So let's declare the &lt;code&gt;==&lt;/code&gt; operator/func to be part of the &lt;code&gt;ThingyNotifier&lt;/code&gt; protocol itself:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOneThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyName&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOtherThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyId&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;lhs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;rhs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Bool&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then we'll change our searching a bit to do a manual loop over the array instead of using &lt;code&gt;find&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;removeNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;notifier&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;removeAtIndex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Well, that doesn't work either: we get back to the same problem as before, kind of:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/3K0a2i2y0k1k/Image%202015-05-27%20at%208.35.57%20am.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;And while you can make that error go away by providing an implementation of that &lt;code&gt;==&lt;/code&gt; operator, like this...&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;lhs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;rhs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Bool&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt; &lt;span class="c1"&gt;// UWOTM8&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;... it's kind of useless since you still need to do comparing of ThingyNotifier instances and always returning &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt; isn't going to do that. Since we have nothing else to work with, we're stuck.&lt;/p&gt;
+
+&lt;h3&gt;A solution&lt;/h3&gt;
+
+&lt;p&gt;Since we can't do this in pure-pure Swift, let's include &lt;em&gt;Foundation&lt;/em&gt; into the party. How about we declare &lt;code&gt;ThingyNotifier&lt;/code&gt; to have to conform to &lt;code&gt;NSObjectProtocol&lt;/code&gt;? In my use case, this wasn't a problem since the notifier instances would be &lt;code&gt;UIViewController&lt;/code&gt; instances anyway, but I guess this puts a bit of a limitation on what target objects you can use in the more general case.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;NSObjectProtocol&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOneThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyName&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOtherThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyId&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But it does introduce &lt;code&gt;isEqual()&lt;/code&gt; into the equation. So now our &lt;code&gt;removeNotifier&lt;/code&gt; implementation will become:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;removeNotifier&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;var&lt;/span&gt; &lt;span class="nv"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;isEqual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;notifier&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;notifiers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;removeAtIndex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And that works as expected. Like I said before, this introduces an extra requirement to conform to the &lt;code&gt;NSObject&lt;/code&gt; protocol, which might be problematic depending on how you want to use this. But in practice, it's likely that the objects you're using as &lt;code&gt;ThingyNotifiers&lt;/code&gt; are a subclass of &lt;code&gt;NSObject&lt;/code&gt; anyway.&lt;/p&gt;
+
+&lt;p&gt;I can hear you think: "&lt;em&gt;but what if I just add an equality method myself?&lt;/em&gt;". Let's just copy the &lt;code&gt;isEqual&lt;/code&gt; method signature from &lt;code&gt;NSObjectProtocol&lt;/code&gt; and we're good, right?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="kd"&gt;protocol&lt;/span&gt; &lt;span class="kt"&gt;ThingyNotifier&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOneThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyName&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;didDoOtherThingy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;thingyId&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="kd"&gt;func&lt;/span&gt; &lt;span class="nf"&gt;isEqual&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;object&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Bool&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Result:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/39081y3E1C1T/nope.gif"&gt;&lt;/p&gt;
+
+&lt;p&gt;Why? Objects conforming to &lt;code&gt;ThingyNotifier&lt;/code&gt; now have to implement this method too and on top of it you cannot freeload on the &lt;code&gt;NSObjectProtocol&lt;/code&gt; implementation anyway:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/3w0P3p0a2I41/Image%202015-05-27%20at%209.16.19%20am.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;And! Our equality check doesn't work anymore:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2Y082Z3v3S2q/Image%202015-05-27%20at%209.16.05%20am.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;So, all in all, this &lt;code&gt;NSObjectProtocol&lt;/code&gt; approach isn't too bad.&lt;/p&gt;
+
+&lt;h3&gt;A Real Pure™ Swift solution?&lt;/h3&gt;
+
+&lt;p&gt;So, as far as I know, there's no pure Swift solution to this. &lt;a href="https://twitter.com/jckarter"&gt;Joe Groff&lt;/a&gt; of the Swift team at Apple provided a trampoline to a solution which I tried to implement. Alas, his solution – while clever – caused other problems. For example: you can't have the &lt;code&gt;+=&lt;/code&gt; and &lt;code&gt;-=&lt;/code&gt; operators (or any operator) operating on protocol instances if the protocol somehow employs the &lt;code&gt;Self&lt;/code&gt; type, causing us to get back to the same error as mentioned before. Which leaves us empty handed yet again. 😉&lt;/p&gt;
+
+&lt;p&gt;This reminds me to mention how I love how the Swift team reaches out to us for problems like this. They cannot solve them all but they are very helpful and even getting these problems noticed by them makes me feel like there's a good chance they'll be actually solved in the future. Who knows, right?&lt;/p&gt;
+
+&lt;p&gt;Anyway, thanks to Joe (and the team) for the help. Much appreciated! 👍&lt;/p&gt;
+
+&lt;h3&gt;Example code&lt;/h3&gt;
+
+&lt;p&gt;You can find a playground with the code included in this post on &lt;a href="https://github.com/Inferis/ThingyNotifier"&gt;Github&lt;/a&gt;, if you care to play with it some more.&lt;/p&gt;
+
+&lt;p&gt;And oh, if there's another approach, I'd love to hear it!&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-05-11:/blog/2015/05/11/watchkit-app-versions/</id>
     <title type="html">Watchkit app versions</title>
@@ -1001,131 +1251,6 @@ It actually landed me a job on the other side of the world, in a company and tea
 &lt;p&gt;The last hurdle is the H1-B visa. My application is in the works, but there's no guarantee that I'll get accepted. There are so many applications for so few available visas, so we'll have to see how it goes. I know one thing: I'm going to be so pissed off if I don't get in.&lt;/p&gt;
 
 &lt;p&gt;I don't know how it will work out. I'm just going to have to seize the day, every day.&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2014-11-30:/blog/2014/11/30/easy-revealing/</id>
-    <title type="html">Easy Revealing</title>
-    <published>2014-11-30T22:34:09Z</published>
-    <updated>2014-11-30T22:34:09Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2014/11/30/easy-revealing/"/>
-    <content type="html">
-
-&lt;p&gt;I have a confession to make: I like &lt;a href="http://revealapp.com"&gt;Reveal&lt;/a&gt;. It's such a great tool to discover why your UI doesn't appear as it should be. It's such a great way to get a decent look at the view hierarchy in your iOS app.&lt;/p&gt;
-
-&lt;p&gt;Initially, loading Reveal required you to add the reveal framework to your project before running. While not a hassle, it was rather suboptimal because you had to remove it again before shipping the app.&lt;/p&gt;
-
-&lt;p&gt;But when you run your project in the simulator, there's an easier way. Have it automatically start up the Reveal server, so that you don't have to connect manually, and don't have to pollute your project with a debugging lib. Why only in the Simulator? Well, the technique requires the dynamic loading of &lt;code&gt;libReveal.dylib&lt;/code&gt;. This is possible on your Mac but not on your iOS device. And the Simulator runs on your Mac, so we can use this trick to load the Reveal lib at runtime without prerequiring it in the project (to be fair, you can dynamically load libs on the device, but you'd still need to add them to your project).&lt;/p&gt;
-
-&lt;p&gt;So let's do that. First on: some LLDB tricks.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h2&gt;Making custom LLDB commands&lt;/h2&gt;
-
-&lt;p&gt;You might not know this, but you can extend LLDB by loading Python scripts. In those scripts you can define functions which can be used directly when you're debugging. That's pretty handy! So we'll use this to create some shortcuts to load the&lt;/p&gt;
-
-&lt;p&gt;So create a folder somewhere that can contain your LLDB scripts. I created a &lt;code&gt;lldb&lt;/code&gt; folder in my home folder, but you can place it anywhere you want.&lt;/p&gt;
-
-&lt;p&gt;Then, create a &lt;code&gt;reveal.py&lt;/code&gt; in that folder, and give it the following contents:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-python highlight"&gt;&lt;span class="c"&gt;# require the lldb lib to interact with LLDB&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;lldb&lt;/span&gt;
-
-&lt;span class="c"&gt;# this is called when the file is added to the script runtime&lt;/span&gt;
-&lt;span class="c"&gt;# we'll invoke a lldb command that links the python functions to actual LLDB commands&lt;/span&gt;
-&lt;span class="c"&gt;# in this case, we're adding reveal_start_sim and reveal_stop&lt;/span&gt;
-&lt;span class="c"&gt;# note: the other functions in this file are no accessible from LLDB.&lt;/span&gt;
-&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__lldb_init_module&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'command script add -f reveal.reveal_start_sim reveal_start_sim'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'command script add -f reveal.reveal_stop reveal_stop'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="c"&gt;# This is the main entry point. This will load the reveal lib and then send a notification so that it will start&lt;/span&gt;
-&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;reveal_start_sim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;internal_dict&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-  &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;"Installing reveal in the simulator"&lt;/span&gt;
-  &lt;span class="n"&gt;reveal_load_sim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="n"&gt;reveal_start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="c"&gt;# Loads the libReveal.dylib from the Reveal app.&lt;/span&gt;
-&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;reveal_load_sim&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'expr (void*)dlopen("/Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/libReveal.dylib", 0x2);'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="c"&gt;# Sends a notification to the reveal server so that it actually starts&lt;/span&gt;
-&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;reveal_start&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'expr [(NSNotificationCenter*)[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStart" object:nil];'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="c"&gt;# Sends a notification to the reveal server so that it stops (if you'd want that)&lt;/span&gt;
-  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;reveal_stop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-  &lt;span class="n"&gt;debugger&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;HandleCommand&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'expr [(NSNotificationCenter*)[NSNotificationCenter defaultCenter] postNotificationName:@"IBARevealRequestStop" object:nil];'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There's nothing more to it. We expose two new commands &lt;code&gt;reveal_start_sim&lt;/code&gt; and &lt;code&gt;reveal_stop&lt;/code&gt;. Commands we can actually use during debugging.&lt;/p&gt;
-
-&lt;p&gt;Let's try this. Fire up your favorite iOS project - be sure to select to run on the Simulator. Run the app. Now break the app by pressing &lt;code&gt;^⌘Y&lt;/code&gt;. This will give you the &lt;code&gt;(lldb)&lt;/code&gt; prompt. Now load your python script by invoking the following command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;command script import ~/lldb/reveal.py
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will tell LLDB that we'd like the &lt;code&gt;reveal.py&lt;/code&gt; script loaded into LLDB. The module will be loaded and thanks to the init there, we've just added two commands to use. There won't be any feedback, but now you can try and load the reveal lib:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;reveal_start_sim
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will give you something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="http://cl.ly/image/062A1a230h35/Image%202014-12-11%20at%2012.29.05%20am.png" width="600"&gt;&lt;/p&gt;
-
-&lt;p&gt;After that, hit &lt;code&gt;^⌘Y&lt;/code&gt; to continue the app (or just type &lt;code&gt;continue&lt;/code&gt;). Now you can try to fire up the Reveal Client app, and connect to your app:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="http://cl.ly/image/2M2m0j1u0p1O/Image%202014-12-11%20at%2012.25.57%20am.png" width="600"&gt;&lt;/p&gt;
-
-&lt;p&gt;Success!&lt;/p&gt;
-
-&lt;h2&gt;Loading the script by default&lt;/h2&gt;
-
-&lt;p&gt;Now always having to load the python script is a bit cumbersome. Luckily for us, LLDB has a mechanism to do this by default. So we can always load our reveal script so that we can have it readily available when we need it.&lt;/p&gt;
-
-&lt;p&gt;So how do you do this?&lt;/p&gt;
-
-&lt;p&gt;It's pretty simple: make an &lt;code&gt;.lldbinit&lt;/code&gt; file in your home folder. This file is read by LLDB when it is started (thus: everytime you debug an app). As an aside: you can also make an &lt;code&gt;.lldbinit-Xcode&lt;/code&gt; which will only be read when debugging in Xcode.&lt;/p&gt;
-
-&lt;p&gt;In this &lt;code&gt;.lldbinit&lt;/code&gt;, you can place any regular LLDB commands. In this case, we'll use this to import the python script as we did above. So the file basically looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;command script import ~/lldb/reveal.py
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Save the file, and now restart the debugger for your app. Try entering &lt;code&gt;reveal_start_sim&lt;/code&gt; again and you'll see that it works. No need to manually load the python file again.&lt;/p&gt;
-
-&lt;h2&gt;Starting reveal at startup&lt;/h2&gt;
-
-&lt;p&gt;Now wouldn't it be even better if we could have the Reveal server start by default? No need to break the app, run the command and continue. Xcode can do this for us, with a breakpoint.&lt;/p&gt;
-
-&lt;p&gt;Go to your app delegate file (or any other class you'll know that runs early in your app lifecycle), and add a new breakpoint. Then edit the breakpoint:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="http://cl.ly/image/0Q3m0Z1i0223/Image%202014-12-11%20at%2012.37.25%20am.png" width="600"&gt;&lt;/p&gt;
-
-&lt;p&gt;Basically:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;add an action of type 'debugger command'. In the textfield below, enter &lt;code&gt;reveal_start_sim&lt;/code&gt; (which, thanks to the magic above, is present).&lt;/li&gt;
-&lt;li&gt;tick on "automatically continue after evaluating actions"&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This breakpoint will be hit when you start your app but won't halt. It will execute the command specified, starting the Reveal server and then just continue running along.&lt;/p&gt;
-
-&lt;p&gt;After you tried this, rerun your app. Switch back to Reveal and you'll see that it can connect to your app running in the Simulator. Great success!&lt;/p&gt;
-
-&lt;h2&gt;Finally&lt;/h2&gt;
-
-&lt;p&gt;You can now use this technique in every project. Either using the breakpoint approach for regular Reveal debugging, or just break the app, run the &lt;code&gt;start_reveal_sim&lt;/code&gt; command and continue for occasional debugging. Up to you.&lt;/p&gt;
-
-&lt;p&gt;You can also use the techniques described about to extend LLDB to your own needs. You can leverage &lt;code&gt;.lldbinit&lt;/code&gt; by providing custom aliases or load external scripts. You can use those external scripts to do more complex debugging should you require to.&lt;/p&gt;
-
-&lt;p&gt;For example, &lt;a href="https://github.com/facebook/chisel"&gt;Facebook's Chisel&lt;/a&gt; uses these techniques to extend LLDB with a load of commands (highly recommended).&lt;/p&gt;
-
-&lt;p&gt;On a related note, it might be worthwhile to read up on LLDB techniques by reading &lt;a href="http://www.objc.io/issue-19/lldb-debugging.html"&gt;this article&lt;/a&gt; in objc.io's &lt;a href="http://www.objc.io/issue-19/"&gt;19th installment&lt;/a&gt; (which is all about debugging). Some neat tricks in there.&lt;/p&gt;
-
-&lt;p&gt;And finally, thanks to Reveal for an awesome app. Xcode6's Debug View Hierarchy is interesting but more limited than Reveal (and it doesn't always yield the correct results). Reveal rocks.&lt;/p&gt;
 
 </content>
   </entry>
