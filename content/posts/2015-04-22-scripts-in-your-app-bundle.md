@@ -3,6 +3,9 @@ title: "Scripts in your app bundle"
 created_at: 2015-04-22 15:02:23 +0200
 kind: article
 proofreaders: siegel@, iCyberPaul@, bazscott@
+categories:
+- deployment
+- xcode
 ---
 
 It appears Apple changed something in the iOS bundle upload : it now requires that all executables in your app bundle are signed (this might be applicable for Mac uploads too, but I haven't tried). I hear you think: isn't this the case anyway, but there might be more executables in your bundle than you expect.

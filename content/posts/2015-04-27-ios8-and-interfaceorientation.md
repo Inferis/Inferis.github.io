@@ -3,6 +3,9 @@ title: "Using interfaceOrientation with iOS8 transitions"
 created_at: 2015-04-27 1:43:30 +0200
 kind: article
 proofreaders: cocoakevin@, bartverhavert@
+categories:
+- objc
+- uikit
 ---
 
 Working on an app last week, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in `UIViewController` are deprecated:
