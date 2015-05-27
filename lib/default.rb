@@ -137,6 +137,11 @@ def formatted_categories(categories)
 end
 
 def category_link(category)
-  href = @items["/blog/category/#{category}/"].path
-  "<a href=\"#{href}\">#{category}</a>"
+  href = @items["/blog/category/#{category}/"]
+  if href.nil?
+    category
+  else
+    href = href.path
+    "<a href=\"#{href}\">#{category}</a>"
+  end
 end
