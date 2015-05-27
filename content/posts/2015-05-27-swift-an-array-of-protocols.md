@@ -100,7 +100,7 @@ Which is nice (IMHO) and invokes some fond memories of using multicast delegates
 
 But now those three methods remain. Let's implement them.
 
-First of all, we need a place to store our thingyNotifiers:
+First of all, we need a place to store our `ThingyNotifier` instances:
 
 ```swift
 private var notifiers: [ThingyNotifier] = []
@@ -270,7 +270,7 @@ So, all in all, this `NSObjectProtocol` approach isn't too bad.
 
 ### A Real Pure™ Swift solution.
 
-Confession time, I lied before: there is a kind of pure Swift solution. [Joe Groff](https://twitter.com/jckarter) of the Swift team at Apple provided [one](https://gist.github.com/jckarter/49e10f5b58eb5ad81646), but in my opinion and for this case it's such a contraption (if you'll pardon my french) that it becomes counterproductive to use. It makes the API I want to provide needlessly complex, but it **is** a pure Swift solution so I guess it has that going for it. 😉
+Confession time, I lied before: there is a kind of pure Swift solution. [Joe Groff](https://twitter.com/jckarter) of the Swift team at Apple provided [one](https://gist.github.com/jckarter/49e10f5b58eb5ad81646), but in my opinion and for this case it's such a contraption (if you'll pardon my French) that it becomes counterproductive to use. It makes the API I want to provide needlessly complex, but it **is** a pure Swift solution so I guess it has that going for it. 😉
 
 Also, I love how the Swift team reaches out to us for problems like this. They cannot solve them all but they are very helpful and even getting these problems noticed by them makes me feel like there's a good chance they'll be actually solved in the future. Who knows, right?
 
