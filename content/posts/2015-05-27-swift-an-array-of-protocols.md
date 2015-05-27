@@ -10,9 +10,9 @@ preview: true
 proofreaders: joericoach@, damon__jones@, istx25@
 ---
 
-I was working on a side project yesterday which I decided to do in Swift. My day job mostly consists of Objective-C (which I still love) but all the hip kids are doing Swift and it doesn't hurt to keep along with the latest trend, right?
+I was working on a side project yesterday, a side project which I decided to develop using Swift. My day job mostly consists of Objective-C (which I still love) but all the hip kids are doing Swift and it doesn't hurt to keep along with the latest trend, right? And learning is fun.
 
-So I was coding away, and I had this component which needed to notify several other components of certain events that happened. In practice, this meant that I needed a sort of multicast delegate. Now, I could have solved this the old Cocoa way by using notifications, but I try to stay away from them unless it really makes sense. The contract they offer is pretty loose (which can be handy too), but I wanted to try something more set-in-stone right now.
+So I was coding away, and I had this component which needed to notify several other components of certain events that happened. In practice this meant that I needed a sort of *multicast delegate*. Now, I could have solved this the old Cocoa way by using notifications, but I try to stay away from them unless it really makes sense. The contract they offer is pretty loose (which can be handy too), but I wanted to try something more set-in-stone right now.
 
 <!-- more -->
 
@@ -59,11 +59,11 @@ class ThingyManager {
 
 *(Note: The actual code was obviously different but similar.)*
 
-This is pretty simple: I have a `ThingyManager` which manages thingies (not very good in this case, but I disgress), and whenever something changes I'd like to notify one or more instances of said changes. This is where `ThingyNotifier` comes in; as you can see, there's more than one thing to be notified of.
+This is pretty simple: I have a `ThingyManager` which manages thingies (not very good in this case, but I disgress), and whenever something changes I'd like to notify one or more instances of said changes. This is where `ThingyNotifier` comes in; and as you can see, there's more than one thing to be notified of. This is like the delegate pattern, but as a `1->n` connection instead of a `1->1` connection.
 
-You'll also notice that there are 3 methods left to be implemented: `addNotifier`, `removeNotifier` and `notifyAll`.
+You'll also notice that there are 3 methods still left to be implemented: `addNotifier`, `removeNotifier` and `notifyAll`. We'll cover these later.
 
-Additionally, I'd like to sprinkle some operator magic on top so that using these notifiers becomes more intuitive:x:
+Additionally, I'd like to sprinkle some operator magic on top so that using these notifiers becomes more intuitive:
 
 ```swift
 func +=(left: ThingyManager, right: ThingyNotifier) -> ThingyManager {
@@ -94,9 +94,10 @@ class ThatController : ThingyNotifier {
 }
 ```
 
-Which is nice (IMHO) and invokes some fond memories of multicast delegates of my C# days.
+Which is nice (IMHO) and invokes some fond memories of using multicast delegates in my C# days.
 
 ## // to be implemented
+
 But now those three methods remain. Let's implement them.
 
 First of all, we need a place to store our thingyNotifiers:
@@ -177,7 +178,7 @@ But this doesn't help us. We can't use `Equatable`, and thus we can't use `find`
 
 ## Our own ==
 
-So let's declare the `==` operator/func to be part of the `ThingyNotifier` protocol itself:x:
+So let's declare the `==` operator/func to be part of the `ThingyNotifier` protocol itself:
 
 ```swift
 protocol ThingyNotifier {
