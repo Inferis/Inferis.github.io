@@ -2,6 +2,10 @@
 title: "Watchkit app versions"
 created_at: 2015-05-11 18:15:28 +0200
 kind: article
+categories:
+- watchkit
+- applewatch
+- xcode
 ---
 
 I came across [this article](http://ikennd.ac/blog/2015/05/build-time-cfbundleversion-values-in-watchkit-apps/) by Daniel Kennett this morning. I had seen him tweet about it too, but checking my feeds (yeah, I still do that, albeit not daily) I noticed he also made a post about it.
