@@ -362,7 +362,7 @@ A naive implementation could be:</p>
 
 <h3>A Real Pure™ Swift solution?</h3>
 
-<p>So, as far as I know, there's no pure Swift solution to this. <a href="https://twitter.com/jckarter">Joe Groff</a> of the Swift team at Apple provided a trampoline to a solution which I tried to implement. Alas, his solution -- while clever -- caused other problems. For example: you can't have the <code>+=</code> and <code>-=</code> operators (or any operator) on the protocol if the protocol somehow uses the <code>Self</code> type, causing us to get back to the same error as mentioned before. Which leaves us empty handed yet again. 😉</p>
+<p>So, as far as I know, there's no pure Swift solution to this. <a href="https://twitter.com/jckarter">Joe Groff</a> of the Swift team at Apple provided a trampoline to a solution which I tried to implement. Alas, his solution -- while clever -- caused other problems. For example: you can't have the <code>+=</code> and <code>-=</code> operators (or any operator) operating on protocol instances if the protocol somehow employs the <code>Self</code> type, causing us to get back to the same error as mentioned before. Which leaves us empty handed yet again. 😉</p>
 
 <p>This reminds me to mention how I love how the Swift team reaches out to us for problems like this. They cannot solve them all but they are very helpful and even getting these problems noticed by them makes me feel like there's a good chance they'll be actually solved in the future. Who knows, right?</p>
 
