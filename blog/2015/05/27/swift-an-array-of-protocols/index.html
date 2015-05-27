@@ -134,9 +134,9 @@
 
                   
 
-<p>I was working on a side project yesterday which I decided to do in Swift. My day job mostly consists of Objective-C (which I still love) but all the hip kids are doing Swift and it doesn't hurt to keep along with the latest trend, right?</p>
+<p>I was working on a side project yesterday, a side project which I decided to develop using Swift. My day job mostly consists of Objective-C (which I still love) but all the hip kids are doing Swift and it doesn't hurt to keep along with the latest trend, right? And learning is fun.</p>
 
-<p>So I was coding away, and I had this component which needed to notify several other components of certain events that happened. In practice, this meant that I needed a sort of multicast delegate. Now, I could have solved this the old Cocoa way by using notifications, but I try to stay away from them unless it really makes sense. The contract they offer is pretty loose (which can be handy too), but I wanted to try something more set-in-stone right now.</p>
+<p>So I was coding away, and I had this component which needed to notify several other components of certain events that happened. In practice this meant that I needed a sort of <em>multicast delegate</em>. Now, I could have solved this the old Cocoa way by using notifications, but I try to stay away from them unless it really makes sense. The contract they offer is pretty loose (which can be handy too), but I wanted to try something more set-in-stone right now.</p>
 
 <!-- more -->
 
@@ -181,11 +181,11 @@
 
 <p><em>(Note: The actual code was obviously different but similar.)</em></p>
 
-<p>This is pretty simple: I have a <code>ThingyManager</code> which manages thingies (not very good in this case, but I disgress), and whenever something changes I'd like to notifier one or more instances of said changes. This is where <code>ThingyNotifier</code> comes in; as you can see, there's more than one thing to be notified of.</p>
+<p>This is pretty simple: I have a <code>ThingyManager</code> which manages thingies (not very good in this case, but I disgress), and whenever something changes I'd like to notify one or more instances of said changes. This is where <code>ThingyNotifier</code> comes in; and as you can see, there's more than one thing to be notified of. This is like the delegate pattern, but as a <code>1-&gt;n</code> connection instead of a <code>1-&gt;1</code> connection.</p>
 
-<p>You'll also notice that there are 3 methods left to be implemented: <code>addNotifier</code>, <code>removeNotifier</code> and <code>notifyAll</code>.</p>
+<p>You'll also notice that there are 3 methods still left to be implemented: <code>addNotifier</code>, <code>removeNotifier</code> and <code>notifyAll</code>. We'll cover these later.</p>
 
-<p>Additionally, I'd like to sprinkle some operator magic on top so that using these notifiers becomes more intuitive:x:</p>
+<p>Additionally, I'd like to sprinkle some operator magic on top so that using these notifiers becomes more intuitive:</p>
 
 <pre><code class="language-swift highlight"><span class="kd">func</span> <span class="o">+=</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt">ThingyManager</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ThingyManager</span> <span class="p">{</span>
     <span class="k">left</span><span class="o">.</span><span class="nf">addNotifier</span><span class="p">(</span><span class="k">right</span><span class="p">)</span>
@@ -212,7 +212,7 @@
   <span class="p">}</span>
 <span class="p">}</span></code></pre>
 
-<p>Which is nice (IMHO) and invokes some fond memories of multicast delegates of my C# days.</p>
+<p>Which is nice (IMHO) and invokes some fond memories of using multicast delegates in my C# days.</p>
 
 <h2>// to be implemented</h2>
 
@@ -276,13 +276,13 @@ A naive implementation could be:</p>
     <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
 <span class="p">}</span></code></pre>
 
-<p>Notice the <code>Self</code> type. This denotes that the method will use an instance of the actual type implementing the protocol. In this case, it makes sure we're comparing two objects of the same type with each other. This actually makes sense from a semantic standpoint: it's a pretty good assumption that objects need to be of the same type to be considered equal.</p>
+<p>Notice the <code>Self</code> type. This denotes that the method will use the actual type that's implementing the protocol. In this case, it makes sure we're comparing two objects of the same type with each other. This actually makes sense from a semantic standpoint: it's a pretty good assumption that objects need to be of the same type to be considered equal.</p>
 
-<p>But this doesn't help us. We can't use <code>Equatable</code>, and thus we can't use <code>find</code>. We'll have to find another way.</p>
+<p>But this doesn't help us: we can't use <code>Equatable</code>, and thus we can't use <code>find</code>. We'll have to find another way.</p>
 
 <h2>Our own ==</h2>
 
-<p>So let's declare the <code>==</code> operator/func to be part of the <code>ThingyNotifier</code> protocol itself:x:</p>
+<p>So let's declare the <code>==</code> operator/func to be part of the <code>ThingyNotifier</code> protocol itself:</p>
 
 <pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">ThingyNotifier</span> <span class="p">{</span>
     <span class="kd">func</span> <span class="nf">didDoOneThingy</span><span class="p">(</span><span class="nv">thingyName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
@@ -313,18 +313,18 @@ A naive implementation could be:</p>
     <span class="k">return</span> <span class="kc">true</span> <span class="c1">// UWOTM8</span>
 <span class="p">}</span></code></pre>
 
-<p>... it's kind of useless since you still need to do comparing of ThingyNotifier instances and always returning <code>true</code> or <code>false</code> isn't going to do that. There's nothing else to work with, so you're stuck.</p>
+<p>... it's kind of useless since you still need to do comparing of ThingyNotifier instances and always returning <code>true</code> or <code>false</code> isn't going to do that. Since we have nothing else to work with, we're stuck.</p>
 
 <h3>A solution</h3>
 
-<p>Since we can't do this in pure-pure Swift, let's include <em>Foundation</em> into the party. How about we declare ThingyNotifier to have to conform to <code>NSObjectProtocol</code>? In my use case, this wasn't a problem since the notifier instances would be <code>UIViewController</code> instances anyway, but I guess this puts a bit of a limitation on what target objects you can use.</p>
+<p>Since we can't do this in pure-pure Swift, let's include <em>Foundation</em> into the party. How about we declare <code>ThingyNotifier</code> to have to conform to <code>NSObjectProtocol</code>? In my use case, this wasn't a problem since the notifier instances would be <code>UIViewController</code> instances anyway, but I guess this puts a bit of a limitation on what target objects you can use in the more general case.</p>
 
 <pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">ThingyNotifier</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
     <span class="kd">func</span> <span class="nf">didDoOneThingy</span><span class="p">(</span><span class="nv">thingyName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
     <span class="kd">func</span> <span class="nf">didDoOtherThingy</span><span class="p">(</span><span class="nv">thingyId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
 <span class="p">}</span></code></pre>
 
-<p>But it does introduce <code>isEqual()</code> into the equation! So now our <code>removeNotifier</code> will become:</p>
+<p>But it does introduce <code>isEqual()</code> into the equation. So now our <code>removeNotifier</code> implementation will become:</p>
 
 <pre><code class="language-swift highlight"><span class="kd">func</span> <span class="nf">removeNotifier</span><span class="p">(</span><span class="nv">notifier</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">for</span> <span class="p">(</span><span class="k">var</span> <span class="nv">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">notifiers</span><span class="o">.</span><span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
@@ -335,7 +335,7 @@ A naive implementation could be:</p>
     <span class="p">}</span>
 <span class="p">}</span></code></pre>
 
-<p>And that works as expected. Like I said before, this introduces an extra requirement to conform to the <code>NSObject</code> protocol, which might be problematic depending on how you want to use this. But in practice, it's likely that the objects you're using as <code>ThingyNotifiers</code> are a subclass of NSObject anyway.</p>
+<p>And that works as expected. Like I said before, this introduces an extra requirement to conform to the <code>NSObject</code> protocol, which might be problematic depending on how you want to use this. But in practice, it's likely that the objects you're using as <code>ThingyNotifiers</code> are a subclass of <code>NSObject</code> anyway.</p>
 
 <p>I can hear you think: "<em>but what if I just add an equality method myself?</em>". Let's just copy the <code>isEqual</code> method signature from <code>NSObjectProtocol</code> and we're good, right?</p>
 
@@ -350,7 +350,7 @@ A naive implementation could be:</p>
 
 <p><img class="center" src="http://c.inferis.org/image/39081y3E1C1T/nope.gif"></p>
 
-<p>Objects conforming to <code>ThingyNotifier</code> now have to implement this method too and on top of it you cannot freeload on the <code>NSObjectProtocol</code> implementation anyway:</p>
+<p>Why? Objects conforming to <code>ThingyNotifier</code> now have to implement this method too and on top of it you cannot freeload on the <code>NSObjectProtocol</code> implementation anyway:</p>
 
 <p><img class="center" src="http://c.inferis.org/image/3w0P3p0a2I41/Image%202015-05-27%20at%209.16.19%20am.png" width="750"></p>
 
@@ -377,6 +377,13 @@ A naive implementation could be:</p>
 
 
                   
+
+<p class="proofread">
+  This post was proofread by:
+  <a href="https://twitter.com/joericoach">@joericoach</a>, <a href="https://twitter.com/damon__jones">@damon__jones</a>, <a href="https://twitter.com/istx25">@istx25</a>. Many thanks!
+</p>
+
+
 
                 </div>
             </div>
