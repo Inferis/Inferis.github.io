@@ -2,13 +2,80 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-05-27T05:03:27Z</updated>
+  <updated>2015-06-08T08:10:04Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-06-08:/blog/2015/06/08/wwdc-2015-predictions/</id>
+    <title type="html">WWDC 2015 Predictions</title>
+    <published>2015-06-08T08:10:04Z</published>
+    <updated>2015-06-08T08:10:04Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/06/08/wwdc-2015-predictions/"/>
+    <content type="html">
+
+&lt;p&gt;That time of year again: june! Time for WWDC. A special WWDC: given my future plans, it'll be the last (in a while I guess) WWDC I'll be experience from "the outside". So this is the perfect opportunity to do &lt;a href="/blog/2013/06/08/wwdc-predictions/"&gt;another&lt;/a&gt; &lt;a href="/blog/2014/05/29/wwdc-14/"&gt;predictions&lt;/a&gt; post. 😉&lt;/p&gt;
+
+&lt;h2&gt;Will see&lt;/h2&gt;
+
+&lt;h4&gt;iOS 9&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;more extensions: If not lock screen extensions, perhaps more interaction in Springboard. But not only that, more interaction between apps themselves (embeddable views?).&lt;/li&gt;
+&lt;li&gt;opening up Siri (so you can use it to open your own app or even make use of her services inside of your apps)&lt;/li&gt;
+&lt;li&gt;Side by side apps support for larger devices. Not sure if they're going to announce this now or leave it as a surprise when actually release the new iOS? Better multitasking overall (see a)&lt;/li&gt;
+&lt;li&gt;an update to WatchOS. I can see us getting 1.1 soon, but 2.0 will probably add native Watch apps. I previously was of the opinion that they would wait longer for native apps to gather more battery stats from current usage, but I since the battery is rarely an issue with daily Watch usage (for me at least) I can see them moving faster. It'll be interesting to see what the limits will be for Watchkit apps, because this is a whole different ballgame than the iPhone.&lt;/li&gt;
+&lt;li&gt;More HealthKit &amp;amp; ResearchKit (including more integration with the Watch). Better ways to get data out (e.g. watch workouts?)&lt;/li&gt;
+&lt;li&gt;HomeKit. The introduction last year was clearly intended to get hardware vendors on the bandwagon, but this year should see more functionality.&lt;/li&gt;
+&lt;li&gt;Related to this: no new AppleTV hardware, but I do think we'll see an update to the software if only to accomodate the new HomeKit functionality (the AppleTV will act as a bridge between local hardware and your other devices, I think).&lt;/li&gt;
+&lt;li&gt;A retina Thunderbold display. A standalone retina iMac, let's say. Announced, but not immediately shippable. Seems like something developers will be very happy with (the needed hardware to drive it, apart from that Mac Pro, will come later).&lt;/li&gt;
+&lt;li&gt;general improvements to iCloud (more storage, better UI, improvements to CloudKit, ...). Probably in conjuction with a price drop for iCloud storage.&lt;/li&gt;
+&lt;li&gt;a significant update to the dev tooling. This includes Xcode but also things for continious integration. Additionally, I have a feeling that deployment might become a bit simpler given the current hassle with extensions etc.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;That last speculation is (IMHO) reinforced by the scheduled maintenance window today, which ends around the time the keynote should end (9PM CET = 12AM PST):&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2K3U0D3j2516/Image%202015-06-08%20at%2011.55.54%20am.png" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;One can hope.&lt;/p&gt;
+
+&lt;p&gt;Also:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;iOS8.4 with &lt;em&gt;Apple Music&lt;/em&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But that's not really a surprise. I'm curious about the pricing, though.&lt;/p&gt;
+
+&lt;h4&gt;OSX 10.11&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;more integration with iOS. A better handoff, messages, ...&lt;/li&gt;
+&lt;li&gt;the demise of HFS+ (because you never know)&lt;/li&gt;
+&lt;li&gt;the breakup of iTunes into a Music only component and a sync app for syncing your iDevice with you Mac. Potentially I'd see them getting rid of that last part, forcing everybody to go to iCloud for syncing and backup (see price reduction above).&lt;/li&gt;
+&lt;li&gt;iCloud will become more prominent, I think. This will anger the Snow-Leopard-Was-The-Best purists, naturally.&lt;/li&gt;
+&lt;li&gt;a public UXKit (UIKit for the Mac)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Won't see&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Jony Ive on stage (👋 White Room)&lt;/li&gt;
+&lt;li&gt;hints of new iOS devices&lt;/li&gt;
+&lt;li&gt;no new Macbook Pro's (👋 Intel)&lt;/li&gt;
+&lt;li&gt;A review of OSX by &lt;a href="https://twitter.com/siracusa"&gt;@siracusa&lt;/a&gt;. 😢&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So there. There's probably more but these are the things from the top of my head. It's more than enough, and you can't guess it all.&lt;/p&gt;
+
+&lt;p&gt;To be clear: I have &lt;strong&gt;no&lt;/strong&gt; insider knowledge. This is pure guesswork. 😁 And if I had, I wouldn't be doing a post like this.&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-05-27:/blog/2015/05/27/swift-an-array-of-protocols/</id>
     <title type="html">Swift: an array of protocols</title>
@@ -1184,73 +1251,6 @@ I initially thought this would also be a bit more robust future wise (you never 
 &lt;p&gt;Thanks for the great time, my friends. Thank you Scotty and your team for the time you put into this. It has changed me and I'll never forget that.&lt;/p&gt;
 
 &lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/472v1L3W4217/post-38521-wiserhood-slow-clap-gif-Imgur-7gXf.gif" title='"Cheers!"' alt='"Cheers!"'&gt;&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2015-03-17:/blog/2015/03/17/new-horizons/</id>
-    <title type="html">New Horizons</title>
-    <published>2015-03-16T23:00:00Z</published>
-    <updated>2015-03-16T23:00:00Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/03/17/new-horizons/"/>
-    <content type="html">
-
-&lt;p&gt;A tweet, 2 FaceTime interviews, a trip to Cupertino for 5 two-person interviews lasting a whole day (including lunch at the Caffé Macs), a bucketload of mails and 2 handfuls of international phonecalls.&lt;/p&gt;
-
-&lt;p&gt;That's what got me a job in the UIKit team at Apple.&lt;/p&gt;
-
-&lt;p&gt;It's safe to say it's been a crazy ride so far, and it's about to get even better.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;This tweet by &lt;a href="http://twitter.com/olg"&gt;Olivier Gutknecht&lt;/a&gt; started it all:&lt;/p&gt;
-
-&lt;div class="embed tweet"&gt;
-&lt;blockquote class="twitter-tweet"&gt;
-&lt;p&gt;Discovering great new APIs at WWDC is cool.
-But you know what's -really- cool? Creating these APIs.
-
-UIKit is hiring: &lt;a href="https://twitter.com/search?q=%24me&amp;amp;src=ctag"&gt;$me&lt;/a&gt; @ apple&lt;/p&gt;— Olivier Gutknecht (@olg) &lt;a href="https://twitter.com/olg/status/482759679877984256"&gt;June 28, 2014&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;h2&gt;And so it started...&lt;/h2&gt;
-
-&lt;p&gt;5 days later I sent Olivier a mail with my resume. At the time I assumed I'd get stuck somewhere along the process. It would be no more than an interesting exercise in seeing how good I was deemed. I had heard the process had multiple steps, of which the last being onsite interviews in California. And so I would have been happy to get invited to Cupertino, get rejected in the last round and be done with it.&lt;/p&gt;
-
-&lt;p&gt;It didn't quite turn out that way.&lt;br&gt;
-It actually landed me a job on the other side of the world, in a company and team I'd love to work in.&lt;/p&gt;
-
-&lt;p&gt;I'm not going to go into the details of the process. Other people have blogged about it, and my experience was largely the same. The FaceTime calls were mostly technical and not really easy (although I think now they really weren't that hard). And about the onsite interviews: I felt those were mostly for probing my personality (and a bit about my technical skills, of course). All in all, while it was a very tiring day, it was one of the most interesting experiences I've had. After that day, I knew I wanted to do this job. All in all, the whole interviewing process was very comfortable; I never had the feeling to be part of an "elite".&lt;/p&gt;
-
-&lt;p&gt;Because "working on frameworks", it's a job I've always wanted to do. Even in my .Net days I wanted to work for Microsoft, creating APIs or making tools for developers. I've spent a few years for a client building an internal (.Net based) RAD framework, and I enjoyed doing that a lot. The last 18 months working for &lt;a href="http://icapps.com"&gt;iCapps&lt;/a&gt; as technical lead for the &lt;a href="https://www.bolero.be/nl/platformen/mobile"&gt;Bolero&lt;/a&gt; project enforced that even more as part of my job was building internal frameworks for the rest of the team. It was so much fun building generic stuff, clear enough for (junior) developers to use.&lt;/p&gt;
-
-&lt;p&gt;And so when that tweet came, I decided to take the plunge. It was "now or never": I'll be turning 40 this summer, my kids are still young enough to move to the other side of the world (my eldest just turned 9). My experience gained after this wouldn't really matter after this point in time, so there was no point in waiting.&lt;/p&gt;
-
-&lt;p&gt;So 258 days after that tweet, I came to a final agreement with Apple about working for them. That's a long time. The fact that there was no hurry due to the H1-B visa process didn't really help. On the other hand: there were a lot of decisions to make. Moving a family of 6 to the US is no easy feat for all parties involved.&lt;/p&gt;
-
-&lt;h2&gt;Family&lt;/h2&gt;
-
-&lt;p&gt;And speaking about family: the hard part about this decision was moving there... by myself. The further I got in the process, the more reluctant my wife became about moving us over there. So currently, the plan is that I'll be moving there by myself to start the job, with my family coming later (we're talking about at least a few months). I feel this is both a good and a bad thing. The job is going to take a lot of effort, moving there is going to ask a lot of my resources, and being there by myself will not burden my family directly, apart from me not being there. It does mean that they'll have to miss their husband/father for weeks at a time (and I will have to miss my wife and kids) but at least they'll still be in their own social network of family and friends. I've heard enough stories of similar career moves with the spouse burning out overseas due to a lack of social network, so I'm going to be pretty cautious about this. And so we're making arrangements to alleviate the issues arising from the fact that we'll be split up. Nevertheless, it remains a big gamble, but I'm confident that it'll work out. Hopefully, once my wife experiences how nice California is, she will change her mind, and there's plenty of time to work on that.&lt;/p&gt;
-
-&lt;h2&gt;Yes or no?&lt;/h2&gt;
-
-&lt;p&gt;Making the decision between this job and my family was the hardest part in this whole "ordeal". Is a job worth leaving your wife and kids behind on another continent? Is declining an exceptional chance in your career because of your family a viable option, knowing that you really want to do this job, and that you'll suffer from it when turning it down?&lt;/p&gt;
-
-&lt;p&gt;So I thought about this &lt;em&gt;a lot&lt;/em&gt;. A lot of my waking time was spent thinking about what I should do. My mood was like a pendulum, going from "w00t THIS IS SO AWESOME!" to "OMG WTF AM I DOING?" all the time.&lt;/p&gt;
-
-&lt;p&gt;In the end I went for the positive choice, in my opinion. I could say "no" and things would safely stay the same as they were. I could say "yes", causing a lot of change, but giving a lot of new chances in a future I have no idea how it will pan out. So I decided to take the gamble. It might be a mistake, it might be the start of wonderful things.&lt;/p&gt;
-
-&lt;h2&gt;Go for it&lt;/h2&gt;
-
-&lt;p&gt;And so I posted my signed offer back to Apple while being here in Leicester at NSConference (luckily, there's a Fedex dropoff point in the middle of the city). There's no way back now. I'm terribly excited to be working at Apple. I'm looking forward to doing wonderful things, to experience living and working in the United States, to learn, to grow.&lt;/p&gt;
-
-&lt;h2&gt;Last hurdle: that H1-B&lt;/h2&gt;
-
-&lt;p&gt;The last hurdle is the H1-B visa. My application is in the works, but there's no guarantee that I'll get accepted. There are so many applications for so few available visas, so we'll have to see how it goes. I know one thing: I'm going to be so pissed off if I don't get in.&lt;/p&gt;
-
-&lt;p&gt;I don't know how it will work out. I'm just going to have to seize the day, every day.&lt;/p&gt;
 
 </content>
   </entry>
