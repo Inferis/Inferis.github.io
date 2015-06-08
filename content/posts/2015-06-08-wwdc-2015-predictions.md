@@ -7,6 +7,8 @@ kind: article
 
 That time of year again: june! Time for WWDC. A special WWDC: given my future plans, it'll be the last (in a while I guess) WWDC I'll be experiencing from *the outside*. So this is the perfect opportunity to do [another](/blog/2013/06/08/wwdc-predictions/) [predictions](/blog/2014/05/29/wwdc-14/) post. 😉
 
+<!-- more -->
+
 ## Will see
 
 #### iOS 9
