@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-06-29T09:27:47Z</updated>
+  <updated>2015-06-30T11:27:47Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
@@ -10,11 +10,11 @@
     <uri>http://inferis.org</uri>
   </author>
   <entry>
-    <id>tag:blog.inferis.org,2015-06-29:/blog/2015/06/29/uikonf-2015/</id>
+    <id>tag:blog.inferis.org,2015-06-30:/blog/2015/06/30/uikonf-2015/</id>
     <title type="html">UIKonf 2015</title>
-    <published>2015-06-29T09:27:47Z</published>
-    <updated>2015-06-29T09:27:47Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/06/29/uikonf-2015/"/>
+    <published>2015-06-30T11:27:47Z</published>
+    <updated>2015-06-30T11:27:47Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/06/30/uikonf-2015/"/>
     <content type="html">
 
 &lt;p&gt;&lt;a href="http://uikonf.com"&gt;UIKonf 2015&lt;/a&gt;. It's been a while already, but I've too busy afterwards to do a decent writeup. I feel like I should though, because it's the first conference I attended where I was also a speaker (if you don't count my adhoc lightning talk at &lt;a href="http://nsspain.com"&gt;NSSpain&lt;/a&gt; last year, that is). Attending a conference as an announced speaker is different. Which was to be expected, of course.&lt;/p&gt;
