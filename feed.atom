@@ -2,13 +2,73 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-06-08T08:10:04Z</updated>
+  <updated>2015-06-29T09:27:47Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-06-29:/blog/2015/06/29/uikonf-2015/</id>
+    <title type="html">UIKonf 2015</title>
+    <published>2015-06-29T09:27:47Z</published>
+    <updated>2015-06-29T09:27:47Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/06/29/uikonf-2015/"/>
+    <content type="html">
+
+&lt;p&gt;&lt;a href="http://uikonf.com"&gt;UIKonf 2015&lt;/a&gt;. It's been a while already, but I've too busy afterwards to do a decent writeup. I feel like I should though, because it's the first conference I attended where I was also a speaker (if you don't count my adhoc lightning talk at &lt;a href="http://nsspain.com"&gt;NSSpain&lt;/a&gt; last year, that is). Attending a conference as an announced speaker is different. Which was to be expected, of course.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;Runup&lt;/h2&gt;
+
+&lt;p&gt;One of the things is: since you're doing a talk you want it to be perfect and so until you have actually performed on stage, everything about the conference is sub-ordial to the preparation of your talk. At least: that's how I experienced it. And judging from sitting at tables at other conferences with speakers that still needed to do their talk: I'm not the only one. Now, restarting the work on your slides 2 days before the conference doesn't really help. But I felt is was necessary: my first set of slides contained too much text and content, and I wanted to focus on certain things. Explaining everything on screen is pretty hard to follow for the audience, and the feeling that it just wasn't quite right had been dawning on me but in the run up to the conf it became more obvious.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/423R0d1F2J2r/IMG_2783.jpg" width="750"&gt; &lt;/p&gt;
+
+&lt;p&gt;Mind you, I had set a schedule for myself: work on your slides each day in the train after &lt;a href="http://nsconference.com"&gt;NSConf&lt;/a&gt; ended, and you have plenty of time to finish them before the conf. Alas - and as expected - this didn't work out quite as planned. When I'm developing something at work and I have to leave because it's the most convenient time to leave (mostly because you have to catch that direct train home that runs only once each hour), I tend to whip out the laptop on the train and just continue coding. This works pretty well: the small pauze you take going from your desk right until you sit down in the train is perfect for some settling down. And so I'm stoked to continue work once I'm on the train (I even do this for short 15min train rides, but then the short duration of the ride can be a frustrating factor). So that "make slides on train" thing only worked out a half. By the beginning of my I had a pretty good outline of things I wanted to say and how to say them.&lt;/p&gt;
+
+&lt;p&gt;But then it was time to cook up some actual slides, and that was a quite whole different ballgame. Even though I had my outline, it was hard to distill it into good slides. I started and got somewhere, but like I mentioned before it felt off. And so I let it be, not continuing work because I felt the quality was sub par and I had no idea how to make it better. In the few days before the conf I actually continued working on it, but still with mixed feelings about the result.&lt;/p&gt;
+
+&lt;p&gt;And then it dawned to me: just learn from the big ones. Remember what you saw at other conferences (and I've done a few), (re-)watch some presentations only to seem how other people did it. And so looked around, and observed. The presentations I saw features one thing most of the time: the content on screen was limited. Usually just a work, or an image or a short sentence. Not a plethora of bullet points, albeit they appeared here and there but only expectionally. And so, after 2 hours of skimming various videos, I decided to rewrite my slides.&lt;/p&gt;
+
+&lt;p&gt;To put this into perspective: this was on Saturday when I had just arrived in Berlin, 2 days before I was to go on stage. But I felt my current content was inadequate, and going on stage knowing that you could do better was a no go. And so I went back to my outline, opened an AsyncViewControllers2.md document and started over. I could of course reuse a lot of the work I had done before, I just had to devise a new way of delivering it. Additionally, this is one of the things &lt;a href="http://decksetapp.com"&gt;Deckset&lt;/a&gt; is really good at: its limited feature set forces you to tone down on the screen content. You &lt;em&gt;can&lt;/em&gt; put a screenful of bullets on screen, but it starts to feel cramped soon.&lt;/p&gt;
+
+&lt;p&gt;And so I started putting out Markdown, rewriting things here and there, making minimal slides accompanied by decent presenter notes. I did take the time to take the Berlin bike tour, because I felt I'd be sad later if I wouldn't have joined. And there was plenty of time afterwards. Turned out, I need most of that time afterwards. I spent part of the night working on v2, and woke up early (7am: great moment to take breakfast in a hotel after being awake for an hour). And then I missed the start of the conference, but by noon I felt I had something good to present. I also took the time to rehearse several time, which was a good decision: you know the content almost by heart when you bring it on stage, which helps a lot with the stage fright.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="https://lh5.googleusercontent.com/-EjBm196Z4Ss/VXV2hfgaGYI/AAAAAAAABHU/PmNMr80ltB0/w1266-h1900-no/_MG_0551.jpg" width="750"&gt; &lt;/p&gt;
+
+&lt;p&gt;Speaking about stage fright: that moment right before you have to go on stage is excruciating. I've talked with other speakers about this, and apparently that's normal even after having done it several times. It also keeps you on your edge and focused, I felt. Also, once you are on stage you go into a certain flow and then you're off.&lt;/p&gt;
+
+&lt;p&gt;All in all, I was pretty happy with the presentation at that moment. Rewatching it afterward makes me cringe a bit:&lt;/p&gt;
+
+&lt;p&gt;... but I guess that's normal. It was the first time I did this, and I hope to do it more in the future. You live, you learn. That's the fun part of it.&lt;/p&gt;
+
+&lt;p&gt;Once the talk was over, I felt very relieved. It was so much fun to do (even with the tricky questions afterwards), and it was nice to have people come up to you to talk about it. And from that moment, I felt I could enjoy the conference so much more. That hard part was over, I had done my job, and I was happy with it.&lt;/p&gt;
+
+&lt;p&gt;By the way, you can &lt;a href="https://youtu.be/xy-xqj3m_Tk"&gt;watch a video&lt;/a&gt; of my presentation, and in good open source spirit &lt;a href="https://speakerdeck.com/inferis/async-view-controllers"&gt;my slides&lt;/a&gt; are online, including &lt;a href="https://github.com/Inferis/UIKonf-AsyncViewControllers"&gt;the source&lt;/a&gt;. And of course, the source of &lt;a href="https://github.com/Inferis/IIAsyncViewController"&gt;IIAsyncViewController&lt;/a&gt; is available too. By the way, &lt;a href="https://www.youtube.com/playlist?list=PLdr22uU_wISpW6XI1J0S7Lp-X8Km-HaQW"&gt;all UIKonf 2015 videos&lt;/a&gt; are up, so if you missed the conference this is a good way to catch up anyway.&lt;/p&gt;
+
+&lt;h2&gt;UIKonf&lt;/h2&gt;
+
+&lt;p&gt;All in all, I l∏oved every bit of UIKonf. First of all, the location. Berlin is &lt;em&gt;such&lt;/em&gt; a nice city to visit. It's feels so green, so welcoming. Even the more shady parts (or at least that's how they looked) never made me feel really uncomfortable.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/421i161R181w/IMG_2750.jpg" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;Secondly, the conference itself is very welcoming. I found the recreational activities on Sunday to be a lot of fun. It's a different kind of setting than being at the conference itself, you get to know more people that you otherwise wouldn't have, and it's a great way to learn and experience new things.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/0H3F1F3B1H2U/IMG_2806.jpg" width="750"&gt;&lt;/p&gt;
+
+&lt;p&gt;Thirdly: the conference was organised splendidly, IMHO. Speaking both as a speaker and an attendee, I loved the experience. The 4 organisers were very welcoming and helpful. I loved the conference swag (&lt;strong&gt;so&lt;/strong&gt; nice of them to leave that purple shirt for the speakers while they could have easily have reserved it for themselves). But the venue itself was very good, wifi was impeccable and overall the equipment used was top notch. The videos of the conference show that clearly, I feel. They inherited a great conference from an impressive set of organisers, but they took the conference and turned the dial up another notch. Lovely work, Sabine, Diana, Maxim and Engin!&lt;/p&gt;
+
+&lt;h2&gt;Takeaway&lt;/h2&gt;
+
+&lt;p&gt;We're all winging it. Attendees, speakers, organisers. But that didn't make UIKonf one of the conferences I enjoyed most. And so:&lt;/p&gt;
+
+&lt;p&gt;★ ★ ★ ★ ★ WOULD COME BACK FOR MORE&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-06-08:/blog/2015/06/08/wwdc-2015-predictions/</id>
     <title type="html">WWDC 2015 Predictions</title>
@@ -1212,48 +1272,6 @@ I initially thought this would also be a bit more robust future wise (you never 
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Enjoy!&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2015-03-19:/blog/2015/03/19/the-last-nsconference/</id>
-    <title type="html">The Last NSConference</title>
-    <published>2015-03-18T23:00:00Z</published>
-    <updated>2015-03-18T23:00:00Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/03/19/the-last-nsconference/"/>
-    <content type="html">
-
-&lt;p&gt;The last &lt;a href="http://nsconference.com"&gt;NSConference&lt;/a&gt;. I'm happy to say I was there. I'm sad to see it go.&lt;/p&gt;
-
-&lt;p&gt;I attended three editions of NSConf. The first one was in 2013: due to scheduling reasons, I couldn't attend WWDC and so I was on the lookout for a replacement. NSConf seemed to be it, and I bought a ticket. I had known about NSConf before (given I'm relatively new to the Cocoa community, having only started in 2011), but I never got around to going. But buying that ticket was one of the best decisions ever made.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h2&gt;Friends &amp;amp; Community&lt;/h2&gt;
-
-&lt;p&gt;Because I came back for seconds and now thirds. And by doing that, I made a lot of new friends. People I otherwise wouldn't have met. People who share similar values, people who do similar work. Each in their own way, all in familiar ways. And while all of us are introverts and hate to talk to strangers, NSConf did provide for a welcoming enough atmosphere to make meetups with other people happen.&lt;/p&gt;
-
-&lt;p&gt;I mean, you spend the day at a table with other people, so it's bound to happen that you'll be talking to each other. You stand in the queue for lunch, and you can't but start a conversation with the people around you. You go for coffee and talk to the guy next to you who's also getting coffee &lt;em&gt;(I thought about writing "girl" here - diversity and all - but alas the chance for that is unfortunately still too small in our community)&lt;/em&gt;. But there's more life outside the conference venue too. You can have breakfast with people staying at your hotel, or go for a nice curry with a group of people you hardly know. And the bar nearby is a fertile breeding ground for new acquaintances and friendships. One caveat though: for all these things, I'm assuming that you know to tear your eyes away from that iPhone screen for a few minutes here and there.&lt;/p&gt;
-
-&lt;p&gt;So the value of NSConference is not only the excellent talks that are given there, it's also the social aspect that's so important. The fact that the conference schedule is geared for social interaction makes it so interesting to attend: first you listen to a talk (talks which most of the time make you stop and think about the things said), and afterward you can reflect on that talk with your neighbors. Or not, and just show them that app your working on or that problem you're stuck with. Or tell them how hard it is combining a happy family life with a challenging job.&lt;/p&gt;
-
-&lt;p&gt;This is also why I was intent to share the news of my new job at Apple over there. Taking the job was a hard decision to make, and by making the news public I could talk to people about it, which helped to put things into perspective (and thanks for the support, everyone).&lt;/p&gt;
-
-&lt;p&gt;These are the reasons why I think that NSConference is a very valuable instrument in our community.&lt;/p&gt;
-
-&lt;h2&gt;Gone, but not forgotten&lt;/h2&gt;
-
-&lt;p&gt;But, it's also gone. &lt;em&gt;NSConference 7&lt;/em&gt; was the last NSConference.&lt;/p&gt;
-
-&lt;p&gt;It's a pity to see it go, and I can see why &lt;a href="http://twitter.com/macdevnet"&gt;Scotty&lt;/a&gt; and his team are stopping the "franchise". It might have grown beyond its bounds, and it's probably grown beyond a safe enough feeling of control. Perhaps it's also time for a new format.&lt;/p&gt;
-
-&lt;p&gt;I'm pretty confident that Scotty will come up with something new. Don't know where, don't know when, but it felt like it would happen eventually in one form or another.&lt;/p&gt;
-
-&lt;p&gt;And so I hope there will be an "NSConferenceTNG", a conference which will be even more inclusive than this last edition. We need more non-white, non-male people at events like these (and, in a broader way, also in our industry). We need to reach people who are hard to reach, might even not be aware that there's a beautiful and warm community out there. It will not only allow us to make better software, it will also allow us to better ourselves. And last but not least, through our better software and better self, we'll be able make a better world for everybody. And while that might sound cheesy, I feel it's an applaudable goal.&lt;/p&gt;
-
-&lt;p&gt;Thanks for the great time, my friends. Thank you Scotty and your team for the time you put into this. It has changed me and I'll never forget that.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/472v1L3W4217/post-38521-wiserhood-slow-clap-gif-Imgur-7gXf.gif" title='"Cheers!"' alt='"Cheers!"'&gt;&lt;/p&gt;
 
 </content>
   </entry>
