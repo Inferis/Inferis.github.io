@@ -11,7 +11,7 @@
     <meta name="generator" content="nanoc 3.7.5">
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <title>Inferical Writings - Archives</title>
+    <title>Inferical Writings - Archive for August 2015</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/clean-blog.css" rel="stylesheet">
@@ -85,7 +85,7 @@
                 <div class="post-heading">
                     <h1>
                       
-                        Archives
+                        Archive for August 2015
                       
                     </h1>
                     
@@ -119,56 +119,31 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-<ul>
-  <li>
-<a href="/blog/2013/06/">June 2013</a> <span class="list-meta">(6 articles)</span>
-</li>
-<li>
-<a href="/blog/2013/07/">July 2013</a> <span class="list-meta">(1 article)</span>
-</li>
-<li>
-<a href="/blog/2013/08/">August 2013</a> <span class="list-meta">(2 articles)</span>
-</li>
-<li>
-<a href="/blog/2013/10/">October 2013</a> <span class="list-meta">(1 article)</span>
-</li>
-<li>
-<a href="/blog/2014/03/">March 2014</a> <span class="list-meta">(5 articles)</span>
-</li>
-<li>
-<a href="/blog/2014/04/">April 2014</a> <span class="list-meta">(1 article)</span>
-</li>
-<li>
-<a href="/blog/2014/05/">May 2014</a> <span class="list-meta">(3 articles)</span>
-</li>
-<li>
-<a href="/blog/2014/07/">July 2014</a> <span class="list-meta">(2 articles)</span>
-</li>
-<li>
-<a href="/blog/2014/09/">September 2014</a> <span class="list-meta">(5 articles)</span>
-</li>
-<li>
-<a href="/blog/2014/10/">October 2014</a> <span class="list-meta">(1 article)</span>
-</li>
-<li>
-<a href="/blog/2014/11/">November 2014</a> <span class="list-meta">(1 article)</span>
-</li>
-<li>
-<a href="/blog/2015/03/">March 2015</a> <span class="list-meta">(3 articles)</span>
-</li>
-<li>
-<a href="/blog/2015/04/">April 2015</a> <span class="list-meta">(5 articles)</span>
-</li>
-<li>
-<a href="/blog/2015/05/">May 2015</a> <span class="list-meta">(2 articles)</span>
-</li>
-<li>
-<a href="/blog/2015/06/">June 2015</a> <span class="list-meta">(2 articles)</span>
-</li>
-<li>
-<a href="/blog/2015/08/">August 2015</a> <span class="list-meta">(1 article)</span>
-</li>
-</ul>
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2015/08/14/imagenamed-and-multiple-bundles/">imageNamed: and multiple bundles</a>
+      
+    </h2>
+    <p class="post-meta">
+      August 14, 2015 ·
+      <a href="/blog/2015/08/14/imagenamed-and-multiple-bundles/">∞</a>
+      
+      · 
+      
+    </p>
+
+    
+
+<p>I've been working on a largeish project for a client for the last few months. We're have to modularized our code into several sections using CocoaPods (this is a post worth on itself, really). </p>
+
+<p>One of the problems you encounter with this approach is that for each pod, CocoaPods creates a bundle with resources for that pod (at least it does so when you tell it to do that). It's the only good way to package pod resources into the main app. This means that our resources do not all live in the main bundle but in seperate bundles (which themselves <strong>do</strong> live in the main bundle). This is no problem in itself, but it can cause loading problems of resources in those bundles. It doesn't pose that much of an issue when you specify images in a nib since iOS will search in the nib's bundle too, but it's a bit harder to get resources from within your code</p>
+
+<div class="read-more"><a href="/blog/2015/08/14/imagenamed-and-multiple-bundles/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
 
             </div>
         </div>

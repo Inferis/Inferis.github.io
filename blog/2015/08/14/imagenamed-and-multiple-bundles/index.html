@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <title>Inferical Writings - imageNamed: and multiple bundles</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
+                  <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-color: #eee;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>
+                      
+                        imageNamed: and multiple bundles
+                      
+                    </h1>
+                    
+
+                    
+                      <span class="meta">
+                        
+                        August 14, 2015 ·
+                        
+
+                        <a href="/blog/2015/08/14/imagenamed-and-multiple-bundles/">∞</a>
+
+                        
+                        · 
+                        
+                      </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds() + "";
+    var m = d.getMinutes() + "";
+    var h = d.getHours() + "";
+
+    if (s.length < 2) s = "0" + s;
+    if (m.length < 2) m = "0" + m;
+    if (h.length < 2) h = "0" + h;
+
+    $(".intro-header").css("background-color", '#' + h + m + s);
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>I've been working on a largeish project for a client for the last few months. We're have to modularized our code into several sections using CocoaPods (this is a post worth on itself, really). </p>
+
+<p>One of the problems you encounter with this approach is that for each pod, CocoaPods creates a bundle with resources for that pod (at least it does so when you tell it to do that). It's the only good way to package pod resources into the main app. This means that our resources do not all live in the main bundle but in seperate bundles (which themselves <strong>do</strong> live in the main bundle). This is no problem in itself, but it can cause loading problems of resources in those bundles. It doesn't pose that much of an issue when you specify images in a nib since iOS will search in the nib's bundle too, but it's a bit harder to get resources from within your code</p>
+
+<!-- more -->
+
+<p>Basically, you're going to be doing this:</p>
+
+<pre><code class="language-objc highlight"><span class="n">NSBundle</span> <span class="o">*</span><span class="n">bundle</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nf">loadTheNeededBundle</span><span class="p">];</span> <span class="c1">// funk that
+</span><span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">bundle</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="n">name</span> <span class="nf">ofType</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithContentsOfFile</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+<span class="k">return</span> <span class="n">image</span><span class="p">;</span></code></pre>
+
+<p>First of all, you need to know where the bundle is. I'm not going to add code for this, because you might already have a reference to this bundle. And otherwise you need to lookup the bundle within your main bundle. But we'll get to that later.</p>
+
+<p>Then, you need to find out if there's a file named just like the image name you're after. This poses a second hurdle: for <code>imageNamed:</code> you can specify an image with or without the extension. That's not going to work here since we explicitly need the extension (either separately or in the resource name) otherwise the path cannot be found. And only then, when you have the actual physical path of the resource, you can load up the image.</p>
+
+<p>While not a lot of code, reusing these same lines of code becomes tedious and repetitive. And we don't like repetitive code, do we? </p>
+
+<p>So on to a better solution.</p>
+
+<h2>Resource bundles</h2>
+
+<p>First of all, we need to lookup all the bundles in our app. There's no built in way to do this, unfortunately. <code>NSBundle</code> does not have facilities to search for all app bundles. Let's cook up our own, because it's relatively easy.</p>
+
+<p>Turns out that all "bundled" bundles are just living in your app's main bundle:</p>
+
+<p><img src="http://c.inferis.org/image/1p3G2V0M0h1s/Image%202015-08-11%20at%209.46.46%20am.png"></p>
+
+<p>Let's find a way to enumerate them. Like I said: that's pretty easy:</p>
+
+<pre><code class="language-objc highlight"><span class="k">+</span> <span class="p">(</span><span class="n">NSArray</span><span class="o">*</span><span class="p">)</span><span class="n">allAppBundles</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">_bundles</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">_bundles</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSArray</span> <span class="o">*</span><span class="n">bundles</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">]</span> <span class="nf">pathsForResourcesOfType</span><span class="p">:</span><span class="s">@"bundle"</span> 
+                                                              <span class="nf">inDirectory</span><span class="p">:</span><span class="s">@"."</span><span class="p">];</span>
+        <span class="n">bundles</span> <span class="o">=</span> <span class="p">[</span><span class="n">bundles</span> <span class="nf">map</span><span class="p">:</span><span class="o">^</span><span class="n">id</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">NSBundle</span> <span class="nf">bundleWithPath</span><span class="p">:</span><span class="n">path</span><span class="p">]</span><span class="err">;</span>
+        <span class="p">}];</span>
+
+        <span class="n">_bundles</span> <span class="o">=</span> <span class="p">[</span><span class="err">@</span><span class="p">[[</span><span class="n">NSBundle</span> <span class="nf">mainBundle</span><span class="p">]]</span> <span class="nf">arrayByAddingObjectsFromArray</span><span class="p">:</span><span class="n">bundles</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">_bundles</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+
+<p><code>+allAppBundles</code> returns an array of <code>NSBundle</code> instances, all representing a resource bundle in your app (including the main app bundle). We get those bundles like this:</p>
+
+<ol>
+<li>ask the main bundles for the paths of all resources of type "bundle". This gives us a bunch of strings with bundle paths.</li>
+<li>we try to load an NSBundle for each of those paths</li>
+<li>we tack the main bundle in front of our result</li>
+</ol>
+
+<p><em>(The <code>map</code> in that code sample does exactly what you expect it to do: it transforms an array into objects of a different type. This particular implementation automatically discards <code>nil</code> result instances)</em></p>
+
+<p><em>We don't need to use <code>dispatch_once()</code> here since the data we're after is mostly static anyway. Even if you call this code simulanteously from 2 threads, it might execute twice but it won't ever introduce a race condition since we're just gathering data. You *</em>can** use <code>dispatch_once()</code> of course, but it's not necessary.*</p>
+
+<p>So <code>+allAppBundles</code> gives us an ordered array of <code>NSBundle</code>s to work with. This solves the first hurdle in our original problem. You can add this method as a category on <code>NSBundle</code> if you'd like.</p>
+
+<h2>Finding an image</h2>
+
+<p>Now that we have "easy" access to all app bundles, we can tackle the next hurdle: find the correct instance of the image. This again is relatively easy: </p>
+
+<ol>
+<li>for each bundle in <code>allAppBundles</code>
+</li>
+<li>try to load the image you want </li>
+<li>if found, return image, otherwise continue</li>
+</ol>
+
+<p>That might look like:</p>
+
+<pre><code class="language-objc highlight"><span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">imageNamedGlobally</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">name</span>
+<span class="p">{</span>
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="n">name</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">bundles</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBundle</span> <span class="nf">allAppBundles</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">NSBundle</span><span class="o">*</span> <span class="n">bundle</span> <span class="k">in</span> <span class="n">bundles</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">bundle</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="n">name</span> <span class="nf">ofType</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithContentsOfFile</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+
+<p>As you can see, it first tries: <code>imageNamed</code>. This makes sure that the default behavior is still present, before falling back to our <em>let's search all app bundles</em> approach.</p>
+
+<p>Good, this works, but it has a downside: you need to fully quantify the image name with the extension, otherwise it won't be found. We can solve this by explicitly adding extra checks for known extensions:</p>
+
+<pre><code class="language-objc highlight"><span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">imageNamedGlobally</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">name</span>
+<span class="p">{</span>
+    <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageNamed</span><span class="p">:</span><span class="n">name</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">bundles</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBundle</span> <span class="nf">allAppBundles</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">NSBundle</span><span class="o">*</span> <span class="n">bundle</span> <span class="k">in</span> <span class="n">bundles</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">bundle</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="n">name</span> <span class="nf">ofType</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithContentsOfFile</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">extension</span> <span class="k">in</span> <span class="err">@</span><span class="p">[</span><span class="s">@"jpg"</span><span class="p">,</span> <span class="s">@"png"</span><span class="p">,</span> <span class="s">@"tiff"</span><span class="p">,</span> <span class="s">@"gif"</span><span class="p">,</span> <span class="s">@"tif"</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">bundle</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="n">name</span> <span class="nf">ofType</span><span class="p">:</span><span class="n">extension</span><span class="p">];</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithContentsOfFile</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+
+<p>Surely, the added complexity comes at a cost, since if you now drop the extension from the name the code has to go searching for the correct file. If you do this, make sure the list of extensions is in the most appropriate order (if you have more jpgs, put <code>jpg</code> first). But better still, just use a fully quantified name <code>image.jpg</code> so you can leave the code out.</p>
+
+<p>One downside of this approach is that if a image is present in more than one bundle, only the first one (in the order of the bundles as returned by <code>allAppBundles</code>) is returned. But this usually is not a problem unless you use multiple frameworks with similar embedded image names.</p>
+
+<p>So that that's: just use <code>+imageNamedGlobally:</code> instead of <code>+imageNamed:</code> and you're set. </p>
+
+<h2>Swizzling</h2>
+
+<p>But suppose you want this behavior everywhere, or you always seem to forgot to use the <em>Globally</em> postfix (REALLY?)? In that case, you can swizzle <code>+imageNamed:</code>. </p>
+
+<blockquote>
+<p><strong>Now, a big fair warning!</strong> Since you are changing are core UIKit component, this will have effect in <strong>all</strong> places in your app where <code>+imageNamed:</code> is used. This includes not only your code, but all invocations of <code>+imageNamed:</code> in any framework or component that's loaded into your app!</p>
+</blockquote>
+
+<p>With that out of the way, let's find a way have <code>imageNamed:</code> always do the <em>global</em> search. We'll have to <em>swizzle</em> the default implemenation with our own implementation. <em>/cue dramatic music</em><br>
+I'm going to use <a href="http://twitter.com/steipete">Peter Steinberger</a>'s <a href="http://petersteinberger.com/blog/2014/a-story-about-swizzling-the-right-way-and-touch-forwarding/">method swizzling</a> code for that (not included here, you can get it from his post).</p>
+
+<pre><code class="language-objc highlight"><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">makeImageNamedActGlobally</span>
+<span class="p">{</span>
+    <span class="n">__block</span> <span class="n">IMP</span> <span class="n">imageNamedImp</span> <span class="o">=</span> <span class="n">PSPDFReplaceMethodWithBlock</span><span class="p">(</span>
+        <span class="n">objc_getMetaClass</span><span class="p">(</span><span class="s">"UIImage"</span><span class="p">),</span> 
+        <span class="k">@selector</span><span class="p">(</span><span class="n">imageNamed</span><span class="o">:</span><span class="p">),</span> 
+        <span class="p">(</span><span class="n">UIImage</span><span class="o">*</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="n">Class</span> <span class="n">self</span><span class="p">,</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">UIImage</span><span class="o">*</span><span class="p">(</span><span class="o">^</span><span class="n">imageNamed</span><span class="p">)(</span><span class="n">NSString</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">((</span><span class="n">UIImage</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">id</span><span class="p">,</span> <span class="n">SEL</span> <span class="n">sel</span><span class="p">,</span> <span class="n">NSString</span><span class="o">*</span><span class="p">))</span><span class="n">imageNamedImp</span><span class="p">)</span>
+                    <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="k">@selector</span><span class="p">(</span><span class="n">imageNamed</span><span class="o">:</span><span class="p">),</span> <span class="n">name</span><span class="p">);</span>
+            <span class="p">};</span>
+            <span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="n">imageNamed</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+
+            <span class="n">NSArray</span> <span class="o">*</span><span class="n">bundles</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBundle</span> <span class="nf">allAppBundles</span><span class="p">];</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">NSBundle</span><span class="o">*</span> <span class="n">bundle</span> <span class="k">in</span> <span class="n">bundles</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">bundle</span> <span class="nf">pathForResource</span><span class="p">:</span><span class="n">name</span> <span class="nf">ofType</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nf">imageWithContentsOfFile</span><span class="p">:</span><span class="n">path</span><span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">return</span> <span class="n">image</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="p">(</span><span class="n">UIImage</span><span class="o">*</span><span class="p">)</span><span class="nb">nil</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">);</span>
+<span class="p">}</span></code></pre>
+
+<p>The code essentially does the same as the code above, but with a slight twist. As you can see, <code>PSPDFReplaceMethodWithBlock</code> provides us with a block for the new implementation and it returns the original implementation. We need that implementation to call the "regular" <code>imageNamed:</code>, of course. Since that <code>IMP</code> is just a C function, we need to cast it to the correct signature <strong>and</strong> provide a correct <code>self</code> and <em>selector</em> for the call. I wrapped that part in a block of it's own to make it more readable. Also notice that we can reuse the return value from the call (the original <code>IMP</code>) in the block itself by prepending it with <code>__block</code> so that the compiler will keep the reference to it until the block executes. The rest of the code is the same as our original implementation since we did not rely on <code>self</code> or <code>imageNamed:</code> apart from that first call.</p>
+
+<p>You could also have this code in a <code>+load</code> method, but I prefer to have it explicitly called in an AppDelegate so that it's clear you're doing magic. </p>
+
+<p>But again: this approach is probably not the most sound one, but it probably is the most lazy one. </p>
+
+<h2>One more thing: nibs</h2>
+
+<p>For completeness: you can use the same system for Nibs, by the way. Since there's no <code>nibNamed:</code> we can create one ourselves:</p>
+
+<pre><code class="language-objc highlight"><span class="k">+</span> <span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">nibNamed</span><span class="p">:(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">name</span>
+<span class="p">{</span>
+    <span class="n">NSArray</span> <span class="o">*</span><span class="n">bundles</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSBundle</span> <span class="nf">allAppBundles</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">NSBundle</span><span class="o">*</span> <span class="n">bundle</span> <span class="k">in</span> <span class="n">bundles</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">UINib</span> <span class="o">*</span><span class="n">nib</span> <span class="o">=</span> <span class="p">[</span><span class="n">UINib</span> <span class="nf">nibWithName</span><span class="p">:</span><span class="n">name</span> <span class="nf">bundle</span><span class="p">:</span><span class="n">bundle</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">nib</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">nib</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+
+<p>So that's it. <code>imageNamedGlobally:</code> is an easy way out of doing manual bundle searching yourself. </p>
+
+<p>There's a few optimisations that can be made on this code, like remembering where you find an image so that you don't have to search again for every invocation. But I'll leave those as an exercise to the reader. </p>
+
+
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  if (window.location.hostname != "localhost") {
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+</html>

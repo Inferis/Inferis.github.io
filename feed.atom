@@ -2,13 +2,207 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-06-30T11:27:47Z</updated>
+  <updated>2015-08-14T14:10:27Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-08-14:/blog/2015/08/14/imagenamed-and-multiple-bundles/</id>
+    <title type="html">imageNamed: and multiple bundles</title>
+    <published>2015-08-14T14:10:27Z</published>
+    <updated>2015-08-14T14:10:27Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/08/14/imagenamed-and-multiple-bundles/"/>
+    <content type="html">
+
+&lt;p&gt;I've been working on a largeish project for a client for the last few months. We're have to modularized our code into several sections using CocoaPods (this is a post worth on itself, really). &lt;/p&gt;
+
+&lt;p&gt;One of the problems you encounter with this approach is that for each pod, CocoaPods creates a bundle with resources for that pod (at least it does so when you tell it to do that). It's the only good way to package pod resources into the main app. This means that our resources do not all live in the main bundle but in seperate bundles (which themselves &lt;strong&gt;do&lt;/strong&gt; live in the main bundle). This is no problem in itself, but it can cause loading problems of resources in those bundles. It doesn't pose that much of an issue when you specify images in a nib since iOS will search in the nib's bundle too, but it's a bit harder to get resources from within your code&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;Basically, you're going to be doing this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt; &lt;span class="nf"&gt;loadTheNeededBundle&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; &lt;span class="c1"&gt;// funk that
+&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="nf"&gt;pathForResource&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;ofType&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="nf"&gt;imageWithContentsOfFile&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;First of all, you need to know where the bundle is. I'm not going to add code for this, because you might already have a reference to this bundle. And otherwise you need to lookup the bundle within your main bundle. But we'll get to that later.&lt;/p&gt;
+
+&lt;p&gt;Then, you need to find out if there's a file named just like the image name you're after. This poses a second hurdle: for &lt;code&gt;imageNamed:&lt;/code&gt; you can specify an image with or without the extension. That's not going to work here since we explicitly need the extension (either separately or in the resource name) otherwise the path cannot be found. And only then, when you have the actual physical path of the resource, you can load up the image.&lt;/p&gt;
+
+&lt;p&gt;While not a lot of code, reusing these same lines of code becomes tedious and repetitive. And we don't like repetitive code, do we? &lt;/p&gt;
+
+&lt;p&gt;So on to a better solution.&lt;/p&gt;
+
+&lt;h2&gt;Resource bundles&lt;/h2&gt;
+
+&lt;p&gt;First of all, we need to lookup all the bundles in our app. There's no built in way to do this, unfortunately. &lt;code&gt;NSBundle&lt;/code&gt; does not have facilities to search for all app bundles. Let's cook up our own, because it's relatively easy.&lt;/p&gt;
+
+&lt;p&gt;Turns out that all "bundled" bundles are just living in your app's main bundle:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://c.inferis.org/image/1p3G2V0M0h1s/Image%202015-08-11%20at%209.46.46%20am.png"&gt;&lt;/p&gt;
+
+&lt;p&gt;Let's find a way to enumerate them. Like I said: that's pretty easy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSArray&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;allAppBundles&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;_bundles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;_bundles&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;bundles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt; &lt;span class="nf"&gt;mainBundle&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="nf"&gt;pathsForResourcesOfType&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s"&gt;@"bundle"&lt;/span&gt; 
+                                                              &lt;span class="nf"&gt;inDirectory&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="s"&gt;@"."&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="n"&gt;bundles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;bundles&lt;/span&gt; &lt;span class="nf"&gt;map&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt; &lt;span class="nf"&gt;bundleWithPath&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}];&lt;/span&gt;
+
+        &lt;span class="n"&gt;_bundles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt; &lt;span class="nf"&gt;mainBundle&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="nf"&gt;arrayByAddingObjectsFromArray&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;bundles&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;_bundles&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;+allAppBundles&lt;/code&gt; returns an array of &lt;code&gt;NSBundle&lt;/code&gt; instances, all representing a resource bundle in your app (including the main app bundle). We get those bundles like this:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;ask the main bundles for the paths of all resources of type "bundle". This gives us a bunch of strings with bundle paths.&lt;/li&gt;
+&lt;li&gt;we try to load an NSBundle for each of those paths&lt;/li&gt;
+&lt;li&gt;we tack the main bundle in front of our result&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;em&gt;(The &lt;code&gt;map&lt;/code&gt; in that code sample does exactly what you expect it to do: it transforms an array into objects of a different type. This particular implementation automatically discards &lt;code&gt;nil&lt;/code&gt; result instances)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;We don't need to use &lt;code&gt;dispatch_once()&lt;/code&gt; here since the data we're after is mostly static anyway. Even if you call this code simulanteously from 2 threads, it might execute twice but it won't ever introduce a race condition since we're just gathering data. You *&lt;/em&gt;can** use &lt;code&gt;dispatch_once()&lt;/code&gt; of course, but it's not necessary.*&lt;/p&gt;
+
+&lt;p&gt;So &lt;code&gt;+allAppBundles&lt;/code&gt; gives us an ordered array of &lt;code&gt;NSBundle&lt;/code&gt;s to work with. This solves the first hurdle in our original problem. You can add this method as a category on &lt;code&gt;NSBundle&lt;/code&gt; if you'd like.&lt;/p&gt;
+
+&lt;h2&gt;Finding an image&lt;/h2&gt;
+
+&lt;p&gt;Now that we have "easy" access to all app bundles, we can tackle the next hurdle: find the correct instance of the image. This again is relatively easy: &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;for each bundle in &lt;code&gt;allAppBundles&lt;/code&gt;
+&lt;/li&gt;
+&lt;li&gt;try to load the image you want &lt;/li&gt;
+&lt;li&gt;if found, return image, otherwise continue&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;That might look like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;imageNamedGlobally&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;name&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="nf"&gt;imageNamed&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;bundles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt; &lt;span class="nf"&gt;allAppBundles&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;bundles&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="nf"&gt;pathForResource&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;ofType&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="nf"&gt;imageWithContentsOfFile&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, it first tries: &lt;code&gt;imageNamed&lt;/code&gt;. This makes sure that the default behavior is still present, before falling back to our &lt;em&gt;let's search all app bundles&lt;/em&gt; approach.&lt;/p&gt;
+
+&lt;p&gt;Good, this works, but it has a downside: you need to fully quantify the image name with the extension, otherwise it won't be found. We can solve this by explicitly adding extra checks for known extensions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;imageNamedGlobally&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;name&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="nf"&gt;imageNamed&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;bundles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt; &lt;span class="nf"&gt;allAppBundles&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;bundles&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="nf"&gt;pathForResource&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;ofType&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="nf"&gt;imageWithContentsOfFile&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;extension&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;@"jpg"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;@"png"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;@"tiff"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;@"gif"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;@"tif"&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="nf"&gt;pathForResource&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;ofType&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;extension&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+            &lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="nf"&gt;imageWithContentsOfFile&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Surely, the added complexity comes at a cost, since if you now drop the extension from the name the code has to go searching for the correct file. If you do this, make sure the list of extensions is in the most appropriate order (if you have more jpgs, put &lt;code&gt;jpg&lt;/code&gt; first). But better still, just use a fully quantified name &lt;code&gt;image.jpg&lt;/code&gt; so you can leave the code out.&lt;/p&gt;
+
+&lt;p&gt;One downside of this approach is that if a image is present in more than one bundle, only the first one (in the order of the bundles as returned by &lt;code&gt;allAppBundles&lt;/code&gt;) is returned. But this usually is not a problem unless you use multiple frameworks with similar embedded image names.&lt;/p&gt;
+
+&lt;p&gt;So that that's: just use &lt;code&gt;+imageNamedGlobally:&lt;/code&gt; instead of &lt;code&gt;+imageNamed:&lt;/code&gt; and you're set. &lt;/p&gt;
+
+&lt;h2&gt;Swizzling&lt;/h2&gt;
+
+&lt;p&gt;But suppose you want this behavior everywhere, or you always seem to forgot to use the &lt;em&gt;Globally&lt;/em&gt; postfix (REALLY?)? In that case, you can swizzle &lt;code&gt;+imageNamed:&lt;/code&gt;. &lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Now, a big fair warning!&lt;/strong&gt; Since you are changing are core UIKit component, this will have effect in &lt;strong&gt;all&lt;/strong&gt; places in your app where &lt;code&gt;+imageNamed:&lt;/code&gt; is used. This includes not only your code, but all invocations of &lt;code&gt;+imageNamed:&lt;/code&gt; in any framework or component that's loaded into your app!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;With that out of the way, let's find a way have &lt;code&gt;imageNamed:&lt;/code&gt; always do the &lt;em&gt;global&lt;/em&gt; search. We'll have to &lt;em&gt;swizzle&lt;/em&gt; the default implemenation with our own implementation. &lt;em&gt;/cue dramatic music&lt;/em&gt;&lt;br&gt;
+I'm going to use &lt;a href="http://twitter.com/steipete"&gt;Peter Steinberger&lt;/a&gt;'s &lt;a href="http://petersteinberger.com/blog/2014/a-story-about-swizzling-the-right-way-and-touch-forwarding/"&gt;method swizzling&lt;/a&gt; code for that (not included here, you can get it from his post).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;makeImageNamedActGlobally&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;__block&lt;/span&gt; &lt;span class="n"&gt;IMP&lt;/span&gt; &lt;span class="n"&gt;imageNamedImp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;PSPDFReplaceMethodWithBlock&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="n"&gt;objc_getMetaClass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"UIImage"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; 
+        &lt;span class="k"&gt;@selector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;imageNamed&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; 
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;UIImage&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="n"&gt;imageNamed&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;SEL&lt;/span&gt; &lt;span class="n"&gt;sel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;NSString&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="n"&gt;imageNamedImp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;@selector&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;imageNamed&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="p"&gt;};&lt;/span&gt;
+            &lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;imageNamed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;bundles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt; &lt;span class="nf"&gt;allAppBundles&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+            &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;bundles&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="nf"&gt;pathForResource&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;ofType&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+                &lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="nf"&gt;imageWithContentsOfFile&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The code essentially does the same as the code above, but with a slight twist. As you can see, &lt;code&gt;PSPDFReplaceMethodWithBlock&lt;/code&gt; provides us with a block for the new implementation and it returns the original implementation. We need that implementation to call the "regular" &lt;code&gt;imageNamed:&lt;/code&gt;, of course. Since that &lt;code&gt;IMP&lt;/code&gt; is just a C function, we need to cast it to the correct signature &lt;strong&gt;and&lt;/strong&gt; provide a correct &lt;code&gt;self&lt;/code&gt; and &lt;em&gt;selector&lt;/em&gt; for the call. I wrapped that part in a block of it's own to make it more readable. Also notice that we can reuse the return value from the call (the original &lt;code&gt;IMP&lt;/code&gt;) in the block itself by prepending it with &lt;code&gt;__block&lt;/code&gt; so that the compiler will keep the reference to it until the block executes. The rest of the code is the same as our original implementation since we did not rely on &lt;code&gt;self&lt;/code&gt; or &lt;code&gt;imageNamed:&lt;/code&gt; apart from that first call.&lt;/p&gt;
+
+&lt;p&gt;You could also have this code in a &lt;code&gt;+load&lt;/code&gt; method, but I prefer to have it explicitly called in an AppDelegate so that it's clear you're doing magic. &lt;/p&gt;
+
+&lt;p&gt;But again: this approach is probably not the most sound one, but it probably is the most lazy one. &lt;/p&gt;
+
+&lt;h2&gt;One more thing: nibs&lt;/h2&gt;
+
+&lt;p&gt;For completeness: you can use the same system for Nibs, by the way. Since there's no &lt;code&gt;nibNamed:&lt;/code&gt; we can create one ourselves:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIImage&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;nibNamed&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;name&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;bundles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt; &lt;span class="nf"&gt;allAppBundles&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSBundle&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;bundle&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;bundles&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;UINib&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;nib&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;UINib&lt;/span&gt; &lt;span class="nf"&gt;nibWithName&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;bundle&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;bundle&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nib&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;nib&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So that's it. &lt;code&gt;imageNamedGlobally:&lt;/code&gt; is an easy way out of doing manual bundle searching yourself. &lt;/p&gt;
+
+&lt;p&gt;There's a few optimisations that can be made on this code, like remembering where you find an image so that you don't have to search again for every invocation. But I'll leave those as an exercise to the reader. &lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-06-30:/blog/2015/06/30/uikonf-2015/</id>
     <title type="html">UIKonf 2015</title>
@@ -1194,82 +1388,6 @@ I initially thought this would also be a bit more robust future wise (you never 
 &lt;p&gt;As evidenced by: &lt;a href="http://cloud.alexrepty.com/0F1F08051t2O"&gt;Belgium&lt;/a&gt; vs &lt;a href="http://cloud.alexrepty.com/051K3O1F0934"&gt;Cupertino&lt;/a&gt;. So that's good. 😊&lt;/p&gt;
 
 &lt;p&gt;But we'll see about that when we get there. ¯\_(ツ)_/¯  &lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2015-03-25:/blog/2015/03/25/swiftyas/</id>
-    <title type="html">SwiftyAs</title>
-    <published>2015-03-25T05:53:38Z</published>
-    <updated>2015-03-25T05:53:38Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/03/25/swiftyas/"/>
-    <content type="html">
-
-&lt;p&gt;Let me introduce: &lt;a href="https://github.com/inferis/SwiftyAs"&gt;SwiftyAs&lt;/a&gt;. It's a tiny little library to provide sort of the same functionality as &lt;code&gt;as?&lt;/code&gt; from Swift in Objective-C. Let me explain...&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h2&gt;The gist&lt;/h2&gt;
-
-&lt;p&gt;In Swift, you can use the &lt;code&gt;as?&lt;/code&gt; operator to safely cast a variable to another type (albeit Optional). If the actual type at runtime doesn't match, Swift turns it into a &lt;code&gt;nil&lt;/code&gt;, and otherwise you just get the variable as an optional. Pretty handy:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-swift highlight"&gt;&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;source&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AnyObject&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;NSDictionary&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-
-&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;array&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="kt"&gt;NSArray&lt;/span&gt;
-&lt;span class="c1"&gt;// array = nil&lt;/span&gt;
-&lt;span class="k"&gt;let&lt;/span&gt; &lt;span class="nv"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="kt"&gt;NSDictionary&lt;/span&gt;
-&lt;span class="c1"&gt;// dict = source&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now with &lt;strong&gt;SwiftyAs&lt;/strong&gt; you can do kind of the same in Objective-C:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;NSObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSDictionary&lt;/span&gt; &lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-
-&lt;span class="n"&gt;NSArray&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSArray&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="c1"&gt;// array = nil
-&lt;/span&gt;&lt;span class="n"&gt;NSDictionary&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSDictionary&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="n"&gt;dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;source&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There's nothing new under the sun here, and you can do exactly the same with an if statement and a &lt;code&gt;isKindOfClass:&lt;/code&gt; check:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;NSObject&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NSDictionary&lt;/span&gt; &lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-&lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="nf"&gt;isKindOfObject&lt;/span&gt;&lt;span class="p"&gt;:[&lt;/span&gt;&lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="nf"&gt;Class&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSArray&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;but that's more cumbersome and I think the SwiftyAs way is a lot more readable.&lt;/p&gt;
-
-&lt;h3&gt;Innards&lt;/h3&gt;
-
-&lt;p&gt;So how does this work?&lt;/p&gt;
-
-&lt;p&gt;SwiftyAs introduces a category on &lt;code&gt;NSObject&lt;/code&gt;, providing a readonly block property taking a &lt;code&gt;Class&lt;/code&gt; and returning an &lt;code&gt;id&lt;/code&gt;. The class represents the desired type.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;@property&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nonatomic&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;strong&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;readonly&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="n"&gt;as&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;ofClass&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The implementation does nothing more than aforementioned &lt;code&gt;isKindOfClass:&lt;/code&gt; check, but in a block (since that is what the property represents):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="n"&gt;__unsafe_unretained&lt;/span&gt; &lt;span class="n"&gt;Class&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="n"&gt;as&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;__weak&lt;/span&gt; &lt;span class="n"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;welf&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Class&lt;/span&gt; &lt;span class="n"&gt;ofClass&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;welf&lt;/span&gt; &lt;span class="nf"&gt;isKindOfClass&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ofClass&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="n"&gt;welf&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="p"&gt;};&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We need to do some trickery with passing self as weak, because there's no assurance (or obligation) that the &lt;code&gt;as&lt;/code&gt; property block is going to used right away. You could take the block, store it somewhere else and call it later if you wanted. Although that's not the intended and common case use, we do have to cater for it.&lt;/p&gt;
-
-&lt;p&gt;And so we reference self as weak inside the block, so that any lingering &lt;code&gt;as&lt;/code&gt; references won't cause the parent object to remain retained. And if the object's gone, we just return &lt;code&gt;nil&lt;/code&gt; anyway which is kinda the intended behavior.&lt;/p&gt;
-
-&lt;h3&gt;Tiny but easy&lt;/h3&gt;
-
-&lt;p&gt;So it's a really tiny library (if you even could call it that?). It's just category on NSObject providing the &lt;code&gt;as&lt;/code&gt; "keyword" in Objective-C. You can't use it on objects of type &lt;code&gt;id&lt;/code&gt; because that's how categories work in Objective-C, but hey, I can live with that.&lt;/p&gt;
-
-&lt;p&gt;So there. Available as a CocoaPod, of course:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;pod 'SwiftyAs', '~&amp;gt; 1.0'
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Enjoy!&lt;/p&gt;
 
 </content>
   </entry>
