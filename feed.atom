@@ -2,13 +2,79 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-08-14T14:10:27Z</updated>
+  <updated>2015-08-18T15:52:27Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-08-18:/blog/2015/08/18/sound-debugging/</id>
+    <title type="html">Sound debugging</title>
+    <published>2015-08-18T15:52:27Z</published>
+    <updated>2015-08-18T15:52:27Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/08/18/sound-debugging/"/>
+    <content type="html">
+
+&lt;p&gt;I'd like to mention a trick I use often while debugging, a trick I learned from my good friend &lt;a href="https://twitter.com/qnoid"&gt;Markos Charatzas&lt;/a&gt;: triggering a sound when a breakpoint is hit. It's a pretty simple but useful trick, especially if you're debugging repeatable actions and you want to know when they happen.&lt;/p&gt;
+
+&lt;p&gt;I'm talking about this:&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;&lt;/p&gt;
+&lt;center&gt;
+&lt;iframe src="https://player.vimeo.com/video/96070920?color=aaafb3" width="600" height="338" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;br&gt;&lt;sub&gt;&lt;a href="https://vimeo.com/96070920"&gt;Sound Debugging - Markos Charatzas&lt;/a&gt; from &lt;a href="https://vimeo.com/n%0Asconf"&gt;NSConference&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/sub&gt;
+&lt;/center&gt;
+
+&lt;p&gt;If you don't have 11 minutes to watch the video (but please do, it's interesting!), here's short recap.&lt;/p&gt;
+
+&lt;p&gt;When setting a breakpoint in Xcode, you can set a number of options on the breakpoint:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2E3f2n2k2q0k/Screen%20Shot%202015-08-18%20at%2015.49.17.png" width="520"&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;the condition&lt;/strong&gt;: an expression which is evaluated each time the breakpoint is hit; when the expression yields a truthy value, the breakpoint is actually hit. If it returns falsy, it's like nothing has happened.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;**Ignore((: the number of times the breakpoint should be ignored. This is useful when I know the code in a loop goes ok for let's say the first 100 times, but fails the 101st or 102nd time. You can set a breakpoint before the offending line of code, have it ignored 100 times and then trigger the 101st time. Saves you a lot of "continue"s. &lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Action: you can add one or more actions to the breakpoint. You've got the following options: &lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;run an apple script &lt;img class="right" src="http://c.inferis.org/image/3K3k2v0b0Y3n/Screen%20Shot%202015-08-18%20at%2015.55.54.png" width="183"&gt;
+&lt;/li&gt;
+&lt;li&gt;capture a GPU frame&lt;/li&gt;
+&lt;li&gt;run an LLDB command&lt;/li&gt;
+&lt;li&gt;Log a message to the console&lt;/li&gt;
+&lt;li&gt;run a shell command&lt;/li&gt;
+&lt;li&gt;play a sound&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;finally, you can specify if the breakpoint &lt;strong&gt;automatically continues&lt;/strong&gt; after it has evaluated all the actions. If you don't have any actions, this is a rather silly option since nothing will happen, but it's very useful when you do specify actions.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;Sound&lt;/h2&gt;
+
+&lt;p&gt;The ones I used most are &lt;code&gt;run an LLDB command&lt;/code&gt;, &lt;code&gt;log a message&lt;/code&gt; and &lt;code&gt;play a sound&lt;/code&gt;. The first two are pretty handy for adding ad-hoc logging to you app. No need to add manual &lt;code&gt;NSLog()&lt;/code&gt; or &lt;code&gt;print()&lt;/code&gt; statements: you can just log from a breakpoint you can set on the fly. &lt;/p&gt;
+
+&lt;p&gt;Finally: there's &lt;code&gt;play a sound&lt;/code&gt;. There's a number of sounds you can choose from:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2w1o213J020c/Screen%20Shot%202015-08-18%20at%2016.05.11.png" width="509"&gt;&lt;/p&gt;
+
+&lt;p&gt;When setting a &lt;em&gt;sound&lt;/em&gt; action, it does exactly what you'd expect: it plays the sound you selected. Some of the sounds are long, some are short. There's one little caveat: it blocks your program while it plays the sound! So depending on where you place the sound, this action can have a serious "performance" impact on your app. That's why I usually go for short sounds (Morse, Tink, Bottle, Frog, Pop) for breakpoints which tend to get hit pretty frequently, and longer ones for "once in a while" breakpoints.&lt;/p&gt;
+
+&lt;p&gt;The cool thing about this technique is that you can actually hear what your code is doing (much to annoyance of your coworkers, so put headphones one when using this). If some concurrent code is not doing what you are expecting it to do, place some sound breakpoints in strategically placed locations in your code and you can just hear what is happening. If you don't get the sound pattern you expected, something is not going how you planned it and you can investigate further from there (with more information, because you &lt;em&gt;do&lt;/em&gt; know now how the order of execution is). You can also log this to the console (remember, you can have more than 1 action per breakpoint) for later introspection, but I've found that the listening and analysing the &lt;em&gt;music&lt;/em&gt; you code plays is a very valuable debugging technique.&lt;/p&gt;
+
+&lt;p&gt;I usually have one or more sound breakpoints in my concurrent "backend" code (when a network requests returns, for example, or after a long calculation), and then another one (or more) in UI facing code, so that you know that background piece of code has it's effect on the UI.&lt;/p&gt;
+
+&lt;p&gt;Or you can set it in any view related code, for example in the &lt;code&gt;-updateConstraints&lt;/code&gt; or &lt;code&gt;-viewDidLayoutSubviews&lt;/code&gt; to know when what happens. &lt;/p&gt;
+
+&lt;p&gt;Like I said, it's a very useful technique since it allows you to use another sensory trigger to gather information, which is always a good thing. &lt;/p&gt;
+
+&lt;p&gt;Let's just hope Apple doesn't add a &lt;em&gt;smell&lt;/em&gt; action to that list. 😳&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-08-14:/blog/2015/08/14/imagenamed-and-multiple-bundles/</id>
     <title type="html">imageNamed: and multiple bundles</title>
@@ -1319,75 +1385,6 @@ I initially thought this would also be a bit more robust future wise (you never 
 &lt;p&gt;Thanks again Jelle, for the wonderful experience. 😎&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;(you can find all photos I took - the whopping 21 of them - on &lt;a href="https://www.flickr.com/photos/inferis/sets/72157649752540144/"&gt;Flickr&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2015-04-14:/blog/2015/04/14/early-bird-catches-the-worm/</id>
-    <title type="html">The early bird catches the worm</title>
-    <published>2015-04-14T07:01:41Z</published>
-    <updated>2015-04-14T07:01:41Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/04/14/early-bird-catches-the-worm/"/>
-    <content type="html">
-
-&lt;p&gt;I'm starting to become an early-morning person.&lt;/p&gt;
-
-&lt;p&gt;This is a big change for me. I used to be a "late night" person. My day used to consist of 2 parts: the day(job) part and the night part. Going home after work (or whatever) meant there were at least a few hours left in the day to be (even more) productive. And so I spent countless nights behind my computer's screen (because "being productive" equals "coding", that &lt;em&gt;is&lt;/em&gt; imperative), coding away into the wee hours of night. The morning after would prove difficult but nothing that coffee couldn't solve. And the weekend usually gave good opportunities for sleeping in to catch up on some sleep. And so I was no morning person at all, meaning that "get up at 8am" was usually a very difficult task. Also, I had no fixed schedule in my life back then. I woke up when needed, I went to sleep when I felt like it, I rarely had breakfast/lunch/dinner at relatively fixed times.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;But then you have kids, and they have to go to school eventually, and your life starts to fall into a more regular schedule. Not that that changed my at-night habits a lot. Although it did mean that there was no slacking possible in the morning (getting 4 kids to school can be, eh, daunting), I continued to try to be productive at night. But I had to admit that those long hours would take their toll eventually, and I wasn't as productive as I used to be. I started to spend nights before my computer, doing nothing more than &lt;a href="http://www.urbandictionary.com/define.php?term=Wilfing"&gt;wilfing&lt;/a&gt; around, not doing anything useful at all. Not good, and a waste of time.&lt;/p&gt;
-
-&lt;h2&gt;Switch&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class="right" src="https://igcdn-photos-d-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11116903_1575156929405611_575215853_n.jpg" width="350"&gt;&lt;/p&gt;
-
-&lt;p&gt;Last summer I switched to a completely different schedule: I was tech lead for a large iOS project at the time, and my job consistent of both guiding the dev team (7 devs) and doing some "high level" coding. I found that that first part would be taking up all of my time, and that finding time for the coding part was becoming harder. Additionally, I was so drained after coming home from work that I rarely got to doing some more work. And so I thought: let's try this morning thing.&lt;/p&gt;
-
-&lt;p&gt;And so I started to get up at 5:30 in the morning so that I could be at work at around 7am. That would give me 2 hours of coding/preparation time before the rest of the team would come in at around 9am. It was hard at first. I wasn't used to these hours at all, and my body protested.&lt;/p&gt;
-
-&lt;p&gt;But I got used to it. The hardest part was going to bed early enough in order to be able to get up early enough. Being used to not going to bed before midnight, early on in the process this required some willpower to get to bed at around 10pm. But once I got into &lt;em&gt;the early rhythm&lt;/em&gt;, this became easier. I simply started shutting down at 10pm, so going to bed then felt more "natural".&lt;/p&gt;
-
-&lt;h2&gt;Helping factors&lt;/h2&gt;
-
-&lt;p&gt;A big factor of this early rising thing is limiting coffee/caffeine intake. I used to drink coffee all day through, which had a clear effect on my sleeping pattern. I tried a few times going off coffee completely, which worked initially (OHAI COLD TURKEY) but I always eventually started drinking coffee again (it's just too good). But I found that limiting intake in the early hours of the day works wonderfully well. It helps you be alert in the morning -- that first coffee really helps -- and because I don't drink any caffeinated beverages after midday the effects are gone by the time I get to bed. So I get the best of both worlds. Moderation, it's a good thing.&lt;/p&gt;
-
-&lt;p&gt;Another factor in this story is my bike: getting to/from work, I have to bike to the nearest train station, which is about 20/25 minutes away. These bike rides are invigourating: they provide a much needed rest from working all day, giving your body some exercise (a welcome change from sitting all day) and your mind some relaxation (a welcome change from thinking all day). The net effect is that you're well awake once you're at work, even when you start off with a sleepy head. You get the same effect when coming back from work: you feel more relaxed once you're home. It's easier to put work behind you if you feel like it.&lt;/p&gt;
-
-&lt;p&gt;And so I spent the summer working early mornings. And sometimes late nights. My days were usually longer than the usual 8 hours. But that was okay: the project was exciting to work on, and there was a lot of work to do too. We met our deadlines, and we delivered quality software. I felt better with my regained time, even if that meant that I wasn't usually worth a lot at those evenings/nights.&lt;/p&gt;
-
-&lt;h2&gt;One year later&lt;/h2&gt;
-
-&lt;p&gt;So this system worked wonderfully well last summer. The long days help a lot getting up - early natural daylight is awesome! And so when winter came keeping this schedule started to become harder. Also, the project came to an end, and my day-to-day planning changed. The net result was that I was back to my more regular schedule. Get up to prepare kids for school, get into a more regular "9 to 5" schedule. Also, biking to work in the biting cold at 6:15, I can tell you that's not the most motivating factor to get up. I don't mind rain much -- you can dress for it -- but cold + rain is a bad combination. 😰&lt;/p&gt;
-
-&lt;p&gt;Another thing to consider were school days. These were not really an issue in the summer due to the holidays, but once the kids had to go back to school it meant that I had to get up half an hour earlier, because part of the "get up early" deal with my wife is that I had to take care of preparing their schoolbags (lunch, ...), and her part was breakfast and getting them to school. And so in winter, I started not to bother getting up early and doing joint mornings with my wife, bringing the kids to school together and biking to the station from school (a lot closer).&lt;/p&gt;
-
-&lt;h2&gt;Back to early&lt;/h2&gt;
-
-&lt;p&gt;&lt;img class="right" src="https://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11084974_844591128947976_1060421944_n.jpg" width="350"&gt;&lt;/p&gt;
-
-&lt;p&gt;But I kinda missed those early mornings. And so with the days getting longer now, and starting project in Brussels leading a team of devs, I decide to try to get back into the rhythm. I'm not there yet: some days are harder to get up than others, and because work is not as pressing as it is last year and the team is smaller there's no real need to actually having to get up early. But I enjoy the wee hours. So much nicer to get to work, so much quieter early hours. And when I want I'm home at a reasonable time to spend some time with my kids.&lt;/p&gt;
-
-&lt;p&gt;Summer's only beginning, and I'm looking forward to some early mornings. Not all of them, depending on schedule and needs. But it's good to be up early and feel productive.  &lt;/p&gt;
-
-&lt;p&gt;Overall, I'd say I feel better as a morning person than as a night person. And that's a strange thing for me to claim. 😕&lt;/p&gt;
-
-&lt;h2&gt;Future&lt;/h2&gt;
-
-&lt;p&gt;Finally, and here's the naive me speaking, I'm hoping to continue this once I move to California. The better weather there will probably have a benefical effect on being able to get up early (although winter days will be as short as in Belgium). I also have the crazy idea of biking to work there (no idea if that it's actually feasible, though), to keep the "wake up exercise" effect.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: &lt;a href="https://twitter.com/arepty"&gt;Alex Repty&lt;/a&gt; mentions that Cupertino has about a hour extra daylight at the winter solstice than Belgium:&lt;/p&gt;
-
-&lt;div class="embed tweet"&gt;
-&lt;blockquote class="twitter-tweet"&gt;
-&lt;p&gt;&lt;a href="https://twitter.com/Inferis"&gt;@Inferis&lt;/a&gt; On the day of the Winter solstice, Cupertino actually should have over an hour more daylight than Belgium.&lt;/p&gt;— Alexander Repty (@arepty) &lt;a href="https://twitter.com/arepty/status/587900199693058049"&gt;April 14, 2015&lt;/a&gt;
-&lt;/blockquote&gt;
-&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;p&gt;As evidenced by: &lt;a href="http://cloud.alexrepty.com/0F1F08051t2O"&gt;Belgium&lt;/a&gt; vs &lt;a href="http://cloud.alexrepty.com/051K3O1F0934"&gt;Cupertino&lt;/a&gt;. So that's good. 😊&lt;/p&gt;
-
-&lt;p&gt;But we'll see about that when we get there. ¯\_(ツ)_/¯  &lt;/p&gt;
 
 </content>
   </entry>
