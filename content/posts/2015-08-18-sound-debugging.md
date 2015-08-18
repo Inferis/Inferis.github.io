@@ -10,36 +10,37 @@ I'm talking about this:
 
 <!-- more -->
 
-<iframe src="https://player.vimeo.com/video/96070920?color=aaafb3" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/96070920">Sound Debugging - Markos Charatzas</a> from <a href="https://vimeo.com/nsconf">NSConference</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<center><iframe src="https://player.vimeo.com/video/96070920?color=aaafb3" width="600" height="338" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br><sub><a href="https://vimeo.com/96070920">Sound Debugging - Markos Charatzas</a> from <a href="https://vimeo.com/n
+sconf">NSConference</a> on <a href="https://vimeo.com">Vimeo</a>.</sub></center>
 
-If you don't have 15 minutes to watch the video (but please do, it's interesting!), here's short recap.
+If you don't have 11 minutes to watch the video (but please do, it's interesting!), here's short recap.
 
 When setting a breakpoint in Xcode, you can set a number of options on the breakpoint:
 
-{% img with breakpoint %}
+{% img center http://c.inferis.org/image/2E3f2n2k2q0k/Screen%20Shot%202015-08-18%20at%2015.49.17.png 520 %}
 
-1. the condition: an expression which is evaluated each time the breakpoint is hit; when the expression yields a truthy value, the breakpoint is actually hit. If it returns falsy, it's like nothing has happened.
+1. **the condition**: an expression which is evaluated each time the breakpoint is hit; when the expression yields a truthy value, the breakpoint is actually hit. If it returns falsy, it's like nothing has happened.
 
-2. Ignore: the number of times the breakpoint should be ignored. This is useful when I know the code in a loop goes ok for let's say the first 100 times, but fails the 101st or 102nd time. You can set a breakpoint before the offending line of code, have it ignored 100 times and then trigger the 101st time. Saves you a lot of "continue"s. 
+2. **Ignore((: the number of times the breakpoint should be ignored. This is useful when I know the code in a loop goes ok for let's say the first 100 times, but fails the 101st or 102nd time. You can set a breakpoint before the offending line of code, have it ignored 100 times and then trigger the 101st time. Saves you a lot of "continue"s. 
 
-3. Action: you can add one or more actions to the breakpoint. You've got the following options:
+3. Action: you can add one or more actions to the breakpoint. You've got the following options: 
 
-	1. run an apple script {% img with breakpoint actions right %}
+	1. run an apple script {% img right http://c.inferis.org/image/3K3k2v0b0Y3n/Screen%20Shot%202015-08-18%20at%2015.55.54.png 183 %}
 	2. capture a GPU frame
 	3. run an LLDB command
 	4. Log a message to the console
 	5. run a shell command
 	6. play a sound
 
-4. finally, you can specify if the breakpoint automatically continues after it has evaluated all the actions. If you don't have any actions, this is a rather silly option since nothing will happen, but it's very useful when you do specify actions.
+4. finally, you can specify if the breakpoint **automatically continues** after it has evaluated all the actions. If you don't have any actions, this is a rather silly option since nothing will happen, but it's very useful when you do specify actions.
 
-## Actions
+## Sound
 
 The ones I used most are `run an LLDB command`, `log a message` and `play a sound`. The first two are pretty handy for adding ad-hoc logging to you app. No need to add manual `NSLog()` or `print()` statements: you can just log from a breakpoint you can set on the fly. 
 
 Finally: there's `play a sound`. There's a number of sounds you can choose from:
 
-{% img with sound options %}
+{% img center http://c.inferis.org/image/2w1o213J020c/Screen%20Shot%202015-08-18%20at%2016.05.11.png 509 %}
 
 When setting a *sound* action, it does exactly what you'd expect: it plays the sound you selected. Some of the sounds are long, some are short. There's one little caveat: it blocks your program while it plays the sound! So depending on where you place the sound, this action can have a serious "performance" impact on your app. That's why I usually go for short sounds (Morse, Tink, Bottle, Frog, Pop) for breakpoints which tend to get hit pretty frequently, and longer ones for "once in a while" breakpoints.
 
@@ -51,7 +52,7 @@ Or you can set it in any view related code, for example in the `-updateConstrain
 
 Like I said, it's a very useful technique since it allows you to use another sensory trigger to gather information, which is always a good thing. 
 
-Let's just hope they don't add a `smell` option to that list. 😳
+Let's just hope Apple doesn't add a *smell* action to that list. 😳
 
 
 
