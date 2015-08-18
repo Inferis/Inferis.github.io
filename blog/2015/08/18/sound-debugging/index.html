@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.7.5">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <title>Inferical Writings - Sound debugging</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
+                  <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-color: #eee;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>
+                      
+                        Sound debugging
+                      
+                    </h1>
+                    
+
+                    
+                      <span class="meta">
+                        
+                        August 18, 2015 ·
+                        
+
+                        <a href="/blog/2015/08/18/sound-debugging/">∞</a>
+
+                        
+                        · 
+                        
+                      </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds() + "";
+    var m = d.getMinutes() + "";
+    var h = d.getHours() + "";
+
+    if (s.length < 2) s = "0" + s;
+    if (m.length < 2) m = "0" + m;
+    if (h.length < 2) h = "0" + h;
+
+    $(".intro-header").css("background-color", '#' + h + m + s);
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>I'd like to mention a trick I use often while debugging, a trick I learned from my good friend <a href="https://twitter.com/qnoid">Markos Charatzas</a>: triggering a sound when a breakpoint is hit. It's a pretty simple but useful trick, especially if you're debugging repeatable actions and you want to know when they happen.</p>
+
+<p>I'm talking about this:</p>
+
+<!-- more -->
+
+<p></p>
+<center>
+<iframe src="https://player.vimeo.com/video/96070920?color=aaafb3" width="600" height="338" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br><sub><a href="https://vimeo.com/96070920">Sound Debugging - Markos Charatzas</a> from <a href="https://vimeo.com/n%0Asconf">NSConference</a> on <a href="https://vimeo.com">Vimeo</a>.</sub>
+</center>
+
+<p>If you don't have 11 minutes to watch the video (but please do, it's interesting!), here's short recap.</p>
+
+<p>When setting a breakpoint in Xcode, you can set a number of options on the breakpoint:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/2E3f2n2k2q0k/Screen%20Shot%202015-08-18%20at%2015.49.17.png" width="520"></p>
+
+<ol>
+<li><p><strong>the condition</strong>: an expression which is evaluated each time the breakpoint is hit; when the expression yields a truthy value, the breakpoint is actually hit. If it returns falsy, it's like nothing has happened.</p></li>
+<li><p>**Ignore((: the number of times the breakpoint should be ignored. This is useful when I know the code in a loop goes ok for let's say the first 100 times, but fails the 101st or 102nd time. You can set a breakpoint before the offending line of code, have it ignored 100 times and then trigger the 101st time. Saves you a lot of "continue"s. </p></li>
+<li>
+<p>Action: you can add one or more actions to the breakpoint. You've got the following options: </p>
+
+<ol>
+<li>run an apple script <img class="right" src="http://c.inferis.org/image/3K3k2v0b0Y3n/Screen%20Shot%202015-08-18%20at%2015.55.54.png" width="183">
+</li>
+<li>capture a GPU frame</li>
+<li>run an LLDB command</li>
+<li>Log a message to the console</li>
+<li>run a shell command</li>
+<li>play a sound</li>
+</ol>
+</li>
+<li><p>finally, you can specify if the breakpoint <strong>automatically continues</strong> after it has evaluated all the actions. If you don't have any actions, this is a rather silly option since nothing will happen, but it's very useful when you do specify actions.</p></li>
+</ol>
+
+<h2>Sound</h2>
+
+<p>The ones I used most are <code>run an LLDB command</code>, <code>log a message</code> and <code>play a sound</code>. The first two are pretty handy for adding ad-hoc logging to you app. No need to add manual <code>NSLog()</code> or <code>print()</code> statements: you can just log from a breakpoint you can set on the fly. </p>
+
+<p>Finally: there's <code>play a sound</code>. There's a number of sounds you can choose from:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/2w1o213J020c/Screen%20Shot%202015-08-18%20at%2016.05.11.png" width="509"></p>
+
+<p>When setting a <em>sound</em> action, it does exactly what you'd expect: it plays the sound you selected. Some of the sounds are long, some are short. There's one little caveat: it blocks your program while it plays the sound! So depending on where you place the sound, this action can have a serious "performance" impact on your app. That's why I usually go for short sounds (Morse, Tink, Bottle, Frog, Pop) for breakpoints which tend to get hit pretty frequently, and longer ones for "once in a while" breakpoints.</p>
+
+<p>The cool thing about this technique is that you can actually hear what your code is doing (much to annoyance of your coworkers, so put headphones one when using this). If some concurrent code is not doing what you are expecting it to do, place some sound breakpoints in strategically placed locations in your code and you can just hear what is happening. If you don't get the sound pattern you expected, something is not going how you planned it and you can investigate further from there (with more information, because you <em>do</em> know now how the order of execution is). You can also log this to the console (remember, you can have more than 1 action per breakpoint) for later introspection, but I've found that the listening and analysing the <em>music</em> you code plays is a very valuable debugging technique.</p>
+
+<p>I usually have one or more sound breakpoints in my concurrent "backend" code (when a network requests returns, for example, or after a long calculation), and then another one (or more) in UI facing code, so that you know that background piece of code has it's effect on the UI.</p>
+
+<p>Or you can set it in any view related code, for example in the <code>-updateConstraints</code> or <code>-viewDidLayoutSubviews</code> to know when what happens. </p>
+
+<p>Like I said, it's a very useful technique since it allows you to use another sensory trigger to gather information, which is always a good thing. </p>
+
+<p>Let's just hope Apple doesn't add a <em>smell</em> action to that list. 😳</p>
+
+
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  if (window.location.hostname != "localhost") {
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+</html>

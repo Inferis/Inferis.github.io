@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-08-18T15:52:27Z</updated>
+  <updated>2015-08-18T15:40:27Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
@@ -12,8 +12,8 @@
   <entry>
     <id>tag:blog.inferis.org,2015-08-18:/blog/2015/08/18/sound-debugging/</id>
     <title type="html">Sound debugging</title>
-    <published>2015-08-18T15:52:27Z</published>
-    <updated>2015-08-18T15:52:27Z</updated>
+    <published>2015-08-18T15:40:27Z</published>
+    <updated>2015-08-18T15:40:27Z</updated>
     <link rel="alternate" href="http://blog.inferis.org/blog/2015/08/18/sound-debugging/"/>
     <content type="html">
 
