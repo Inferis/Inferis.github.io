@@ -6,8 +6,8 @@ class OctopressFilter < Nanoc3::Filter
 
   def run(content, params={})
     tag = tag_name
-    content.gsub(/\{\%\s*#{tag}(.*)?\%\}/) do |match|
-      markup = /\{\%\s*#{tag}\s*(.*)?\s*\%\}/.match(match).captures[0]
+    content.gsub(/\{\%\s*#{tag}(.*?)?\%\}/) do |match|
+      markup = /\{\%\s*#{tag}\s*(.*?)?\s*\%\}/.match(match).captures[0]
       run_octopress(tag, markup, params)
     end
   end
