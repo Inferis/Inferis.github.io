@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-08-18T15:40:27Z</updated>
+  <updated>2015-09-14T15:07:24Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
@@ -10,10 +10,38 @@
     <uri>http://inferis.org</uri>
   </author>
   <entry>
+    <id>tag:blog.inferis.org,2015-09-14:/blog/2015/09/14/wanted-new-maintainer-for-viewdeck/</id>
+    <title type="html">Wanted: new maintainer for ViewDeck</title>
+    <published>2015-09-14T15:07:24Z</published>
+    <updated>2015-09-14T15:07:24Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/09/14/wanted-new-maintainer-for-viewdeck/"/>
+    <content type="html">
+
+&lt;p&gt;I'm pretty sure that if you found this blog, you also know about a little piece of software I wrote a few years ago: &lt;a href="https://github.com/ViewDeck/ViewDeck"&gt;ViewDeck&lt;/a&gt;. The &lt;a href="https://github.com/ViewDeck/ViewDeck/commit/463324184a67a7fa24c9207352298e69da0d66b7"&gt;initial commit&lt;/a&gt; was on December 3rd, 2011. I'd been doing nearly a year of iOS development at that moment, and both the Facebook and Path apps came with this nifty new feature we now call "a hamburger menu". &lt;/p&gt;
+
+&lt;p&gt;&lt;img class="right" src="http://cl.ly/063X412a1i2U2e3f3D02/Image%202012.01.26%2023:26:55.png" width="240"&gt; I remember finding it an interesting piece of user interaction and wondered how it was implemented, and so set out one night to try to recreate something like it myself. At that point, not an awful lot of libraries existed that recreated that UX, so I had no way to base my code on somebody elses creations. By the end of the night I had a mostly working prototype, and decided to continue working on it, and to share it with the world. After all it might come in handy for someone else and it was a fun way of showing of what I did (&lt;strong&gt;YEAH BABY&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;ViewDeck grew, more features were added, people started creating pull requests with some pretty cool stuff. It got to a point the library started to become a bit bloated with all the features it had gained (AFAIK, &lt;a href="https://github.com/mutualmobile/MMDrawerController"&gt;MMDrawerController&lt;/a&gt; was created as a sort of reaction against that, but I might be wrong). It required quite a bit of support to be honest, support for which I didn't always have the time.&lt;/p&gt;
+
+&lt;p&gt;And then, a refactoring to fix a number of problems introduced more problems that it fixed, it seemed. Version 2.3 was "the bridge too far". Fixing this would prove to be a very timeconsuming problem due to the myriad of UI configurations possible. So I kind of abandoned development, not even bothering to retract 2.3 from CocoaPods but just left a notice that 2.2.11 should be used. A bit shameful, I admit. The fact that iOS7 had just arrived and introduced a number of additional complexities (A transparent status bar, for example, or translucent navigation bars) didn't help at all. That was the last update. I tried restarting work on it a few times, but I never retained the traction I had up till version 2.2. It's been a few years now since I touched the code.&lt;/p&gt;
+
+&lt;p&gt;I never understood why it was and still is so popular. At the time of writing it has 4.416 stars on Github, 901 forks and gets cloned between 10 to 30 times per day. This means people still use it. Not by an immense number, but it's not a small forgotten library either. I fondly remember finding out that the Foursquare app used it, and have gotten several emails of people telling me that they used it in their app. It's great fun to have people use your "framework".&lt;/p&gt;
+
+&lt;p&gt;But the time has come to let it go more formally. My future job at Apple interferes with maintaining open source (UIKit related) software (which I can understand), and even apart from that I have no intention to continue development or maintance for ViewDeck. &lt;/p&gt;
+
+&lt;p&gt;So... I'm looking for one or more people to take over the library. It's going to be all yours, and I will not interfere with its future development. The one thing I ask is to be recognized and mentioned as its original author, but that's it. If you want to turn it into something completely else: fine by me. I have moved the repo from its original location under my Github account to a newly created ViewDeck organisation in order to "set it free". If nobody takes over: fine by, the code won't go away. But if somebody wants to take the current code and do magic with it: I'd love that. &lt;/p&gt;
+
+&lt;p&gt;Interested? Shoot me a message on &lt;a href="https://twitter.com/inferis"&gt;Twitter&lt;/a&gt; and we'll talk. And oh: I'm fine with adding more than one maintainer. :)&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
     <id>tag:blog.inferis.org,2015-08-18:/blog/2015/08/18/sound-debugging/</id>
     <title type="html">Sound debugging</title>
-    <published>2015-08-18T15:40:27Z</published>
-    <updated>2015-08-18T15:40:27Z</updated>
+    <published>2015-08-18T15:52:27Z</published>
+    <updated>2015-08-18T15:52:27Z</updated>
     <link rel="alternate" href="http://blog.inferis.org/blog/2015/08/18/sound-debugging/"/>
     <content type="html">
 
@@ -1331,60 +1359,6 @@ I initially thought this would also be a bit more robust future wise (you never 
 &lt;p&gt;Of course, you'll only want to do this if this blocks your release. You'll need to keep monitoring the offending podspec(s) for actual fixes so that you can continue using the version you want. By capturing the podspec and storing it locally, you effectively use the version of a pod at the moment of capture, also in the future.&lt;/p&gt;
 
 &lt;p&gt;But it's a good compromise to make to get that app out of the door, which is what counts at the end of the day. Just ship it. 😎&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2015-04-20:/blog/2015/04/20/gliding/</id>
-    <title type="html">Gliding</title>
-    <published>2015-04-20T05:52:07Z</published>
-    <updated>2015-04-20T05:52:07Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/04/20/gliding/"/>
-    <content type="html">
-
-&lt;p&gt;I went gliding! And it was awesome.&lt;/p&gt;
-
-&lt;p&gt;My friend and co-worker &lt;a href="http://twitter.com/fousa"&gt;Jelle Vandebeeck&lt;/a&gt; has been a glider pilot for (what he claims - and I have no reason to doubt it) 15 years now. Last year, just for fun, I mentioned I would like to get off the ground with him (in a glider, of course). He wasn't dismissive of it, so we went to search for a good date.&lt;/p&gt;
-
-&lt;p&gt;Unfortunately, due to scheduling conflicts and weather conditions I didn't get the chance to actually go flying. No worries, there would be other moments.&lt;/p&gt;
-
-&lt;p&gt;And so, now that flying season started again, there were no races to be flown yet, the weather looked good and I was able to free some time (there's always so much to do, but it's about setting priorities), which meant that this weekend &lt;strong&gt;we were on&lt;/strong&gt;!&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://farm8.staticflickr.com/7704/17009720487_a3d3f30621_z.jpg"&gt;&lt;/p&gt;
-
-&lt;p&gt;And so I arrived at the airfield in Brasschaat at around 14:45. First thing Jelle warned me about: there would be a lot of waiting. There's only so many (twin) gliders in the club, and there are quite a bit of people wanting to go in the air, and so we had to wait our turn. I was very much fine with that. The weather was good: blue skies, sun was out but it wasn't too hot yet; a light breeze helped cool us from the spring sun. And so we waited until it was our turn.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://farm8.staticflickr.com/7633/17029598880_74bf022f5c_z.jpg"&gt;&lt;/p&gt;
-
-&lt;p&gt;Then, we geared up ("so how does this parachute work exactly?", "don't touch this or we'll lose the cockpit", ...), they sat me down in the second seat of the glider and Jelle explained what dial was used for what purpose. To be honest: I'm not the stupidest guy in the pack, but it was a lot of information to take in, even though I wasn't going to do any flying myself. But then again, it was the first time I set foot in a glider, or in a small airplane all together: all the other planes I've flown along with were quite a bit bigger. 😅 My gear - I had my camera with me - was tucked away by my side, because I was told that the ride may be a bit bumpy.&lt;/p&gt;
-
-&lt;p&gt;This apparently had to do with the weather: the sky was virtually clear except for a few patches of clouds here and there and the sun was out. This meant a lot of heat was generated at ground level. Heat means rising air which is good for a glider but this also meant a lot of agitation: the forces of nature helping us up could also be a bit quirky at times. They would also have effect on my feeling of balance: I was given a small puking bag just in case. I wouldn't have been the first to throw up in the back seat of a twin glider, I've been told.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://farm9.staticflickr.com/8764/16594680834_a69f415c11_z.jpg"&gt;&lt;/p&gt;
-
-&lt;p&gt;And then, then we got hooked up to a pulling plane, which revved up its engines and off we went. The funny thing is that because the glider has more natural lift, it goes up in the air sooner: there's a few seconds of hovering a few meters above the tarmac when the other plane was still speeding up on the ground. But then you're both off and before you know it, you're at 500m and it's time to let go of the umbilical cord attaching the glider to the plane. And then you're free.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://farm6.staticflickr.com/5449/17215420612_36f248dde8_z.jpg"&gt;&lt;/p&gt;
-
-&lt;p&gt;I have to say: it was an incredible experience. I've always loved flying even though I don't do it that much, and most planes I've flown in were big boys. But I love a seat near the window to peak outside, even during landing and takeoff. I guess it's a typical boyhood fascination that never receded. But being in such a small plane, having a great view all around, watching objects on the ground go larger and smaller as you drop or rise, and being able to see so much farther away than on the ground: it's awesome. Also, the noise was not to hard: there's no motor noise but you do hear the wind around the plane, and when you're going up you can hear the plane creak due to the forces the thermal rising applies to the plane. Nothing to be afraid of and all in all very peaceful.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://farm8.staticflickr.com/7586/16596911623_aa2f5f5cf9_z.jpg"&gt;&lt;/p&gt;
-
-&lt;p&gt;We spent about 30 minutes in the air, which was - to be honest - more than enough. The stories of throwing up sounded so incredulous before start ("Nah, I'll be fine, I've got a strong stomach") felt very real towards the end of the flight. I felt like I had a real knot in my stomach near the end, and I think its contents would have spilled out if we had flow for another half hour. But we didn't and I made it to the ground&lt;/p&gt;
-
-&lt;p&gt;I'm pretty sure I also have to thank Jelle for that because he really is an expert flyer (at least, to my n00b experiences). I was never scared or anxious; all in all I found the ride to be very smooth, even though he claimed it was quite bumpy (due to the good weather). There were intense moments, of course: when you fly into a pocket of hot air you feel the forces pulling on the plane and on you which results in funny feelings in your stomach. But those are part of the deal and once you get a bit used to them and try to anticipate them they become easier to stomach (pun intended).&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://farm6.staticflickr.com/5469/16594642524_4bf5a3e4da_z.jpg"&gt;&lt;/p&gt;
-
-&lt;p&gt;So yeah: a very nice afternoon indeed. I'd gladly do it again, even though my stomach wouldn't agree now. I'm thinking that once you get used to it and know what to expect, I might become less "unpleasant". We'll see, there might be another time.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://farm9.staticflickr.com/8690/17029545180_fb463338ed_z.jpg"&gt;&lt;/p&gt;
-
-&lt;p&gt;Thanks again Jelle, for the wonderful experience. 😎&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;(you can find all photos I took - the whopping 21 of them - on &lt;a href="https://www.flickr.com/photos/inferis/sets/72157649752540144/"&gt;Flickr&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
 
 </content>
   </entry>
