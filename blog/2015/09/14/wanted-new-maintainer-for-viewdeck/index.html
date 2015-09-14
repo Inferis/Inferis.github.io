@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.8.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <title>Inferical Writings - Wanted: new maintainer for ViewDeck</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
+                  <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-color: #eee;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>
+                      
+                        Wanted: new maintainer for ViewDeck
+                      
+                    </h1>
+                    
+
+                    
+                      <span class="meta">
+                        
+                        September 14, 2015 ·
+                        
+
+                        <a href="/blog/2015/09/14/wanted-new-maintainer-for-viewdeck/">∞</a>
+
+                        
+                        · 
+                        
+                      </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds() + "";
+    var m = d.getMinutes() + "";
+    var h = d.getHours() + "";
+
+    if (s.length < 2) s = "0" + s;
+    if (m.length < 2) m = "0" + m;
+    if (h.length < 2) h = "0" + h;
+
+    $(".intro-header").css("background-color", '#' + h + m + s);
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>I'm pretty sure that if you found this blog, you also know about a little piece of software I wrote a few years ago: <a href="https://github.com/ViewDeck/ViewDeck">ViewDeck</a>. The <a href="https://github.com/ViewDeck/ViewDeck/commit/463324184a67a7fa24c9207352298e69da0d66b7">initial commit</a> was on December 3rd, 2011. I'd been doing nearly a year of iOS development at that moment, and both the Facebook and Path apps came with this nifty new feature we now call "a hamburger menu". </p>
+
+<p><img class="right" src="http://cl.ly/063X412a1i2U2e3f3D02/Image%202012.01.26%2023:26:55.png" width="240"> I remember finding it an interesting piece of user interaction and wondered how it was implemented, and so set out one night to try to recreate something like it myself. At that point, not an awful lot of libraries existed that recreated that UX, so I had no way to base my code on somebody elses creations. By the end of the night I had a mostly working prototype, and decided to continue working on it, and to share it with the world. After all it might come in handy for someone else and it was a fun way of showing of what I did (<strong>YEAH BABY</strong>).</p>
+
+<!-- more -->
+
+<p>ViewDeck grew, more features were added, people started creating pull requests with some pretty cool stuff. It got to a point the library started to become a bit bloated with all the features it had gained (AFAIK, <a href="https://github.com/mutualmobile/MMDrawerController">MMDrawerController</a> was created as a sort of reaction against that, but I might be wrong). It required quite a bit of support to be honest, support for which I didn't always have the time.</p>
+
+<p>And then, a refactoring to fix a number of problems introduced more problems that it fixed, it seemed. Version 2.3 was "the bridge too far". Fixing this would prove to be a very timeconsuming problem due to the myriad of UI configurations possible. So I kind of abandoned development, not even bothering to retract 2.3 from CocoaPods but just left a notice that 2.2.11 should be used. A bit shameful, I admit. The fact that iOS7 had just arrived and introduced a number of additional complexities (A transparent status bar, for example, or translucent navigation bars) didn't help at all. That was the last update. I tried restarting work on it a few times, but I never retained the traction I had up till version 2.2. It's been a few years now since I touched the code.</p>
+
+<p>I never understood why it was and still is so popular. At the time of writing it has 4.416 stars on Github, 901 forks and gets cloned between 10 to 30 times per day. This means people still use it. Not by an immense number, but it's not a small forgotten library either. I fondly remember finding out that the Foursquare app used it, and have gotten several emails of people telling me that they used it in their app. It's great fun to have people use your "framework".</p>
+
+<p>But the time has come to let it go more formally. My future job at Apple interferes with maintaining open source (UIKit related) software (which I can understand), and even apart from that I have no intention to continue development or maintance for ViewDeck. </p>
+
+<p>So... I'm looking for one or more people to take over the library. It's going to be all yours, and I will not interfere with its future development. The one thing I ask is to be recognized and mentioned as its original author, but that's it. If you want to turn it into something completely else: fine by me. I have moved the repo from its original location under my Github account to a newly created ViewDeck organisation in order to "set it free". If nobody takes over: fine by, the code won't go away. But if somebody wants to take the current code and do magic with it: I'd love that. </p>
+
+<p>Interested? Shoot me a message on <a href="https://twitter.com/inferis">Twitter</a> and we'll talk. And oh: I'm fine with adding more than one maintainer. :)</p>
+
+
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  if (window.location.hostname != "localhost") {
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+</html>
