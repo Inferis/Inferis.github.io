@@ -158,7 +158,7 @@ However, if you see a mention <code>CoreServices</code> passing by in the output
 
 <p>Now, you don't want to be doing this manually on a regular basis, especially on a build server. At <a href="http://icapps.com">iCapps</a>, we have more than one Xcode on the server in order to support older projects (or until they are upgraded to newer versions of Xcode). So what we did was create a small shell script which fires off the <code>spctl</code> command which takes an Xcode.app path as an argument we have and have that script run each morning to verify all our versions. The script returns with a faulty exit code if the <code>spctl</code> output doesn't contain <code>accepted</code>, causing that job to fail. The failed job sends of an email to the development team so we get notified pretty quick in case something would go wrong.</p>
 
-<p><img class="center" src="http://c.inferis.org/image/1b1p3p1P3p0L/Image%202015-09-25%20at%203.55.04%20PM.png"></p>
+<p><img class="center" src="http://c.inferis.org/image/1x2M1L2u2O3J/Untitled-1.png"></p>
 
 <p>The script itself is pretty simple, like I said:</p>
 
