@@ -31,7 +31,7 @@ In any case, if you get an error it cannot hurt do download a fresh copy to be s
 
 Now, you don't want to be doing this manually on a regular basis, especially on a build server. At [iCapps](http://icapps.com), we have more than one Xcode on the server in order to support older projects (or until they are upgraded to newer versions of Xcode). So what we did was create a small shell script which fires off the `spctl` command which takes an Xcode.app path as an argument we have and have that script run each morning to verify all our versions. The script returns with a faulty exit code if the `spctl` output doesn't contain `accepted`, causing that job to fail. The failed job sends of an email to the development team so we get notified pretty quick in case something would go wrong.
 
-{% img center http://c.inferis.org/image/1b1p3p1P3p0L/Image%202015-09-25%20at%203.55.04%20PM.png %}
+{% img center http://c.inferis.org/image/1x2M1L2u2O3J/Untitled-1.png %}
 
 The script itself is pretty simple, like I said:
 
