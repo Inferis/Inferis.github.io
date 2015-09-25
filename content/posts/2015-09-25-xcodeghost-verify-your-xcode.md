@@ -2,7 +2,6 @@
 title: "XcodeGhost: verify your Xcode"
 created_at: 2015-09-25 15:23:09 +0200
 kind: article
-preview: true
 ---
 
 Recently a malware issue for the iOS app store (which is a rarity in itself) called [XcodeGhost](http://www.macrumors.com/2015/09/20/xcodeghost-chinese-malware-faq/) made its appearance. I'm not going to go into the [gory](http://researchcenter.paloaltonetworks.com/2015/09/novel-malware-xcodeghost-modifies-xcode-infects-apple-ios-apps-and-hits-app-store/) [details](http://researchcenter.paloaltonetworks.com/2015/09/more-details-on-the-xcodeghost-malware-and-affected-ios-apps/), but it boils down to a malware injection through a patched version of Xcode. When building iOS apps with such an Xcode, the app binary is modified transparantly, injecting malware into your app at runtime. Nothing is downloaded from the internet, the malware just gets compiled into your app.
