@@ -2,13 +2,94 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-09-14T15:07:24Z</updated>
+  <updated>2015-09-25T13:23:09Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-09-25:/blog/2015/09/25/xcodeghost-verify-your-xcode/</id>
+    <title type="html">XcodeGhost: verify your Xcode</title>
+    <published>2015-09-25T13:23:09Z</published>
+    <updated>2015-09-25T13:23:09Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/09/25/xcodeghost-verify-your-xcode/"/>
+    <content type="html">
+
+&lt;p&gt;Recently a malware issue for the iOS app store (which is a rarity in itself) called &lt;a href="http://www.macrumors.com/2015/09/20/xcodeghost-chinese-malware-faq/"&gt;XcodeGhost&lt;/a&gt; made its appearance. I'm not going to go into the &lt;a href="http://researchcenter.paloaltonetworks.com/2015/09/novel-malware-xcodeghost-modifies-xcode-infects-apple-ios-apps-and-hits-app-store/"&gt;gory&lt;/a&gt; &lt;a href="http://researchcenter.paloaltonetworks.com/2015/09/more-details-on-the-xcodeghost-malware-and-affected-ios-apps/"&gt;details&lt;/a&gt;, but it boils down to a malware injection through a patched version of Xcode. When building iOS apps with such an Xcode, the app binary is modified transparantly, injecting malware into your app at runtime. Nothing is downloaded from the internet, the malware just gets compiled into your app.&lt;/p&gt;
+
+&lt;p&gt;There's not a lot you can do about this, except to make sure that you're using a legit Xcode. You can do this by &lt;strong&gt;never-ever&lt;/strong&gt; downloading a version of Xcode from a location other than Apple's, which is either from the Mac App Store, or from &lt;a href="http://developer.apple.com"&gt;http://developer.apple.com&lt;/a&gt;) (I know this is easier said than done, saying this from my chair in the middle of super-connected Europe).&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;But, once you have an Xcode installed, it doesn't hurt to verify its authenticity once in a while, especially if you use a build server to deliver your products.&lt;/p&gt;
+
+&lt;p&gt;In the &lt;a href="https://developer.apple.com/news/?id=09222015a"&gt;communication&lt;/a&gt; Apple released about XcodeGhost, they mention a simple tool to verify your Xcode. Fire up the command line and enter:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;spctl --assess --verbose /Applications/Xcode.app
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;spctl&lt;/code&gt; is a command that manages the security assessment policy subsystem of OSX, which is used to define the system software policy (what you can install -- think &lt;em&gt;GateKeeper&lt;/em&gt;) and code signing requirements.&lt;/p&gt;
+
+&lt;p&gt;If you get back a response which includes &lt;code&gt;accepted&lt;/code&gt; (e.g. &lt;code&gt;/Applications/Xcode.app: accepted source=Mac App Store&lt;/code&gt; or &lt;code&gt;/Applications/Xcode.app: accepted source=Apple&lt;/code&gt;) you're in the safe zone and Xcode is not compromised. If you get back something else, chances are that your Xcode is compromised. It doesn't necessarily means that: if you accidentally edited a header file in the .app bundle, the assessment tool will also notice this and will report an error. 
+However, if you see a mention of &lt;code&gt;CoreServices&lt;/code&gt; passing by in the output of &lt;code&gt;spctl&lt;/code&gt;, you're probably going to have a problem. By the way, the command can take a while so don't worry if it doesn't pony up an answer right away.&lt;/p&gt;
+
+&lt;p&gt;In any case, if you get an error it's a good idea to download a fresh copy to be safe. Verify the downloaded app again, to make sure you updated it correctly.&lt;/p&gt;
+
+&lt;h2&gt;Jenkins&lt;/h2&gt;
+
+&lt;p&gt;Now, you don't want to be doing this manually on a regular basis, especially on a build server. At &lt;a href="http://icapps.com"&gt;iCapps&lt;/a&gt;, we have more than one Xcode version on the server in order to support older projects (or until they are upgraded to newer versions of Xcode). So what we did was create a small shell script which fires off the &lt;code&gt;spctl&lt;/code&gt; command. That script takes a path to any Xcode.app as an argument. So we have that script run each morning to verify all of our Xcode versions. The script terminates with a faulty exit code if the &lt;code&gt;spctl&lt;/code&gt; output doesn't contain &lt;code&gt;accepted&lt;/code&gt;, causing that job to fail. The failed job sends of an email to the development team so we get notified pretty quick in case something would go wrong.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/1x2M1L2u2O3J/Untitled-1.png"&gt;&lt;/p&gt;
+
+&lt;p&gt;The script itself is pretty simple, like I said:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-sh highlight"&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"Validating '&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;'. This can take a while."&lt;/span&gt;
+&lt;span class="nv"&gt;OUTPUT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;spctl --assess --verbose &lt;span class="nv"&gt;$1&lt;/span&gt; 2&amp;gt;&amp;amp;1&lt;span class="sb"&gt;`&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$OUTPUT&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[[&lt;/span&gt; &lt;span class="nv"&gt;$OUTPUT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;~ accepted &lt;span class="o"&gt;]]&lt;/span&gt;; &lt;span class="k"&gt;then
+    &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"'&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;' validates just fine."&lt;/span&gt;
+    &lt;span class="nb"&gt;exit &lt;/span&gt;0
+&lt;span class="k"&gt;fi&lt;/span&gt;;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"'&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;' does not validate."&lt;/span&gt;
+&lt;span class="nb"&gt;exit &lt;/span&gt;1&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This should be pretty obvious. There's one thing to point out: the &lt;code&gt;spctl&lt;/code&gt; command outputs it's assessment on &lt;em&gt;stderr&lt;/em&gt; so we need to pipe that output to &lt;em&gt;stdout&lt;/em&gt; for the backtick invocation to be able to grab it. You do this by adding &lt;code&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; to your command invocation (standard error = file number 2, standard output = file number 1). If you don't do this, the script fails even though the command finds no problem.&lt;/p&gt;
+
+&lt;p&gt;We added this script to a git repo, set up a jenkins job with that repo and had it run periodically, in our case each morning at 7am:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2P3E1K2W030w/Image%202015-09-25%20at%204.00.51%20PM.png"&gt;&lt;/p&gt;
+
+&lt;p&gt;But you could schedule this however you wanted, of course.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Why use a repo and not install the script on the server directly&lt;/em&gt;, you ask? First of all it's a lot easier to keep track of any changes, and in case it needs changing you can do the changes locally, try them out and push to the repo. The server is updated automatically at the next validation job run.&lt;/p&gt;
+
+&lt;p&gt;And that job, all it does is invoke the script:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/0P2k3Z2S3c1Y/Image%202015-09-25%20at%203.58.29%20PM.png"&gt;&lt;/p&gt;
+
+&lt;p&gt;The parameter obviously changes for each Xcode install: just change the path to the Xcode.app you want to verify.&lt;/p&gt;
+
+&lt;p&gt;Finally, set up a post build email notification so that you actually get a warning when something goes south:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/2b2l1W432O07/Image%202015-09-25%20at%204.02.57%20PM.png"&gt;&lt;/p&gt;
+
+&lt;p&gt;And that's it. You're now a little bit safer in this cruel, cruel world. Not entirely safe though: if somebody gains access to your server and messes with your Xcodes they'll probably find and disable these jobs too (if only that: if they are resourceful enough, they might hack into spctl too). But this is better than nothing at all. &lt;/p&gt;
+
+&lt;p&gt;The best part: if you 🌟&lt;em&gt;Do Things Right&lt;/em&gt;🌟 (which includes &lt;em&gt;Not Ever Turning GateKeeper Off&lt;/em&gt;), this should never bother you. 😉&lt;/p&gt;
+
+&lt;h2&gt;Fastlane&lt;/h2&gt;
+
+&lt;p&gt;And oh, the fabulous &lt;a href="http://fastlane.tools"&gt;Fastlane&lt;/a&gt; toolchain by &lt;a href="http://twitter.com/krausefx"&gt;Felix Krause&lt;/a&gt; also provides a &lt;code&gt;verify&lt;/code&gt; action that you can use in your Fastfiles, making sure that you verify the Xcode you're going to use for that build is valid. The build will take longer of course, but it's the price to pay for ensured security. So if you're using Fastlane and want to make sure your builds are "safe of malware" add this action to your Fastfile.&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-09-14:/blog/2015/09/14/wanted-new-maintainer-for-viewdeck/</id>
     <title type="html">Wanted: new maintainer for ViewDeck</title>
@@ -1291,74 +1372,6 @@ I initially thought this would also be a bit more robust future wise (you never 
 &lt;p&gt;And finally, I'll admit this: I learned a lot of the math behind this in high school and university, but had to actively relearn it all when researching this code and blogpost. Not using these mathematics (apart from the obvious ones you'd use in daily life I guess), resulted in the knowledge either being gone or stuck somewhere in the outback of my brain. However, it was fun to get reacquainted with this knowledge anyway. And while I found an actual usable code solution before diving into the maths myself, I'd really like to understand what I'm actually doing instead of just relying on a copy-paste solution.&lt;/p&gt;
 
 &lt;p&gt;So yeah: learning for fun &lt;strong&gt;and&lt;/strong&gt; profit. Who knew?&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2015-04-22:/blog/2015/04/22/scripts-in-your-app-bundle/</id>
-    <title type="html">Scripts in your app bundle</title>
-    <published>2015-04-22T13:02:23Z</published>
-    <updated>2015-04-22T13:02:23Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/04/22/scripts-in-your-app-bundle/"/>
-    <content type="html">
-
-&lt;p&gt;It appears Apple changed something in the iOS bundle upload : it now requires that all executables in your app bundle are signed (this might be applicable for Mac uploads too, but I haven't tried). I hear you think: isn't this the case anyway, but there might be more executables in your bundle than you expect.&lt;/p&gt;
-
-&lt;p&gt;Of course, there's the binary for your app, which obviously is executable. But there could be more too: if you include shell scripts, for example, which are marked executable (&lt;code&gt;chmod u+x script.sh&lt;/code&gt;) then iTunes Connect now considers them as actual executables and now requires them to be codesigned.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;This is evidenced by an error like this one:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://i.stack.imgur.com/KzOct.png" width="750"&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;(Taken from a &lt;a href="http://stackoverflow.com/questions/29788601/error-itms-90035-xcode"&gt;Stack Overflow post on the error&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2&gt;Problem solving&lt;/h2&gt;
-
-&lt;p&gt;So there's two options:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;
-&lt;a href="https://developer.apple.com/library/mac/documentation/Security/Conceptual/CodeSigningGuide/Introduction/Introduction.html"&gt;codesign&lt;/a&gt; your included scripts&lt;/li&gt;
-&lt;li&gt;remove your scripts from the bundle&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Option 2 will most likely always be the thing you'll want to do, unless you actually want to run the script in your app (to be honest: I'm not even sure that's even possible on iOS given the security issues).&lt;/p&gt;
-
-&lt;p&gt;Getting rid of the scripts is easy: find the script in Xcode and make sure it's not included in any of your targets. If it's not there, you're probably safe. If you still get errors, it might end up in your bundle through another way than Xcode. This can be an external script including the file in your bundle, for example. Which brings me to the harder part of the problem... Namely, when you're using CocoaPods that include executable scripts as a resource (for god knows what reason). An example of this is the &lt;a href="https://github.com/willowtreeapps/Crittercism-iOS"&gt;Crittercism pod&lt;/a&gt;: they include a &lt;code&gt;dsym_upload.sh&lt;/code&gt; as a resource, probably as an easy way to distribute the file. If you look at the project file, you won't see the file marked as included in any target:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/3f1v3s251p1M2W1M3O3S/Image%202015-04-22%20at%203.32.19%20pm.png"&gt;&lt;/p&gt;
-
-&lt;p&gt;But it &lt;strong&gt;does&lt;/strong&gt; get copied into your bundle by the &lt;code&gt;Copy Pods Resources&lt;/code&gt; build phase, which has no reference at all to the culprit in question (because it generically copies all pod resources into the app bundle):&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/0k3Y131w0q0h3E2A2H04/Image%202015-04-22%20at%203.34.01%20pm.png" width="750"&gt;&lt;/p&gt;
-
-&lt;p&gt;So that's kind of non-obvious.&lt;/p&gt;
-
-&lt;p&gt;The tricky part here is that the inclusion of this file is a bit out of your reach. The author of the Podspec decided to include it for some reason and all you asked for was &lt;code&gt;pod 'CrittercismSDK'&lt;/code&gt;. There is no way of manually excluding the file, not even by unticking a box even if that meant you had to do this after every &lt;code&gt;pod install&lt;/code&gt;. So you're stuck waiting until the authors update their Podspec file, or you could do it yourself (for now).&lt;/p&gt;
-
-&lt;h2&gt;Fixing the podspec, temporarily&lt;/h2&gt;
-
-&lt;p&gt;How? By duplicating the offending podspec locally and fix it. In the case of the Crittercism spec this means omitting the .sh file from resources:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-ruby highlight"&gt;&lt;span class="no"&gt;Pod&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;.&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
-  &lt;span class="nf"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;resources&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'CrittercismSDK-crashonly/Resources/*'&lt;/span&gt;
-
-  &lt;span class="c1"&gt;# add this line below&lt;/span&gt;
-  &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;exclude_files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"**/*.sh"&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;According to the &lt;a href="http://guides.cocoapods.org/syntax/podspec.html#exclude_files"&gt;Podspec syntax reference&lt;/a&gt; &lt;code&gt;exclude_files&lt;/code&gt; defines "A list of file patterns that should be excluded from the other file patterns.". Which is exactly what we need. There might already be a line like this in the podspec, so you might need to append to it instead of adding it, so take a good look first.&lt;/p&gt;
-
-&lt;p&gt;Now that you fixed your local copy of the podspec, use that one in your podfile. Which is as easy as adding a &lt;code&gt;podspec&lt;/code&gt; reference for the pod:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-ruby highlight"&gt;&lt;span class="n"&gt;pod&lt;/span&gt; &lt;span class="s1"&gt;'CrittercismSDK'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:podspec&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'CrittercismSDK.podspec'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Of course, you'll only want to do this if this blocks your release. You'll need to keep monitoring the offending podspec(s) for actual fixes so that you can continue using the version you want. By capturing the podspec and storing it locally, you effectively use the version of a pod at the moment of capture, also in the future.&lt;/p&gt;
-
-&lt;p&gt;But it's a good compromise to make to get that app out of the door, which is what counts at the end of the day. Just ship it. 😎&lt;/p&gt;
 
 </content>
   </entry>
