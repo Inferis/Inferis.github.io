@@ -5,9 +5,9 @@ kind: article
 preview: true
 ---
 
-Recently a malware issue for the iOS app store (which is a rarity in itself) called [XcodeGhost](http://www.macrumors.com/2015/09/20/xcodeghost-chinese-malware-faq/) made its appearances. I'm not going into the [gory](http://researchcenter.paloaltonetworks.com/2015/09/novel-malware-xcodeghost-modifies-xcode-infects-apple-ios-apps-and-hits-app-store/) [details](http://researchcenter.paloaltonetworks.com/2015/09/more-details-on-the-xcodeghost-malware-and-affected-ios-apps/), but it boils down to a malware injection through a patched version of Xcode. When building iOS apps with such an Xcode, the app binary is modified transparently, injecting malwareware into your app at runtime. Nothing is downloaded from the internet, the malware just gets compiled into your app.
+Recently a malware issue for the iOS app store (which is a rarity in itself) called [XcodeGhost](http://www.macrumors.com/2015/09/20/xcodeghost-chinese-malware-faq/) made its appearances. I'm not going into the [gory](http://researchcenter.paloaltonetworks.com/2015/09/novel-malware-xcodeghost-modifies-xcode-infects-apple-ios-apps-and-hits-app-store/) [details](http://researchcenter.paloaltonetworks.com/2015/09/more-details-on-the-xcodeghost-malware-and-affected-ios-apps/), but it boils down to a malware injection through a patched version of Xcode. When building iOS apps with such an Xcode, the app binary is modified transparantly, injecting malware into your app at runtime. Nothing is downloaded from the internet, the malware just gets compiled into your app.
 
-There's not a lot to do about this, except to make sure that you're using a legit Xcode. You can do this by never-ever downloading a version of Xcode from a location other than Apple's, which is either from the Mac App Store, or from [http://developer.apple.com](http://developer.apple.com)) (I know this is easier said than done, saying this from my chair in the middle of super-connected Europe).
+There's not a lot you can do about this, except to make sure that you're using a legit Xcode. You can do this by **never-ever** downloading a version of Xcode from a location other than Apple's, which is either from the Mac App Store, or from [http://developer.apple.com](http://developer.apple.com)) (I know this is easier said than done, saying this from my chair in the middle of super-connected Europe).
 
 <!-- more -->
 
@@ -19,17 +19,16 @@ In the [communication](https://developer.apple.com/news/?id=09222015a) Apple rel
 spctl --assess --verbose /Applications/Xcode.app
 ```
 
-The `spctl` command is a command that manages the security assessment policy subsystem of OSX, which is used to defince the system policy and code signing requirements.
+The `spctl` command is a command that manages the security assessment policy subsystem of OSX, which is used to define the system software policy (what you can install -- think *GateKeeper*) and code signing requirements.
 
 If you get back a response which includes `accepted` (e.g. `/Applications/Xcode.app: accepted source=Mac App Store` or `/Applications/Xcode.app: accepted source=Apple`) you're in the safe zone and Xcode is not compromised. If you get back something else, the chance exists that your Xcode is compromised. It doesn't necessarily means that: if you accidentally edited a header file in the .app bundle, the assessment tool also notices this and will report an error. 
 However, if you see a mention `CoreServices` passing by in the output of `spctl`, you're probably going to have a problem. By the way, the command can take a while so don't worry if it doesn't pony up an answer right away.
-
 
 In any case, if you get an error it cannot hurt do download a fresh copy to be safe. Verify the downloaded app again, to make sure you updated it correctly.
 
 ## Jenkins
 
-Now, you don't want to be doing this manually on a regular basis, especially on a build server. At [iCapps](http://icapps.com), we have more than one Xcode on the server in order to support older projects (or until they are upgraded to newer versions of Xcode). So what we did was create a small shell script which fires off the `spctl` command which takes an Xcode.app path as an argument we have and have that script run each morning to verify all our versions. The script returns with a faulty exit code if the `spctl` output doesn't contain `accepted`, causing that job to fail. The failed job sends of an email to the development team so we get notified pretty quick in case something would go wrong.
+Now, you don't want to be doing this manually on a regular basis, especially on a build server. At [iCapps](http://icapps.com), we have more than one Xcode version on the server in order to support older projects (or until they are upgraded to newer versions of Xcode). So what we did was create a small shell script which fires off the `spctl` command. That script takes a path to any Xcode.app as an argument. So we have that script run each morning to verify all of our Xcode versions. The script terminates with a faulty exit code if the `spctl` output doesn't contain `accepted`, causing that job to fail. The failed job sends of an email to the development team so we get notified pretty quick in case something would go wrong.
 
 {% img center http://c.inferis.org/image/1x2M1L2u2O3J/Untitled-1.png %}
 
@@ -52,7 +51,7 @@ echo "'$1' does not validate."
 exit 1
 ```
 
-Should be pretty obvious. There's one thing to point out: the `spctl` command outputs it's assessment on *stderr* so we need to pipe that output to *stdout* so that the backtick invocation can grab it. You do this by adding `2>&1` to your command invocation (standard error = file number 2, standard output = file number 1). If you don't do this, the script fails even though the command finds no error.
+This should be pretty obvious. There's one thing to point out: the `spctl` command outputs it's assessment on *stderr* so we need to pipe that output to *stdout* for the backtick invocation to be able to grab it. You do this by adding `2>&1` to your command invocation (standard error = file number 2, standard output = file number 1). If you don't do this, the script fails even though the command finds no problem.
 
 We added this script to a git repo, set up a jenkins job with that repo and had it run periodically:
 
@@ -76,7 +75,7 @@ Finally, set up a post build email notification so that you actually get a warni
 
 And that's it. You're a bit safe now in this cruel, cruel world. Not entirely safe: if somebody gains access to your server away and messes with you Xcodes they'll probably find & disable these jobs too. But this is better than nothing at all.
 
-The best part: if you Do Things Right, this should never bother you. 😉
+The best part: if you 🌟*Do Things Right*🌟, this should never bother you. 😉
 
 ## Fastlane
 
