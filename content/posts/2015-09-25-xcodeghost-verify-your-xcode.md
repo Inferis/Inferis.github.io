@@ -5,9 +5,9 @@ kind: article
 preview: true
 ---
 
-Recently a new malware problem for the iOS app store (which is a rarity in itself) called [XcodeGhost](http://www.macrumors.com/2015/09/20/xcodeghost-chinese-malware-faq/) made its appearances. I'm not going into the [gory](http://researchcenter.paloaltonetworks.com/2015/09/novel-malware-xcodeghost-modifies-xcode-infects-apple-ios-apps-and-hits-app-store/) [details](http://researchcenter.paloaltonetworks.com/2015/09/more-details-on-the-xcodeghost-malware-and-affected-ios-apps/), but it boils down to a malware injection through a patched version of Xcode. When building iOS apps with such an Xcode, the app binary is modified transparently, injecting malwareware into your app at runtime. Nothing is downloaded from the internet, the malware just gets compiled into your app.
+Recently a malware issue for the iOS app store (which is a rarity in itself) called [XcodeGhost](http://www.macrumors.com/2015/09/20/xcodeghost-chinese-malware-faq/) made its appearances. I'm not going into the [gory](http://researchcenter.paloaltonetworks.com/2015/09/novel-malware-xcodeghost-modifies-xcode-infects-apple-ios-apps-and-hits-app-store/) [details](http://researchcenter.paloaltonetworks.com/2015/09/more-details-on-the-xcodeghost-malware-and-affected-ios-apps/), but it boils down to a malware injection through a patched version of Xcode. When building iOS apps with such an Xcode, the app binary is modified transparently, injecting malwareware into your app at runtime. Nothing is downloaded from the internet, the malware just gets compiled into your app.
 
-There's not a lot to do about this, except to make sure that you're using a legit Xcode. You can do this by never-ever downloading a version of Xcode from a location other than Apple's, which is either from the Mac App Store, or from [http://developer.apple.com](http://developer.apple.com)) (I know this is easier said than done from my chair in the middle of super-connected Europe).
+There's not a lot to do about this, except to make sure that you're using a legit Xcode. You can do this by never-ever downloading a version of Xcode from a location other than Apple's, which is either from the Mac App Store, or from [http://developer.apple.com](http://developer.apple.com)) (I know this is easier said than done, saying this from my chair in the middle of super-connected Europe).
 
 <!-- more -->
 
@@ -31,7 +31,7 @@ In any case, if you get an error it cannot hurt do download a fresh copy to be s
 
 Now, you don't want to be doing this manually on a regular basis, especially on a build server. At [iCapps](http://icapps.com), we have more than one Xcode on the server in order to support older projects (or until they are upgraded to newer versions of Xcode). So what we did was create a small shell script which fires off the `spctl` command which takes an Xcode.app path as an argument we have and have that script run each morning to verify all our versions. The script returns with a faulty exit code if the `spctl` output doesn't contain `accepted`, causing that job to fail. The failed job sends of an email to the development team so we get notified pretty quick in case something would go wrong.
 
-{% img http://c.inferis.org/image/1b1p3p1P3p0L/Image%202015-09-25%20at%203.55.04%20PM.png center %}
+{% img center http://c.inferis.org/image/1b1p3p1P3p0L/Image%202015-09-25%20at%203.55.04%20PM.png %}
 
 The script itself is pretty simple, like I said:
 
@@ -60,19 +60,19 @@ Why use a repo and not install the script on the server directly? First of all i
 
 And that job, all it does is invoke the script:
 
-{% img http://c.inferis.org/image/0P2k3Z2S3c1Y/Image%202015-09-25%20at%203.58.29%20PM.png center %}
+{% img center http://c.inferis.org/image/0P2k3Z2S3c1Y/Image%202015-09-25%20at%203.58.29%20PM.png %}
 
 The parameter obviously changes for each Xcode install: just change the path to the Xcode.app you want to verify.
 
 Like I said, we have this on a periodic schedule, on our case each morning:
 
-{% img http://c.inferis.org/image/2P3E1K2W030w/Image%202015-09-25%20at%204.00.51%20PM.png center %}
+{% img center http://c.inferis.org/image/2P3E1K2W030w/Image%202015-09-25%20at%204.00.51%20PM.png %}
 
 But you could schedule this however you wanted, of course.
 
 Finally, set up a post build email notification so that you actually get a warning when something goes south:
 
-{% img http://c.inferis.org/image/2b2l1W432O07/Image%202015-09-25%20at%204.02.57%20PM.png center %}
+{% img center http://c.inferis.org/image/2b2l1W432O07/Image%202015-09-25%20at%204.02.57%20PM.png %}
 
 And that's it. You're a bit safe now in this cruel, cruel world. Not entirely safe: if somebody gains access to your server away and messes with you Xcodes they'll probably find & disable these jobs too. But this is better than nothing at all.
 
