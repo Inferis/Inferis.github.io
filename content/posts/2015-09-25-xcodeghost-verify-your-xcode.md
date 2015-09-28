@@ -4,6 +4,8 @@ created_at: 2015-09-25 15:23:09 +0200
 kind: article
 ---
 
+*Update Sept 28th: this article is now also [cross-posted](http://www.icapps.com/xcodeghost/) on the [iCapps](http://www.icapps.com/blog/) blog, as part of their [#iCappsiOSMonth](https://twitter.com/hashtag/iCappsiOSMonth) series in September 2015*
+
 Recently a malware issue for the iOS app store (which is a rarity in itself) called [XcodeGhost](http://www.macrumors.com/2015/09/20/xcodeghost-chinese-malware-faq/) made its appearance. I'm not going to go into the [gory](http://researchcenter.paloaltonetworks.com/2015/09/novel-malware-xcodeghost-modifies-xcode-infects-apple-ios-apps-and-hits-app-store/) [details](http://researchcenter.paloaltonetworks.com/2015/09/more-details-on-the-xcodeghost-malware-and-affected-ios-apps/), but it boils down to a malware injection through a patched version of Xcode. When building iOS apps with such an Xcode, the app binary is modified transparantly, injecting malware into your app at runtime. Nothing is downloaded from the internet, the malware just gets compiled into your app.
 
 There's not a lot you can do about this, except to make sure that you're using a legit Xcode. You can do this by **never-ever** downloading a version of Xcode from a location other than Apple's, which is either from the Mac App Store, or from [http://developer.apple.com](http://developer.apple.com)) (I know this is easier said than done, saying this from my chair in the middle of super-connected Europe).
