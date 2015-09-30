@@ -6,7 +6,6 @@ categories:
 - life
 - apple
 - work
-preview: true
 ---
 
 I've been a developer for while now... 18 years, to be exact. 
@@ -29,7 +28,7 @@ I've been doing that indie/freelancing work for almost 13 years now. I think I'v
 
 {% img fullwidth http://c.inferis.org/image/0P1n1t1G3m1L/work_2.jpg %}
 
-I've worked for a number of very cool companies (who treated me like one of their own). The most interesting that come to mind are iPASoftware, 10to1 and last but not least iCapps. iPASoftware offered me a taste of developing your own frameworks (I built a large part of their internal RAD framework, which was pretty extensive), and the first taste of leading a team. 10to1 offered me the chance to join them as an iOS developer, even though I had no experience at all in that field (I would not be where I am not without them, of that I am sure). The people I met there I still consider to be amongst my best friends. And at iCapps I could better myself as a team lead, first leading the Bolero iOS team, later in a more general role in the company (such a fruitful environment to work in, by the way). 
+I've worked for a number of very cool companies (who treated me like one of their own, and I likewise acted like I was one of their own). The most interesting that come to mind are iPASoftware, 10to1 and last but not least iCapps. iPASoftware offered me a taste of developing your own frameworks (I built a large part of their internal RAD framework, which was pretty extensive), and the first taste of leading a team. 10to1 offered me the chance to join them as an iOS developer, even though I had no experience at all in that field (I would not be where I am now without them, of that I am sure). The people I met there I still consider to be amongst my best friends. And at iCapps I could better myself as a team lead, first leading the Bolero iOS team, later in a more general role in the company (such a fruitful environment to work in, by the way). 
 
 I learned a lot at those companies, and I am very grateful to them for their confidence in my abilities. 
 
