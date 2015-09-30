@@ -19,9 +19,14 @@
 
 .container img.center {
     display: block;
-    margin: 0 auto 1.5em
+    margin: 0 auto 1.5em auto;
 }
 
+.container img.fullwidth {
+    display: block;
+    width: 100%;
+    margin: 0 0 1.5em 0;
+}
 h1 a, h1 a:hover {
   color: white;
 }
