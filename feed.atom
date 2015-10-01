@@ -2,13 +2,61 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-09-25T13:23:09Z</updated>
+  <updated>2015-10-01T07:15:24Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-10-01:/blog/2015/10/01/and-so-it-begins/</id>
+    <title type="html">And so it begins</title>
+    <published>2015-10-01T07:15:24Z</published>
+    <updated>2015-10-01T07:15:24Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/10/01/and-so-it-begins/"/>
+    <content type="html">
+
+&lt;p&gt;I've been a developer for while now... 18 years, to be exact. &lt;/p&gt;
+
+&lt;p&gt;I started in 1997, fresh out of university - without carrying any kid of degree, to be honest. I had learnt a lot there though: I had my first tastes of the internet there, and saw the web in its infancy, growing to a budding communication tool for a wide variety of people. And so I started in October 1997 as a web developer in an Antwerp-based company called iM@Gic. It was a fun place to work at, and we made some great sites there given the technology we had to our disposal (all coded in Perl, baby). &lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;But after a year or 2 I felt that I was stuck in the job, not learning enough, hitting some kind of ceiling. And so I moved companies and joined Evisor in 1999. Evisor was a "new media" company, focusing on e-business solutions, growing like cabbage in the dotcom era. It was an even more fun place to work; I guess it had a bit of a startup mentality even though we mostly did client work. I spent some time in the Microsoft Compentence Center, jumping on the freshly booted dot-net bandwagon, and later switched to the Mobile Competence Center. Doing mobile in 2001 was, eh, not like it was today. We mostly had Palm Pilots to play with, or Nokia 6510's with a super duper WAP browser. Incredibly cool things at the time, but so limited now. &lt;/p&gt;
+
+&lt;p&gt;But alas, those good times also came to an end: Evisor was acquired by PwC Consulting (which subsequently was acquired by IBM, just a year later). The subsequent change in company culture bothered me, and the home-work distance surely didn't help either. I looked for a new job nearby, and by the middle of 2002 I had found a new job at Frontline, back in Antwerp where I lived. My work there consisted of web development and application development. Again, it was a fun place to work at (I never regretted career choices in that regard). Unfortunately, a series of events caused the company to go bankrupt not 6 months after I started working there. So by the end of 2002, I was out of a job.&lt;/p&gt;
+
+&lt;p&gt;It was then that I decided I'd go "indie". The expierence with Frontline's demise bothered me in that I had absolutely no control over what had happened. I wanted that control for myself, to find my own direction. If it went wrong, it would be my own fault.&lt;/p&gt;
+
+&lt;h2&gt;That Indie Life&lt;/h2&gt;
+
+&lt;p&gt;And so I became a freelancing developer, immediately joining a jumpstarted continuation of Frontline called Frontlink (yeah, ¯\_(ツ)_/¯). It was not an easy time. My rates were too low (I discovered too late), and the work was not as challenging as it had been at Frontline. And so after half a year or so, I moved on to other projects. As an indie, I've done several types of work. Small projects, on a pretty casual basis working with or through former collegues. But also larger projects, more formal ones, with important bid phases before actual work. I also worked on "time and material" stints for companies, doing all kinds of work for them and their clients. &lt;/p&gt;
+
+&lt;p&gt;I've been doing that indie/freelancing work for almost 13 years now. I think I've done well. There were times where growth was an option, but I never looked forward to managing people (well, not doing the paperwork and stuff). There were times where I hit rock bottom, a few times even pretty hard. Those times were not easy. There were so many cool interesting projects, but also a lot of miscalculations. &lt;/p&gt;
+
+&lt;p&gt;&lt;img class="fullwidth" src="http://c.inferis.org/image/0P1n1t1G3m1L/work_2.jpg"&gt;&lt;/p&gt;
+
+&lt;p&gt;I've worked for a number of very cool companies (who treated me like one of their own, and I likewise acted like I was one of their own). The most interesting that come to mind are iPASoftware, 10to1 and last but not least iCapps. iPASoftware offered me a taste of developing your own frameworks (I built a large part of their internal RAD framework, which was pretty extensive), and the first taste of leading a team. 10to1 offered me the chance to join them as an iOS developer, even though I had no experience at all in that field (I would not be where I am now without them, of that I am sure). The people I met there I still consider to be amongst my best friends. And at iCapps I could better myself as a team lead, first leading the Bolero iOS team, later in a more general role in the company (such a fruitful environment to work in, by the way). &lt;/p&gt;
+
+&lt;p&gt;I learned a lot at those companies, and I am very grateful to them for their confidence in my abilities. &lt;/p&gt;
+
+&lt;h2&gt;Apple&lt;/h2&gt;
+
+&lt;p&gt;Today, October 1st, I start my new job as a UIKit Frameworks Engineer. It certainly feels like starting a new chapter. So many things to close off since I'm terminating my freelancing life. Additionally, this job at Apple is like something I have never done before, it is novel on so many levels. &lt;/p&gt;
+
+&lt;p&gt;&lt;img class="fullwidth" src="http://c.inferis.org/image/3m0G1u0g1M0T/20141103_095233__IMG_0316.jpg"&gt;&lt;/p&gt;
+
+&lt;p&gt;Certain things haven't exactly turned out as planned, so when I'm stepping on the plane to SFO this Saturday my relocation will be temporary. After about a month of bootcamp in the US with the UIKit team, I'm coming back home to continue my work from Belgium. I'd like to stress that this is a temporary situation: I will only work here for about a year after which I will still move to the US to join the team in Cupertino (on a somewhat less stressful visa process). However, I am very grateful to Apple that I still get the possibility to actually do this job: I am well aware of the extra effort this requires.&lt;/p&gt;
+
+&lt;p&gt;Monday, October 5th is my &lt;em&gt;real&lt;/em&gt; start date in Cupertino (coincidentally on the date Steve Jobs died, which is going to be an, eh, interesting experience I think). I look incredibly forward to it (jetlagged as I will be).&lt;/p&gt;
+
+&lt;h2&gt;Finally&lt;/h2&gt;
+
+&lt;p&gt;And in closing, a small fun fact: &lt;strong&gt;all&lt;/strong&gt; jobs/projects I have had since 2008 were via an (indirect) Twitter link. Somebody I knew on Twitter had a job for me, or knew somebody who had. Or people who knew me via Twitter passed on my credentials to companies looking for a job. And even this new job started out with a reply to a tweet, albeit via email. So yeah: you can say a lot about Twitter (as a tool), but it surely facilitated a lot of my career. &lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-09-25:/blog/2015/09/25/xcodeghost-verify-your-xcode/</id>
     <title type="html">XcodeGhost: verify your Xcode</title>
@@ -1089,291 +1137,6 @@ A detailed crash log has been written to ./crash.log.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;So &lt;a href="http://nanoc.ws"&gt;check it out&lt;/a&gt; if you're looking for something new. It's &lt;a href="https://github.com/nanoc"&gt;open source&lt;/a&gt;, so there's no excuse not to dive in or to contribute. 😊&lt;/p&gt;
 
 &lt;p&gt;Speaking of contribute: the complete source of this blog is open source (thanks again to &lt;a href="http://ashfurrow.com"&gt;Ash Furrow&lt;/a&gt; for the inspiration). You can see all the code I wrote or changed at &lt;a href=""&gt;http://github.com/inferis/inferis.github.io&lt;/a&gt; (the &lt;code&gt;nanoc&lt;/code&gt; branch contains the source code, the &lt;code&gt;master&lt;/code&gt; branch is the generated site). The cool thing about this is that people send pull requests to fix typos: it hasn't happened often, but when it happens, I love it. 😘&lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2015-04-27:/blog/2015/04/27/ios8-and-interfaceorientation/</id>
-    <title type="html">Using interfaceOrientation with iOS8 transitions</title>
-    <published>2015-04-26T23:43:30Z</published>
-    <updated>2015-04-26T23:43:30Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/04/27/ios8-and-interfaceorientation/"/>
-    <content type="html">
-
-&lt;p&gt;Working on an app last week, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in &lt;code&gt;UIViewController&lt;/code&gt; are deprecated:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;willRotateToInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;toInterfaceOrientation&lt;/span&gt; &lt;span class="nf"&gt;duration&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;NSTimeInterval&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;duration&lt;/span&gt; &lt;span class="n"&gt;NS_DEPRECATED_IOS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;didRotateFromInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;fromInterfaceOrientation&lt;/span&gt; &lt;span class="n"&gt;NS_DEPRECATED_IOS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-
-&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;willAnimateRotationToInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;toInterfaceOrientation&lt;/span&gt; &lt;span class="nf"&gt;duration&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;NSTimeInterval&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;duration&lt;/span&gt; &lt;span class="n"&gt;NS_DEPRECATED_IOS&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;_0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As you can see, they want you to use &lt;code&gt;viewWillTransitionToSize:withTransitionCoordinator:&lt;/code&gt; instead.
-So, no problem, we'll just implement that method.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;em&gt;I'd like to stress this a little more: the reason they've changed these behaviors is for a reason. Your app mostly likely is way better off using adaptive layout using size classes, Auto Layout and manual corrections using the new transition callbacks.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Now, the only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;Because: what if you do want the old behavior? Not everybody has the luxury of going iOS8 only; sure, you can still use the old callbacks - for now. They won't get called once you implement &lt;code&gt;viewWillTransitionToSize:withTransitionCoordinator:&lt;/code&gt;, but you might want fallback behavior in addition to the new behavior.&lt;/p&gt;
-
-&lt;p&gt;And anyhow, I thought it would be a good exercise to see how we could use this new callback to derive our new interface orientation. Adaptive UI and all, but sometimes is just darn handy to know how your device is held.&lt;/p&gt;
-
-&lt;p&gt;Turns out, it's not very hard, but it's not a trivial amount of code.&lt;/p&gt;
-
-&lt;p&gt;I looked up session 214 of WWDC 2014: &lt;em&gt;View Controller Advancements in iOS8&lt;/em&gt; by Bruce Nilo (📹 &lt;a href="http://devstreaming.apple.com/videos/wwdc/2014/214xxq2mdbtmp23/214/214_hd_view_controller_advancements_in_ios_8.mov"&gt;video&lt;/a&gt; &amp;amp; 📈 &lt;a href="http://devstreaming.apple.com/videos/wwdc/2014/214xxq2mdbtmp23/214/214_view_controller_advancements_in_ios_8.pdf"&gt;slides&lt;/a&gt;). It's a very interesting talk since he goes into all of the changes they've made, including the changes in rotation behavior.&lt;/p&gt;
-
-&lt;p&gt;A particular slide peaked my interest:&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://s3.amazonaws.com/f.cl.ly/items/0r1R2E132l3n2P1O472S/rotation.jpg" width="750"&gt;&lt;/p&gt;
-
-&lt;p&gt;Notice the &lt;code&gt;[self orientationFromTransform:[t targetTransform]]&lt;/code&gt;. He doesn't go into it (obviously), but I knew what to do.&lt;/p&gt;
-
-&lt;p&gt;With some experimentation, it looks like the transform you get via &lt;code&gt;targetTransform&lt;/code&gt; is the rotation transform resulting from rotating your device. So if you turn from portrait to landscape it will be a 90º (or &lt;code&gt;π/2&lt;/code&gt; or even &lt;code&gt;M_PI_2&lt;/code&gt;) rotation, and if you go from landscape left to landscape right it will a 180º rotation. Depending on the direction of the rotation, the angle will be either positive or negative.&lt;/p&gt;
-
-&lt;p&gt;So we can use this &lt;code&gt;targetTransform&lt;/code&gt; to go from the current interface orientation to the target interfaceorientation: we just need to "add" the rotation to the interface orientation value.&lt;/p&gt;
-
-&lt;h2&gt;Some work, some math&lt;/h2&gt;
-
-&lt;p&gt;The approach we'll be taking will be somewhat generic. Generic because we'll calculate the number of 90º "segments" we'll have to go through, and switch to the "next" interfaceorientation for each segment. In the end, we'll have the correct orientation.&lt;/p&gt;
-
-&lt;p&gt;This sounds easier than it proved to be. The first problem is calculating how many segments we need from the transform. We can calculate this from the &lt;a href="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CGAffineTransform/index.html#//apple_ref/c/tdef/CGAffineTransform"&gt;affine transform&lt;/a&gt;, which is - and you may or may not know this - a struct representing a matrix. In code, this looks like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;CGAffineTransform&lt;/span&gt; &lt;span class="n"&gt;CGAffineTransform&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="k"&gt;struct&lt;/span&gt; &lt;span class="n"&gt;CGAffineTransform&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="n"&gt;CGFloat&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-  &lt;span class="n"&gt;CGFloat&lt;/span&gt; &lt;span class="n"&gt;tx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ty&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is a representation of this matrix:&lt;/p&gt;
-
-&lt;p&gt;$$\begin{bmatrix}
-  a &amp;amp; b &amp;amp; 0 \\
-  c &amp;amp; d &amp;amp; 0 \\
-  tx &amp;amp; ty &amp;amp; 1
- \end{bmatrix}$$&lt;/p&gt;
-
-&lt;p&gt;This transformation matrix is used to transform the coordinates of the source point &lt;code&gt;(x,y)&lt;/code&gt; to a target point &lt;code&gt;(x',y')&lt;/code&gt;:&lt;/p&gt;
-
-&lt;p&gt;$$\begin{bmatrix}
-  x' &amp;amp; y' &amp;amp; 1
- \end{bmatrix} = \begin{bmatrix}
-   x &amp;amp; y &amp;amp; 1
-  \end{bmatrix} \times \begin{bmatrix}
-   a &amp;amp; b &amp;amp; 0 \\
-   c &amp;amp; d &amp;amp; 0 \\
-   tx &amp;amp; ty &amp;amp; 1
-  \end{bmatrix}$$&lt;/p&gt;
-
-&lt;p&gt;For those not well versed in matrix algebra: you traverse each item of the source 1x3 matrix and multiply it with the corresponding row, and then adding these results together. You do this for each column so that you end up with a new 1x3 matrix.&lt;/p&gt;
-
-&lt;p&gt;Which results in the following equations:&lt;/p&gt;
-
-&lt;p&gt;$$x' = ax + cy + tx$$
-$$y' = bx + dy + ty$$
-$$1 = 0x + 0y + 1$$&lt;/p&gt;
-
-&lt;p&gt;That last one is useless, so we can ignore it.&lt;/p&gt;
-
-&lt;p&gt;CGAffineTransform is merely a struct representing the useful values of this matrix, and the transforms you use in your code are just representations of this matrix which is used &lt;a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_affine/dq_affine.html"&gt;by Quartz&lt;/a&gt; to perform the calculations using the equations above. In effect: the matrix &lt;em&gt;links&lt;/em&gt; two coordinate systems — it specifies how points in one coordinate system map to points in another.&lt;/p&gt;
-
-&lt;p&gt;So back to our rotation: how does the &lt;a href="http://en.wikipedia.org/wiki/Rotation_matrix"&gt;matrix for a rotation&lt;/a&gt; look like? Like this (where &lt;code&gt;α&lt;/code&gt; is the angle of the rotation) (for Quartz):&lt;/p&gt;
-
-&lt;p&gt;$$\begin{bmatrix}
- cos \alpha &amp;amp; sin \alpha &amp;amp; 0 \\
- -sin \alpha &amp;amp; cos \alpha &amp;amp; 0 \\
- 0 &amp;amp; 0 &amp;amp; 1
-\end{bmatrix}$$&lt;/p&gt;
-
-&lt;p&gt;So when we want the angle from this matrix, we'd need to reverse the the matrix calculations. This is as simple as taking any of the a/b/c/d matrix elements and reverse it:&lt;/p&gt;
-
-&lt;p&gt;$$\alpha = acos(a) = acos(d)$$
-$$\alpha = asin(b) = -asin(c)$$&lt;/p&gt;
-
-&lt;p&gt;Now using &lt;code&gt;acos&lt;/code&gt; or &lt;code&gt;asin&lt;/code&gt; to get the angle has a tiny problem: each input can result in 2 solutions (this is due to how sine and cosine functions work, of course). The &lt;code&gt;atan2&lt;/code&gt; function doesn't have this problem since it uses two inputs to calculate the result. It's also better in our case since an affine transform can also contain a scale transform, which has no impact on the result if we use &lt;code&gt;atan2&lt;/code&gt;. So here we go:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;atan2f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;//&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;atan2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;em&gt;Watch out, the atan2 function takes the &lt;code&gt;y&lt;/code&gt; parameter first -&amp;gt; RTFM!&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;If you want to know more about the maths behind this, check out &lt;a href="http://en.wikipedia.org/wiki/Euler_angles"&gt;Euler angles&lt;/a&gt; and &lt;a href="http://staff.city.ac.uk/%7Esbbh653/publications/euler.pdf"&gt;this paper&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Back to our calculations: we actually don't want the angle, but the number of 90º segments of our rotation:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="n"&gt;CGFloat&lt;/span&gt; &lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;atan2f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="n"&gt;NSInteger&lt;/span&gt; &lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;roundf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;M_PI_2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We explicitly round the division by &lt;code&gt;π/2&lt;/code&gt;; relying on the implicit &lt;em&gt;CGFloat&lt;/em&gt; to &lt;em&gt;NSInteger&lt;/em&gt; conversion isn't good enough since it just takes the integral part of the float (in effect &lt;code&gt;floorf(...)&lt;/code&gt;) which is &lt;em&gt;not&lt;/em&gt; what you want.&lt;/p&gt;
-
-&lt;p&gt;Note that the angle of rotation will be the inverse of how you rotate the device: if you rotate the device clockwise, the angle of the transform will be negative (and thus counter-clockwise): the transform "counters" the rotation to get back to where we were before the rotation (albeit with other dimensions).&lt;/p&gt;
-
-&lt;h2&gt;interfaceOrientation: from ➢ to&lt;/h2&gt;
-
-&lt;p&gt;Now that we know the angle and multiplier, it's time to transform our interface orientation according to this angle. This isn't hard, but it is cumbersome due to how the &lt;code&gt;UIInterfaceOrientation&lt;/code&gt; enum is defined:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="c1"&gt;// Note that UIInterfaceOrientationLandscapeLeft is equal to
-// UIDeviceOrientationLandscapeRight (and vice versa). This is because rotating
-// the device to the left requires rotating the content to the right.
-&lt;/span&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="nf"&gt;NS_ENUM&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;UIInterfaceOrientationUnknown&lt;/span&gt;            &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationUnknown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;           &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;      &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;     &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientationLandscapeLeft&lt;/span&gt;
-&lt;span class="p"&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As you can see, it's just a mapping of the corresponding &lt;code&gt;UIDeviceOrientation&lt;/code&gt; values, which are defined like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="nf"&gt;NS_ENUM&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;UIDeviceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;UIDeviceOrientationUnknown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;UIDeviceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="c1"&gt;// Device oriented vertically, home btn -&amp;gt; bottom
-&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="c1"&gt;// Device oriented vertically, home btn -&amp;gt; top
-&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;   &lt;span class="c1"&gt;// Device oriented horizontally, home btn -&amp;gt; right
-&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="c1"&gt;// Device oriented horizontally, home btn -&amp;gt; left
-&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationFaceUp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;          &lt;span class="c1"&gt;// Device oriented flat, face up
-&lt;/span&gt;    &lt;span class="n"&gt;UIDeviceOrientationFaceDown&lt;/span&gt;         &lt;span class="c1"&gt;// Device oriented flat, face down
-&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;em&gt;As an aside: You'll notice that there's no equivalent interface orientation for the &lt;code&gt;UIDeviceOrientationFaceUp&lt;/code&gt; and &lt;code&gt;UIDeviceOrientationFaceDown&lt;/code&gt;, because they make no sense for the interface orientation: it remains the same whether you have the device face up or face down.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;I show this because my first idea was to &lt;em&gt;cycle&lt;/em&gt; through the orientation values by adding or substracting 1 from each value, wrapping around at the minimum and maximum values of the enum. But looking at these definitions: this is not possible. First of all, the interface orientation values are based on the device orientation values, which have 2 more values we don't care about. And secondly, even if we could use the natural order of the device orientation values, they are shuffled around in the &lt;code&gt;UIInterfaceOrientationLandscapeLeft&lt;/code&gt; and &lt;code&gt;UIInterfaceOrientationLandscapeRight&lt;/code&gt; switcharoo in the definition of &lt;code&gt;UIInterfaceOrientation&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The net result is that we need to resort to an ugly switch statement:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// clockwise rotation
-&lt;/span&gt;    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="c1"&gt;// counter-clockwise rotation
-&lt;/span&gt;    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="k"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When I said ugly, I meant ugly. 😭 But there's no real other way to do this, I guess: if there is, please let me know.
-I initially thought this would also be a bit more robust future wise (you never know when Apple adds another interface orientation), but this code is just as brittle as the &lt;em&gt;addition based&lt;/em&gt; code I intentionally wanted to use.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; &lt;a href="https://twitter.com/cooliopenguin"&gt;Joerg Schwieder&lt;/a&gt; gives a more consise and thus probably better approach:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;relativeInterfaceOrientationFromRotationAngle&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;CGFloat&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;angle&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;NSArray&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;conversionMatrix&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-                                    &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-                                    &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-                                    &lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientationMaskLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;)];&lt;/span&gt;
-
-    &lt;span class="n"&gt;NSInteger&lt;/span&gt; &lt;span class="n"&gt;oldIndex&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;conversionMatrix&lt;/span&gt; &lt;span class="nf"&gt;indexOfObject&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;interfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)];&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;oldIndex&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;NSNotFound&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationUnknown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="n"&gt;NSInteger&lt;/span&gt; &lt;span class="n"&gt;newIndex&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;oldIndex&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;roundf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;M_PI_2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;newIndex&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="n"&gt;newIndex&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;conversionMatrix&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nf"&gt;newIndex&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="nf"&gt;intValue&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This uses the round robin approach that I intentionally wanted to use, but of course within a self-constrained array. Pretty smart, and I've should have probably thought of this myself. 😰😉&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;(This code is also available as &lt;a href="https://gist.github.com/coolio107/f843789e5225c1f6fc9b"&gt;a gist&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2&gt;Finally&lt;/h2&gt;
-
-&lt;p&gt;The final resulting function:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class="language-objc highlight"&gt;&lt;span class="k"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nf"&gt;orientationByTransforming&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;CGAffineTransform&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;transform&lt;/span&gt; &lt;span class="nf"&gt;fromOrientation&lt;/span&gt;&lt;span class="p"&gt;:(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="nv"&gt;c&lt;/span&gt;
-&lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="n"&gt;CGFloat&lt;/span&gt; &lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;atan2f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;transform&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;NSInteger&lt;/span&gt; &lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NSInteger&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;roundf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;M_PI_2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt; &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;interfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="c1"&gt;// clockwise rotation
-&lt;/span&gt;        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="nl"&gt;default:&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="p"&gt;}&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="c1"&gt;// counter-clockwise rotation
-&lt;/span&gt;        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;multiplier&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-            &lt;span class="k"&gt;switch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeRight&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortraitUpsideDown&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationLandscapeLeft&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-                    &lt;span class="n"&gt;orientation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;UIInterfaceOrientationPortrait&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-                &lt;span class="nl"&gt;default:&lt;/span&gt;
-                    &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-            &lt;span class="p"&gt;}&lt;/span&gt;
-        &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt;
-
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UIInterfaceOrientation&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;orientation&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It's also available as &lt;a href="https://gist.github.com/Inferis/26ded6e1e8e625b3cd67"&gt;a gist&lt;/a&gt;, by the way. And I'll leave the Swift version as an exercise to the reader. 😉&lt;/p&gt;
-
-&lt;h2&gt;Postscriptum&lt;/h2&gt;
-
-&lt;p&gt;I later refactored the code not to rely on the interface orientation, which is probably better anyway; but having done the exercise I did want to share it with the world. I googled it, but not find an 'out-of-the-box' solution right away, which either shows that it's a hard problem to tackle or that it's not really a problem needed to be tackled. But here I am, having tackled it, so sharing it for anyone else to use wouldn't hurt anyone, right?&lt;/p&gt;
-
-&lt;p&gt;And finally, I'll admit this: I learned a lot of the math behind this in high school and university, but had to actively relearn it all when researching this code and blogpost. Not using these mathematics (apart from the obvious ones you'd use in daily life I guess), resulted in the knowledge either being gone or stuck somewhere in the outback of my brain. However, it was fun to get reacquainted with this knowledge anyway. And while I found an actual usable code solution before diving into the maths myself, I'd really like to understand what I'm actually doing instead of just relying on a copy-paste solution.&lt;/p&gt;
-
-&lt;p&gt;So yeah: learning for fun &lt;strong&gt;and&lt;/strong&gt; profit. Who knew?&lt;/p&gt;
 
 </content>
   </entry>
