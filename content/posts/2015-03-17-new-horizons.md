@@ -5,7 +5,8 @@ created_at: 2015-03-17
 categories:
 - development
 - life
-- ios
+- work
+- apple
 kind: article
 proofreaders: bmf@, qnoid@, ashfurrow@
 ---
