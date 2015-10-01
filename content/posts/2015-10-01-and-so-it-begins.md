@@ -10,7 +10,7 @@ categories:
 
 I've been a developer for while now... 18 years, to be exact. 
 
-I started in 1997, fresh out of university - without carrying any kid of degree, to be honest. I had learnt a lot there though: I had my first tastes of the internet there, and had seen the web in its infancy, growing to a budding communication tool for a wide variety of people. And so I started in October 1997 as a web developer in an Antwerp-based company called iM@Gic. It was a fun place to work at, and we made some great things there given the technology we had to our disposal (all coded in Perl, baby). 
+I started in 1997, fresh out of university - without carrying any kid of degree, to be honest. I had learnt a lot there though: I had my first tastes of the internet there, and saw the web in its infancy, growing to a budding communication tool for a wide variety of people. And so I started in October 1997 as a web developer in an Antwerp-based company called iM@Gic. It was a fun place to work at, and we made some great sites there given the technology we had to our disposal (all coded in Perl, baby). 
 
 <!-- more -->
 
@@ -44,4 +44,4 @@ Monday, October 5th is my *real* start date in Cupertino (coincidentally on the 
 
 ## Finally
 
-And in closing, a small fun fact: **all** jobs/projects I have had since 2008 were via an (indirect) Twitter link. Somebody I knew on Twitter had a job for me, or knew somebody who had. Or people who knew me via Twitter passed on my credentials to companies looking for a job. And even this new job started out with a reply to a tweet, albeit via email. So yeah: you can say a lot about Twitter, but it surely facilitated a lot of my work. 
+And in closing, a small fun fact: **all** jobs/projects I have had since 2008 were via an (indirect) Twitter link. Somebody I knew on Twitter had a job for me, or knew somebody who had. Or people who knew me via Twitter passed on my credentials to companies looking for a job. And even this new job started out with a reply to a tweet, albeit via email. So yeah: you can say a lot about Twitter (as a tool), but it surely facilitated a lot of my career. 
