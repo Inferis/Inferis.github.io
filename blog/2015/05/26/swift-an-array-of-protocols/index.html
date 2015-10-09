@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="nanoc 3.8.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <title>Inferical Writings - Swift: an array of protocols</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
+    <link href="/css/inferis.css" rel="stylesheet">
+    <link href="/css/solarized-light.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Inferical Writings</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a href="http://inferis.org">About</a>
+              </li>
+              <li>
+                  <a href="/blog/archives/">Archives</a>
+              </li>
+              <li>
+                  <a href="/blog/categories/">Categories</a>
+              </li>
+              <li>
+                  <a href="/feed.atom"><i class="fa fa-rss-square" style="font-size: 200%; position: relative; top: -2px;"></i></a>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<header class="intro-header" style="background-color: #eee;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>
+                      
+                        Swift: an array of protocols
+                      
+                    </h1>
+                    
+
+                    
+                      <span class="meta">
+                        
+                        May 26th, 2015 ·
+                        
+
+                        <a href="/blog/2015/05/26/swift-an-array-of-protocols/">∞</a>
+
+                        
+                        · <a href="/blog/category/swift/">swift</a>, <a href="/blog/category/opensource/">opensource</a>, <a href="/blog/category/development/">development</a>
+                        
+                      </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script type="text/javascript">
+
+(function() {
+    var d = new Date();
+    var s = d.getSeconds() + "";
+    var m = d.getMinutes() + "";
+    var h = d.getHours() + "";
+
+    if (s.length < 2) s = "0" + s;
+    if (m.length < 2) m = "0" + m;
+    if (h.length < 2) h = "0" + h;
+
+    $(".intro-header").css("background-color", '#' + h + m + s);
+})();
+
+</script>
+
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  
+
+<p>I was working on a side project yesterday, a side project which I decided to develop using Swift. My day job mostly consists of Objective-C (which I still love) but all the hip kids are doing Swift and it doesn't hurt to keep along with the latest trend, right? And learning is fun.</p>
+
+<p>So I was coding away, and I had this component which needed to notify several other components of certain events that happened. In practice this meant that I needed a sort of <em>multicast delegate</em>. Now, I could have solved this the old Cocoa way by using notifications, but I try to stay away from them unless it really makes sense. The contract they offer is pretty loose (which can be handy too), but I wanted to try something more set-in-stone right now.</p>
+
+<!-- more -->
+
+<h2>The setup</h2>
+
+<p>So I created this class and protocol.</p>
+
+<pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">ThingyNotifier</span>  <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">didDoOneThingy</span><span class="p">(</span><span class="nv">thingyName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">didDoOtherThingy</span><span class="p">(</span><span class="nv">thingyId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">ThingyManager</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">doOneThingy</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="n">thingyName</span> <span class="k">in</span> <span class="p">[</span><span class="s">"one-thing"</span><span class="p">,</span> <span class="s">"other-thing"</span><span class="p">]</span> <span class="p">{</span>
+          <span class="n">notifyAll</span> <span class="p">{</span> <span class="n">notifier</span> <span class="k">in</span>
+            <span class="n">notifier</span><span class="o">.</span><span class="nf">didDoOneThingy</span><span class="p">(</span><span class="n">thingyName</span><span class="p">)</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">doOtherThingy</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="n">thingyId</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="p">{</span>
+        <span class="n">notifyAll</span> <span class="p">{</span> <span class="n">notifier</span> <span class="k">in</span>
+          <span class="n">notifier</span><span class="o">.</span><span class="nf">didDoOtherThingy</span><span class="p">(</span><span class="n">thingyId</span><span class="p">)</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">addNotifier</span><span class="p">(</span><span class="nv">notifier</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// to be implemented</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">removeNotifier</span><span class="p">(</span><span class="nv">notifier</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// to be implemented</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">notifyAll</span><span class="p">(</span><span class="nv">notify</span><span class="p">:</span> <span class="kt">ThingyNotifier</span> <span class="o">-&gt;</span> <span class="p">())</span> <span class="p">{</span>
+        <span class="c1">// to be implemented</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p><em>(Note: The actual code was obviously different but similar.)</em></p>
+
+<p>This is pretty simple: I have a <code>ThingyManager</code> which manages thingies (not very good in this case, but I disgress), and whenever something changes I'd like to notify one or more instances of said changes. This is where <code>ThingyNotifier</code> comes in; and as you can see, there's more than one thing to be notified of. This is like the delegate pattern, but as a <code>1-&gt;n</code> connection instead of a <code>1-&gt;1</code> connection.</p>
+
+<p>You'll also notice that there are 3 methods still left to be implemented: <code>addNotifier</code>, <code>removeNotifier</code> and <code>notifyAll</code>. We'll cover these later.</p>
+
+<p>Additionally, I'd like to sprinkle some operator magic on top so that using these notifiers becomes more intuitive:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">func</span> <span class="o">+=</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt">ThingyManager</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ThingyManager</span> <span class="p">{</span>
+    <span class="k">left</span><span class="o">.</span><span class="nf">addNotifier</span><span class="p">(</span><span class="k">right</span><span class="p">)</span>
+    <span class="k">return</span> <span class="k">left</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="o">-=</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt">ThingyManager</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ThingyManager</span> <span class="p">{</span>
+    <span class="k">left</span><span class="o">.</span><span class="nf">removeNotifier</span><span class="p">(</span><span class="k">right</span><span class="p">)</span>
+    <span class="k">return</span> <span class="k">left</span>
+<span class="p">}</span></code></pre>
+
+<p>This just wraps our <code>addNotifier</code> and <code>removeNotifier</code> in <code>+=</code> and <code>-=</code> calls, and so I can use this class like this:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">class</span> <span class="kt">ThatController</span> <span class="p">:</span> <span class="kt">ThingyNotifier</span> <span class="p">{</span>
+  <span class="k">let</span> <span class="nv">thingyManager</span><span class="p">:</span> <span class="n">thingyManager</span>
+
+  <span class="nf">init</span><span class="p">(</span><span class="nv">thingyManager</span><span class="p">:</span> <span class="kt">ThingyManager</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">thingyManager</span> <span class="o">=</span> <span class="n">thingyManager</span>
+    <span class="n">thingyManager</span> <span class="o">+=</span> <span class="k">self</span>
+  <span class="p">}</span>
+
+  <span class="nf">deinit</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">thingyManager</span> <span class="o">-=</span> <span class="k">self</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>Which is nice (IMHO) and invokes some fond memories of using multicast delegates in my C# days.</p>
+
+<h2>// to be implemented</h2>
+
+<p>But now those three methods remain. Let's implement them.</p>
+
+<p>First of all, we need a place to store our <code>ThingyNotifier</code> instances:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">private</span> <span class="k">var</span> <span class="nv">notifiers</span><span class="p">:</span> <span class="p">[</span><span class="kt">ThingyNotifier</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></code></pre>
+
+<p>We'll just use an array of <code>ThingyNotifier</code>. Easy.</p>
+
+<p>Now onto <code>notifyAll</code>, which is just an iteration over said array to invoke the block on each notifier:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">private</span> <span class="kd">func</span> <span class="nf">notifyAll</span><span class="p">(</span><span class="nv">notify</span><span class="p">:</span> <span class="kt">ThingyNotifier</span> <span class="o">-&gt;</span> <span class="p">())</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">notifier</span> <span class="k">in</span> <span class="n">notifiers</span> <span class="p">{</span>
+        <span class="nf">notify</span><span class="p">(</span><span class="n">notifier</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>Again, easy.</p>
+
+<p>Next up: <code>addNotifier</code>. This is even easier, just add the notifier to our array:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">func</span> <span class="nf">addNotifier</span><span class="p">(</span><span class="nv">notifier</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">notifiers</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">notifier</span><span class="p">)</span>
+<span class="p">}</span></code></pre>
+
+<p>And finally <code>removeNotifier</code>. Here's where things get tricky (you felt this coming, right?).
+A naive implementation could be:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">func</span> <span class="nf">removeNotifier</span><span class="p">(</span><span class="nv">notifier</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">index</span> <span class="o">=</span> <span class="nf">find</span><span class="p">(</span><span class="n">notifiers</span><span class="p">,</span> <span class="n">notifier</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">notifiers</span><span class="o">.</span><span class="nf">removeAtIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>But alas, the compiler disagrees:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/1b3f0W103t37/Image%202015-05-27%20at%207.48.13%20am.png" width="750"></p>
+
+<p>Now the error is a bit sparse on information, but looking at the (current) definition of <code>find</code> gives us more information:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">func</span> <span class="n">find</span><span class="o">&lt;</span><span class="kt">C</span> <span class="p">:</span> <span class="kt">CollectionType</span> <span class="k">where</span> <span class="kt">C</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="p">:</span> <span class="kt">Equatable</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">domain</span><span class="p">:</span> <span class="kt">C</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">C</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">C</span><span class="o">.</span><span class="kt">Index</span><span class="p">?</span></code></pre>
+
+<p>It turns out that the element of the collection type we're trying to find something in must conform to <code>Equatable</code>. That makes sense since how else would <code>find</code> know if it has found the element it is looking for? There must be some kind of test for equality.</p>
+
+<p>So, the solution is easy, right? Just make <code>ThingyNotifier</code> conform to <code>Equatable</code>:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">ThingyNotifier</span> <span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">didDoOneThingy</span><span class="p">(</span><span class="nv">thingyName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">didDoOtherThingy</span><span class="p">(</span><span class="nv">thingyId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
+<span class="p">}</span></code></pre>
+
+<p>Nope. This introduces a slew of new errors (of the same type):</p>
+
+<p><img class="center" src="http://c.inferis.org/image/1Z0b2L3M0v08/Image%202015-05-27%20at%207.58.20%20am.png" width="750"></p>
+
+<p>Looking at the definition of <code>Equatable</code>:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="k">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">}</span></code></pre>
+
+<p>Notice the <code>Self</code> type. This denotes that the method will use the actual type that's implementing the protocol. In this case, it makes sure we're comparing two objects of the same type with each other. This actually makes sense from a semantic standpoint: it's a pretty good assumption that objects need to be of the same type to be considered equal.</p>
+
+<p>But this doesn't help us: we can't use <code>Equatable</code>, and thus we can't use <code>find</code>. We'll have to find another way.</p>
+
+<h2>Our own ==</h2>
+
+<p>So let's declare the <code>==</code> operator/func to be part of the <code>ThingyNotifier</code> protocol itself:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">ThingyNotifier</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">didDoOneThingy</span><span class="p">(</span><span class="nv">thingyName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">didDoOtherThingy</span><span class="p">(</span><span class="nv">thingyId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
+
+    <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">}</span></code></pre>
+
+<p>And then we'll change our searching a bit to do a manual loop over the array instead of using <code>find</code>.</p>
+
+<pre><code class="language-swift highlight"><span class="kd">func</span> <span class="nf">removeNotifier</span><span class="p">(</span><span class="nv">notifier</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">var</span> <span class="nv">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">notifiers</span><span class="o">.</span><span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">notifiers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">notifier</span> <span class="p">{</span>
+            <span class="n">notifiers</span><span class="o">.</span><span class="nf">removeAtIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>Well, that doesn't work either: we get back to the same problem as before, kind of:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/3K0a2i2y0k1k/Image%202015-05-27%20at%208.35.57%20am.png" width="750"></p>
+
+<p>And while you can make that error go away by providing an implementation of that <code>==</code> operator, like this...</p>
+
+<pre><code class="language-swift highlight"><span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span> <span class="c1">// UWOTM8</span>
+<span class="p">}</span></code></pre>
+
+<p>... it's kind of useless since you still need to do comparing of ThingyNotifier instances and always returning <code>true</code> or <code>false</code> isn't going to do that. Since we have nothing else to work with, we're stuck.</p>
+
+<h3>A solution</h3>
+
+<p>Since we can't do this in pure-pure Swift, let's include <em>Foundation</em> into the party. How about we declare <code>ThingyNotifier</code> to have to conform to <code>NSObjectProtocol</code>? In my use case, this wasn't a problem since the notifier instances would be <code>UIViewController</code> instances anyway, but I guess this puts a bit of a limitation on what target objects you can use in the more general case.</p>
+
+<pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">ThingyNotifier</span> <span class="p">:</span> <span class="kt">NSObjectProtocol</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">didDoOneThingy</span><span class="p">(</span><span class="nv">thingyName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">didDoOtherThingy</span><span class="p">(</span><span class="nv">thingyId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
+<span class="p">}</span></code></pre>
+
+<p>But it does introduce <code>isEqual()</code> into the equation. So now our <code>removeNotifier</code> implementation will become:</p>
+
+<pre><code class="language-swift highlight"><span class="kd">func</span> <span class="nf">removeNotifier</span><span class="p">(</span><span class="nv">notifier</span><span class="p">:</span> <span class="kt">ThingyNotifier</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">var</span> <span class="nv">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">notifiers</span><span class="o">.</span><span class="n">count</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">notifiers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="nf">isEqual</span><span class="p">(</span><span class="n">notifier</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">notifiers</span><span class="o">.</span><span class="nf">removeAtIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>And that works as expected. Like I said before, this introduces an extra requirement to conform to the <code>NSObject</code> protocol, which might be problematic depending on how you want to use this. But in practice, it's likely that the objects you're using as <code>ThingyNotifiers</code> are a subclass of <code>NSObject</code> anyway.</p>
+
+<p>I can hear you think: "<em>but what if I just add an equality method myself?</em>". Let's just copy the <code>isEqual</code> method signature from <code>NSObjectProtocol</code> and we're good, right?</p>
+
+<pre><code class="language-swift highlight"><span class="kd">protocol</span> <span class="kt">ThingyNotifier</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">didDoOneThingy</span><span class="p">(</span><span class="nv">thingyName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">didDoOtherThingy</span><span class="p">(</span><span class="nv">thingyId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
+
+    <span class="kd">func</span> <span class="nf">isEqual</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">}</span></code></pre>
+
+<p>Result:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/39081y3E1C1T/nope.gif"></p>
+
+<p>Why? Objects conforming to <code>ThingyNotifier</code> now have to implement this method too and on top of it you cannot freeload on the <code>NSObjectProtocol</code> implementation anyway:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/3w0P3p0a2I41/Image%202015-05-27%20at%209.16.19%20am.png" width="750"></p>
+
+<p>And! Our equality check doesn't work anymore:</p>
+
+<p><img class="center" src="http://c.inferis.org/image/2Y082Z3v3S2q/Image%202015-05-27%20at%209.16.05%20am.png" width="750"></p>
+
+<p>So, all in all, this <code>NSObjectProtocol</code> approach isn't too bad.</p>
+
+<h3>A Real Pure™ Swift solution?</h3>
+
+<p>So, as far as I know, there's no pure Swift solution to this. <a href="https://twitter.com/jckarter">Joe Groff</a> of the Swift team at Apple provided a trampoline to a solution which I tried to implement. Alas, his solution – while clever – caused other problems. For example: you can't have the <code>+=</code> and <code>-=</code> operators (or any operator) operating on protocol instances if the protocol somehow employs the <code>Self</code> type, causing us to get back to the same error as mentioned before. Which leaves us empty handed yet again. 😉</p>
+
+<p>This reminds me to mention how I love how the Swift team reaches out to us for problems like this. They cannot solve them all but they are very helpful and even getting these problems noticed by them makes me feel like there's a good chance they'll be actually solved in the future. Who knows, right?</p>
+
+<p>Anyway, thanks to Joe (and the team) for the help. Much appreciated! 👍</p>
+
+<h3>Example code</h3>
+
+<p>You can find a playground with the code included in this post on <a href="https://github.com/Inferis/ThingyNotifier">Github</a>, if you care to play with it some more.</p>
+
+<p>And oh, if there's another approach, I'd love to hear it!</p>
+
+
+
+                  
+
+<p class="proofread">
+  This post was proofread by:
+  <a href="https://twitter.com/joericoach">@joericoach</a>, <a href="https://twitter.com/fousa">@fousa</a>, <a href="https://twitter.com/whakkee">@whakkee</a>. Many thanks!
+</p>
+
+
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="https://twitter.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.linkedin.com/in/tomadriaenssen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://app.net/inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-adn fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://pinboard.in/u:inferis">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-thumb-tack fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">This blog is <a href="https://github.com/Inferis/inferis.github.io">open source</a>.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  if (window.location.hostname != "localhost") {
+    ga('create', 'UA-155493-9', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+</html>

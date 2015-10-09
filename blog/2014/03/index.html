@@ -122,11 +122,48 @@
   <div class="post-preview">
     <h2 class="post-title">
       
+        <a href="/blog/2014/03/06/categories-for-at-protocols-2/">categories-for-@protocols (2)</a>
+      
+    </h2>
+    <p class="post-meta">
+      March 06th, 2014 ·
+      <a href="/blog/2014/03/06/categories-for-at-protocols-2/">∞</a>
+      
+      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>And a follow-up post for <a href="../../06/categories-for-at-protocols">this one</a>. Already!</p>
+
+<p>I forgot about it, but <a href="http://twitter.com/pjaspers">@pjaspers</a> reminded me that
+we actually did something similar to this using "regular" language constructs.</p>
+
+<p>What you could do:</p>
+
+<ol>
+<li>extend the protocol with the method you need (as has been suggested before)</li>
+<li>implement the protocol extension method a seperate .m file (similarly named to
+the .h file the protocol is defined in, I guess). Forgo the @implementation/@end
+dance, just put the method code "naked" into the file.</li>
+<li>for each class conforming to the protocol do a <code>#include "Protocol+Implementation.m"</code> in
+the class' implementation file. You read that right: thats an <strong>include</strong> and not an <strong>import</strong>.</li>
+</ol>
+
+<div class="read-more"><a href="/blog/2014/03/06/categories-for-at-protocols-2/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
         <a href="/blog/2014/03/06/categories-for-at-protocols/">Categories for @protocols</a>
       
     </h2>
     <p class="post-meta">
-      March 06, 2014 ·
+      March 06th, 2014 ·
       <a href="/blog/2014/03/06/categories-for-at-protocols/">∞</a>
       
       · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
@@ -156,48 +193,11 @@ extend existing classes, surely how can you extend a protocol?"</p>
   <div class="post-preview">
     <h2 class="post-title">
       
-        <a href="/blog/2014/03/07/categories-for-at-protocols-2/">categories-for-@protocols (2)</a>
-      
-    </h2>
-    <p class="post-meta">
-      March 07, 2014 ·
-      <a href="/blog/2014/03/07/categories-for-at-protocols-2/">∞</a>
-      
-      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
-      
-    </p>
-
-    
-
-<p>And a follow-up post for <a href="../../06/categories-for-at-protocols">this one</a>. Already!</p>
-
-<p>I forgot about it, but <a href="http://twitter.com/pjaspers">@pjaspers</a> reminded me that
-we actually did something similar to this using "regular" language constructs.</p>
-
-<p>What you could do:</p>
-
-<ol>
-<li>extend the protocol with the method you need (as has been suggested before)</li>
-<li>implement the protocol extension method a seperate .m file (similarly named to
-the .h file the protocol is defined in, I guess). Forgo the @implementation/@end
-dance, just put the method code "naked" into the file.</li>
-<li>for each class conforming to the protocol do a <code>#include "Protocol+Implementation.m"</code> in
-the class' implementation file. You read that right: thats an <strong>include</strong> and not an <strong>import</strong>.</li>
-</ol>
-
-<div class="read-more"><a href="/blog/2014/03/07/categories-for-at-protocols-2/">Continue reading ›</a></div>
-</div>
-
-  <hr>
-
-  <div class="post-preview">
-    <h2 class="post-title">
-      
         <a href="/blog/2014/03/08/followup/">Followup</a>
       
     </h2>
     <p class="post-meta">
-      March 08, 2014 ·
+      March 08th, 2014 ·
       <a href="/blog/2014/03/08/followup/">∞</a>
       
       · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>, <a href="/blog/category/csharp/">csharp</a>
@@ -222,7 +222,7 @@ the class' implementation file. You read that right: thats an <strong>include</s
       
     </h2>
     <p class="post-meta">
-      March 14, 2014 ·
+      March 14th, 2014 ·
       <a href="/blog/2014/03/14/quick-look-for-uiview/">∞</a>
       
       · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/development/">development</a>
@@ -251,7 +251,7 @@ the class' implementation file. You read that right: thats an <strong>include</s
       
     </h2>
     <p class="post-meta">
-      March 17, 2014 ·
+      March 17th, 2014 ·
       <a href="/blog/2014/03/17/inspiration/">∞</a>
       
       · <a href="/blog/category/development/">development</a>, <a href="/blog/category/wetware/">wetware</a>, <a href="/blog/category/conferences/">conferences</a>
