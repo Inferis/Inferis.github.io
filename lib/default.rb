@@ -114,10 +114,16 @@ end
 def formatted_date(date)
   begin
     date = Time.parse("#{date}")
-    date.strftime("%B %d, %Y")
+    s = suffix(date.mday)
+    date.strftime("%B %d#{s}, %Y")
   rescue
     "an unknown time"
   end
+end
+
+def suffix(day)
+    return 'th' if 11 <= day and day <= 13 
+    return { "1" => 'st', "2" => 'nd', "3" => 'rd' }.fetch((day%10).to_s, 'th')
 end
 
 def flattened_categories(categories)
