@@ -123,6 +123,57 @@
   <div class="post-preview">
     <h2 class="post-title">
       
+        <a href="/blog/2015/10/10/murica/">Murica</a>
+      
+    </h2>
+    <p class="post-meta">
+      October 10th, 2015 ·
+      <a href="/blog/2015/10/10/murica/">∞</a>
+      
+      · 
+      
+    </p>
+
+    
+
+<p>Some observations and highlights of one week in California:</p>
+
+<ul>
+<li>Given the number of commercials for food on TV, it's no surprise my studio had no actual table (I have one coming in on Monday though).</li>
+<li>Speaking of TV commercials: a 90 minute movie takes 3 hours because for every 10 minutes of movie, there's an accompanying 10 minutes of commercials.</li>
+<li>More on food: there's seem to be enough food chains that you can eat in a different one each day of the month.</li>
+<li>I managed to open a US bank account, because Apple Pay.</li>
+<li>I stopped wearing a sweater after 4 days. The weather's just too gorgeous. </li>
+<li>Got rid of the jetlag by Friday. I do am dog-tired every night I get home (I barely survived past 10pm this week). This was confirmed when I managed to sleep more than 3 hours during middle of the day on Saturday. </li>
+<li>Related: I sleep a lot better with the airco on than off (I discovered after 3 nights).</li>
+<li>Driving a car with automatic transmission is awkward at first, but so glorious once you get used to it.</li>
+<li>I'm never going to get used to American food portions. Man.</li>
+<li>No Starbucks yet (yay!), and Philz Coffee is pretty great (yay!).</li>
+<li>They have Seinfeld on TV.</li>
+<li>Did I mention the weather's pretty great out here?</li>
+<li>Bay Area traffic sucks. Luckily my daily commute doesn't suffer from it.</li>
+<li>2 more shootings happened in the US while I was here. The mind, it bends.</li>
+<li>Bacon. </li>
+<li>Most people are very nice and welcoming. This is especially true for the people I've met at Apple.</li>
+<li>I don't know of a good Dutch word for "tailgating".</li>
+<li>Finding a good way to pronounce my last name as something comprehensibly for Americans is quite the challenge.</li>
+<li>Most drivers here are pretty disciplined. </li>
+<li>When talking in myself (this is a healthy trait to have, okay?) I am now doing it in a combination of English and Dutch.</li>
+<li>Why is everyone so crazy about crème brûlée?</li>
+<li>I haven't made it to San Francisco. This Saturday night, I will.</li>
+<li>Shopping in another country is strangely disconcerting. Even if a supermarket is just a supermarket, it's different enough to feel uncomfortable.</li>
+</ul>
+
+<p>And oh... Working at Apple has been great so far. Can't wait for more. </p>
+
+
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
         <a href="/blog/2015/10/01/and-so-it-begins/">And so it begins</a>
       
     </h2>
@@ -372,41 +423,6 @@
 <p>The keywords here is "static site generator". This means that I build/generate the site locally on my machine, and then push it to a server on the internets for all you to see. There's no dynamic site running, built in PHP or ruby or whatever. Just plain HTML files, some CSS, a bit of Javascript and some images or videos.</p>
 
 <div class="read-more"><a href="/blog/2015/04/30/nanoc/">Continue reading ›</a></div>
-</div>
-
-  <hr>
-
-  <div class="post-preview">
-    <h2 class="post-title">
-      
-        <a href="/blog/2015/04/26/ios8-and-interfaceorientation/">Using interfaceOrientation with iOS8 transitions</a>
-      
-    </h2>
-    <p class="post-meta">
-      April 26th, 2015 ·
-      <a href="/blog/2015/04/26/ios8-and-interfaceorientation/">∞</a>
-      
-      · <a href="/blog/category/objc/">objc</a>, <a href="/blog/category/uikit/">uikit</a>
-      
-    </p>
-
-    
-
-<p>Working on an app last week, I needed a way to respond to rotation events in a view controller. Since iOS8, the rotation APIs in <code>UIViewController</code> are deprecated:</p>
-
-<pre><code class="language-objc highlight highlight"><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willRotateToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span>
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">didRotateFromInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">fromInterfaceOrientation</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">2</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">);</span>
-
-<span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willAnimateRotationToInterfaceOrientation</span><span class="p">:(</span><span class="n">UIInterfaceOrientation</span><span class="p">)</span><span class="nv">toInterfaceOrientation</span> <span class="nf">duration</span><span class="p">:(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="n">NS_DEPRECATED_IOS</span><span class="p">(</span><span class="mi">3</span><span class="n">_0</span><span class="p">,</span><span class="mi">8</span><span class="n">_0</span><span class="p">,</span> <span class="s">"Implement viewWillTransitionToSize:withTransitionCoordinator: instead"</span><span class="p">);</span></code></pre>
-
-<p>As you can see, they want you to use <code>viewWillTransitionToSize:withTransitionCoordinator:</code> instead.
-So, no problem, we'll just implement that method.</p>
-
-<p><strong>Update:</strong> <em>I'd like to stress this a little more: the reason they've changed these behaviors is for a reason. Your app mostly likely is way better off using adaptive layout using size classes, Auto Layout and manual corrections using the new transition callbacks.</em></p>
-
-<p>Now, the only thing is: what if you need to know those "toInterfaceOrientation" or "fromInterfaceOrientation" value from the old APIs?</p>
-
-<div class="read-more"><a href="/blog/2015/04/26/ios8-and-interfaceorientation/">Continue reading ›</a></div>
 </div>
 
   <hr>
