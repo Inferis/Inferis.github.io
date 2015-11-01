@@ -15,7 +15,7 @@ I'm flying Lufthansa but the flight back is a code share by United Airlines. I f
 
 Back to Saturday: checking in my baggage at the United desks was a breeze. Even though my luggage seemed to be twice as heavy as it was coming in (thanks to Amazon Prime, I guess), there was no problem at all and before I knew it I was waiting for a security check. 
 
-Again, that was not a problem. There was a small wait, and I had no problems at all passing security even though I was carrying a fair number of laptops and Apple devices. The epic near "walkthrough" last year after my interviews at Apple (resulting in a 2+ hour wait in the terminal) was not repeated, unfortunately.
+Again, that was not a problem. There was a small wait, and I had no problems at all passing security even though I was carrying a fair number of laptops and Apple devices. The epic near "just walk through security" last year after my interviews at Apple (resulting in a 2+ hour wait in the terminal) was not repeated, unfortunately.
 
 Boarding was no problem either (don't you love being in Boarding Group 1), but then the wait started. We were going past our scheduled take-off time. Now to be fair, I think I have never seen an airplane take off on the actual scheduled time (even the German one last month), so wasn't really worried. I had put on [Ready Player One](http://www.audible.com/pd/Sci-Fi-Fantasy/Ready-Player-One-Audiobook/B005FRGT44) (excellently read by Wil Wheaton) and started to relax for the flight, when a communication from the captain broke:
 
@@ -31,15 +31,15 @@ So we got off the plane, waited some more and then chaotically boarded another p
 
 {% tweet https://twitter.com/Inferis/status/660611152959836160 %}
 
-The chances of my bagage winding up with me, at the same time, on the same airport had drastically dropped by then I felt, but I'd worry about that later. Boarding again was kinda funny, seeing familiar faces around you (since we had the exact same seats as before). Anyhow, I got settled again and waited for the airplane to start taxiing.
+The chances of my baggage winding up with me, at the same time, on the same airport had drastically dropped by then I felt, but I'd worry about that later. Boarding again was kinda funny, seeing familiar faces around you (since we had the exact same seats as before). Anyhow, I got settled again and waited for the airplane to start taxiing.
 
 But nope:
 
 {% tweet https://twitter.com/Inferis/status/660619698929733632 center %}
 
-Apparently the crews can only work for 16 hours in one stretch, which is an admirably large number to be fair. But given the time they needed to prepare the airplane, our delay and then the flight home we'd be royally over those 16 hours. It seems United had some problems finding a replacement crew so the flight was delayed with some 1400 minutes until the next day (with the same crew, I assume). 
+Apparently the crews can only work for 16 hours in one stretch, which is an admirably large number to be fair. But given the time they needed to prepare the airplane, our delay and then the flight home we'd be royally over those 16 hours. It seems United had some problems finding a replacement crew so the flight was delayed by some 1400 minutes until the next day (with the same crew, I assume). 
 
-And so they threw us back out of the secured zone to wait in line at the checkin desks for "rebooking" and accomodations for the night. That took a while, and it was all pretty orderly. The people helping us were very polite and helpful, no complaints there. It never pays of to be angry or arrogant in cases like this: the people helping you did not have a direct doing in the problem at hand. And in this case it was just a bad circumstance of a technical problem and regulations. That happens, I guess.
+And so they threw us back out of the secured zone to wait in line at the check-in desks for "rebooking" and accomodations for the night. That took a while, and it was all pretty orderly. The people helping us were very polite and helpful, no complaints there. It never pays of to be angry or arrogant in cases like this: the people helping you did not have a direct doing in the problem at hand. And in this case it was just a bad circumstance of a technical problem and regulations. That happens, I guess.
 
 I must say I was pretty pissed off at this moment though. My mental state had finally turned itself on getting back to Belgium and seeing my wife and kids a few hours later, and so this delay came as a very large disappointment.
 
