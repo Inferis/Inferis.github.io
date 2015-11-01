@@ -15,7 +15,7 @@ I'm flying Lufthansa but the flight back is a code share by United Airlines. I f
 
 Back to Saturday: checking in my baggage at the United desks was a breeze. Even though my luggage seemed to be twice as heavy as it was coming in (thanks to Amazon Prime, I guess), there was no problem at all and before I knew it I was waiting for a security check. 
 
-Again, that was not a problem. There was a small wait, and I had no problems at all passing security even though I was carrying a fair number of laptops and Apple devices. The epic near walkthrough last year after my interviews at Apple (resulting in a 2+ hour wait in the terminal) was not repeated, unfortunately.
+Again, that was not a problem. There was a small wait, and I had no problems at all passing security even though I was carrying a fair number of laptops and Apple devices. The epic near "walkthrough" last year after my interviews at Apple (resulting in a 2+ hour wait in the terminal) was not repeated, unfortunately.
 
 Boarding was no problem either (don't you love being in Boarding Group 1), but then the wait started. We were going past our scheduled take-off time. Now to be fair, I think I have never seen an airplane take off on the actual scheduled time (even the German one last month), so wasn't really worried. I had put on [Ready Player One](http://www.audible.com/pd/Sci-Fi-Fantasy/Ready-Player-One-Audiobook/B005FRGT44) (excellently read by Wil Wheaton) and started to relax for the flight, when a communication from the captain broke:
 
@@ -49,7 +49,7 @@ Anyhow, I finally managed to get out of the airport by 8:30pm, spending almost 8
 
 The hotel had a full size palmtree instead. 🇺🇸
 
-I slept like a baby, gaining an hour in the process (DST!), and woke up pretty refreshed. Had breakfast, spend the morning at the hotel writing this blogpost and working a bit, since I had a feeling that without some settling-in time, I wasn't going to doing much of the planned work on Monday anyway. And I had to wait out the time until my flight, so I might as well be productive.
+I slept like a baby, gaining an hour in the process (DST!), and woke up pretty refreshed. Had breakfast, spent the morning at the hotel writing this blogpost and working a bit, since I had a feeling that without some settling-in time, I wasn't going to do much of the planned work on Monday anyway. And I had to wait out the time until my flight, so I might as well be productive.
 
 During a quick Facetime call with my wife I found out my kids weren't as bummed about my delay as I had expected, although my wife framing it like "Dad's going to be a day later: this is not fun, but it's better than him not making it at all." might have had something to do with it. Which I guess **is** fair: a faulty braking system is no fun when landing, I presume.
 
