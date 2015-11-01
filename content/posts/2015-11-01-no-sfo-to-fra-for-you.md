@@ -23,7 +23,7 @@ Boarding was no problem either (don't you love being in Boarding Group 1), but t
 
 When you hear things like this when sitting in an airplane, even though you're still standing on the ground, you know shit is going to hit the fan.
 
-And yes, about fourty five minutes later (I fell asleep in the meanwhile it seems, Wil's soothing voice certainly helped):
+And yes, about forty-five minutes later (I fell asleep in the meanwhile it seems, Wil's soothing voice certainly helped):
 
 {% tweet https://twitter.com/Inferis/status/660590020726657024 %}
 
