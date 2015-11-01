@@ -2,6 +2,7 @@
 title: "XcodeGhost: verify your Xcode"
 created_at: 2015-09-25 15:23:09 +0200
 kind: article
+proofreaders: pjaspers@, bartverhavert@, driesdelaey@, fousa@
 ---
 
 *Update Sept 28th: this article is now also [cross-posted](http://www.icapps.com/xcodeghost/) on the [iCapps](http://www.icapps.com/blog/) blog, as part of their [#iCappsiOSMonth](https://twitter.com/hashtag/iCappsiOSMonth) series in September 2015*
