@@ -41,7 +41,7 @@ Apparently the crews can only work for 16 hours in one stretch, which is an admi
 
 And so they threw us back out of the secured zone to wait in line at the check-in desks for "rebooking" and accomodations for the night. That took a while, and it was all pretty orderly. The people helping us were very polite and helpful, no complaints there. It never pays of to be angry or arrogant in cases like this: the people helping you did not have a direct doing in the problem at hand. And in this case it was just a bad circumstance of a technical problem and regulations. That happens, I guess.
 
-I must say I was pretty pissed off at this moment though. My mental state had finally turned itself on getting back to Belgium and seeing my wife and kids a few hours later, and so this delay came as a very large disappointment.
+I must say I was pretty pissed off at this moment though. My mental state had finally set itself on getting back to Belgium and seeing my wife and kids a few hours later, and so this delay came as a very large disappointment.
 
 Anyhow, I finally managed to get out of the airport by 8:30pm, spending almost 8 hours in there. I was in good care all of the time, so no real complaining -- there are people having it a lot worse. United set me up in the Embassy Suites SFO hotel nearby: a quick shuttle trip, a check in and half an hour later I could crash on my bed. I also got some meal vouchers so I gratefully exchanged them for a nice meal at the restaurant: I hadn't had a decent meal since breakfast. 
 
@@ -57,7 +57,7 @@ I then took the shuttle back to the airport, got through security without much p
 
 {% img center https://scontent-sjc2-1.cdninstagram.com/hphotos-xaf1/t51.2885-15/e35/11374421_1477363422570708_811979022_n.jpg 500 %}
 
-And now I'm in a lounge, waiting for my plane of yesterday to take off today. My connecting flight in Frankfurt is long gone, and I have to rebook that one when I get there. So the journey's not over, but let's hope I actually make it to the other side of the ocean this time.
+And now I'm in a lounge, waiting for my plane from yesterday to take off today. My connecting flight in Frankfurt is long gone, and I have to rebook that one when I get there. So the journey's not over, but let's hope I actually make it to the other side of the ocean this time.
 
 Remember: traveling is never boring, people. Except for the "waiting" parts, perhaps.
 
