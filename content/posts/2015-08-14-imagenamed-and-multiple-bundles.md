@@ -2,6 +2,10 @@
 title: "imageNamed: and multiple bundles"
 created_at: 2015-08-14 16:10:27 +0200
 kind: article
+categories:
+- ios 
+- xcode
+- development
 ---
 
 I've been working on a largeish project for a client for the last few months. We're have to modularized our code into several sections using CocoaPods (this is a post worth on itself, really). 

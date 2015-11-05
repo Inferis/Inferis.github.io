@@ -2,6 +2,9 @@
 title: "Wanted: new maintainer for ViewDeck"
 created_at: 2015-09-14 17:07:24 +0200
 kind: article
+categories:
+- open source
+- development
 ---
 
 I'm pretty sure that if you found this blog, you also know about a little piece of software I wrote a few years ago: [ViewDeck](https://github.com/ViewDeck/ViewDeck). The [initial commit](https://github.com/ViewDeck/ViewDeck/commit/463324184a67a7fa24c9207352298e69da0d66b7) was on December 3rd, 2011. I'd been doing nearly a year of iOS development at that moment, and both the Facebook and Path apps came with this nifty new feature we now call "a hamburger menu". 
