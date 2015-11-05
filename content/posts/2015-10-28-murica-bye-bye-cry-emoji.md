@@ -1,6 +1,6 @@
 ---
 title: "Murica... 👋! 😢"
-created_at: 2015-10-30 18:22:02 -0700
+created_at: 2015-10-30 18:22:02 +0200
 kind: article
 categories:
 - usa

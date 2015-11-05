@@ -1,8 +1,11 @@
 ---
 title: "⛔️ SFO ✈️ FRA"
-created_at: 2015-11-01 12:10:36 -0800
+created_at: 2015-11-01 12:10:36 +0200
 kind: article
 proofreaders: pjaspers@, bartverhavert@, pauldarcey@, BalestraPatrick@
+categories:
+- usa
+- life
 ---
 
 One more blogpost written on American soil. The flight home yesterday didn't work out exactly as planned, one could say.

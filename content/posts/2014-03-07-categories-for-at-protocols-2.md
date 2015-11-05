@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "categories-for-@protocols (2)"
-created_at: 2014-03-07 00:23:26 +0100
+created_at: 2014-03-07 00:23:26
 comments: true
 categories:
 - objc
