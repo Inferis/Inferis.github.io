@@ -122,6 +122,56 @@
   <div class="post-preview">
     <h2 class="post-title">
       
+        <a href="/blog/2015/08/18/sound-debugging/">Sound debugging</a>
+      
+    </h2>
+    <p class="post-meta">
+      August 18th, 2015 ·
+      <a href="/blog/2015/08/18/sound-debugging/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/xcode/">xcode</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>I'd like to mention a trick I use often while debugging, a trick I learned from my good friend <a href="https://twitter.com/qnoid">Markos Charatzas</a>: triggering a sound when a breakpoint is hit. It's a pretty simple but useful trick, especially if you're debugging repeatable actions and you want to know when they happen.</p>
+
+<p>I'm talking about this:</p>
+
+<div class="read-more"><a href="/blog/2015/08/18/sound-debugging/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
+        <a href="/blog/2015/08/14/imagenamed-and-multiple-bundles/">imageNamed: and multiple bundles</a>
+      
+    </h2>
+    <p class="post-meta">
+      August 14th, 2015 ·
+      <a href="/blog/2015/08/14/imagenamed-and-multiple-bundles/">∞</a>
+      
+      · <a href="/blog/category/ios/">ios</a>, <a href="/blog/category/xcode/">xcode</a>, <a href="/blog/category/development/">development</a>
+      
+    </p>
+
+    
+
+<p>I've been working on a largeish project for a client for the last few months. We're have to modularized our code into several sections using CocoaPods (this is a post worth on itself, really). </p>
+
+<p>One of the problems you encounter with this approach is that for each pod, CocoaPods creates a bundle with resources for that pod (at least it does so when you tell it to do that). It's the only good way to package pod resources into the main app. This means that our resources do not all live in the main bundle but in seperate bundles (which themselves <strong>do</strong> live in the main bundle). This is no problem in itself, but it can cause loading problems of resources in those bundles. It doesn't pose that much of an issue when you specify images in a nib since iOS will search in the nib's bundle too, but it's a bit harder to get resources from within your code</p>
+
+<div class="read-more"><a href="/blog/2015/08/14/imagenamed-and-multiple-bundles/">Continue reading ›</a></div>
+</div>
+
+  <hr>
+
+  <div class="post-preview">
+    <h2 class="post-title">
+      
         <a href="/blog/2015/06/08/wwdc-2015-predictions/">WWDC 2015 Predictions</a>
       
     </h2>
