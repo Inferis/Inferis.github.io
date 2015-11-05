@@ -2,13 +2,43 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>http://blog.inferis.org/</id>
   <title>Inferical Writings</title>
-  <updated>2015-11-01T10:10:36Z</updated>
+  <updated>2015-11-05T20:21:00Z</updated>
   <link rel="alternate" href="http://blog.inferis.org/"/>
   <link rel="self" href="http://blog.inferis.org/feed.atom"/>
   <author>
     <name>Tom Adriaenssen</name>
     <uri>http://inferis.org</uri>
   </author>
+  <entry>
+    <id>tag:blog.inferis.org,2015-11-05:/blog/2015/11/05/viewdeck/</id>
+    <title type="html">ViewDeck</title>
+    <published>2015-11-05T20:21:00Z</published>
+    <updated>2015-11-05T20:21:00Z</updated>
+    <link rel="alternate" href="http://blog.inferis.org/blog/2015/11/05/viewdeck/"/>
+    <content type="html">
+
+&lt;p&gt;This is a follow-up post to &lt;a href="/blog/2015/09/14/wanted-new-maintainer-for-viewdeck/"&gt;this post&lt;/a&gt;, wherein I started a quest for a new ViewDeck maintainer. I say quest, but I actually meant "let's just throw it out there and see how it goes". &lt;/p&gt;
+
+&lt;p&gt;So I had already left for my job at Apple and had my first work day there done, when I received a DM from &lt;a href="https://twitter.com/_mochs"&gt;Michael Ochs&lt;/a&gt;, asking if I had already found a new maintainer. To be honest, at that point, I was a bit afraid I might not find one. That was fine it itself, but I really wanted to "disconnect" myself from the project, even though I hadn't really touched it in a few years. &lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;But here was Michael, volunteering for the job. While I haven't met him in person we did talk a few times over the interwebs, and he's felt like a perfect fit for the job. And so I added him to the &lt;a href="http://github.com/ViewDeck"&gt;ViewDeck organisation&lt;/a&gt; so he could start playing his role.&lt;/p&gt;
+
+&lt;p&gt;As far as I could follow, he's been doing an admirable job. Responding to PRs, categorizing, tagging and replying to issues, cleaning things up, and &lt;a href="http://www.ios-coding.com/blog/2015/11/01/maintaining-viewdeck/"&gt;moving things forward&lt;/a&gt;. Exactly what ViewDeck needed: some fresh blood to get things going again.&lt;/p&gt;
+
+&lt;p&gt;And I'm very happy with that.&lt;/p&gt;
+
+&lt;p&gt;Today, I have removed myself as an admin and member from the ViewDeck organisation, and made myself an "outside collaborator":&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="fullwidth" src="http://c.inferis.org/image/2o3z293W241N/Image%202015-11-01%20at%2011.09.47%20PM.png"&gt;&lt;/p&gt;
+
+&lt;p&gt;I have played my role in this project and now it's time for somebody else to do that. My commits are there forever and I keep a private copy (right until when Michael took over) for myself. I technically can still commit and push, but I won't be doing any of that. &lt;/p&gt;
+
+&lt;p&gt;So thank you, Michael, and have fun with it. It seems you'll be doing a mighty fine job. 😉&lt;/p&gt;
+
+</content>
+  </entry>
   <entry>
     <id>tag:blog.inferis.org,2015-11-01:/blog/2015/11/01/no-sfo-to-fra-for-you/</id>
     <title type="html">⛔️ SFO ✈️ FRA</title>
@@ -645,64 +675,6 @@ I'm going to use &lt;a href="http://twitter.com/steipete"&gt;Peter Steinberger&l
 &lt;p&gt;So that's it. &lt;code&gt;imageNamedGlobally:&lt;/code&gt; is an easy way out of doing manual bundle searching yourself. &lt;/p&gt;
 
 &lt;p&gt;There's a few optimisations that can be made on this code, like remembering where you find an image so that you don't have to search again for every invocation. But I'll leave those as an exercise to the reader. &lt;/p&gt;
-
-</content>
-  </entry>
-  <entry>
-    <id>tag:blog.inferis.org,2015-06-30:/blog/2015/06/30/uikonf-2015/</id>
-    <title type="html">UIKonf 2015</title>
-    <published>2015-06-30T11:27:47Z</published>
-    <updated>2015-06-30T11:27:47Z</updated>
-    <link rel="alternate" href="http://blog.inferis.org/blog/2015/06/30/uikonf-2015/"/>
-    <content type="html">
-
-&lt;p&gt;&lt;a href="http://uikonf.com"&gt;UIKonf 2015&lt;/a&gt;. It's been a while already, but I've too busy afterwards to do a decent writeup. I feel like I should though, because it's the first conference I attended where I was also a speaker (if you don't count my adhoc lightning talk at &lt;a href="http://nsspain.com"&gt;NSSpain&lt;/a&gt; last year, that is). Attending a conference as an announced speaker is different. Which was to be expected, of course.&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;h2&gt;Runup&lt;/h2&gt;
-
-&lt;p&gt;One of the things is: since you're doing a talk you want it to be perfect and so until you have actually performed on stage, everything about the conference is subordinate to the preparation of your talk. At least: that's how I experienced it. And judging from sitting at tables at other conferences with speakers that still needed to do their talk: I'm not the only one. Now, restarting the work on your slides 2 days before the conference doesn't really help. But I felt it was necessary: my first set of slides contained too much text and content, and I wanted to focus on certain things. Explaining everything on screen is pretty hard to follow for the audience, and the feeling that it just wasn't quite right had been dawning on me but in the run up to the conf it became more obvious.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/423R0d1F2J2r/IMG_2783.jpg" width="750"&gt; &lt;/p&gt;
-
-&lt;p&gt;Mind you, I had set a schedule for myself: work on your slides each day in the train after &lt;a href="http://nsconference.com"&gt;NSConf&lt;/a&gt; ended, and you have plenty of time to finish them before the conf. Alas - and as expected - this didn't work out quite as planned. When I'm developing something at work and I have to leave because it's the most convenient time to leave (mostly because you have to catch that direct train home that runs only once each hour), I tend to whip out the laptop on the train and just continue coding. This works pretty well: the small pauze you take going from your desk right until you sit down in the train is perfect for some settling down. And so I'm stoked to continue work once I'm on the train (I even do this for short 15min train rides, but then the short duration of the ride can be a frustrating factor). So that "make slides on train" thing only worked out for 50%. By the beginning of May I had a pretty good outline of things I wanted to say and how to say them.&lt;/p&gt;
-
-&lt;p&gt;But then it was time to cook up some actual slides, and that was a quite whole different ballgame. Even though I had my outline, it was hard to distill it into good slides. I started and got somewhere, but like I mentioned before it felt off. And so I let it be, not continuing work because I felt the quality was sub par and I had no idea how to make it better. In the few days before the conf I actually continued working on it, but still with mixed feelings about the result.&lt;/p&gt;
-
-&lt;p&gt;And then it dawned to me: just learn from the big ones. Remember what you saw at other conferences (and I've done a few), (re-)watch some presentations only to seem how other people did it. And so looked around, and observed. The presentations I saw features one thing most of the time: the content on screen was limited. Usually just a work, or an image or a short sentence. Not a plethora of bullet points, albeit they appeared here and there but only expectionally. And so, after 2 hours of skimming various videos, I decided to rewrite my slides.&lt;/p&gt;
-
-&lt;p&gt;To put this into perspective: this was on Saturday when I had just arrived in Berlin, 2 days before I was to go on stage. But I felt my current content was inadequate, and going on stage knowing that you could do better was a no go. And so I went back to my outline, opened an AsyncViewControllers2.md document and started over. I could of course reuse a lot of the work I had done before, I just had to devise a new way of delivering it. Additionally, this is one of the things &lt;a href="http://decksetapp.com"&gt;Deckset&lt;/a&gt; is really good at: its limited feature set forces you to tone down on the screen content. You &lt;em&gt;can&lt;/em&gt; put a screenful of bullets on screen, but it starts to feel cramped soon.&lt;/p&gt;
-
-&lt;p&gt;And so I started putting out Markdown, rewriting things here and there, making minimal slides accompanied by decent presenter notes. I did take the time to take the Berlin bike tour, because I felt I'd be sad later if I wouldn't have joined. And there was plenty of time afterwards. Turned out, I need most of that time afterwards. I spent part of the night working on v2, and woke up early (7am: great moment to take breakfast in a hotel after being awake for an hour). And then I missed the start of the conference, but by noon I felt I had something good to present. I also took the time to rehearse several time, which was a good decision: you know the content almost by heart when you bring it on stage, which helps a lot with the stage fright.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="https://lh5.googleusercontent.com/-EjBm196Z4Ss/VXV2hfgaGYI/AAAAAAAABHU/PmNMr80ltB0/w1266-h1900-no/_MG_0551.jpg" width="750"&gt; &lt;/p&gt;
-
-&lt;p&gt;Speaking about stage fright: that moment right before you have to go on stage is excruciating. I've talked with other speakers about this, and apparently that's normal even after having done it several times. It also keeps you on your edge and focused, I felt. Also, once you are on stage you go into a certain flow and then you're off.&lt;/p&gt;
-
-&lt;p&gt;All in all, I was pretty happy with the presentation at that moment. Rewatching it afterward makes me cringe a bit... but I guess that's normal. It was the first time I did this, and I hope to do it more in the future. You live, you learn. That's the fun part of it.&lt;/p&gt;
-
-&lt;p&gt;Once the talk was over, I felt very relieved. It was so much fun to do (even with the tricky questions afterwards), and it was nice to have people come up to you to talk about it. And from that moment, I felt I could enjoy the conference so much more. That hard part was over, I had done my job, and I was happy with it.&lt;/p&gt;
-
-&lt;p&gt;By the way, you can &lt;a href="https://youtu.be/xy-xqj3m_Tk"&gt;watch a video&lt;/a&gt; of my presentation, and in good open source spirit &lt;a href="https://speakerdeck.com/inferis/async-view-controllers"&gt;my slides&lt;/a&gt; are online, including &lt;a href="https://github.com/Inferis/UIKonf-AsyncViewControllers"&gt;the source&lt;/a&gt;. And of course, the source of &lt;a href="https://github.com/Inferis/IIAsyncViewController"&gt;IIAsyncViewController&lt;/a&gt; is available too. By the way, &lt;a href="https://www.youtube.com/playlist?list=PLdr22uU_wISpW6XI1J0S7Lp-X8Km-HaQW"&gt;all UIKonf 2015 videos&lt;/a&gt; are up, so if you missed the conference this is a good way to catch up anyway.&lt;/p&gt;
-
-&lt;h2&gt;UIKonf&lt;/h2&gt;
-
-&lt;p&gt;All in all, I loved every bit of UIKonf. First of all, the location. Berlin is &lt;em&gt;such&lt;/em&gt; a nice city to visit. It feels so green, so welcoming. Even the more &lt;em&gt;shady&lt;/em&gt; parts (or at least that's how they looked) never made me feel really uncomfortable. It's also very curious how present the Wall still is, even though it's been gone for 25 years now.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/421i161R181w/IMG_2750.jpg" width="750"&gt;&lt;/p&gt;
-
-&lt;p&gt;Secondly, the conference itself is very welcoming. I found the recreational activities on Sunday to be a lot of fun. It's a different kind of setting than being at the conference itself, you get to know more people that you otherwise wouldn't have, and it's a great way to learn and experience new things.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class="center" src="http://c.inferis.org/image/0H3F1F3B1H2U/IMG_2806.jpg" width="750"&gt;&lt;/p&gt;
-
-&lt;p&gt;Thirdly: the conference was organised splendidly, IMHO. Speaking both as a speaker and an attendee, I loved the experience. The 4 organisers were very welcoming and helpful. I loved the conference swag (&lt;strong&gt;so&lt;/strong&gt; nice of them to leave that purple shirt for the speakers while they could have easily have reserved it for themselves). But the venue itself was very good, wifi was impeccable and overall the equipment used was top notch. The videos of the conference show that clearly, I feel. They inherited a great conference from an impressive set of organisers, but they took the conference and turned the dial up another notch. Lovely work, Sabine, Diana, Maxim and Engin!&lt;/p&gt;
-
-&lt;h2&gt;Takeaway&lt;/h2&gt;
-
-&lt;p&gt;We're all winging it. Attendees, speakers, organisers. But that doesn't change the fact that UIKonf was one of the conferences I enjoyed most. And so:&lt;/p&gt;
-
-&lt;p&gt;★ ★ ★ ★ ★ WOULD COME BACK FOR MORE&lt;/p&gt;
 
 </content>
   </entry>
